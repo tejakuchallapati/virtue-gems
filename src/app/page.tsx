@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { HeroLanding } from "@/components/home/HeroLanding";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { CountdownTimer } from "@/components/ui/CountdownTimer";
 import { ReviewsCarousel } from "@/components/ui/ReviewsCarousel";
@@ -16,42 +15,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Full-page logo hero */}
-      <section className="relative min-h-[100dvh] w-full overflow-hidden bg-[#1e0a32]">
-        <Image
-          src="/logo-with-text.png"
-          alt="Virtue Gems — Wear Your Virtue, Shine With Grace"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-
-        {/* Bottom CTA overlay */}
-        <div className="absolute inset-x-0 bottom-20 z-10 flex flex-col items-center gap-3 px-4 md:bottom-10">
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/shop"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-8 py-3.5 text-sm font-semibold text-dark shadow-lg transition hover:bg-gold-light"
-            >
-              Explore Collection
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link
-              href="/about"
-              className="inline-flex items-center justify-center rounded-full border border-gold/60 bg-dark/40 px-8 py-3.5 text-sm font-semibold text-gold backdrop-blur-sm transition hover:bg-gold/10"
-            >
-              Our Story
-            </Link>
-          </div>
-          <a
-            href="#collections"
-            className="mt-2 text-xs tracking-widest text-gold/80 uppercase animate-bounce"
-          >
-            Scroll to explore
-          </a>
-        </div>
-      </section>
+      <HeroLanding />
 
       {/* Sale countdown */}
       <section id="collections" className="bg-dark-soft py-10 sm:py-14">
