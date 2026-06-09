@@ -30,7 +30,7 @@ function NavLink({
       <span
         className={cn(
           "text-sm font-medium tracking-wide transition-colors duration-300",
-          active ? "text-gold" : "text-dark/70 group-hover:text-gold",
+          active ? "text-gold" : "text-light/75 group-hover:text-gold",
         )}
       >
         {label}
@@ -65,8 +65,8 @@ export function DesktopNavbar() {
       className={cn(
         "sticky top-0 z-50 hidden border-b transition-colors duration-500 md:block",
         scrolled
-          ? "border-gold/20 bg-white/90 shadow-[0_8px_32px_rgba(15,23,42,0.08)]"
-          : "border-gold/10 bg-light/80",
+          ? "border-gold/20 bg-[#1a0a2e]/95 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl"
+          : "border-gold/15 bg-[#1a0a2e]/90 backdrop-blur-md",
       )}
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -113,7 +113,7 @@ export function DesktopNavbar() {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               href="/wishlist"
-              className="relative flex h-10 w-10 items-center justify-center rounded-full text-dark/70 transition hover:bg-gold/10 hover:text-gold"
+              className="relative flex h-10 w-10 items-center justify-center rounded-full text-light/70 transition hover:bg-gold/15 hover:text-gold"
               aria-label="Wishlist"
             >
               <Heart className="h-5 w-5" />
@@ -137,8 +137,8 @@ export function DesktopNavbar() {
                 pathname === "/cart"
                   ? "bg-gold text-dark shadow-[0_0_20px_rgba(212,175,55,0.35)]"
                   : cartCount > 0
-                    ? "bg-gold/15 text-gold hover:bg-gold/25"
-                    : "bg-dark text-gold hover:bg-gold hover:text-dark",
+                    ? "border border-gold/30 bg-gold/15 text-gold hover:bg-gold/25"
+                    : "border border-gold/30 bg-gold/10 text-gold hover:bg-gold hover:text-dark",
               )}
             >
               <ShoppingCart className="h-4 w-4" />

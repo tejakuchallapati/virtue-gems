@@ -1,6 +1,7 @@
 "use client";
 
 import { DesktopNavbar } from "./DesktopNavbar";
+import { LandingNavbar } from "./LandingNavbar";
 import { MobileHeader } from "./MobileHeader";
 import { MobileBottomNav } from "./MobileBottomNav";
 import { Footer } from "./Footer";
@@ -15,15 +16,24 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 
   if (isAdmin) return <>{children}</>;
 
+  const isHome = pathname === "/";
+
   return (
     <>
       <LoadingScreen />
-      {/* Desktop: animated top nav */}
-      <DesktopNavbar />
-      {/* Mobile: dark luxury top bar */}
-      <MobileHeader />
+      {/* Landing: dedicated dark nav with hover effects */}
+      {isHome && <LandingNavbar />}
+      {/* Inner pages: standard nav */}
+      {!isHome && <DesktopNavbar />}
+      {!isHome && <MobileHeader />}
       <PageTransition>
-        <main className="min-h-[calc(100dvh-2.75rem)] pb-[calc(4.75rem+env(safe-area-inset-bottom))] md:min-h-[calc(100vh-4rem)] md:pb-0">
+        <main
+          className={
+            isHome
+              ? "min-h-[100dvh] pb-[calc(4.75rem+env(safe-area-inset-bottom))] md:pb-0"
+              : "min-h-[calc(100dvh-2.75rem)] pb-[calc(4.75rem+env(safe-area-inset-bottom))] md:min-h-[calc(100vh-4rem)] md:pb-0"
+          }
+        >
           {children}
         </main>
       </PageTransition>
