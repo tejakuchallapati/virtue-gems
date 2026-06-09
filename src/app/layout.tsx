@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { StoreProvider } from "@/context/StoreProvider";
+import { SiteShell } from "@/components/layout/SiteShell";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,9 +15,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Virtue Gems | Fine Jewellery",
+  title: {
+    default: "Virtue Gems | Premium Handcrafted Jewellery",
+    template: "%s | Virtue Gems",
+  },
   description:
-    "Virtue Gems — a super phone-responsive jewellery e-commerce website.",
+    "Discover exquisite gold and diamond jewellery at Virtue Gems. Mobile-first luxury shopping with WhatsApp checkout.",
+  keywords: ["jewellery", "gold", "diamonds", "rings", "necklaces", "Virtue Gems"],
+  openGraph: {
+    title: "Virtue Gems | Premium Handcrafted Jewellery",
+    description: "Luxury jewellery crafted for every occasion.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +39,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <StoreProvider>
+          <SiteShell>{children}</SiteShell>
+        </StoreProvider>
+      </body>
     </html>
   );
 }
