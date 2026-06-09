@@ -41,13 +41,13 @@ export function ProductCard({ product }: { product: Product }) {
       className="group relative overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-light-muted/60 transition hover:shadow-lg hover:ring-gold/30"
     >
       <Link href={`/product/${product.slug}`} className="block">
-        <div className="relative aspect-square overflow-hidden bg-light">
+        <div className="relative aspect-square overflow-hidden bg-[#1a0a2e]">
           <Image
             src={product.images[0]}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-cover transition duration-500 group-hover:scale-105"
+            className="object-contain p-1 transition duration-500 group-hover:scale-[1.03] sm:p-2"
           />
           <div className="absolute left-2 top-2 flex flex-wrap gap-1">
             {product.tags.slice(0, 2).map((tag) => (
@@ -81,22 +81,22 @@ export function ProductCard({ product }: { product: Product }) {
           <h3 className="line-clamp-1 text-sm font-medium text-dark sm:text-base">
             {product.name}
           </h3>
-          <p className="mt-1 line-clamp-2 text-xs text-dark/60 sm:text-sm">
+          <p className="mt-1 hidden line-clamp-2 text-xs text-dark/60 sm:block sm:text-sm">
             {product.description}
           </p>
         </Link>
-        <div className="mt-3 flex items-center justify-between gap-2">
-          <div>
+        <div className="mt-2 flex items-center justify-between gap-1.5 sm:mt-3 sm:gap-2">
+          <div className="min-w-0">
             <p className="text-sm font-semibold text-gold-dark sm:text-base">
               {formatPrice(product.price)}
             </p>
             {product.originalPrice && (
-              <p className="text-xs text-dark/40 line-through">
+              <p className="text-[10px] text-dark/40 line-through sm:text-xs">
                 {formatPrice(product.originalPrice)}
               </p>
             )}
           </div>
-          <div className="flex gap-1.5">
+          <div className="flex shrink-0 gap-1 sm:gap-1.5">
             <button
               type="button"
               aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
@@ -105,7 +105,7 @@ export function ProductCard({ product }: { product: Product }) {
                   ? removeFromWishlist(product.id)
                   : addToWishlist(product)
               }
-              className={`flex h-9 w-9 items-center justify-center rounded-full transition ${
+              className={`flex h-10 w-10 items-center justify-center rounded-full transition sm:h-9 sm:w-9 ${
                 wished
                   ? "bg-gold/20 text-gold-dark"
                   : "bg-light text-dark/60 hover:bg-gold/10 hover:text-gold-dark"
@@ -117,7 +117,7 @@ export function ProductCard({ product }: { product: Product }) {
               type="button"
               aria-label="Add to cart"
               onClick={handleAddToCart}
-              className={`flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-semibold transition sm:px-3.5 sm:py-2 sm:text-sm ${
+              className={`flex h-10 min-w-10 items-center justify-center gap-1.5 rounded-full px-3 text-xs font-semibold transition sm:h-9 sm:min-w-0 sm:px-3.5 sm:py-2 sm:text-sm ${
                 added
                   ? "bg-green-600 text-white"
                   : "bg-dark text-gold hover:bg-gold hover:text-dark"

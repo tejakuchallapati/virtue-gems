@@ -18,9 +18,9 @@ const tags = [
 
 const priceRanges = [
   { label: "All Prices", min: 0, max: Infinity },
-  { label: "Under ₹1,000", min: 0, max: 999 },
-  { label: "₹1,000 – ₹2,000", min: 1000, max: 2000 },
-  { label: "₹2,000 – ₹3,000", min: 2000, max: 2999 },
+  { label: "₹500 – ₹999", min: 500, max: 999 },
+  { label: "₹1,000 – ₹1,499", min: 1000, max: 1499 },
+  { label: "₹1,500 – ₹2,000", min: 1500, max: 2000 },
 ];
 
 export function ShopClient({ products }: { products: Product[] }) {
@@ -83,7 +83,7 @@ export function ShopClient({ products }: { products: Product[] }) {
         {/* Sidebar filters — desktop always, mobile toggle */}
         <aside
           className={`${
-            filtersOpen ? "fixed inset-0 z-50 flex flex-col bg-white p-4 pt-16" : "hidden"
+            filtersOpen ? "safe-top safe-bottom fixed inset-0 z-50 flex flex-col bg-white p-4 pt-14 pb-6" : "hidden"
           } w-full lg:static lg:block lg:w-56 lg:shrink-0 lg:bg-transparent lg:p-0`}
         >
           {filtersOpen && (
@@ -192,7 +192,7 @@ export function ShopClient({ products }: { products: Product[] }) {
               No products match your filters.
             </p>
           ) : (
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-3">
               {filtered.map((p, i) => (
                 <ScrollReveal key={p.id} delay={i * 0.05}>
                   <ProductCard product={p} />

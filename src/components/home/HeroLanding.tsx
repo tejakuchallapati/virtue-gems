@@ -93,7 +93,7 @@ export function HeroLanding() {
       />
 
       {/* Logo — crisp, no blur, object-contain */}
-      <div className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center px-4 pb-32 pt-16">
+      <div className="safe-top relative z-10 flex min-h-[100dvh] flex-col items-center justify-center px-4 pb-36 pt-12 sm:pb-32 sm:pt-16">
         <motion.div
           initial={{ opacity: 0, scale: 0.88, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -134,7 +134,7 @@ export function HeroLanding() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.7 }}
-          className="absolute inset-x-0 bottom-20 z-20 flex flex-col items-center gap-4 px-4 md:bottom-12"
+          className="absolute inset-x-0 bottom-[calc(5.5rem+env(safe-area-inset-bottom))] z-20 flex flex-col items-center gap-4 px-4 md:bottom-12"
         >
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link

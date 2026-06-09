@@ -49,7 +49,7 @@ export function ProductDetailClient({
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-6 pb-28 sm:px-6 sm:py-10 sm:pb-10 lg:px-8">
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -62,7 +62,7 @@ export function ProductDetailClient({
         {/* Images */}
         <div>
           <div
-            className="relative aspect-square cursor-zoom-in overflow-hidden rounded-2xl bg-light"
+            className="relative aspect-square cursor-zoom-in overflow-hidden rounded-2xl bg-[#1a0a2e]"
             onClick={() => setZoom(true)}
           >
             <Image
@@ -70,7 +70,7 @@ export function ProductDetailClient({
               alt={product.name}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
+              className="object-contain p-2 sm:p-4"
               priority
             />
             <div className="absolute right-3 top-3 rounded-full bg-white/80 p-2">
@@ -87,7 +87,7 @@ export function ProductDetailClient({
                   i === activeImage ? "ring-gold" : "ring-transparent"
                 }`}
               >
-                <Image src={img} alt="" fill sizes="80px" className="object-cover" />
+                <Image src={img} alt="" fill sizes="80px" className="object-contain bg-[#1a0a2e] p-0.5" />
               </button>
             ))}
           </div>
@@ -248,6 +248,44 @@ export function ProductDetailClient({
           </div>
         </ScrollReveal>
       )}
+
+      {/* Mobile sticky add-to-cart bar */}
+      <div className="safe-bottom fixed bottom-[calc(4.25rem+env(safe-area-inset-bottom))] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-4 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md md:hidden">
+        <div className="mx-auto flex max-w-lg items-center gap-3">
+          <div className="min-w-0 shrink-0">
+            <p className="text-base font-bold text-gold-dark">
+              {formatPrice(product.price)}
+            </p>
+            {product.originalPrice && (
+              <p className="text-[10px] text-dark/40 line-through">
+                {formatPrice(product.originalPrice)}
+              </p>
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={() => addToCart(product, qty)}
+            className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-dark text-sm font-semibold text-gold"
+          >
+            <ShoppingCart className="h-4 w-4" />
+            Add to Cart
+          </button>
+          <button
+            type="button"
+            aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
+            onClick={() =>
+              wished ? removeFromWishlist(product.id) : addToWishlist(product)
+            }
+            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border ${
+              wished
+                ? "border-gold bg-gold/10 text-gold-dark"
+                : "border-light-muted text-dark"
+            }`}
+          >
+            <Heart className={`h-4 w-4 ${wished ? "fill-current" : ""}`} />
+          </button>
+        </div>
+      </div>
 
       {/* Zoom modal */}
       <AnimatePresence>

@@ -104,7 +104,7 @@ export function MobileBottomNav() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative flex flex-1 flex-col items-center justify-center py-1.5"
+                  className="relative flex min-h-[52px] flex-1 flex-col items-center justify-center py-1.5"
                 >
                   {inner}
                 </a>
@@ -115,7 +115,7 @@ export function MobileBottomNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative flex flex-1 flex-col items-center justify-center py-1.5"
+                className="relative flex min-h-[52px] flex-1 flex-col items-center justify-center py-1.5"
               >
                 {inner}
               </Link>

@@ -1,0 +1,42 @@
+{
+  "handle": "virtue_gems",
+  "profileUrl": "https://www.instagram.com/virtue_gems/",
+  "posts": [
+    {
+      "id": "ig-1",
+      "image": "/products/vg-001.jpg",
+      "alt": "Pearl Charm Layer Necklace",
+      "url": "https://www.instagram.com/virtue_gems/"
+    },
+    {
+      "id": "ig-2",
+      "image": "/products/vg-002.jpg",
+      "alt": "Crystal Floral Short Necklace",
+      "url": "https://www.instagram.com/virtue_gems/"
+    },
+    {
+      "id": "ig-3",
+      "image": "/products/vg-003.jpg",
+      "alt": "Gold Heart Charm Necklace",
+      "url": "https://www.instagram.com/virtue_gems/"
+    },
+    {
+      "id": "ig-4",
+      "image": "/products/vg-004.jpg",
+      "alt": "Pearl Trio Pendant Necklace",
+      "url": "https://www.instagram.com/virtue_gems/"
+    },
+    {
+      "id": "ig-5",
+      "image": "/products/vg-005.jpg",
+      "alt": "Emerald Floral Necklace Set",
+      "url": "https://www.instagram.com/virtue_gems/"
+    },
+    {
+      "id": "ig-6",
+      "image": "/products/vg-006.jpg",
+      "alt": "Pearl Drop Stud Earrings",
+      "url": "https://www.instagram.com/virtue_gems/"
+    }
+  ]
+}

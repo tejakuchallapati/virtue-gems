@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "notify:startup": "node --env-file=.env.local scripts/send-startup-email.mjs"
+    "notify:startup": "node --env-file=.env.local scripts/send-startup-email.mjs",
+    "process:images": "node scripts/process-product-images.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -28,6 +29,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

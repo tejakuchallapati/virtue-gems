@@ -1,0 +1,52 @@
+[
+  {
+    "id": "customer-3",
+    "type": "image",
+    "poster": "/reviews/customer-3.jpg",
+    "caption": "Absolutely love my Gold Heart Charm Necklace! Quality is stunning.",
+    "author": "Priya S."
+  },
+  {
+    "id": "customer-7",
+    "type": "image",
+    "poster": "/reviews/customer-7.jpg",
+    "caption": "Absolutely love my Crystal Bow Necklace Collection! Quality is stunning.",
+    "author": "Ananya R."
+  },
+  {
+    "id": "customer-11",
+    "type": "image",
+    "poster": "/reviews/customer-11.jpg",
+    "caption": "Absolutely love my Ruby Floral Choker Set! Quality is stunning.",
+    "author": "Meera K."
+  },
+  {
+    "id": "customer-15",
+    "type": "image",
+    "poster": "/reviews/customer-15.jpg",
+    "caption": "Absolutely love my Pearl Bloom Pendant Necklace! Quality is stunning.",
+    "author": "Kavya M."
+  },
+  {
+    "id": "customer-19",
+    "type": "image",
+    "poster": "/reviews/customer-19.jpg",
+    "caption": "Absolutely love my Emerald Leaf Vine Necklace Set! Quality is stunning.",
+    "author": "Divya P."
+  },
+  {
+    "id": "671864769_2058906348172191_7561716054992962529_n-a0c69037-8f54-403b-afba-5d29f457428f",
+    "type": "video",
+    "poster": "/reviews/671864769_2058906348172191_7561716054992962529_n-a0c69037-8f54-403b-afba-5d29f457428f.jpg",
+    "video": "/reviews/671864769_2058906348172191_7561716054992962529_n-a0c69037-8f54-403b-afba-5d29f457428f.jpg",
+    "caption": "Our Virtue Gems launch moment — wear your virtue, shine with grace ✨",
+    "author": "Virtue Gems"
+  },
+  {
+    "id": "687781102_1632843581313015_18830006552283430_n-161809f3-c747-4348-990a-6db6eb2b0398",
+    "type": "image",
+    "poster": "/reviews/687781102_1632843581313015_18830006552283430_n-161809f3-c747-4348-990a-6db6eb2b0398.jpg",
+    "caption": "A heartfelt note from our Virtue Gems family 💜",
+    "author": "Happy Customer"
+  }
+]

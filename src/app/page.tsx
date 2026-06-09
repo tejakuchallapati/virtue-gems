@@ -3,7 +3,7 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { HeroLanding } from "@/components/home/HeroLanding";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { CountdownTimer } from "@/components/ui/CountdownTimer";
-import { ReviewsCarousel } from "@/components/ui/ReviewsCarousel";
+import { CustomerReviews } from "@/components/ui/CustomerReviews";
 import { InstagramFeed } from "@/components/ui/InstagramFeed";
 import { RecentlyViewed } from "@/components/home/RecentlyViewed";
 import { getAllProducts } from "@/lib/products";
@@ -43,11 +43,11 @@ export default function HomePage() {
                 Best Sellers
               </h2>
             </div>
-            <Link href="/shop?tag=bestseller" className="hidden text-sm font-medium text-gold hover:underline sm:block">
+            <Link href="/shop?tag=bestseller" className="text-sm font-medium text-gold hover:underline">
               View all
             </Link>
           </ScrollReveal>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4">
             {featured.map((p, i) => (
               <ScrollReveal key={p.id} delay={i * 0.08}>
                 <ProductCard product={p} />
@@ -87,12 +87,17 @@ export default function HomePage() {
               New Arrivals
             </h2>
           </ScrollReveal>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4">
             {newArrivals.map((p, i) => (
               <ScrollReveal key={p.id} delay={i * 0.08}>
                 <ProductCard product={p} />
               </ScrollReveal>
             ))}
+          </div>
+          <div className="mt-6 text-center sm:hidden">
+            <Link href="/shop?tag=new" className="text-sm font-medium text-gold hover:underline">
+              View all new arrivals
+            </Link>
           </div>
         </div>
       </section>
@@ -104,7 +109,7 @@ export default function HomePage() {
           <h2 className="mt-1 mb-8 text-2xl font-semibold text-dark sm:text-3xl">
             Loved by Our Customers
           </h2>
-          <ReviewsCarousel />
+          <CustomerReviews />
         </ScrollReveal>
       </section>
 

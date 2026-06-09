@@ -1,4 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
+import instagramData from "@/data/instagram.json";
+
+const PROFILE_URL = instagramData.profileUrl;
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -8,45 +12,55 @@ function InstagramIcon({ className }: { className?: string }) {
   );
 }
 
-const posts = [
-  "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&q=80",
-  "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&q=80",
-  "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&q=80",
-  "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80",
-  "https://images.unsplash.com/photo-1610375461246-497a9d0e0ab2?w=400&q=80",
-  "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&q=80",
-];
-
 export function InstagramFeed() {
   return (
     <section>
-      <div className="mb-6 flex items-center justify-center gap-2">
-        <InstagramIcon className="h-5 w-5 text-gold" />
-        <h2 className="text-xl font-semibold text-dark sm:text-2xl">
-          @virtuegems
-        </h2>
+      <div className="mb-2 text-center">
+        <p className="text-sm tracking-[0.2em] text-gold uppercase">Follow Us</p>
+        <div className="mt-2 flex items-center justify-center gap-2">
+          <InstagramIcon className="h-5 w-5 text-gold" />
+          <h2 className="text-xl font-semibold text-dark sm:text-2xl">
+            @{instagramData.handle}
+          </h2>
+        </div>
+        <p className="mx-auto mt-2 max-w-md text-sm text-dark/60">
+          See our latest designs, styling tips, and behind-the-scenes moments.
+        </p>
       </div>
-      <div className="grid grid-cols-3 gap-1 sm:grid-cols-6 sm:gap-2">
-        {posts.map((src, i) => (
+
+      <div className="mt-6 grid grid-cols-3 gap-1 sm:grid-cols-6 sm:gap-2">
+        {instagramData.posts.map((post) => (
           <a
-            key={i}
-            href="https://instagram.com"
+            key={post.id}
+            href={post.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative aspect-square overflow-hidden rounded-lg sm:rounded-xl"
+            className="group relative aspect-square overflow-hidden rounded-lg bg-[#1a0a2e] sm:rounded-xl"
           >
             <Image
-              src={src}
-              alt={`Instagram post ${i + 1}`}
+              src={post.image}
+              alt={post.alt}
               fill
               sizes="(max-width: 640px) 33vw, 16vw"
-              className="object-cover transition duration-300 group-hover:scale-110"
+              className="object-contain p-0.5 transition duration-300 group-hover:scale-[1.03] sm:p-1"
             />
-            <div className="absolute inset-0 flex items-center justify-center bg-dark/0 transition group-hover:bg-dark/40">
+            <div className="absolute inset-0 flex items-center justify-center bg-dark/0 transition group-hover:bg-dark/45">
               <InstagramIcon className="h-6 w-6 text-white opacity-0 transition group-hover:opacity-100" />
             </div>
           </a>
         ))}
+      </div>
+
+      <div className="mt-8 flex justify-center">
+        <Link
+          href={PROFILE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-11 w-full max-w-xs items-center justify-center gap-2 rounded-full border border-gold/40 bg-dark px-6 py-3 text-sm font-medium text-gold transition hover:border-gold hover:bg-gold hover:text-dark sm:w-auto sm:py-2.5"
+        >
+          <InstagramIcon className="h-4 w-4" />
+          Follow on Instagram
+        </Link>
       </div>
     </section>
   );

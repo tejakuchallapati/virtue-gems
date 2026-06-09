@@ -20,10 +20,10 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <LoadingScreen />
       {/* Desktop: animated top nav */}
       <DesktopNavbar />
-      {/* Mobile: logo-only top bar */}
+      {/* Mobile: dark luxury top bar */}
       <MobileHeader />
       <PageTransition>
-        <main className="min-h-[calc(100vh-3rem)] pb-[4.5rem] md:min-h-[calc(100vh-4rem)] md:pb-0">
+        <main className="min-h-[calc(100dvh-2.75rem)] pb-[calc(4.75rem+env(safe-area-inset-bottom))] md:min-h-[calc(100vh-4rem)] md:pb-0">
           {children}
         </main>
       </PageTransition>
