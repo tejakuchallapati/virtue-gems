@@ -1,0 +1,41 @@
+name: Email notifications
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: >-
+            [Virtue Gems GitHub]
+            ${{ github.event_name == 'pull_request' && format('PR #{0}: {1}', github.event.pull_request.number, github.event.action) || format('Push to {0}', github.ref_name) }}
+          to: ${{ secrets.NOTIFY_EMAIL }}
+          from: Virtue Gems <${{ secrets.SMTP_USERNAME }}>
+          html_body: |
+            <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto;">
+              <h2 style="color: #8b6914; border-bottom: 2px solid #d4af37; padding-bottom: 8px;">
+                Virtue Gems — GitHub Update
+              </h2>
+              <p><strong>Event:</strong> ${{ github.event_name }}</p>
+              <p><strong>Repository:</strong> ${{ github.repository }}</p>
+              <p><strong>Actor:</strong> ${{ github.actor }}</p>
+              ${{ github.event_name == 'push' && format('<p><strong>Branch:</strong> {0}</p><p><strong>Commit:</strong> {1}</p><p><strong>Message:</strong> {2}</p>', github.ref_name, github.sha, github.event.head_commit.message) || '' }}
+              ${{ github.event_name == 'pull_request' && format('<p><strong>PR #{0}:</strong> {1}</p><p><strong>Action:</strong> {2}</p><p><strong>Author:</strong> {3}</p><p><strong>Link:</strong> <a href="{4}">{4}</a></p>', github.event.pull_request.number, github.event.pull_request.title, github.event.action, github.event.pull_request.user.login, github.event.pull_request.html_url) || '' }}
+              <p style="margin-top: 24px;">
+                <a href="${{ github.server_url }}/${{ github.repository }}" style="color: #8b6914;">
+                  View repository on GitHub
+                </a>
+              </p>
+            </div>
+          convert_markdown: false
