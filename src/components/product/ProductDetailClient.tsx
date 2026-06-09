@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
   Heart,
-  ShoppingBag,
+  ShoppingCart,
   Share2,
   Star,
   Minus,
@@ -169,7 +169,7 @@ export function ProductDetailClient({
               onClick={() => addToCart(product, qty)}
               className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-dark py-3.5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark"
             >
-              <ShoppingBag className="h-4 w-4" />
+              <ShoppingCart className="h-4 w-4" />
               Add to Cart
             </button>
             <button

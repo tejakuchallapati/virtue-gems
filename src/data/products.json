@@ -5,8 +5,8 @@
     "name": "Celestial Gold Ring",
     "description": "Handcrafted 22K gold ring with celestial motif detailing.",
     "longDescription": "The Celestial Gold Ring embodies timeless elegance with meticulous hand-engraving inspired by starlit skies. Each piece is crafted by master artisans using ethically sourced gold, making it a perfect heirloom for generations.",
-    "price": 45999,
-    "originalPrice": 52999,
+    "price": 2499,
+    "originalPrice": 2999,
     "images": [
       "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&q=80",
       "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=800&q=80",
@@ -46,8 +46,8 @@
     "name": "Emerald Royale Necklace",
     "description": "Emerald centerpiece with diamond accents on a gold chain.",
     "longDescription": "A statement necklace featuring a certified emerald solitaire surrounded by brilliant-cut diamonds, set in premium 18K gold. Designed for grand occasions and red-carpet moments.",
-    "price": 128999,
-    "originalPrice": 145000,
+    "price": 1899,
+    "originalPrice": 2299,
     "images": [
       "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
       "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=80"
@@ -79,7 +79,8 @@
     "name": "Pearl Elegance Earrings",
     "description": "South Sea pearls with gold filigree drop design.",
     "longDescription": "Delicate drop earrings featuring lustrous South Sea pearls suspended from intricate gold filigree. A versatile piece that transitions effortlessly from day to evening wear.",
-    "price": 28999,
+    "price": 2999,
+    "originalPrice": 3499,
     "images": [
       "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
       "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80"
@@ -103,8 +104,8 @@
     "name": "Diamond Line Bracelet",
     "description": "Tennis bracelet with VS clarity diamonds in white gold.",
     "longDescription": "A classic tennis bracelet featuring a continuous line of VS clarity diamonds set in rhodium-plated white gold. Secure box clasp with double safety latch for peace of mind.",
-    "price": 89999,
-    "originalPrice": 99999,
+    "price": 1299,
+    "originalPrice": 1599,
     "images": [
       "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
       "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80"
@@ -136,7 +137,8 @@
     "name": "Lotus Gold Pendant",
     "description": "Lotus motif pendant with micro-pave diamond center.",
     "longDescription": "Inspired by the sacred lotus, this pendant features hand-carved gold petals with a micro-pave diamond center. Comes with an adjustable gold chain.",
-    "price": 34999,
+    "price": 2799,
+    "originalPrice": 2999,
     "images": [
       "https://images.unsplash.com/photo-1610375461246-497a9d0e0ab2?w=800&q=80",
       "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80"
@@ -160,8 +162,8 @@
     "name": "Ruby Heritage Ring",
     "description": "Vintage-inspired ruby ring with antique gold finish.",
     "longDescription": "A heritage-inspired design featuring a Burmese ruby cabochon set in oxidized antique gold. Each ring tells a story of royal Indian craftsmanship.",
-    "price": 67999,
-    "originalPrice": 75000,
+    "price": 599,
+    "originalPrice": 899,
     "images": [
       "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=800&q=80",
       "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&q=80"

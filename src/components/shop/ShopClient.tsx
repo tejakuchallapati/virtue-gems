@@ -18,9 +18,9 @@ const tags = [
 
 const priceRanges = [
   { label: "All Prices", min: 0, max: Infinity },
-  { label: "Under ₹30,000", min: 0, max: 30000 },
-  { label: "₹30,000 – ₹70,000", min: 30000, max: 70000 },
-  { label: "Above ₹70,000", min: 70000, max: Infinity },
+  { label: "Under ₹1,000", min: 0, max: 999 },
+  { label: "₹1,000 – ₹2,000", min: 1000, max: 2000 },
+  { label: "₹2,000 – ₹3,000", min: 2000, max: 2999 },
 ];
 
 export function ShopClient({ products }: { products: Product[] }) {

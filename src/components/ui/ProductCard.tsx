@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, ShoppingBag } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { useStore } from "@/context/StoreProvider";
 import { formatPrice } from "@/lib/utils";
 import type { Product } from "@/types";
@@ -24,6 +25,15 @@ export function ProductCard({ product }: { product: Product }) {
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } =
     useStore();
   const wished = isInWishlist(product.id);
+  const [added, setAdded] = useState(false);
+
+  function handleAddToCart(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart(product);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
+  }
 
   return (
     <motion.article
@@ -49,6 +59,20 @@ export function ProductCard({ product }: { product: Product }) {
               </span>
             ))}
           </div>
+
+          {/* Image overlay add-to-cart */}
+          <button
+            type="button"
+            aria-label="Add to cart"
+            onClick={handleAddToCart}
+            className={`absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full shadow-lg transition sm:bottom-3 sm:right-3 sm:h-11 sm:w-11 ${
+              added
+                ? "bg-green-600 text-white"
+                : "bg-gold text-dark hover:bg-gold-light"
+            }`}
+          >
+            <ShoppingCart className="h-5 w-5" />
+          </button>
         </div>
       </Link>
 
@@ -92,10 +116,17 @@ export function ProductCard({ product }: { product: Product }) {
             <button
               type="button"
               aria-label="Add to cart"
-              onClick={() => addToCart(product)}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-dark text-gold transition hover:bg-gold hover:text-dark"
+              onClick={handleAddToCart}
+              className={`flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-semibold transition sm:px-3.5 sm:py-2 sm:text-sm ${
+                added
+                  ? "bg-green-600 text-white"
+                  : "bg-dark text-gold hover:bg-gold hover:text-dark"
+              }`}
             >
-              <ShoppingBag className="h-4 w-4" />
+              <ShoppingCart className="h-4 w-4 shrink-0" />
+              <span className="hidden sm:inline">
+                {added ? "Added!" : "Add"}
+              </span>
             </button>
           </div>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { Navbar } from "./Navbar";
+import { DesktopNavbar } from "./DesktopNavbar";
+import { MobileHeader } from "./MobileHeader";
 import { MobileBottomNav } from "./MobileBottomNav";
 import { Footer } from "./Footer";
 import { WhatsAppFloat } from "./WhatsAppFloat";
@@ -17,12 +18,19 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <LoadingScreen />
-      <Navbar />
+      {/* Desktop: animated top nav */}
+      <DesktopNavbar />
+      {/* Mobile: logo-only top bar */}
+      <MobileHeader />
       <PageTransition>
-        <main className="min-h-[calc(100vh-3.5rem)] pb-20 md:pb-0">{children}</main>
+        <main className="min-h-[calc(100vh-3rem)] pb-[4.5rem] md:min-h-[calc(100vh-4rem)] md:pb-0">
+          {children}
+        </main>
       </PageTransition>
       <Footer />
+      {/* Mobile: bottom nav with effects */}
       <MobileBottomNav />
+      {/* WhatsApp float — desktop only (bottom nav has WhatsApp on mobile) */}
       <WhatsAppFloat />
     </>
   );
