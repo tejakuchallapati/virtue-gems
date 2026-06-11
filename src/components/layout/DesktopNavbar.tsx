@@ -26,10 +26,10 @@ function NavLink({
   active: boolean;
 }) {
   return (
-    <Link href={href} className="group relative px-1 py-2">
+    <Link href={href} className="group relative px-1.5 py-1.5">
       <span
         className={cn(
-          "text-sm font-medium tracking-wide transition-colors duration-300",
+          "text-xs font-medium tracking-wide transition-colors duration-300",
           active ? "text-gold" : "text-light/75 group-hover:text-gold",
         )}
       >
@@ -81,80 +81,68 @@ export function DesktopNavbar() {
         />
       </div>
 
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
-        <Link href="/" className="group flex shrink-0 items-center">
-          <motion.div
-            whileHover={{ scale: 1.04 }}
-            transition={{ type: "spring", stiffness: 400 }}
-          >
-            <Image
-              src="/logo.png"
-              alt="Virtue Gems"
-              width={140}
-              height={56}
-              className="h-11 w-auto object-contain"
-              priority
-            />
-          </motion.div>
-        </Link>
+      <div className="mx-auto flex h-12 max-w-7xl items-center justify-center px-5 lg:px-8">
+        <div className="flex items-center gap-3 lg:gap-4">
+          <Link href="/" className="group flex shrink-0 items-center">
+            <motion.div
+              whileHover={{ scale: 1.04 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
+              <Image
+                src="/logo.png"
+                alt="Virtue Gems"
+                width={120}
+                height={48}
+                className="h-8 w-auto object-contain"
+                priority
+              />
+            </motion.div>
+          </Link>
 
-        <nav className="flex items-center gap-8">
-          {links.map((link) => (
-            <NavLink
-              key={link.href}
-              href={link.href}
-              label={link.label}
-              active={pathname === link.href}
-            />
-          ))}
-        </nav>
+          <span className="h-3.5 w-px shrink-0 bg-gold/25" aria-hidden />
 
-        <div className="flex items-center gap-2">
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <nav className="flex items-center gap-1">
+            {links.map((link) => (
+              <NavLink
+                key={link.href}
+                href={link.href}
+                label={link.label}
+                active={pathname === link.href}
+              />
+            ))}
+          </nav>
+
+          <span className="h-3.5 w-px shrink-0 bg-gold/25" aria-hidden />
+
+          <div className="flex items-center gap-0.5">
             <Link
               href="/wishlist"
-              className="relative flex h-10 w-10 items-center justify-center rounded-full text-light/70 transition hover:bg-gold/15 hover:text-gold"
+              className="group relative flex items-center gap-1 px-1.5 py-1.5 text-light/70 transition hover:text-gold"
               aria-label="Wishlist"
             >
-              <Heart className="h-5 w-5" />
+              <Heart className="h-3.5 w-3.5 transition group-hover:scale-110" />
+              <span className="text-[10px] font-medium uppercase tracking-wider">Wishlist</span>
               {wishlistCount > 0 && (
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-1 text-[10px] font-bold text-dark"
-                >
-                  {wishlistCount}
-                </motion.span>
+                <span className="text-[9px] font-bold text-gold">{wishlistCount}</span>
               )}
+              <span className="absolute bottom-0 left-0 h-px w-0 bg-gold transition-all group-hover:w-full" />
             </Link>
-          </motion.div>
 
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               href="/cart"
               className={cn(
-                "relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-300",
-                pathname === "/cart"
-                  ? "bg-gold text-dark shadow-[0_0_20px_rgba(212,175,55,0.35)]"
-                  : cartCount > 0
-                    ? "border border-gold/30 bg-gold/15 text-gold hover:bg-gold/25"
-                    : "border border-gold/30 bg-gold/10 text-gold hover:bg-gold hover:text-dark",
+                "group relative flex items-center gap-1 px-1.5 py-1.5 transition-all duration-300",
+                pathname === "/cart" ? "text-gold" : "text-light/70 hover:text-gold",
               )}
             >
-              <ShoppingCart className="h-4 w-4" />
-              Cart
+              <ShoppingCart className="h-3.5 w-3.5 transition group-hover:scale-110" />
+              <span className="text-[10px] font-medium uppercase tracking-wider">Cart</span>
               {cartCount > 0 && (
-                <motion.span
-                  key={cartCount}
-                  initial={{ scale: 0.5 }}
-                  animate={{ scale: 1 }}
-                  className="flex h-5 min-w-5 items-center justify-center rounded-full bg-dark px-1 text-[10px] font-bold text-gold"
-                >
-                  {cartCount}
-                </motion.span>
+                <span className="text-[9px] font-bold text-gold">{cartCount}</span>
               )}
+              <span className="absolute bottom-0 left-0 h-px w-0 bg-gold transition-all group-hover:w-full" />
             </Link>
-          </motion.div>
+          </div>
         </div>
       </div>
     </motion.header>
