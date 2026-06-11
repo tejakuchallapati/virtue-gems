@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { HeroLanding } from "@/components/home/HeroLanding";
+import { TrendingHighlight } from "@/components/home/TrendingHighlight";
 import { ProductCard } from "@/components/ui/ProductCard";
-import { CountdownTimer } from "@/components/ui/CountdownTimer";
 import { CustomerReviews } from "@/components/ui/CustomerReviews";
 import { InstagramFeed } from "@/components/ui/InstagramFeed";
 import { RecentlyViewed } from "@/components/home/RecentlyViewed";
@@ -12,26 +12,14 @@ export default function HomePage() {
   const products = getAllProducts();
   const featured = products.filter((p) => p.tags.includes("bestseller")).slice(0, 4);
   const newArrivals = products.filter((p) => p.tags.includes("new")).slice(0, 4);
+  const trending = products.find((p) => p.tags.includes("trending"));
+  const bestseller = products.find((p) => p.tags.includes("bestseller"));
 
   return (
     <>
       <HeroLanding />
 
-      {/* Sale countdown */}
-      <section id="collections" className="bg-dark-soft py-10 sm:py-14">
-        <ScrollReveal className="mx-auto max-w-7xl px-4 text-center sm:px-6">
-          <p className="text-sm tracking-[0.2em] text-gold uppercase">
-            Limited Time Offer
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold text-light sm:text-3xl">
-            Festive Collection Sale
-          </h2>
-          <p className="mt-2 text-sm text-light/60">Up to 15% off selected pieces</p>
-          <div className="mt-6">
-            <CountdownTimer />
-          </div>
-        </ScrollReveal>
-      </section>
+      <TrendingHighlight trending={trending} bestseller={bestseller} />
 
       {/* Best sellers */}
       <section className="py-12 sm:py-16">
@@ -54,27 +42,6 @@ export default function HomePage() {
               </ScrollReveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Banner */}
-      <section className="relative overflow-hidden py-16 sm:py-24">
-        <div className="glass-dark mx-4 rounded-3xl px-6 py-12 text-center sm:mx-auto sm:max-w-4xl sm:px-12">
-          <ScrollReveal>
-            <h2 className="text-2xl font-semibold text-light sm:text-3xl">
-              Crafted with <span className="text-gold">Passion</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-lg text-sm text-light/70 sm:text-base">
-              Every piece at Virtue Gems is hallmarked, ethically sourced, and
-              designed to become a cherished heirloom.
-            </p>
-            <Link
-              href="/about"
-              className="mt-6 inline-block text-sm font-medium text-gold underline-offset-4 hover:underline"
-            >
-              Learn about our craftsmanship
-            </Link>
-          </ScrollReveal>
         </div>
       </section>
 
