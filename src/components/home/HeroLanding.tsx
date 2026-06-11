@@ -40,7 +40,8 @@ export function HeroLanding() {
               alt="Virtue Gems"
               fill
               priority
-              sizes="280px"
+              quality={100}
+              sizes="560px"
               className="object-contain"
             />
           </motion.div>
@@ -71,54 +72,43 @@ export function HeroLanding() {
         </motion.div>
       </div>
 
-      {/* ── Desktop hero ── */}
-      <div className="relative z-10 hidden min-h-screen w-full flex-col items-center justify-center px-8 pt-[4.25rem] md:flex">
+      {/* ── Desktop: full-screen logo-with-text ── */}
+      <div className="relative z-10 hidden h-screen w-full md:block">
         <motion.div
-          initial={{ opacity: 0, scale: 1.15 }}
+          initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-          className="relative flex h-[min(72vh,780px)] w-full items-center justify-center"
+          transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0 h-full w-full"
         >
-          <motion.div
-            className="relative h-full w-full max-w-[min(90vw,1100px)]"
-            animate={{ y: [0, -14, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <Image
-              src="/logo-with-text.png"
-              alt="Virtue Gems — Wear Your Virtue, Shine With Grace"
-              fill
-              priority
-              sizes="90vw"
-              className="object-contain"
-            />
-          </motion.div>
-          <motion.div
-            className="pointer-events-none absolute inset-0 -z-10"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(212,175,55,0.18) 0%, transparent 65%)",
-            }}
-            animate={{ opacity: [0.5, 0.9, 0.5], scale: [0.95, 1.08, 0.95] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          <Image
+            src="/logo-with-text.png"
+            alt="Virtue Gems — Wear Your Virtue, Shine With Grace"
+            fill
+            priority
+            quality={100}
+            unoptimized
+            sizes="100vw"
+            className="object-cover object-center"
           />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#1a0a2e]/20 via-transparent to-[#1a0a2e]/85" />
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.7 }}
-          className="mt-10"
-        >
-          <Link
-            href="/shop"
-            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gold px-10 py-4 text-sm font-semibold text-dark shadow-[0_0_32px_rgba(212,175,55,0.45)] transition hover:shadow-[0_0_48px_rgba(212,175,55,0.6)]"
+        <div className="relative flex h-full w-full flex-col items-center justify-end px-8 pb-14 pointer-events-none [&_a]:pointer-events-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.7 }}
           >
-            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition duration-700 group-hover:translate-x-full" />
-            <span className="relative">Explore Collection</span>
-            <ArrowRight className="relative h-4 w-4 transition group-hover:translate-x-1" />
-          </Link>
-        </motion.div>
+            <Link
+              href="/shop"
+              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gold px-10 py-4 text-sm font-semibold text-dark shadow-[0_0_32px_rgba(212,175,55,0.45)] transition hover:shadow-[0_0_48px_rgba(212,175,55,0.6)]"
+            >
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition duration-700 group-hover:translate-x-full" />
+              <span className="relative">Explore Collection</span>
+              <ArrowRight className="relative h-4 w-4 transition group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
