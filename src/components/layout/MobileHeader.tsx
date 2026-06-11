@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
@@ -34,22 +35,14 @@ export function MobileHeader() {
       </div>
 
       <div className="relative flex h-11 items-center justify-center px-4">
-        <Link href="/" className="group flex items-center gap-2">
-          <span
-            className="h-4 w-px bg-gradient-to-b from-transparent via-gold to-transparent opacity-60"
-            aria-hidden
-          />
-          <div className="flex flex-col items-center leading-none">
-            <span className="text-[11px] font-bold tracking-[0.32em] text-gold transition group-active:scale-95">
-              VIRTUE
-            </span>
-            <span className="mt-0.5 text-[8px] font-light tracking-[0.55em] text-light/75">
-              GEMS
-            </span>
-          </div>
-          <span
-            className="h-4 w-px bg-gradient-to-b from-transparent via-gold to-transparent opacity-60"
-            aria-hidden
+        <Link href="/" className="transition active:scale-95">
+          <Image
+            src="/logo.png"
+            alt="Virtue Gems"
+            width={100}
+            height={40}
+            className="h-8 w-auto object-contain"
+            priority
           />
         </Link>
       </div>
