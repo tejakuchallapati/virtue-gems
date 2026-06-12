@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "notify:startup": "node --env-file=.env.local scripts/send-startup-email.mjs",
-    "process:images": "node scripts/process-product-images.mjs"
+    "process:images": "node scripts/process-product-images.mjs",
+    "process:logo": "node scripts/process-logo.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
