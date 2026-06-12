@@ -4,55 +4,43 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Home,
-  Store,
-  Info,
-  Mail,
   Heart,
   ShoppingCart,
   ArrowRight,
-  type LucideIcon,
 } from "lucide-react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useState } from "react";
 import { useStore } from "@/context/StoreProvider";
 import { cn } from "@/lib/utils";
+import { NavBrand } from "./NavBrand";
 
 const mobileLinks = [
   { href: "/shop", label: "Shop" },
   { href: "/about", label: "About" },
 ];
 
-const desktopLinks: { href: string; label: string; icon: LucideIcon }[] = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/shop", label: "Shop", icon: Store },
-  { href: "/about", label: "About", icon: Info },
-  { href: "/contact", label: "Contact", icon: Mail },
+const desktopLinks = [
+  { href: "/", label: "Home" },
+  { href: "/shop", label: "Shop" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
-function DesktopNavItem({
+function DesktopNavLink({
   href,
   label,
-  icon: Icon,
   active,
 }: {
   href: string;
   label: string;
-  icon: LucideIcon;
   active: boolean;
 }) {
   return (
-    <Link href={href} className="group relative flex items-center gap-1 px-1.5 py-1.5">
-      <Icon
-        className={cn(
-          "h-3.5 w-3.5 transition-all duration-300",
-          active ? "text-gold" : "text-light/45 group-hover:text-gold group-hover:scale-110",
-        )}
-      />
+    <Link href={href} className="group relative px-3 py-2">
       <span
         className={cn(
-          "text-[11px] font-medium uppercase tracking-[0.2em] transition-all duration-300",
-          active ? "text-gold" : "text-light/70 group-hover:text-gold group-hover:tracking-[0.24em]",
+          "text-[11px] font-medium uppercase tracking-[0.22em] transition-colors duration-300",
+          active ? "text-gold" : "text-light/55 group-hover:text-gold",
         )}
       >
         {label}
@@ -60,50 +48,11 @@ function DesktopNavItem({
       {active ? (
         <motion.span
           layoutId="landing-nav-underline"
-          className="absolute bottom-1 left-2 right-2 h-px bg-gradient-to-r from-transparent via-gold to-transparent"
+          className="absolute bottom-0 left-3 right-3 h-px bg-gradient-to-r from-transparent via-gold to-transparent"
           transition={{ type: "spring", stiffness: 380, damping: 30 }}
         />
       ) : (
-        <span className="absolute bottom-1 left-1/2 h-px w-0 -translate-x-1/2 bg-gold transition-all duration-300 group-hover:w-full" />
-      )}
-    </Link>
-  );
-}
-
-function DesktopActionLink({
-  href,
-  label,
-  icon: Icon,
-  badge,
-  accent,
-}: {
-  href: string;
-  label: string;
-  icon: LucideIcon;
-  badge?: number;
-  accent?: boolean;
-}) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        "group relative flex items-center gap-1 px-1.5 py-1.5 transition-colors duration-300",
-        accent ? "text-gold" : "text-light/65 hover:text-gold",
-      )}
-    >
-      <span className="relative">
-        <Icon className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
-        {badge !== undefined && badge > 0 && (
-          <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark">
-            {badge}
-          </span>
-        )}
-      </span>
-      <span className="text-[11px] font-medium uppercase tracking-[0.18em]">
-        {label}
-      </span>
-      {!accent && (
-        <span className="absolute bottom-1 left-0 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+        <span className="absolute bottom-0 left-1/2 h-px w-0 -translate-x-1/2 bg-gold/70 transition-all duration-300 group-hover:w-full" />
       )}
     </Link>
   );
@@ -197,51 +146,40 @@ export function LandingNavbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="mx-auto flex h-12 max-w-7xl items-center justify-center px-5 lg:px-8">
-          <div className="flex items-center gap-3 lg:gap-4">
-            <Link href="/" className="group shrink-0 transition duration-300 hover:opacity-90">
-              <Image
-                src="/logo.png"
-                alt="Virtue Gems"
-                width={120}
-                height={48}
-                className="h-8 w-auto object-contain transition duration-300 group-hover:scale-[1.03]"
-                priority
+        <div className="relative mx-auto flex h-14 max-w-[1400px] items-center px-6 lg:px-10">
+          <NavBrand className="relative z-10" logoClassName="h-9 w-9" />
+
+          <nav className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center">
+            {desktopLinks.map((link) => (
+              <DesktopNavLink
+                key={link.href}
+                href={link.href}
+                label={link.label}
+                active={pathname === link.href}
               />
+            ))}
+          </nav>
+
+          <div className="relative z-10 ml-auto flex items-center gap-4">
+            <Link
+              href="/cart"
+              className="group relative flex h-9 w-9 items-center justify-center text-light/60 transition hover:text-gold"
+              aria-label="Cart"
+            >
+              <ShoppingCart className="h-[18px] w-[18px] transition-transform duration-300 group-hover:scale-110" />
+              {cartCount > 0 && (
+                <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark">
+                  {cartCount}
+                </span>
+              )}
             </Link>
-
-            <span className="h-3.5 w-px shrink-0 bg-gold/25" aria-hidden />
-
-            <nav className="flex items-center">
-              {desktopLinks.map((link) => (
-                <DesktopNavItem
-                  key={link.href}
-                  href={link.href}
-                  label={link.label}
-                  icon={link.icon}
-                  active={pathname === link.href}
-                />
-              ))}
-            </nav>
-
-            <span className="h-3.5 w-px shrink-0 bg-gold/25" aria-hidden />
-
-            <div className="flex items-center">
-              <DesktopActionLink
-                href="/wishlist"
-                label="Wishlist"
-                icon={Heart}
-                badge={wishlistCount}
-              />
-              <DesktopActionLink href="/cart" label="Cart" icon={ShoppingCart} badge={cartCount} />
-              <Link
-                href="/shop"
-                className="group flex items-center gap-1.5 py-1.5 pl-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-gold transition hover:tracking-[0.24em]"
-              >
-                Shop
-                <ArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </Link>
-            </div>
+            <Link
+              href="/shop"
+              className="group flex items-center gap-1.5 border border-gold/35 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.24em] text-gold transition hover:border-gold/60 hover:bg-gold/10"
+            >
+              Shop
+              <ArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5" />
+            </Link>
           </div>
         </div>
       </motion.header>
