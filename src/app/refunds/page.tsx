@@ -18,6 +18,25 @@ export default function RefundsPage() {
         <li>Custom-made or engraved pieces are non-returnable</li>
         <li>Items must be accompanied by original invoice and hallmarked certification</li>
       </ul>
+      <h2 className="text-lg font-semibold text-dark">Mandatory Unboxing Video</h2>
+      <p>
+        <strong>
+          To be eligible for any return or refund — including for damaged products — you must record a
+          continuous unboxing video while opening the parcel.
+        </strong>
+      </p>
+      <ul className="list-disc pl-5 space-y-1">
+        <li>Start recording before opening the outer packaging</li>
+        <li>Show the sealed parcel, shipping label, and order details clearly</li>
+        <li>Record the full unboxing without cuts, pauses, or edits</li>
+        <li>Show the product and any damage immediately as the package is opened</li>
+      </ul>
+      <p>
+        <strong>
+          Without this unboxing video proof, return or refund requests will not be accepted — even if
+          the product is damaged.
+        </strong>
+      </p>
       <h2 className="text-lg font-semibold text-dark">Refund Process</h2>
       <p>
         Once we receive and inspect the returned item, refunds are processed within 7–10 business days to the original payment method. For WhatsApp orders, refunds are arranged via bank transfer or UPI.
