@@ -47,11 +47,18 @@ export default function RefundsPage() {
       </p>
       <h2 className="text-lg font-semibold text-dark">Damaged Items</h2>
       <p>
-        If you receive a damaged product, contact us within 48 hours with photos. We will arrange a replacement or full refund at no extra cost.
+        If you receive a damaged product, contact us within 48 hours on WhatsApp with your order
+        details, clear photos, and the mandatory unboxing video recorded while opening the parcel.
+      </p>
+      <p>
+        We will review the video proof and, if approved, arrange a replacement or full refund at no
+        extra cost. Requests for damaged items without unboxing video proof cannot be processed for
+        return or refund.
       </p>
       <h2 className="text-lg font-semibold text-dark">Contact</h2>
       <p>
-        For returns or refunds, WhatsApp us or email virtuegems777@gmail.com with your order details.
+        For returns or refunds, WhatsApp us at +91 73961 78039 or email virtuegems777@gmail.com with
+        your order details and unboxing video.
       </p>
     </LegalPage>
   );
