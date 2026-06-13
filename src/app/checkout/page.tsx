@@ -40,8 +40,11 @@ export default function CheckoutPage() {
       pincode: formData.get("pincode") as string,
     };
 
+    let orderId: string | undefined;
+    let invoiceUrl: string | undefined;
+
     try {
-      await fetch("/api/orders", {
+      const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -55,14 +58,19 @@ export default function CheckoutPage() {
           total: cartTotal,
         }),
       });
+      const data = await res.json();
+      if (data.order?.id) {
+        orderId = data.order.id;
+        invoiceUrl = `${window.location.origin}/invoice/${orderId}`;
+      }
     } catch {
       // Continue to WhatsApp even if order save fails
     }
 
-    const message = buildOrderMessage(form, cart, cartTotal);
+    const message = buildOrderMessage(form, cart, cartTotal, orderId, invoiceUrl);
     clearCart();
     window.open(getWhatsAppUrl(message), "_blank");
-    router.push("/shop");
+    router.push(orderId ? `/invoice/${orderId}` : "/shop");
     setLoading(false);
   }
 

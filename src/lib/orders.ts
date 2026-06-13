@@ -13,6 +13,10 @@ export function getOrders(): Order[] {
   }
 }
 
+export function getOrderById(id: string): Order | null {
+  return getOrders().find((o) => o.id === id) ?? null;
+}
+
 export function saveOrder(order: Omit<Order, "id" | "createdAt" | "status">): Order {
   const orders = getOrders();
   const newOrder: Order = {

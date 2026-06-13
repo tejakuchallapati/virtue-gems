@@ -91,3 +91,16 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@media print {
+  body {
+    background: white !important;
+  }
+
+  header,
+  footer,
+  nav,
+  .print\\:hidden {
+    display: none !important;
+  }
+}
