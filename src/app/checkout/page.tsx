@@ -8,7 +8,7 @@ import { useStore } from "@/context/StoreProvider";
 import { useLoyalty } from "@/context/LoyaltyProvider";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { formatPrice } from "@/lib/utils";
-import { buildOrderMessage, getWhatsAppUrl } from "@/lib/whatsapp";
+import { buildOrderMessage, getWhatsAppUrl, buildCustomerPointsMessage, getCustomerPointsWhatsAppUrl } from "@/lib/whatsapp";
 import { calculateDiscount, calculatePointsEarned } from "@/lib/loyalty";
 import { UnboxingVideoNotice } from "@/components/ui/UnboxingVideoNotice";
 import type { CheckoutForm } from "@/types";
@@ -86,9 +86,24 @@ export default function CheckoutPage() {
       pointsBalance: balanceAfter,
     });
 
+    const pointsMessage = buildCustomerPointsMessage(
+      form.customerName,
+      earned,
+      balanceAfter,
+      `${window.location.origin}/rewards`,
+    );
+    const customerPointsUrl = getCustomerPointsWhatsAppUrl(form.phone, pointsMessage);
+
     clearCart();
     window.open(getWhatsAppUrl(message), "_blank");
-    router.push(orderId ? `/invoice/${orderId}` : "/rewards");
+    window.setTimeout(() => {
+      window.open(customerPointsUrl, "_blank");
+    }, 600);
+
+    const invoicePath = orderId
+      ? `/invoice/${orderId}?earned=${earned}&balance=${balanceAfter}`
+      : `/rewards`;
+    router.push(invoicePath);
     setLoading(false);
   }
 
@@ -113,10 +128,10 @@ export default function CheckoutPage() {
             availability.
           </p>
 
-          <div className="rounded-xl border border-gold/30 bg-gold/10 p-4 text-sm text-dark">
-            <div className="flex items-center gap-2 font-semibold">
-              <Sparkles className="h-4 w-4 text-gold-dark" />
-              Earn {pointsToEarn} points on this order
+          <div className="rounded-xl border border-gold/30 bg-gold/10 p-3 text-xs text-dark">
+            <div className="flex items-center gap-1.5 font-medium">
+              <Sparkles className="h-3.5 w-3.5 text-gold-dark" />
+              Earn {pointsToEarn} pts on this order
             </div>
             <p className="mt-1 text-dark/70">
               {activeRedemption ? (
@@ -234,7 +249,7 @@ export default function CheckoutPage() {
               <span>Total</span>
               <span className="text-gold-dark">{formatPrice(finalTotal)}</span>
             </div>
-            <p className="text-xs text-dark/50">+{pointsToEarn} points after order</p>
+            <p className="text-[11px] text-dark/50">+{pointsToEarn} pts after order</p>
           </div>
         </div>
       </div>

@@ -28,7 +28,7 @@ export function LoyaltyPromo() {
             >
               <Gift className="mx-auto h-5 w-5 text-gold" />
               <p className="mt-2 text-xs font-semibold text-light sm:text-sm">{reward.title}</p>
-              <p className="mt-1 text-[10px] text-gold sm:text-xs">{reward.pointsCost} points</p>
+              <p className="mt-1 text-[10px] text-gold">{reward.pointsCost} pts</p>
             </div>
           ))}
         </ScrollReveal>

@@ -51,16 +51,16 @@ export function RewardsClient() {
   return (
     <div className="space-y-10">
       {/* Points balance */}
-      <div className="rounded-2xl bg-gradient-to-br from-[#1a0a2e] to-[#2d1450] p-6 text-light sm:p-8">
-        <div className="flex flex-wrap items-start justify-between gap-4">
+      <div className="rounded-2xl bg-gradient-to-br from-[#1a0a2e] to-[#2d1450] p-4 text-light sm:p-5">
+        <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-xs tracking-[0.2em] text-gold uppercase">Virtue Gems Rewards</p>
-            <p className="mt-2 text-4xl font-bold text-gold sm:text-5xl">{points}</p>
-            <p className="mt-1 text-sm text-light/70">Available points</p>
+            <p className="text-[10px] tracking-[0.18em] text-gold uppercase">Virtue Gems Rewards</p>
+            <p className="mt-1 text-2xl font-bold text-gold">{points}</p>
+            <p className="mt-0.5 text-xs text-light/70">Available points</p>
           </div>
-          <Sparkles className="h-10 w-10 text-gold/60" />
+          <Sparkles className="h-6 w-6 text-gold/60" />
         </div>
-        <p className="mt-4 text-sm text-light/75">
+        <p className="mt-3 text-xs text-light/75">
           Earn points every time you shop. Redeem for discounts or free jewellery.
         </p>
       </div>
@@ -113,7 +113,7 @@ export function RewardsClient() {
       {/* How it works */}
       <div className="grid gap-4 sm:grid-cols-3">
         {[
-          { icon: Star, title: "Shop & Earn", text: "Get 1 point for every ₹50 spent (min. 10 pts per order)" },
+          { icon: Star, title: "Shop & Earn", text: "Get 1 point for every ₹100 spent (min. 5 pts per order)" },
           { icon: Gift, title: "Collect Points", text: "Points add up automatically after each WhatsApp order" },
           { icon: Sparkles, title: "Redeem Rewards", text: "Unlock discounts or free rings & earrings" },
         ].map(({ icon: Icon, title, text }) => (
@@ -146,7 +146,7 @@ export function RewardsClient() {
                     <h3 className="font-semibold text-dark">{reward.title}</h3>
                     <p className="mt-1 text-sm text-dark/60">{reward.description}</p>
                   </div>
-                  <span className="shrink-0 rounded-full bg-gold/15 px-3 py-1 text-xs font-bold text-gold-dark">
+                  <span className="shrink-0 rounded-full bg-gold/15 px-2 py-0.5 text-[10px] font-bold text-gold-dark">
                     {reward.pointsCost} pts
                   </span>
                 </div>
