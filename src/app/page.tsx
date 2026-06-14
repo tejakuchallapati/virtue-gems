@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/ui/ProductCard";
 import { CustomerReviews } from "@/components/ui/CustomerReviews";
 import { InstagramFeed } from "@/components/ui/InstagramFeed";
 import { RecentlyViewed } from "@/components/home/RecentlyViewed";
+import { LoyaltyPromo } from "@/components/home/LoyaltyPromo";
 import { getAllProducts } from "@/lib/products";
 
 export default function HomePage() {
@@ -81,6 +82,8 @@ export default function HomePage() {
       </section>
 
       <RecentlyViewed />
+
+      <LoyaltyPromo />
 
       {/* Instagram */}
       <section className="bg-light py-12 sm:py-16">

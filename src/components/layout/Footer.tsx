@@ -9,6 +9,7 @@ const shop = [
 
 const company = [
   { href: "/about", label: "About Us" },
+  { href: "/rewards", label: "Rewards & Points" },
   { href: "/contact", label: "Contact" },
 ];
 
