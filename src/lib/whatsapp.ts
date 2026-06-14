@@ -1,4 +1,4 @@
-import type { CartItem, CheckoutForm } from "@/types";
+import type { ActiveRedemption, CartItem, CheckoutForm } from "@/types";
 import { formatPrice } from "./utils";
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "917396178039";
@@ -28,6 +28,12 @@ export function buildOrderMessage(
   total: number,
   orderId?: string,
   invoiceUrl?: string,
+  options?: {
+    discount?: number;
+    redemption?: ActiveRedemption | null;
+    pointsEarned?: number;
+    pointsBalance?: number;
+  },
 ): string {
   const billId = orderId ?? `VG-${Date.now()}`;
   const billDate = formatBillDate();
@@ -35,6 +41,7 @@ export function buildOrderMessage(
     (sum, item) => sum + item.product.price * item.quantity,
     0,
   );
+  const discount = options?.discount ?? 0;
 
   const itemLines = items.flatMap((item, i) => {
     const lineTotal = item.product.price * item.quantity;
@@ -73,21 +80,46 @@ export function buildOrderMessage(
     ...itemLines,
     "━━━━━━━━━━━━━━━━━━━━━━━━━━",
     padBillLine("Subtotal", formatPrice(subtotal)),
+  ];
+
+  if (discount > 0) {
+    lines.push(padBillLine("Reward Discount", `-${formatPrice(discount)}`));
+  }
+
+  if (options?.redemption?.type === "free_item" && options.redemption.freeItemLabel) {
+    lines.push(padBillLine("Free Reward", options.redemption.freeItemLabel));
+  }
+
+  lines.push(
     padBillLine("*GRAND TOTAL*", `*${formatPrice(total)}*`),
     "━━━━━━━━━━━━━━━━━━━━━━━━━━",
     "",
     "Payment : To be confirmed on WhatsApp",
     "Status  : *Order Request — Pending*",
     "",
-  ];
+  );
+
+  if (options?.redemption) {
+    lines.push(
+      "🎁 *Loyalty Reward Applied:*",
+      options.redemption.title,
+      "",
+    );
+  }
+
+  if (options?.pointsEarned !== undefined) {
+    lines.push(
+      "⭐ *Virtue Gems Rewards:*",
+      `Points earned this order: +${options.pointsEarned}`,
+    );
+    if (options.pointsBalance !== undefined) {
+      lines.push(`Total points balance: ${options.pointsBalance}`);
+    }
+    lines.push("");
+  }
 
   if (invoiceUrl) {
-    lines.push(
-    "⚠️ *Return / Refund Policy:*",
-    "Record a video while opening your parcel.",
-    "Without unboxing video proof, no return or refund will be accepted.",
-    "",
-"📄 *View full bill (PDF style):*", invoiceUrl, "");
+    lines.push("📄 *View full bill (PDF style):*", invoiceUrl, "");
   }
 
   lines.push(
@@ -95,7 +127,6 @@ export function buildOrderMessage(
     "Record a video while opening your parcel.",
     "Without unboxing video proof, no return or refund will be accepted.",
     "",
-
     "Please confirm availability, payment mode, and delivery timeline.",
     "",
     "Thank you for shopping with Virtue Gems!",

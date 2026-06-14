@@ -3,18 +3,25 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Sparkles } from "lucide-react";
 import { useStore } from "@/context/StoreProvider";
+import { useLoyalty } from "@/context/LoyaltyProvider";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { formatPrice } from "@/lib/utils";
 import { buildOrderMessage, getWhatsAppUrl } from "@/lib/whatsapp";
+import { calculateDiscount, calculatePointsEarned } from "@/lib/loyalty";
 import { UnboxingVideoNotice } from "@/components/ui/UnboxingVideoNotice";
 import type { CheckoutForm } from "@/types";
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { cart, cartTotal, clearCart } = useStore();
+  const { activeRedemption, completeOrder, loadAccount } = useLoyalty();
   const [loading, setLoading] = useState(false);
+
+  const discount = calculateDiscount(cartTotal, activeRedemption);
+  const finalTotal = Math.max(0, cartTotal - discount);
+  const pointsToEarn = calculatePointsEarned(finalTotal);
 
   if (cart.length === 0) {
     return (
@@ -41,6 +48,8 @@ export default function CheckoutPage() {
       pincode: formData.get("pincode") as string,
     };
 
+    await loadAccount(form.phone);
+
     let orderId: string | undefined;
     let invoiceUrl: string | undefined;
 
@@ -56,7 +65,7 @@ export default function CheckoutPage() {
             quantity: c.quantity,
             price: c.product.price,
           })),
-          total: cartTotal,
+          total: finalTotal,
         }),
       });
       const data = await res.json();
@@ -68,10 +77,18 @@ export default function CheckoutPage() {
       // Continue to WhatsApp even if order save fails
     }
 
-    const message = buildOrderMessage(form, cart, cartTotal, orderId, invoiceUrl);
+    const { earned, balanceAfter } = await completeOrder(form.customerName, form.phone, finalTotal);
+
+    const message = buildOrderMessage(form, cart, finalTotal, orderId, invoiceUrl, {
+      discount,
+      redemption: activeRedemption,
+      pointsEarned: earned,
+      pointsBalance: balanceAfter,
+    });
+
     clearCart();
     window.open(getWhatsAppUrl(message), "_blank");
-    router.push(orderId ? `/invoice/${orderId}` : "/shop");
+    router.push(orderId ? `/invoice/${orderId}` : "/rewards");
     setLoading(false);
   }
 
@@ -95,6 +112,28 @@ export default function CheckoutPage() {
             No payment required. Place your order via WhatsApp and we&apos;ll confirm
             availability.
           </p>
+
+          <div className="rounded-xl border border-gold/30 bg-gold/10 p-4 text-sm text-dark">
+            <div className="flex items-center gap-2 font-semibold">
+              <Sparkles className="h-4 w-4 text-gold-dark" />
+              Earn {pointsToEarn} points on this order
+            </div>
+            <p className="mt-1 text-dark/70">
+              {activeRedemption ? (
+                <>
+                  Reward applied: <strong>{activeRedemption.title}</strong>
+                </>
+              ) : (
+                <>
+                  Have points?{" "}
+                  <Link href="/rewards" className="font-medium text-gold-dark underline">
+                    Redeem a reward
+                  </Link>{" "}
+                  before checkout.
+                </>
+              )}
+            </p>
+          </div>
 
           <div>
             <label htmlFor="customerName" className="mb-1 block text-sm font-medium">
@@ -174,11 +213,28 @@ export default function CheckoutPage() {
               </li>
             ))}
           </ul>
-          <div className="mt-4 border-t border-light-muted pt-4">
+          <div className="mt-4 space-y-2 border-t border-light-muted pt-4 text-sm">
+            <div className="flex justify-between text-dark/70">
+              <span>Subtotal</span>
+              <span>{formatPrice(cartTotal)}</span>
+            </div>
+            {discount > 0 && (
+              <div className="flex justify-between text-green-700">
+                <span>Reward discount</span>
+                <span>-{formatPrice(discount)}</span>
+              </div>
+            )}
+            {activeRedemption?.type === "free_item" && (
+              <div className="flex justify-between text-gold-dark">
+                <span>Free reward</span>
+                <span>{activeRedemption.freeItemLabel}</span>
+              </div>
+            )}
             <div className="flex justify-between text-lg font-semibold">
               <span>Total</span>
-              <span className="text-gold-dark">{formatPrice(cartTotal)}</span>
+              <span className="text-gold-dark">{formatPrice(finalTotal)}</span>
             </div>
+            <p className="text-xs text-dark/50">+{pointsToEarn} points after order</p>
           </div>
         </div>
       </div>
