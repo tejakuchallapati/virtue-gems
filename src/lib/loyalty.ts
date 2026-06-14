@@ -1,8 +1,8 @@
 import type { ActiveRedemption, LoyaltyReward } from "@/types";
 
-/** 1 point for every ₹50 spent, minimum 10 points per order */
+/** 1 point for every ₹100 spent, minimum 5 points per order */
 export function calculatePointsEarned(orderTotal: number): number {
-  return Math.max(10, Math.floor(orderTotal / 50));
+  return Math.max(5, Math.floor(orderTotal / 100));
 }
 
 export const LOYALTY_REWARDS: LoyaltyReward[] = [
@@ -10,7 +10,7 @@ export const LOYALTY_REWARDS: LoyaltyReward[] = [
     id: "reward-15-off",
     title: "15% Off",
     description: "15% discount on your next order",
-    pointsCost: 150,
+    pointsCost: 80,
     type: "percent_off",
     percentOff: 15,
   },
@@ -18,7 +18,7 @@ export const LOYALTY_REWARDS: LoyaltyReward[] = [
     id: "reward-free-ring",
     title: "Free Simple Ring",
     description: "Choose any simple ring up to ₹599 — on us",
-    pointsCost: 300,
+    pointsCost: 160,
     type: "free_item",
     freeItemLabel: "Simple ring (up to ₹599)",
   },
@@ -26,7 +26,7 @@ export const LOYALTY_REWARDS: LoyaltyReward[] = [
     id: "reward-50-off",
     title: "50% Off",
     description: "50% off on one item (maximum ₹1,000 discount)",
-    pointsCost: 500,
+    pointsCost: 280,
     type: "percent_off",
     percentOff: 50,
     maxDiscount: 1000,
@@ -35,7 +35,7 @@ export const LOYALTY_REWARDS: LoyaltyReward[] = [
     id: "reward-free-earrings",
     title: "Free Earrings",
     description: "Pick any earrings up to ₹799 — completely free",
-    pointsCost: 750,
+    pointsCost: 400,
     type: "free_item",
     freeItemLabel: "Earrings (up to ₹799)",
   },
