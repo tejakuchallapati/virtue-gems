@@ -19,4 +19,6 @@ export const STORAGE_KEYS = {
   cart: "vg-cart",
   wishlist: "vg-wishlist",
   recentlyViewed: "vg-recently-viewed",
+  loyalty: "vg-loyalty",
+  activeRedemption: "vg-active-redemption",
 } as const;

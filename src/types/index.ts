@@ -62,3 +62,41 @@ export type CheckoutForm = {
   state: string;
   pincode: string;
 };
+
+export type LoyaltyRewardType = "percent_off" | "free_item";
+
+export type LoyaltyReward = {
+  id: string;
+  title: string;
+  description: string;
+  pointsCost: number;
+  type: LoyaltyRewardType;
+  percentOff?: number;
+  freeItemLabel?: string;
+  maxDiscount?: number;
+};
+
+export type ActiveRedemption = {
+  rewardId: string;
+  title: string;
+  type: LoyaltyRewardType;
+  percentOff?: number;
+  freeItemLabel?: string;
+  maxDiscount?: number;
+  pointsCost: number;
+};
+
+export type LoyaltyHistoryEntry = {
+  type: "earn" | "redeem";
+  points: number;
+  label: string;
+  date: string;
+};
+
+export type LoyaltyAccount = {
+  phone: string;
+  name?: string;
+  points: number;
+  lifetimePoints: number;
+  history: LoyaltyHistoryEntry[];
+};
