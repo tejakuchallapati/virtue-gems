@@ -146,3 +146,33 @@ export function buildProductShareMessage(name: string, slug: string): string {
 export const whatsAppContactUrl = getWhatsAppUrl(
   "Hello Virtue Gems! I'd like to know more about your jewellery collection.",
 );
+
+export function buildCustomerPointsMessage(
+  customerName: string,
+  pointsEarned: number,
+  pointsBalance: number,
+  rewardsUrl: string,
+): string {
+  return [
+    "✨ *Virtue Gems — Points Added* ✨",
+    "",
+    `Hi ${customerName}! Thank you for your order.`,
+    "",
+    `⭐ Points added: *+${pointsEarned}*`,
+    `💎 Your total balance: *${pointsBalance} points*`,
+    "",
+    "Redeem for discounts & free jewellery:",
+    rewardsUrl,
+    "",
+    "Keep shopping to unlock more rewards!",
+  ].join("\n");
+}
+
+export function getCustomerPointsWhatsAppUrl(
+  customerPhone: string,
+  message: string,
+): string {
+  const digits = customerPhone.replace(/\D/g, "");
+  const normalized = digits.length <= 10 ? `91${digits}` : digits;
+  return `https://wa.me/${normalized}?text=${encodeURIComponent(message)}`;
+}
