@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getOrderById } from "@/lib/orders";
 import { OrderInvoice } from "@/components/invoice/OrderInvoice";
 import { InvoiceActions } from "@/components/invoice/InvoiceActions";
+import { InvoicePointsNotice } from "@/components/loyalty/InvoicePointsNotice";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -21,6 +23,13 @@ export default async function InvoicePage({ params }: Props) {
           ← Continue shopping
         </Link>
       </div>
+
+      <Suspense fallback={null}>
+        <InvoicePointsNotice
+          customerName={order.customerName}
+          customerPhone={order.phone}
+        />
+      </Suspense>
 
       <OrderInvoice order={order} className="print:shadow-none print:ring-0" />
 
