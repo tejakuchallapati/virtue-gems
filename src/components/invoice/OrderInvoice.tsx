@@ -118,7 +118,8 @@ export function OrderInvoice({ order, className = "" }: OrderInvoiceProps) {
             Terms &amp; Conditions
           </p>
           <p className="mt-0.5 text-[9px] leading-relaxed text-dark/60">
-            Orders confirmed on WhatsApp. Delivery timeline shared upon confirmation.
+            Record a video while opening your parcel. No return or refund without unboxing video
+            proof — even for damaged items.
           </p>
           <p className="mt-2 text-[9px] font-bold uppercase tracking-wider text-dark/50">
             Payment Info

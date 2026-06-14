@@ -8,6 +8,7 @@ import { useStore } from "@/context/StoreProvider";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { formatPrice } from "@/lib/utils";
 import { buildOrderMessage, getWhatsAppUrl } from "@/lib/whatsapp";
+import { UnboxingVideoNotice } from "@/components/ui/UnboxingVideoNotice";
 import type { CheckoutForm } from "@/types";
 
 export default function CheckoutPage() {
@@ -146,6 +147,8 @@ export default function CheckoutPage() {
             </label>
             <input id="pincode" name="pincode" required className={inputClass} />
           </div>
+
+          <UnboxingVideoNotice />
 
           <button
             type="submit"

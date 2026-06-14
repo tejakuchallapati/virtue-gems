@@ -82,10 +82,20 @@ export function buildOrderMessage(
   ];
 
   if (invoiceUrl) {
-    lines.push("📄 *View full bill (PDF style):*", invoiceUrl, "");
+    lines.push(
+    "⚠️ *Return / Refund Policy:*",
+    "Record a video while opening your parcel.",
+    "Without unboxing video proof, no return or refund will be accepted.",
+    "",
+"📄 *View full bill (PDF style):*", invoiceUrl, "");
   }
 
   lines.push(
+    "⚠️ *Return / Refund Policy:*",
+    "Record a video while opening your parcel.",
+    "Without unboxing video proof, no return or refund will be accepted.",
+    "",
+
     "Please confirm availability, payment mode, and delivery timeline.",
     "",
     "Thank you for shopping with Virtue Gems!",

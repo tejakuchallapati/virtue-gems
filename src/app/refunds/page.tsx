@@ -10,8 +10,16 @@ export default function RefundsPage() {
     <LegalPage title="Refund & Return Policy">
       <p><strong>Last updated:</strong> June 2026</p>
       <p>
-        At Virtue Gems, customer satisfaction is our priority. Please review our return and refund policy below.
+        At Virtue Gems, customer satisfaction is our priority. Please review our return and refund
+        policy below.
       </p>
+      <div className="rounded-xl border-2 border-gold/40 bg-gold/10 p-4">
+        <p className="font-semibold text-dark">Important — mandatory unboxing video</p>
+        <p className="mt-2 text-dark/80">
+          You must record a continuous video while opening your parcel. Without this video proof,
+          <strong> no return or refund will be accepted</strong> — including for damaged products.
+        </p>
+      </div>
       <h2 className="text-lg font-semibold text-dark">Return Eligibility</h2>
       <ul className="list-disc pl-5 space-y-1">
         <li>Returns accepted within 7 days of delivery for unused items in original packaging</li>
