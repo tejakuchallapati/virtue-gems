@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { StoreProvider } from "@/context/StoreProvider";
+import { LoyaltyProvider } from "@/context/LoyaltyProvider";
 import { SiteShell } from "@/components/layout/SiteShell";
 import "./globals.css";
 
@@ -41,7 +42,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <StoreProvider>
-          <SiteShell>{children}</SiteShell>
+          <LoyaltyProvider>
+            <SiteShell>{children}</SiteShell>
+          </LoyaltyProvider>
         </StoreProvider>
       </body>
     </html>
