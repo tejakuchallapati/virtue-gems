@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import instagramData from "@/data/instagram.json";
 
 const PROFILE_URL = instagramData.profileUrl;
@@ -15,18 +14,26 @@ function InstagramIcon({ className }: { className?: string }) {
 export function InstagramFeed() {
   return (
     <section>
-      <div className="mb-2 text-center">
-        <p className="text-sm tracking-[0.2em] text-gold uppercase">Follow Us</p>
+      <a
+        href={PROFILE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group mb-2 block text-center transition hover:opacity-90"
+        aria-label={`Follow Virtue Gems on Instagram @${instagramData.handle}`}
+      >
+        <p className="text-sm tracking-[0.2em] text-gold uppercase transition group-hover:text-gold-dark">
+          Follow Us
+        </p>
         <div className="mt-2 flex items-center justify-center gap-2">
-          <InstagramIcon className="h-5 w-5 text-gold" />
-          <h2 className="text-xl font-semibold text-dark sm:text-2xl">
+          <InstagramIcon className="h-5 w-5 text-gold transition group-hover:scale-110" />
+          <h2 className="text-xl font-semibold text-dark transition group-hover:text-gold-dark sm:text-2xl">
             @{instagramData.handle}
           </h2>
         </div>
         <p className="mx-auto mt-2 max-w-md text-sm text-dark/60">
           See our latest designs, styling tips, and behind-the-scenes moments.
         </p>
-      </div>
+      </a>
 
       <div className="mt-6 grid grid-cols-3 gap-1 sm:grid-cols-6 sm:gap-2">
         {instagramData.posts.map((post) => (
@@ -52,7 +59,7 @@ export function InstagramFeed() {
       </div>
 
       <div className="mt-8 flex justify-center">
-        <Link
+        <a
           href={PROFILE_URL}
           target="_blank"
           rel="noopener noreferrer"
@@ -60,7 +67,7 @@ export function InstagramFeed() {
         >
           <InstagramIcon className="h-4 w-4" />
           Follow on Instagram
-        </Link>
+        </a>
       </div>
     </section>
   );
