@@ -57,24 +57,31 @@ export function TrendingHighlight({
   if (picks.length === 0) return null;
 
   return (
-    <section id="collections" className="bg-dark-soft py-10 sm:py-14">
+    <section
+      id="collections"
+      className="relative overflow-hidden bg-gradient-to-b from-[#faf6ee] via-[#f3ead8] to-[#ebe0c8] py-10 sm:py-14"
+    >
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+        aria-hidden
+      />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <ScrollReveal className="text-center">
-          <p className="text-sm tracking-[0.2em] text-gold uppercase">Limited Stock</p>
-          <h2 className="mt-2 text-2xl font-semibold text-light sm:text-3xl">
+          <p className="text-sm tracking-[0.2em] text-gold-dark uppercase">Limited Stock</p>
+          <h2 className="mt-2 text-2xl font-semibold text-dark sm:text-3xl">
             Trending &amp; Best Sellers
           </h2>
         </ScrollReveal>
 
         <ScrollReveal delay={0.1} className="mt-6">
-          <div className="flex items-start gap-3 rounded-2xl border border-gold/25 bg-[#1a0a2e]/80 p-4 md:items-center md:gap-4 md:p-5">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold md:h-12 md:w-12">
+          <div className="flex items-start gap-3 rounded-2xl border border-gold/30 bg-white/80 p-4 shadow-sm backdrop-blur-sm md:items-center md:gap-4 md:p-5">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold-dark md:h-12 md:w-12">
               <Gift className="h-5 w-5 md:h-6 md:w-6" />
             </div>
-            <p className="text-left text-sm leading-relaxed text-light/75 md:text-base">
-              <span className="font-medium text-gold">Items are very limited</span> — book
+            <p className="text-left text-sm leading-relaxed text-dark/75 md:text-base">
+              <span className="font-medium text-gold-dark">Items are very limited</span> — book
               your order soon and get a special discount, beautifully{" "}
-              <span className="text-light">letter-packed</span> for gifting.
+              <span className="font-medium text-dark">letter-packed</span> for gifting.
             </p>
           </div>
         </ScrollReveal>
@@ -90,13 +97,17 @@ export function TrendingHighlight({
         <ScrollReveal delay={0.2} className="mt-8 hidden text-center md:block">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-6 py-2.5 text-sm font-medium text-gold transition hover:bg-gold hover:text-dark"
+            className="inline-flex items-center gap-2 rounded-full border border-gold/50 bg-white/60 px-6 py-2.5 text-sm font-medium text-gold-dark transition hover:bg-gold hover:text-dark"
           >
             <Sparkles className="h-4 w-4" />
             View Full Collection
           </Link>
         </ScrollReveal>
       </div>
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent"
+        aria-hidden
+      />
     </section>
   );
 }
