@@ -46,7 +46,13 @@ export function RewardsClient() {
     }
   }
 
-  if (!hydrated) return null;
+  if (!hydrated) {
+    return (
+      <div className="flex min-h-[200px] items-center justify-center text-sm text-dark/50">
+        Loading rewards...
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-10">
