@@ -36,11 +36,11 @@ function DesktopNavLink({
   active: boolean;
 }) {
   return (
-    <Link href={href} className="group relative px-3 py-2">
+    <Link href={href} className="group relative px-4 py-2">
       <span
         className={cn(
-          "text-[11px] font-medium uppercase tracking-[0.22em] transition-colors duration-300",
-          active ? "text-gold" : "text-light/55 group-hover:text-gold",
+          "text-sm font-semibold uppercase tracking-[0.12em] transition-colors duration-300 lg:text-[15px]",
+          active ? "text-gold" : "text-light/90 group-hover:text-gold",
         )}
       >
         {label}
@@ -48,7 +48,7 @@ function DesktopNavLink({
       {active ? (
         <motion.span
           layoutId="landing-nav-underline"
-          className="absolute bottom-0 left-3 right-3 h-px bg-gradient-to-r from-transparent via-gold to-transparent"
+          className="absolute bottom-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-gold to-transparent"
           transition={{ type: "spring", stiffness: 380, damping: 30 }}
         />
       ) : (
@@ -146,7 +146,7 @@ export function LandingNavbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="relative mx-auto flex h-14 max-w-[1400px] items-center px-6 lg:px-10">
+        <div className="relative mx-auto flex h-16 max-w-[1400px] items-center px-6 lg:px-10">
           <NavBrand className="relative z-10" logoClassName="h-9 w-9" />
 
           <nav className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center">
