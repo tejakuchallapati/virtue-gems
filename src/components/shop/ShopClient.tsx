@@ -1,13 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { filterProducts, getCategories } from "@/lib/products";
-import type { Product } from "@/types";
+import type { Product, ProductCategory } from "@/types";
 
 const tags = [
   { value: "", label: "All" },
@@ -24,15 +24,19 @@ const priceRanges = [
 ];
 
 export function ShopClient({ products }: { products: Product[] }) {
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState(searchParams.get("category") ?? "");
-  const [tag, setTag] = useState(searchParams.get("tag") ?? "");
   const [priceIdx, setPriceIdx] = useState(0);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
+  const category = (searchParams.get("category") ?? "") as ProductCategory | "";
+  const tag = searchParams.get("tag") ?? "";
+
   const categories = getCategories();
   const range = priceRanges[priceIdx];
+  const activeCategory = categories.find((c) => c.value === category);
 
   const filtered = useMemo(
     () =>
@@ -46,15 +50,64 @@ export function ShopClient({ products }: { products: Product[] }) {
     [search, category, tag, range],
   );
 
+  function updateQuery(key: "category" | "tag", value: string) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
+    const query = params.toString();
+    router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  }
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Shop" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Shop", href: "/shop" },
+          ...(activeCategory ? [{ label: activeCategory.label }] : []),
+        ]}
+      />
 
       <div className="mb-6 sm:mb-8">
-        <h1 className="text-2xl font-semibold text-dark sm:text-3xl">Collections</h1>
+        <h1 className="text-2xl font-semibold text-dark sm:text-3xl">
+          {activeCategory ? activeCategory.label : "Collections"}
+        </h1>
         <p className="mt-1 text-sm text-dark/60">
           {filtered.length} piece{filtered.length !== 1 ? "s" : ""} found
+          {activeCategory ? ` in ${activeCategory.label.toLowerCase()}` : ""}
         </p>
+      </div>
+
+      {/* Quick category chips */}
+      <div className="mb-6 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+        <button
+          type="button"
+          onClick={() => updateQuery("category", "")}
+          className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+            !category
+              ? "bg-dark text-gold"
+              : "bg-white text-dark/70 ring-1 ring-light-muted hover:ring-gold/40"
+          }`}
+        >
+          All
+        </button>
+        {categories.map((c) => (
+          <button
+            key={c.value}
+            type="button"
+            onClick={() => updateQuery("category", c.value)}
+            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+              category === c.value
+                ? "bg-dark text-gold"
+                : "bg-white text-dark/70 ring-1 ring-light-muted hover:ring-gold/40"
+            }`}
+          >
+            {c.label} ({c.count})
+          </button>
+        ))}
       </div>
 
       {/* Search + filter toggle */}
@@ -105,7 +158,7 @@ export function ShopClient({ products }: { products: Product[] }) {
               <div className="flex flex-wrap gap-2 lg:flex-col lg:gap-1">
                 <button
                   type="button"
-                  onClick={() => setCategory("")}
+                  onClick={() => updateQuery("category", "")}
                   className={`rounded-lg px-3 py-1.5 text-sm transition ${
                     !category ? "bg-gold/15 text-gold-dark font-medium" : "text-dark/70 hover:bg-light"
                   }`}
@@ -116,14 +169,14 @@ export function ShopClient({ products }: { products: Product[] }) {
                   <button
                     key={c.value}
                     type="button"
-                    onClick={() => setCategory(c.value)}
+                    onClick={() => updateQuery("category", c.value)}
                     className={`rounded-lg px-3 py-1.5 text-sm transition ${
                       category === c.value
                         ? "bg-gold/15 text-gold-dark font-medium"
                         : "text-dark/70 hover:bg-light"
                     }`}
                   >
-                    {c.label}
+                    {c.label} ({c.count})
                   </button>
                 ))}
               </div>
@@ -138,7 +191,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                   <button
                     key={t.value}
                     type="button"
-                    onClick={() => setTag(t.value)}
+                    onClick={() => updateQuery("tag", t.value)}
                     className={`rounded-lg px-3 py-1.5 text-sm transition ${
                       tag === t.value
                         ? "bg-gold/15 text-gold-dark font-medium"
@@ -188,9 +241,21 @@ export function ShopClient({ products }: { products: Product[] }) {
         {/* Product grid */}
         <div className="flex-1">
           {filtered.length === 0 ? (
-            <p className="py-16 text-center text-dark/50">
-              No products match your filters.
-            </p>
+            <div className="py-16 text-center">
+              <p className="text-dark/50">
+                No {activeCategory ? activeCategory.label.toLowerCase() : "products"} match your
+                filters.
+              </p>
+              {category && (
+                <button
+                  type="button"
+                  onClick={() => updateQuery("category", "")}
+                  className="mt-4 text-sm font-medium text-gold hover:underline"
+                >
+                  Browse all collections
+                </button>
+              )}
+            </div>
           ) : (
             <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-3">
               {filtered.map((p, i) => (
