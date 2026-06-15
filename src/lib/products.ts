@@ -3,6 +3,22 @@ import type { Product, ProductCategory } from "@/types";
 
 const products = productsData as unknown as Product[];
 
+const CATEGORY_LABELS: Record<ProductCategory, string> = {
+  rings: "Rings",
+  necklaces: "Necklaces",
+  earrings: "Earrings",
+  bracelets: "Bracelets",
+  pendants: "Pendants",
+};
+
+const CATEGORY_ORDER: ProductCategory[] = [
+  "rings",
+  "necklaces",
+  "earrings",
+  "bracelets",
+  "pendants",
+];
+
 export function getAllProducts(): Product[] {
   return products;
 }
@@ -21,14 +37,23 @@ export function getSimilarProducts(product: Product, limit = 4): Product[] {
     .slice(0, limit);
 }
 
-export function getCategories(): { value: ProductCategory; label: string }[] {
-  return [
-    { value: "rings", label: "Rings" },
-    { value: "necklaces", label: "Necklaces" },
-    { value: "earrings", label: "Earrings" },
-    { value: "bracelets", label: "Bracelets" },
-    { value: "pendants", label: "Pendants" },
-  ];
+export function getCategories(): {
+  value: ProductCategory;
+  label: string;
+  count: number;
+}[] {
+  const counts = new Map<ProductCategory, number>();
+  for (const product of products) {
+    counts.set(product.category, (counts.get(product.category) ?? 0) + 1);
+  }
+
+  return CATEGORY_ORDER.filter((category) => (counts.get(category) ?? 0) > 0).map(
+    (category) => ({
+      value: category,
+      label: CATEGORY_LABELS[category],
+      count: counts.get(category) ?? 0,
+    }),
+  );
 }
 
 export function filterProducts(options: {
