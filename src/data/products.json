@@ -132,16 +132,16 @@
   },
   {
     "id": "vg-006",
-    "slug": "pearl-drop-stud-earrings",
-    "name": "Pearl Drop Stud Earrings",
-    "description": "Classic pearl drop earrings with gold stud base.",
-    "longDescription": "Classic pearl drop earrings with gold stud base. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "slug": "sapphire-teardrop-floral-necklace",
+    "name": "Sapphire Teardrop Floral Necklace",
+    "description": "Sapphire teardrop pendant necklace with crystal floral accents.",
+    "longDescription": "Sapphire teardrop pendant necklace with crystal floral accents. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
     "price": 599,
     "originalPrice": 899,
     "images": [
       "/products/vg-006.jpg"
     ],
-    "category": "earrings",
+    "category": "necklaces",
     "tags": [
       "bestseller"
     ],
@@ -184,16 +184,16 @@
   },
   {
     "id": "vg-008",
-    "slug": "floral-bow-chain-necklace",
-    "name": "Floral Bow Chain Necklace",
-    "description": "Gold bow pendant necklace styled with fresh floral accents.",
-    "longDescription": "Gold bow pendant necklace styled with fresh floral accents. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 949,
-    "originalPrice": 1249,
+    "slug": "butterfly-leaf-adjustable-ring",
+    "name": "Butterfly Leaf Adjustable Ring",
+    "description": "Adjustable gold ring with butterfly and leafy branch motif.",
+    "longDescription": "Adjustable gold ring with butterfly and leafy branch motif. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 549,
+    "originalPrice": 799,
     "images": [
       "/products/vg-008.jpg"
     ],
-    "category": "necklaces",
+    "category": "rings",
     "tags": [
       "new"
     ],
@@ -236,16 +236,16 @@
   },
   {
     "id": "vg-010",
-    "slug": "rose-quartz-bib-necklace",
-    "name": "Rose Quartz Bib Necklace",
-    "description": "Statement bib necklace with pink stones and pearl drops.",
-    "longDescription": "Statement bib necklace with pink stones and pearl drops. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1999,
-    "originalPrice": 2299,
+    "slug": "butterfly-leaf-cuff-bracelet",
+    "name": "Butterfly Leaf Cuff Bracelet",
+    "description": "Open cuff bracelet with butterfly and wheat-leaf gold detailing.",
+    "longDescription": "Open cuff bracelet with butterfly and wheat-leaf gold detailing. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 799,
+    "originalPrice": 1099,
     "images": [
       "/products/vg-010.jpg"
     ],
-    "category": "necklaces",
+    "category": "bracelets",
     "tags": [
       "bestseller"
     ],
@@ -314,16 +314,16 @@
   },
   {
     "id": "vg-013",
-    "slug": "ruby-floral-stud-earrings",
-    "name": "Ruby Floral Stud Earrings",
-    "description": "Floral stud earrings with ruby center and crystal petals.",
-    "longDescription": "Floral stud earrings with ruby center and crystal petals. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "slug": "pink-kundan-bead-choker",
+    "name": "Pink Kundan Bead Choker",
+    "description": "Three-strand pink bead choker with floral Kundan centerpiece.",
+    "longDescription": "Three-strand pink bead choker with floral Kundan centerpiece. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
     "price": 699,
     "originalPrice": 999,
     "images": [
       "/products/vg-013.jpg"
     ],
-    "category": "earrings",
+    "category": "necklaces",
     "tags": [
       "new"
     ],
@@ -419,16 +419,16 @@
   },
   {
     "id": "vg-017",
-    "slug": "crystal-starburst-pendant",
-    "name": "Crystal Starburst Pendant",
-    "description": "Gold starburst pendant with crystal halo on fine chain.",
-    "longDescription": "Gold starburst pendant with crystal halo on fine chain. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 849,
-    "originalPrice": 1149,
+    "slug": "rose-quartz-bib-necklace",
+    "name": "Rose Quartz Bib Necklace",
+    "description": "Statement bib necklace with pink stones and pearl drops.",
+    "longDescription": "Statement bib necklace with pink stones and pearl drops. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1999,
+    "originalPrice": 2299,
     "images": [
       "/products/vg-017.jpg"
     ],
-    "category": "pendants",
+    "category": "necklaces",
     "tags": [
       "trending"
     ],
@@ -575,16 +575,16 @@
   },
   {
     "id": "vg-023",
-    "slug": "butterfly-leaf-cuff-bracelet",
-    "name": "Butterfly Leaf Cuff Bracelet",
-    "description": "Open cuff bracelet with butterfly and wheat-leaf gold detailing.",
-    "longDescription": "Open cuff bracelet with butterfly and wheat-leaf gold detailing. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 799,
-    "originalPrice": 1099,
+    "slug": "pink-teardrop-collar-necklace-set",
+    "name": "Pink Teardrop Collar Necklace Set",
+    "description": "Gold lattice collar necklace with pink teardrop pendant and matching studs.",
+    "longDescription": "Gold lattice collar necklace with pink teardrop pendant and matching studs. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1499,
+    "originalPrice": 1799,
     "images": [
       "/products/vg-023.jpg"
     ],
-    "category": "bracelets",
+    "category": "necklaces",
     "tags": [
       "new"
     ],
@@ -733,16 +733,16 @@
   },
   {
     "id": "vg-029",
-    "slug": "gold-wave-bangle-bracelet",
-    "name": "Gold Wave Bangle Bracelet",
-    "description": "Sleek gold wave bangle with polished finish.",
-    "longDescription": "Sleek gold wave bangle with polished finish. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 849,
-    "originalPrice": 1149,
+    "slug": "gold-crystal-drop-earrings",
+    "name": "Gold Crystal Drop Earrings",
+    "description": "Elegant gold drop earrings with crystal accents in gift packaging.",
+    "longDescription": "Elegant gold drop earrings with crystal accents in gift packaging. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 649,
+    "originalPrice": 899,
     "images": [
       "/products/vg-029.jpg"
     ],
-    "category": "bracelets",
+    "category": "earrings",
     "tags": [
       "trending"
     ],
