@@ -22,6 +22,8 @@ export default function HomePage() {
 
       <TrendingHighlight trending={trending} bestseller={bestseller} />
 
+      <LoyaltyPromo />
+
       {/* Best sellers */}
       <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -82,8 +84,6 @@ export default function HomePage() {
       </section>
 
       <RecentlyViewed />
-
-      <LoyaltyPromo />
 
       {/* Instagram */}
       <section className="bg-light py-12 sm:py-16">
