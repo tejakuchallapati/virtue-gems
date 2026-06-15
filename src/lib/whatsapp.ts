@@ -1,5 +1,6 @@
 import type { ActiveRedemption, CartItem, CheckoutForm } from "@/types";
 import { formatPrice } from "./utils";
+import { DELIVERY_REGION_LABEL } from "./delivery";
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "917396178039";
 
@@ -96,6 +97,7 @@ export function buildOrderMessage(
     "",
     "Payment : To be confirmed on WhatsApp",
     "Status  : *Order Request — Pending*",
+    `Delivery: *${DELIVERY_REGION_LABEL} only*`,
     "",
   );
 

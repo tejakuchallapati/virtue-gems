@@ -20,6 +20,10 @@ export default function TermsPage() {
       <p>
         Orders are placed via WhatsApp checkout. An order is confirmed only after we acknowledge availability and agree on delivery terms via WhatsApp.
       </p>
+      <h2 className="text-lg font-semibold text-dark">Delivery</h2>
+      <p>
+        We currently deliver only to Andhra Pradesh and Telangana. Orders outside these states cannot be fulfilled at this time. Additional regions will be added as our production capacity grows.
+      </p>
       <h2 className="text-lg font-semibold text-dark">Intellectual Property</h2>
       <p>
         All content, designs, and branding on this website are the property of Virtue Gems and may not be reproduced without permission.

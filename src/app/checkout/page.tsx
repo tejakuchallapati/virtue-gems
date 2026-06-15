@@ -11,6 +11,7 @@ import { formatPrice } from "@/lib/utils";
 import { buildOrderMessage, getWhatsAppUrl, buildCustomerPointsMessage, getCustomerPointsWhatsAppUrl } from "@/lib/whatsapp";
 import { calculateDiscount, calculatePointsEarned } from "@/lib/loyalty";
 import { UnboxingVideoNotice } from "@/components/ui/UnboxingVideoNotice";
+import { DELIVERY_NOTICE, DELIVERY_REGION_LABEL, DELIVERY_STATES } from "@/lib/delivery";
 import type { CheckoutForm } from "@/types";
 
 export default function CheckoutPage() {
@@ -128,6 +129,11 @@ export default function CheckoutPage() {
             availability.
           </p>
 
+          <div className="rounded-xl border border-gold/30 bg-gold/10 p-3 text-xs text-dark/80">
+            <p className="font-medium text-dark">Delivery: {DELIVERY_REGION_LABEL}</p>
+            <p className="mt-1">{DELIVERY_NOTICE}</p>
+          </div>
+
           <div className="rounded-xl border border-gold/30 bg-gold/10 p-3 text-xs text-dark">
             <div className="flex items-center gap-1.5 font-medium">
               <Sparkles className="h-3.5 w-3.5 text-gold-dark" />
@@ -192,7 +198,16 @@ export default function CheckoutPage() {
               <label htmlFor="state" className="mb-1 block text-sm font-medium">
                 State *
               </label>
-              <input id="state" name="state" required className={inputClass} />
+              <select id="state" name="state" required className={inputClass} defaultValue="">
+                <option value="" disabled>
+                  Select state
+                </option>
+                {DELIVERY_STATES.map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
           <div>

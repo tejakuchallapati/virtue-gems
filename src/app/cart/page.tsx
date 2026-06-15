@@ -7,6 +7,7 @@ import { useStore } from "@/context/StoreProvider";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { formatPrice } from "@/lib/utils";
+import { DELIVERY_SHORT } from "@/lib/delivery";
 
 export default function CartPage() {
   const { cart, cartTotal, updateQuantity, removeFromCart } = useStore();
@@ -121,6 +122,7 @@ export default function CartPage() {
                 <span>Shipping</span>
                 <span className="text-green-600">Free</span>
               </div>
+              <p className="text-[11px] text-dark/45">{DELIVERY_SHORT}</p>
               <div className="border-t border-light-muted pt-2">
                 <div className="flex justify-between text-base font-semibold text-dark">
                   <span>Total</span>
