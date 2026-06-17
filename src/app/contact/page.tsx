@@ -36,7 +36,7 @@ const contactChannels = [
     icon: MessageCircle,
     title: "WhatsApp",
     detail: CONTACT_PHONE,
-    note: "Fastest way to order or get help",
+    note: "For any enquiries — orders, sizing, or custom requests",
     href: whatsAppContactUrl,
     external: true,
     primary: true,
@@ -166,8 +166,9 @@ export default function ContactPage() {
           We&apos;re Here to Help You Shine
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-sm text-light/70 sm:text-base">
-          Questions about an order, sizing, custom gifting, or rewards? Reach us on WhatsApp
-          for the quickest reply — or send a message below. We currently deliver to{" "}
+          Questions about an order, sizing, custom gifting, or rewards?{" "}
+          <span className="text-gold">For any enquiries, message us on WhatsApp</span> for the
+          quickest reply — or send a message below. We currently deliver to{" "}
           <span className="text-gold">{DELIVERY_REGION_LABEL}</span>.
         </p>
         <a
