@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { whatsAppContactUrl } from "@/lib/whatsapp";
 
 const shop = [
   { href: "/shop", label: "All Collections" },
@@ -32,6 +33,14 @@ export function Footer() {
             <p className="mt-3 text-sm leading-relaxed text-light/60">
               Premium handcrafted jewellery. Timeless elegance for every occasion.
             </p>
+            <a
+              href={whatsAppContactUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-block text-sm text-gold transition hover:text-gold-light"
+            >
+              For any enquiries, message us on WhatsApp →
+            </a>
           </div>
           <div>
             <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gold">
