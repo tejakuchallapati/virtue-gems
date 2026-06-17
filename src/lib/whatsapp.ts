@@ -145,9 +145,10 @@ export function buildProductShareMessage(name: string, slug: string): string {
   return `Check out this beautiful piece from Virtue Gems: *${name}*\n${url}`;
 }
 
-export const whatsAppContactUrl = getWhatsAppUrl(
-  "Hello Virtue Gems! I'd like to know more about your jewellery collection.",
-);
+export const WHATSAPP_ENQUIRY_MESSAGE =
+  "Hello Virtue Gems! I have an enquiry about your jewellery.";
+
+export const whatsAppContactUrl = getWhatsAppUrl(WHATSAPP_ENQUIRY_MESSAGE);
 
 export function buildCustomerPointsMessage(
   customerName: string,
