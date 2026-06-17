@@ -28,6 +28,9 @@ export function MobileBottomNav() {
 
   if (pathname.startsWith("/admin")) return null;
 
+  const navItems =
+    pathname === "/" ? items.filter((item) => !item.external) : items;
+
   return (
     <nav className="safe-bottom fixed bottom-0 left-0 right-0 z-50 md:hidden">
       {/* Gold shimmer top edge */}
@@ -41,7 +44,7 @@ export function MobileBottomNav() {
 
       <div className="border-t border-gold/20 bg-[#0f172a]/95 shadow-[0_-8px_32px_rgba(0,0,0,0.25)]">
         <div className="flex items-stretch justify-around px-1 py-1.5">
-          {items.map((item) => {
+          {navItems.map((item) => {
             const Icon = item.icon;
             const active = !item.external && pathname === item.href;
             const badge =

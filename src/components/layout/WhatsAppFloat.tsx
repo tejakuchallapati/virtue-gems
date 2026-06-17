@@ -7,7 +7,7 @@ import { whatsAppContactUrl } from "@/lib/whatsapp";
 
 export function WhatsAppFloat() {
   const pathname = usePathname();
-  if (pathname.startsWith("/admin")) return null;
+  if (pathname.startsWith("/admin") || pathname === "/") return null;
 
   return (
     <motion.a
