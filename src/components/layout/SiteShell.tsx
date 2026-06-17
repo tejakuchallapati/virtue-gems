@@ -26,7 +26,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       {/* Inner pages: standard nav */}
       {!isHome && <DesktopNavbar />}
       {!isHome && <MobileHeader />}
-      <PageTransition>
+      <PageTransition key={pathname}>
         <main
           className={
             isHome
