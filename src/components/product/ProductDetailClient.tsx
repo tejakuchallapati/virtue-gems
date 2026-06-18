@@ -11,12 +11,15 @@ import {
   Minus,
   Plus,
   ZoomIn,
+  Camera,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStore } from "@/context/StoreProvider";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { TryOnModal } from "@/components/try-on/TryOnModal";
+import { VirtualTryOn } from "@/components/try-on/VirtualTryOn";
 import { formatPrice } from "@/lib/utils";
 import { buildProductShareMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import type { Product } from "@/types";
@@ -31,6 +34,7 @@ export function ProductDetailClient({
   const [activeImage, setActiveImage] = useState(0);
   const [qty, setQty] = useState(1);
   const [zoom, setZoom] = useState(false);
+  const [tryOnOpen, setTryOnOpen] = useState(false);
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist, addRecentlyViewed } =
     useStore();
   const wished = isInWishlist(product.id);
@@ -194,6 +198,15 @@ export function ProductDetailClient({
             </button>
           </div>
 
+          <button
+            type="button"
+            onClick={() => setTryOnOpen(true)}
+            className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-gold/40 bg-gold/10 py-3.5 text-sm font-semibold text-gold-dark transition hover:bg-gold/20 sm:hidden"
+          >
+            <Camera className="h-4 w-4" />
+            Try on me — see how it looks
+          </button>
+
           {/* Specifications */}
           <div className="mt-8 rounded-2xl bg-white p-5 ring-1 ring-light-muted/60">
             <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-dark">
@@ -210,6 +223,12 @@ export function ProductDetailClient({
           </div>
         </div>
       </div>
+
+      <ScrollReveal className="mt-10 hidden sm:block">
+        <VirtualTryOn product={product} />
+      </ScrollReveal>
+
+      <TryOnModal product={product} open={tryOnOpen} onClose={() => setTryOnOpen(false)} />
 
       {/* Reviews */}
       {product.reviews.length > 0 && (
