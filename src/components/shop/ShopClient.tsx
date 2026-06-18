@@ -40,6 +40,65 @@ const trustItems = [
   { icon: Gift, text: "Earn rewards on every purchase" },
 ];
 
+function CategoryFilters({
+  category,
+  categories,
+  onSelect,
+  variant = "hero",
+}: {
+  category: string;
+  categories: ReturnType<typeof getCategories>;
+  onSelect: (value: string) => void;
+  variant?: "hero" | "panel";
+}) {
+  const isHero = variant === "hero";
+
+  return (
+    <div
+      className={
+        isHero
+          ? "flex gap-2 overflow-x-auto pb-1 no-scrollbar"
+          : "flex flex-wrap gap-2"
+      }
+    >
+      <button
+        type="button"
+        onClick={() => onSelect("")}
+        className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+          !category
+            ? isHero
+              ? "bg-gold text-dark shadow-[0_0_20px_rgba(212,175,55,0.35)]"
+              : "bg-gold/15 font-medium text-gold-dark"
+            : isHero
+              ? "border border-white/15 bg-white/5 text-light/75 hover:border-gold/40 hover:text-gold"
+              : "bg-light text-dark/70 hover:bg-gold/10"
+        }`}
+      >
+        All
+      </button>
+      {categories.map((c) => (
+        <button
+          key={c.value}
+          type="button"
+          onClick={() => onSelect(c.value)}
+          className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+            category === c.value
+              ? isHero
+                ? "bg-gold text-dark shadow-[0_0_20px_rgba(212,175,55,0.35)]"
+                : "bg-gold/15 font-medium text-gold-dark"
+              : isHero
+                ? "border border-white/15 bg-white/5 text-light/75 hover:border-gold/40 hover:text-gold"
+                : "bg-light text-dark/70 hover:bg-gold/10"
+          }`}
+        >
+          {c.label}
+          <span className="ml-1.5 text-[11px] opacity-70">({c.count})</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function ShopClient({ products }: { products: Product[] }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -150,33 +209,12 @@ export function ShopClient({ products }: { products: Product[] }) {
           </div>
 
           {/* Category chips */}
-          <div className="mt-5 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-            <button
-              type="button"
-              onClick={() => updateQuery("category", "")}
-              className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
-                !category
-                  ? "bg-gold text-dark shadow-[0_0_20px_rgba(212,175,55,0.35)]"
-                  : "border border-white/15 bg-white/5 text-light/75 hover:border-gold/40 hover:text-gold"
-              }`}
-            >
-              All
-            </button>
-            {categories.map((c) => (
-              <button
-                key={c.value}
-                type="button"
-                onClick={() => updateQuery("category", c.value)}
-                className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
-                  category === c.value
-                    ? "bg-gold text-dark shadow-[0_0_20px_rgba(212,175,55,0.35)]"
-                    : "border border-white/15 bg-white/5 text-light/75 hover:border-gold/40 hover:text-gold"
-                }`}
-              >
-                {c.label}
-                <span className="ml-1.5 text-[11px] opacity-70">({c.count})</span>
-              </button>
-            ))}
+          <div className="mt-5">
+            <CategoryFilters
+              category={category}
+              categories={categories}
+              onSelect={(value) => updateQuery("category", value)}
+            />
           </div>
         </div>
       </section>
