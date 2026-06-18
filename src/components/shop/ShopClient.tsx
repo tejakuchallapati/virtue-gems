@@ -208,8 +208,11 @@ export function ShopClient({ products }: { products: Product[] }) {
             </button>
           </div>
 
-          {/* Category chips */}
+          {/* Category — top only */}
           <div className="mt-5">
+            <p className="mb-2 text-[10px] font-medium tracking-[0.2em] text-gold/80 uppercase">
+              Browse by category
+            </p>
             <CategoryFilters
               category={category}
               categories={categories}
@@ -292,6 +295,19 @@ export function ShopClient({ products }: { products: Product[] }) {
             )}
 
             <div className="space-y-5 overflow-y-auto lg:sticky lg:top-24">
+              {/* Mobile: category in filters panel when hero is scrolled away */}
+              <div className="rounded-2xl bg-white p-5 ring-1 ring-light-muted/60 lg:hidden">
+                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark/50">
+                  Category
+                </h3>
+                <CategoryFilters
+                  category={category}
+                  categories={categories}
+                  variant="panel"
+                  onSelect={(value) => updateQuery("category", value)}
+                />
+              </div>
+
               <div className="hidden rounded-2xl bg-gradient-to-br from-[#1a0a2e] to-[#2d1450] p-5 text-light lg:block">
                 <Sparkles className="h-5 w-5 text-gold" />
                 <p className="mt-2 text-sm font-semibold">Need help choosing?</p>
@@ -306,40 +322,6 @@ export function ShopClient({ products }: { products: Product[] }) {
                 >
                   Chat with us →
                 </a>
-              </div>
-
-              <div className="rounded-2xl bg-white p-5 ring-1 ring-light-muted/60 lg:shadow-sm">
-                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark/50">
-                  Category
-                </h3>
-                <div className="flex flex-col gap-1">
-                  <button
-                    type="button"
-                    onClick={() => updateQuery("category", "")}
-                    className={`rounded-xl px-3 py-2 text-left text-sm transition ${
-                      !category
-                        ? "bg-gold/15 font-medium text-gold-dark"
-                        : "text-dark/70 hover:bg-light"
-                    }`}
-                  >
-                    All Collections
-                  </button>
-                  {categories.map((c) => (
-                    <button
-                      key={c.value}
-                      type="button"
-                      onClick={() => updateQuery("category", c.value)}
-                      className={`rounded-xl px-3 py-2 text-left text-sm transition ${
-                        category === c.value
-                          ? "bg-gold/15 font-medium text-gold-dark"
-                          : "text-dark/70 hover:bg-light"
-                      }`}
-                    >
-                      {c.label}{" "}
-                      <span className="text-dark/40">({c.count})</span>
-                    </button>
-                  ))}
-                </div>
               </div>
 
               <div className="rounded-2xl bg-white p-5 ring-1 ring-light-muted/60 lg:shadow-sm">
