@@ -39,11 +39,11 @@ export function getDefaultPlacements(category: ProductCategory): OverlayPlacemen
 }
 
 export const TRY_ON_HINTS: Record<ProductCategory, string> = {
-  earrings: "Drag each earring over your ears. Use sliders to resize.",
-  necklaces: "Place the necklace along your neck and collarbone.",
-  rings: "Move the ring onto your finger in the photo.",
-  bracelets: "Position the bracelet on your wrist.",
-  pendants: "Align the pendant on your neckline.",
+  earrings: "Earrings are placed on your ears automatically. Drag to fine-tune if needed.",
+  necklaces: "Necklace is placed on your neck automatically. Drag to adjust if needed.",
+  rings: "Ring is placed automatically. Drag onto your finger to adjust.",
+  bracelets: "Bracelet is placed automatically. Drag to your wrist if needed.",
+  pendants: "Pendant is aligned on your neckline automatically. Drag to adjust.",
 };
 
 export function loadImage(src: string): Promise<HTMLImageElement> {

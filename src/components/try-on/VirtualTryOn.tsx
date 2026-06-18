@@ -19,6 +19,7 @@ import {
   TRY_ON_HINTS,
   type OverlayPlacement,
 } from "@/lib/try-on";
+import { detectJewelleryPlacements } from "@/lib/face-placement";
 import type { Product } from "@/types";
 
 type VirtualTryOnProps = {
@@ -36,10 +37,12 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
   );
   const [activeOverlay, setActiveOverlay] = useState(placements[0]?.id ?? "");
   const [saving, setSaving] = useState(false);
+  const [fitting, setFitting] = useState(false);
+  const [fitMessage, setFitMessage] = useState<string | null>(null);
 
   const active = placements.find((p) => p.id === activeOverlay) ?? placements[0];
 
-  function handlePhotoUpload(file: File | null) {
+  async function handlePhotoUpload(file: File | null) {
     if (!file) return;
     if (!file.type.startsWith("image/")) return;
 
@@ -48,9 +51,24 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
       if (prev) URL.revokeObjectURL(prev);
       return url;
     });
+
+    setFitting(true);
+    setFitMessage("Detecting face and placing jewellery...");
+
     const defaults = getDefaultPlacements(product.category);
     setPlacements(defaults);
     setActiveOverlay(defaults[0]?.id ?? "");
+
+    try {
+      const auto = await detectJewelleryPlacements(url, product.category);
+      setPlacements(auto);
+      setActiveOverlay(auto[0]?.id ?? "");
+      setFitMessage("Placed on you automatically. Drag to fine-tune if needed.");
+    } catch {
+      setFitMessage("Could not detect face — adjust the jewellery manually.");
+    } finally {
+      setFitting(false);
+    }
   }
 
   function updateActive(patch: Partial<OverlayPlacement>) {
@@ -60,10 +78,24 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
     );
   }
 
-  function resetPlacement() {
-    const defaults = getDefaultPlacements(product.category);
-    setPlacements(defaults);
-    setActiveOverlay(defaults[0]?.id ?? "");
+  async function resetPlacement() {
+    if (!photoUrl) {
+      const defaults = getDefaultPlacements(product.category);
+      setPlacements(defaults);
+      setActiveOverlay(defaults[0]?.id ?? "");
+      return;
+    }
+
+    setFitting(true);
+    setFitMessage("Re-detecting face...");
+    try {
+      const auto = await detectJewelleryPlacements(photoUrl, product.category);
+      setPlacements(auto);
+      setActiveOverlay(auto[0]?.id ?? "");
+      setFitMessage("Re-positioned on your photo.");
+    } finally {
+      setFitting(false);
+    }
   }
 
   const capturePreview = useCallback(async () => {
@@ -178,6 +210,15 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
               draggable={false}
             />
 
+            {fitting && (
+              <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-dark/60 backdrop-blur-[2px]">
+                <div className="h-8 w-8 animate-spin rounded-full border-2 border-gold border-t-transparent" />
+                <p className="mt-3 px-4 text-center text-sm font-medium text-white">
+                  {fitMessage ?? "Placing jewellery on you..."}
+                </p>
+              </div>
+            )}
+
             {placements.map((placement) => {
               const isActive = placement.id === activeOverlay;
               const size = `${placement.scale * 100}%`;
@@ -233,7 +274,7 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
 
           <p className="mt-3 flex items-center gap-1.5 text-xs text-dark/50">
             <Move className="h-3.5 w-3.5 shrink-0" />
-            {TRY_ON_HINTS[product.category]}
+            {fitMessage && !fitting ? fitMessage : TRY_ON_HINTS[product.category]}
           </p>
 
           {placements.length > 1 && (
