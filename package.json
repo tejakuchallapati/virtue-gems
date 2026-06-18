@@ -13,6 +13,7 @@
     "process:logo": "node scripts/process-logo.mjs"
   },
   "dependencies": {
+    "@vladmandic/face-api": "^1.7.15",
     "clsx": "^2.1.1",
     "framer-motion": "^12.40.0",
     "lucide-react": "^1.17.0",
