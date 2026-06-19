@@ -5,6 +5,7 @@ import { useCallback, useRef, useState } from "react";
 import {
   Camera,
   Download,
+  ImageIcon,
   Move,
   RefreshCw,
   RotateCw,
@@ -34,6 +35,7 @@ function clampPercent(value: number) {
 export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
 
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [placements, setPlacements] = useState<OverlayPlacement[]>(() =>
@@ -73,6 +75,11 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
     } finally {
       setFitting(false);
     }
+  }
+
+  function onFileInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    void handlePhotoUpload(e.target.files?.[0] ?? null);
+    e.target.value = "";
   }
 
   function updateActive(patch: Partial<OverlayPlacement>) {
@@ -217,27 +224,55 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
         ref={fileInputRef}
         type="file"
         accept="image/*"
+        className="hidden"
+        onChange={onFileInputChange}
+      />
+      <input
+        ref={cameraInputRef}
+        type="file"
+        accept="image/*"
         capture="user"
         className="hidden"
-        onChange={(e) => handlePhotoUpload(e.target.files?.[0] ?? null)}
+        onChange={onFileInputChange}
       />
 
       {!photoUrl ? (
-        <button
-          type="button"
-          onClick={() => fileInputRef.current?.click()}
-          className="mt-5 flex w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gold/35 bg-gold/5 px-6 py-12 text-center transition hover:border-gold/55 hover:bg-gold/10"
-        >
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gold/15">
-            <Upload className="h-6 w-6 text-gold-dark" />
+        <div className="mt-5">
+          <button
+            type="button"
+            onClick={() => cameraInputRef.current?.click()}
+            className="flex w-full min-h-[120px] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gold/35 bg-gold/5 px-4 py-8 text-center transition active:bg-gold/15 sm:min-h-0 sm:px-6 sm:py-12 sm:hover:border-gold/55 sm:hover:bg-gold/10"
+          >
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gold/15">
+              <Camera className="h-6 w-6 text-gold-dark" />
+            </div>
+            <p className="mt-4 text-sm font-medium text-dark">
+              Take a selfie or upload a portrait
+            </p>
+            <p className="mt-1 text-xs text-dark/50">
+              Front-facing photos work best · JPG or PNG
+            </p>
+          </button>
+
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:hidden">
+            <button
+              type="button"
+              onClick={() => cameraInputRef.current?.click()}
+              className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-dark px-3 py-2.5 text-sm font-semibold text-gold"
+            >
+              <Camera className="h-4 w-4 shrink-0" />
+              Camera
+            </button>
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="flex min-h-11 items-center justify-center gap-2 rounded-xl border border-gold/40 bg-gold/10 px-3 py-2.5 text-sm font-semibold text-gold-dark"
+            >
+              <ImageIcon className="h-4 w-4 shrink-0" />
+              Gallery
+            </button>
           </div>
-          <p className="mt-4 text-sm font-medium text-dark">
-            Tap to upload a selfie or portrait
-          </p>
-          <p className="mt-1 text-xs text-dark/50">
-            Front-facing photos work best · JPG or PNG
-          </p>
-        </button>
+        </div>
       ) : (
         <>
           <div
