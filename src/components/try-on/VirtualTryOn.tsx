@@ -156,8 +156,26 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
         ctx.restore();
       }
 
+      const fileName = `virtue-gems-tryon-${product.slug}.png`;
+
+      const blob = await new Promise<Blob | null>((resolve) =>
+        canvas.toBlob(resolve, "image/png"),
+      );
+
+      if (blob && typeof navigator !== "undefined" && navigator.share) {
+        const file = new File([blob], fileName, { type: "image/png" });
+        if (navigator.canShare?.({ files: [file] })) {
+          try {
+            await navigator.share({ files: [file], title: "Virtue Gems Try-On" });
+            return;
+          } catch {
+            // User cancelled share sheet — fall through to download.
+          }
+        }
+      }
+
       const link = document.createElement("a");
-      link.download = `virtue-gems-tryon-${product.slug}.png`;
+      link.download = fileName;
       link.href = canvas.toDataURL("image/png");
       link.click();
     } finally {
