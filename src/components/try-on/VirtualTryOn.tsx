@@ -27,6 +27,10 @@ type VirtualTryOnProps = {
   compact?: boolean;
 };
 
+function clampPercent(value: number) {
+  return Math.min(88, Math.max(0, value));
+}
+
 export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -97,6 +101,26 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
       setFitting(false);
     }
   }
+
+  const handleDragEnd = useCallback(
+    (placementId: string, offsetX: number, offsetY: number) => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      setPlacements((prev) =>
+        prev.map((p) => {
+          if (p.id !== placementId) return p;
+          return {
+            ...p,
+            xPercent: clampPercent(p.xPercent + (offsetX / rect.width) * 100),
+            yPercent: clampPercent(p.yPercent + (offsetY / rect.height) * 100),
+          };
+        }),
+      );
+    },
+    [],
+  );
 
   const capturePreview = useCallback(async () => {
     if (!photoUrl || !containerRef.current) return;
@@ -230,25 +254,10 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
                   dragMomentum={false}
                   dragElastic={0}
                   dragConstraints={containerRef}
-                  onDragEnd={(_, info) => {
-                    const container = containerRef.current;
-                    if (!container) return;
-                    const rect = container.getBoundingClientRect();
-                    const xPercent = Math.min(
-                      88,
-                      Math.max(0, ((info.point.x - rect.left) / rect.width) * 100),
-                    );
-                    const yPercent = Math.min(
-                      88,
-                      Math.max(0, ((info.point.y - rect.top) / rect.height) * 100),
-                    );
-                    setPlacements((prev) =>
-                      prev.map((p) =>
-                        p.id === placement.id ? { ...p, xPercent, yPercent } : p,
-                      ),
-                    );
-                  }}
+                  onDragEnd={(_, info) => handleDragEnd(placement.id, info.offset.x, info.offset.y)}
                   onPointerDown={() => setActiveOverlay(placement.id)}
+                  animate={{ x: 0, y: 0 }}
+                  transition={{ duration: 0 }}
                   style={{
                     left: `${placement.xPercent}%`,
                     top: `${placement.yPercent}%`,
