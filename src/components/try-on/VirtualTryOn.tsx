@@ -190,35 +190,41 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
     }
   }, [photoUrl, placements, product.images, product.slug]);
 
+  const shellClass = compact
+    ? "p-0 ring-0 bg-transparent"
+    : "rounded-2xl bg-white p-4 ring-1 ring-light-muted/60 sm:p-5 lg:p-6";
+
+  const previewClass = compact
+    ? "relative mt-3 aspect-[3/4] w-full max-h-[min(52dvh,420px)] overflow-hidden rounded-xl bg-[#1a0a2e] sm:mt-4 sm:max-h-[min(60vh,480px)] sm:rounded-2xl"
+    : "relative mt-4 aspect-[3/4] w-full max-h-[min(65dvh,480px)] overflow-hidden rounded-2xl bg-[#1a0a2e] sm:mx-auto sm:mt-5 sm:max-h-[min(70vh,520px)] sm:max-w-md";
+
   return (
-    <div
-      className={`rounded-2xl bg-white ring-1 ring-light-muted/60 ${
-        compact ? "p-4 sm:p-5" : "p-5 sm:p-6"
-      }`}
-    >
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <div className="flex items-center gap-2">
-            <Camera className="h-5 w-5 text-gold" />
-            <h2 className="text-lg font-semibold text-dark">Virtual Try-On</h2>
+    <div className={shellClass}>
+      {!compact && (
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <Camera className="h-5 w-5 shrink-0 text-gold" />
+              <h2 className="text-lg font-semibold text-dark">Virtual Try-On</h2>
+            </div>
+            <p className="mt-1 text-sm text-dark/60">
+              Upload your photo and preview how{" "}
+              <span className="font-medium text-dark">{product.name}</span> looks on
+              you.
+            </p>
           </div>
-          <p className="mt-1 text-sm text-dark/60">
-            Upload your photo and preview how{" "}
-            <span className="font-medium text-dark">{product.name}</span> looks on
-            you.
-          </p>
+          {!photoUrl && (
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="hidden min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-dark px-4 py-2.5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark sm:inline-flex"
+            >
+              <Upload className="h-4 w-4" />
+              Upload photo
+            </button>
+          )}
         </div>
-        {!photoUrl && (
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            className="inline-flex items-center gap-2 rounded-xl bg-dark px-4 py-2.5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark"
-          >
-            <Upload className="h-4 w-4" />
-            Upload photo
-          </button>
-        )}
-      </div>
+      )}
 
       <input
         ref={fileInputRef}
@@ -237,7 +243,7 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
       />
 
       {!photoUrl ? (
-        <div className="mt-5">
+        <div className={compact ? "mt-0" : "mt-4 sm:mt-5"}>
           <button
             type="button"
             onClick={() => cameraInputRef.current?.click()}
@@ -275,10 +281,7 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
         </div>
       ) : (
         <>
-          <div
-            ref={containerRef}
-            className="relative mt-5 aspect-[3/4] w-full max-h-[min(70vh,520px)] overflow-hidden rounded-2xl bg-[#1a0a2e] sm:mx-auto sm:max-w-md"
-          >
+          <div ref={containerRef} className={previewClass}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={photoUrl}
