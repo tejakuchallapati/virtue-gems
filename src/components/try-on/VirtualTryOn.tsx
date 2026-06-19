@@ -320,8 +320,10 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
                     width: size,
                     rotate: placement.rotation,
                   }}
-                  className={`absolute cursor-grab touch-none active:cursor-grabbing ${
-                    isActive ? "z-20 ring-2 ring-gold ring-offset-2 ring-offset-transparent" : "z-10"
+                  className={`absolute cursor-grab touch-none select-none active:cursor-grabbing ${
+                    isActive
+                      ? "z-20 ring-2 ring-gold ring-offset-1 ring-offset-transparent sm:ring-offset-2"
+                      : "z-10"
                   }`}
                 >
                   <Image
@@ -329,7 +331,7 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
                     alt={product.name}
                     width={200}
                     height={200}
-                    className="h-auto w-full object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.45)]"
+                    className="pointer-events-none h-auto w-full object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.45)]"
                     draggable={false}
                   />
                 </motion.div>
@@ -337,9 +339,11 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
             })}
           </div>
 
-          <p className="mt-3 flex items-center gap-1.5 text-xs text-dark/50">
-            <Move className="h-3.5 w-3.5 shrink-0" />
-            {fitMessage && !fitting ? fitMessage : TRY_ON_HINTS[product.category]}
+          <p className="mt-3 flex items-start gap-1.5 text-xs leading-relaxed text-dark/50">
+            <Move className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+            <span>
+              {fitMessage && !fitting ? fitMessage : TRY_ON_HINTS[product.category]}
+            </span>
           </p>
 
           {placements.length > 1 && (
@@ -349,7 +353,7 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
                   key={p.id}
                   type="button"
                   onClick={() => setActiveOverlay(p.id)}
-                  className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+                  className={`min-h-9 rounded-full px-3 py-1.5 text-xs font-medium transition ${
                     p.id === activeOverlay
                       ? "bg-gold text-dark"
                       : "bg-light text-dark/60 hover:bg-gold/15"
@@ -397,30 +401,31 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
             </div>
           )}
 
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-4 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="inline-flex items-center gap-2 rounded-xl border border-light-muted px-4 py-2.5 text-sm font-medium text-dark transition hover:border-gold"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-light-muted px-3 py-2.5 text-sm font-medium text-dark transition active:bg-light sm:px-4 sm:hover:border-gold"
             >
-              <Upload className="h-4 w-4" />
-              Change photo
+              <Upload className="h-4 w-4 shrink-0" />
+              <span className="truncate">Change photo</span>
             </button>
             <button
               type="button"
-              onClick={resetPlacement}
-              className="inline-flex items-center gap-2 rounded-xl border border-light-muted px-4 py-2.5 text-sm font-medium text-dark transition hover:border-gold"
+              onClick={() => void resetPlacement()}
+              disabled={fitting}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-light-muted px-3 py-2.5 text-sm font-medium text-dark transition active:bg-light disabled:opacity-60 sm:px-4 sm:hover:border-gold"
             >
-              <RefreshCw className="h-4 w-4" />
-              Reset position
+              <RefreshCw className={`h-4 w-4 shrink-0 ${fitting ? "animate-spin" : ""}`} />
+              <span className="truncate">Reset</span>
             </button>
             <button
               type="button"
-              onClick={capturePreview}
+              onClick={() => void capturePreview()}
               disabled={saving}
-              className="inline-flex items-center gap-2 rounded-xl bg-gold px-4 py-2.5 text-sm font-semibold text-dark transition hover:bg-gold-light disabled:opacity-60"
+              className="col-span-2 inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-gold px-4 py-2.5 text-sm font-semibold text-dark transition active:bg-gold-light disabled:opacity-60 sm:col-span-1 sm:hover:bg-gold-light"
             >
-              <Download className="h-4 w-4" />
+              <Download className="h-4 w-4 shrink-0" />
               {saving ? "Saving..." : "Save preview"}
             </button>
           </div>
