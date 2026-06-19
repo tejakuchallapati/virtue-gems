@@ -366,11 +366,11 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
           )}
 
           {active && (
-            <div className="mt-4 grid gap-3 rounded-xl bg-light p-4 sm:grid-cols-2">
+            <div className="mt-4 grid gap-4 rounded-xl bg-light p-4 sm:grid-cols-2 sm:gap-3">
               <label className="block text-xs font-medium text-dark/60">
                 Size
-                <div className="mt-1 flex items-center gap-2">
-                  <ZoomOut className="h-4 w-4 text-dark/40" />
+                <div className="mt-2 flex min-h-11 items-center gap-3">
+                  <ZoomOut className="h-4 w-4 shrink-0 text-dark/40" />
                   <input
                     type="range"
                     min={0.08}
@@ -378,15 +378,15 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
                     step={0.01}
                     value={active.scale}
                     onChange={(e) => updateActive({ scale: Number(e.target.value) })}
-                    className="flex-1 accent-gold"
+                    className="try-on-range flex-1 accent-gold"
                   />
-                  <ZoomIn className="h-4 w-4 text-dark/40" />
+                  <ZoomIn className="h-4 w-4 shrink-0 text-dark/40" />
                 </div>
               </label>
               <label className="block text-xs font-medium text-dark/60">
                 Rotate
-                <div className="mt-1 flex items-center gap-2">
-                  <RotateCw className="h-4 w-4 text-dark/40" />
+                <div className="mt-2 flex min-h-11 items-center gap-3">
+                  <RotateCw className="h-4 w-4 shrink-0 text-dark/40" />
                   <input
                     type="range"
                     min={-45}
@@ -394,7 +394,7 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
                     step={1}
                     value={active.rotation}
                     onChange={(e) => updateActive({ rotation: Number(e.target.value) })}
-                    className="flex-1 accent-gold"
+                    className="try-on-range flex-1 accent-gold"
                   />
                 </div>
               </label>
