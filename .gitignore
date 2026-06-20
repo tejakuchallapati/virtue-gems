@@ -8,6 +8,12 @@ node_modules/
 out/
 build/
 
+# Database (SQLite — auto-created on first run)
+data/
+*.db
+*.db-wal
+*.db-shm
+
 # Environment
 .env
 .env.local
