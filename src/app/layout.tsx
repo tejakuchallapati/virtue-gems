@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { StoreProvider } from "@/context/StoreProvider";
 import { LoyaltyProvider } from "@/context/LoyaltyProvider";
 import { SiteShell } from "@/components/layout/SiteShell";
+import { ErrorBoundary } from "@/components/layout/ErrorBoundary";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -43,7 +44,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <StoreProvider>
           <LoyaltyProvider>
-            <SiteShell>{children}</SiteShell>
+            <ErrorBoundary>
+              <SiteShell>{children}</SiteShell>
+            </ErrorBoundary>
           </LoyaltyProvider>
         </StoreProvider>
       </body>
