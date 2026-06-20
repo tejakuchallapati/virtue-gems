@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { apiFetch } from "@/lib/api-client";
 import type { OrderStatus } from "@/types";
 
 export function OrderStatusButtons({
@@ -9,12 +11,25 @@ export function OrderStatusButtons({
   orderId: string;
   currentStatus: OrderStatus;
 }) {
+  const [updating, setUpdating] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
   async function updateStatus(status: OrderStatus) {
-    await fetch("/api/admin/orders", {
+    setUpdating(status);
+    setError(null);
+
+    const res = await apiFetch("/api/admin/orders", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: orderId, status }),
     });
+
+    if (!res.ok) {
+      setError(res.error);
+      setUpdating(null);
+      return;
+    }
+
     window.location.reload();
   }
 
@@ -25,21 +40,25 @@ export function OrderStatusButtons({
   ];
 
   return (
-    <div className="mt-3 flex flex-wrap gap-2">
-      {buttons.map((b) => (
-        <button
-          key={b.status}
-          type="button"
-          onClick={() => updateStatus(b.status)}
-          className={`rounded-lg px-3 py-1 text-xs font-medium transition ${
-            currentStatus === b.status
-              ? "bg-gold text-dark"
-              : "bg-light/10 text-light/60 hover:bg-light/20"
-          }`}
-        >
-          {b.label}
-        </button>
-      ))}
+    <div>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {buttons.map((b) => (
+          <button
+            key={b.status}
+            type="button"
+            disabled={updating !== null}
+            onClick={() => updateStatus(b.status)}
+            className={`rounded-lg px-3 py-1 text-xs font-medium transition disabled:opacity-50 ${
+              currentStatus === b.status
+                ? "bg-gold text-dark"
+                : "bg-light/10 text-light/60 hover:bg-light/20"
+            }`}
+          >
+            {updating === b.status ? "Updating…" : b.label}
+          </button>
+        ))}
+      </div>
+      {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
     </div>
   );
 }

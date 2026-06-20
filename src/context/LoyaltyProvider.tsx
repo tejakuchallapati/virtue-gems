@@ -8,6 +8,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { apiFetch } from "@/lib/api-client";
 import { getStorage, setStorage, STORAGE_KEYS } from "@/lib/storage";
 import {
   calculatePointsEarned,
@@ -91,15 +92,14 @@ export function LoyaltyProvider({ children }: { children: React.ReactNode }) {
       const normalized = normalizePhone(rawPhone);
       if (normalized.length < 10) return;
 
-      try {
-        const res = await fetch(`/api/loyalty?phone=${normalized}`);
-        const data = await res.json();
-        if (data.account) {
-          applyAccount(data.account);
-          return;
-        }
-      } catch {
-        // fall back to local
+      const res = await apiFetch<{ account?: LoyaltyAccount }>(
+        `/api/loyalty?phone=${encodeURIComponent(normalized)}`,
+        { retries: 2 },
+      );
+
+      if (res.ok && res.data.account) {
+        applyAccount(res.data.account);
+        return;
       }
 
       const local = getStorage<LoyaltyAccount | null>(STORAGE_KEYS.loyalty, null);
@@ -138,18 +138,24 @@ export function LoyaltyProvider({ children }: { children: React.ReactNode }) {
     setActiveRedemption(null);
   }, []);
 
-  const syncAccount = useCallback(async (account: LoyaltyAccount) => {
-    applyAccount(account);
-    try {
-      await fetch("/api/loyalty", {
+  const syncAccount = useCallback(
+    async (account: LoyaltyAccount) => {
+      applyAccount(account);
+
+      const res = await apiFetch<{ account?: LoyaltyAccount }>("/api/loyalty", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(account),
+        retries: 1,
       });
-    } catch {
-      // local state already updated
-    }
-  }, [applyAccount]);
+
+      if (res.ok && res.data.account) {
+        applyAccount(res.data.account);
+      }
+      // Local state remains valid even if sync fails — user can retry on next visit
+    },
+    [applyAccount],
+  );
 
   const completeOrder = useCallback(
     async (orderPhone: string, orderName: string, orderTotal: number) => {
@@ -164,19 +170,16 @@ export function LoyaltyProvider({ children }: { children: React.ReactNode }) {
       let currentName = name;
 
       if (currentPhone !== normalized) {
-        try {
-          const res = await fetch(`/api/loyalty?phone=${normalized}`);
-          const data = await res.json();
-          if (data.account) {
-            currentPoints = data.account.points;
-            currentLifetime = data.account.lifetimePoints;
-            currentHistory = data.account.history ?? [];
-          } else {
-            currentPoints = 0;
-            currentLifetime = 0;
-            currentHistory = [];
-          }
-        } catch {
+        const res = await apiFetch<{ account?: LoyaltyAccount }>(
+          `/api/loyalty?phone=${encodeURIComponent(normalized)}`,
+          { retries: 2 },
+        );
+
+        if (res.ok && res.data.account) {
+          currentPoints = res.data.account.points;
+          currentLifetime = res.data.account.lifetimePoints;
+          currentHistory = res.data.account.history ?? [];
+        } else {
           currentPoints = 0;
           currentLifetime = 0;
           currentHistory = [];

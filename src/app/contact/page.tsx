@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { apiFetch } from "@/lib/api-client";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 import {
   DELIVERY_NOTICE,
@@ -128,7 +129,7 @@ export default function ContactPage() {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("/api/contact", {
+      const result = await apiFetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -140,8 +141,7 @@ export default function ContactPage() {
         }),
       });
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error ?? "Something went wrong.");
+      if (!result.ok) throw new Error(result.error);
       setStatus("success");
       form.reset();
     } catch (error) {
@@ -156,7 +156,7 @@ export default function ContactPage() {
     "w-full rounded-xl border border-light-muted bg-white px-4 py-3 text-base outline-none focus:border-gold focus:ring-2 focus:ring-gold/20";
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+    <div className="page-mobile-safe mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
 
       {/* Hero */}

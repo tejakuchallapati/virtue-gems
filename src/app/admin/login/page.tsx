@@ -5,6 +5,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, ShieldCheck, ArrowRight, KeyRound } from "lucide-react";
+import { apiFetch } from "@/lib/api-client";
 
 type Step = "email" | "otp";
 
@@ -22,20 +23,22 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError("");
 
-    const res = await fetch("/api/admin/otp/send", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
+    try {
+      const res = await apiFetch("/api/admin/otp/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
 
-    const data = await res.json();
-    if (res.ok) {
-      setStep("otp");
-      setSent(true);
-    } else {
-      setError(data.error ?? "Failed to send OTP.");
+      if (res.ok) {
+        setStep("otp");
+        setSent(true);
+      } else {
+        setError(res.error);
+      }
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   async function handleVerifyOtp(e: FormEvent) {
@@ -43,19 +46,21 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError("");
 
-    const res = await fetch("/api/admin/otp/verify", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, otp }),
-    });
+    try {
+      const res = await apiFetch("/api/admin/otp/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp }),
+      });
 
-    const data = await res.json();
-    if (res.ok) {
-      router.push("/admin");
-    } else {
-      setError(data.error ?? "Invalid OTP.");
+      if (res.ok) {
+        router.push("/admin");
+      } else {
+        setError(res.error);
+      }
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   return (

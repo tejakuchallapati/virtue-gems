@@ -8,7 +8,8 @@ import { useStore } from "@/context/StoreProvider";
 import { useLoyalty } from "@/context/LoyaltyProvider";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { formatPrice } from "@/lib/utils";
-import { buildOrderMessage, getWhatsAppUrl, buildCustomerPointsMessage, getCustomerPointsWhatsAppUrl } from "@/lib/whatsapp";
+import { apiFetch } from "@/lib/api-client";
+import { buildOrderMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import { calculateDiscount, calculatePointsEarned } from "@/lib/loyalty";
 import { UnboxingVideoNotice } from "@/components/ui/UnboxingVideoNotice";
 import { DELIVERY_NOTICE, DELIVERY_REGION_LABEL, DELIVERY_STATES } from "@/lib/delivery";
@@ -19,6 +20,7 @@ export default function CheckoutPage() {
   const { cart, cartTotal, clearCart } = useStore();
   const { activeRedemption, completeOrder, loadAccount } = useLoyalty();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const discount = calculateDiscount(cartTotal, activeRedemption);
   const finalTotal = Math.max(0, cartTotal - discount);
@@ -38,24 +40,25 @@ export default function CheckoutPage() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
     const formData = new FormData(e.currentTarget);
     const form: CheckoutForm = {
-      customerName: formData.get("customerName") as string,
-      phone: formData.get("phone") as string,
-      address: formData.get("address") as string,
-      city: formData.get("city") as string,
+      customerName: (formData.get("customerName") as string).trim(),
+      phone: (formData.get("phone") as string).trim(),
+      address: (formData.get("address") as string).trim(),
+      city: (formData.get("city") as string).trim(),
       state: formData.get("state") as string,
-      pincode: formData.get("pincode") as string,
+      pincode: (formData.get("pincode") as string).trim(),
     };
 
-    await loadAccount(form.phone);
-
-    let orderId: string | undefined;
-    let invoiceUrl: string | undefined;
-
     try {
-      const res = await fetch("/api/orders", {
+      await loadAccount(form.phone);
+
+      let orderId: string | undefined;
+      let invoiceUrl: string | undefined;
+
+      const orderRes = await apiFetch<{ order?: { id: string } }>("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -69,50 +72,44 @@ export default function CheckoutPage() {
           total: finalTotal,
         }),
       });
-      const data = await res.json();
-      if (data.order?.id) {
-        orderId = data.order.id;
+
+      if (orderRes.ok && orderRes.data.order?.id) {
+        orderId = orderRes.data.order.id;
         invoiceUrl = `${window.location.origin}/invoice/${orderId}`;
       }
+
+      const { earned, balanceAfter } = await completeOrder(
+        form.phone,
+        form.customerName,
+        finalTotal,
+      );
+
+      const message = buildOrderMessage(form, cart, finalTotal, orderId, invoiceUrl, {
+        discount,
+        redemption: activeRedemption,
+        pointsEarned: earned,
+        pointsBalance: balanceAfter,
+      });
+
+      clearCart();
+      window.open(getWhatsAppUrl(message), "_blank");
+
+      const invoicePath = orderId
+        ? `/invoice/${orderId}?earned=${earned}&balance=${balanceAfter}`
+        : `/rewards`;
+      router.push(invoicePath);
     } catch {
-      // Continue to WhatsApp even if order save fails
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    const { earned, balanceAfter } = await completeOrder(form.customerName, form.phone, finalTotal);
-
-    const message = buildOrderMessage(form, cart, finalTotal, orderId, invoiceUrl, {
-      discount,
-      redemption: activeRedemption,
-      pointsEarned: earned,
-      pointsBalance: balanceAfter,
-    });
-
-    const pointsMessage = buildCustomerPointsMessage(
-      form.customerName,
-      earned,
-      balanceAfter,
-      `${window.location.origin}/rewards`,
-    );
-    const customerPointsUrl = getCustomerPointsWhatsAppUrl(form.phone, pointsMessage);
-
-    clearCart();
-    window.open(getWhatsAppUrl(message), "_blank");
-    window.setTimeout(() => {
-      window.open(customerPointsUrl, "_blank");
-    }, 600);
-
-    const invoicePath = orderId
-      ? `/invoice/${orderId}?earned=${earned}&balance=${balanceAfter}`
-      : `/rewards`;
-    router.push(invoicePath);
-    setLoading(false);
   }
 
   const inputClass =
     "w-full rounded-xl border border-light-muted bg-white px-4 py-3 text-base outline-none focus:border-gold focus:ring-2 focus:ring-gold/20";
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+    <div className="page-mobile-safe mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -219,10 +216,16 @@ export default function CheckoutPage() {
 
           <UnboxingVideoNotice />
 
+          {error && (
+            <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {error}
+            </p>
+          )}
+
           <button
             type="submit"
             disabled={loading}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] py-3.5 text-sm font-semibold text-white transition hover:bg-[#1fb855] disabled:opacity-60"
+            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] py-3.5 text-sm font-semibold text-white transition hover:bg-[#1fb855] disabled:opacity-60"
           >
             <MessageCircle className="h-5 w-5" />
             {loading ? "Processing..." : "Place Order via WhatsApp"}
