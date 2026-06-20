@@ -1,36 +1,79 @@
-import { readFileSync, writeFileSync } from "fs";
-import path from "path";
 import type { LoyaltyAccount } from "@/types";
 import { normalizePhone } from "@/lib/loyalty";
+import { backupLoyaltyJson } from "@/lib/db/backup";
+import { getDb, withTransaction } from "@/lib/db";
 
-const accountsPath = path.join(process.cwd(), "src/data/loyalty-accounts.json");
+type LoyaltyRow = {
+  phone: string;
+  name: string | null;
+  points: number;
+  lifetime_points: number;
+  history: string;
+  updated_at: string;
+};
+
+function rowToAccount(row: LoyaltyRow): LoyaltyAccount {
+  return {
+    phone: row.phone,
+    name: row.name ?? undefined,
+    points: row.points,
+    lifetimePoints: row.lifetime_points,
+    history: JSON.parse(row.history),
+  };
+}
 
 export function getLoyaltyAccounts(): LoyaltyAccount[] {
-  try {
-    const raw = readFileSync(accountsPath, "utf-8");
-    return JSON.parse(raw) as LoyaltyAccount[];
-  } catch {
-    return [];
-  }
+  const db = getDb();
+  const rows = db
+    .prepare("SELECT * FROM loyalty_accounts ORDER BY updated_at DESC")
+    .all() as LoyaltyRow[];
+  return rows.map(rowToAccount);
 }
 
 export function getLoyaltyAccount(phone: string): LoyaltyAccount | null {
   const normalized = normalizePhone(phone);
-  return getLoyaltyAccounts().find((a) => a.phone === normalized) ?? null;
+  const db = getDb();
+  const row = db
+    .prepare("SELECT * FROM loyalty_accounts WHERE phone = ?")
+    .get(normalized) as LoyaltyRow | undefined;
+  return row ? rowToAccount(row) : null;
 }
 
 export function saveLoyaltyAccount(account: LoyaltyAccount): LoyaltyAccount {
-  const accounts = getLoyaltyAccounts();
   const normalized = normalizePhone(account.phone);
-  const updated: LoyaltyAccount = { ...account, phone: normalized };
-  const idx = accounts.findIndex((a) => a.phone === normalized);
+  const updated: LoyaltyAccount = {
+    ...account,
+    phone: normalized,
+    history: (account.history ?? []).slice(0, 20),
+  };
+  const now = new Date().toISOString();
 
-  if (idx === -1) {
-    accounts.unshift(updated);
-  } else {
-    accounts[idx] = updated;
-  }
+  withTransaction((db) => {
+    db.prepare(`
+      INSERT INTO loyalty_accounts (phone, name, points, lifetime_points, history, updated_at)
+      VALUES (@phone, @name, @points, @lifetime_points, @history, @updated_at)
+      ON CONFLICT(phone) DO UPDATE SET
+        name = excluded.name,
+        points = excluded.points,
+        lifetime_points = excluded.lifetime_points,
+        history = excluded.history,
+        updated_at = excluded.updated_at
+    `).run({
+      phone: updated.phone,
+      name: updated.name ?? "",
+      points: Math.round(updated.points),
+      lifetime_points: Math.round(updated.lifetimePoints),
+      history: JSON.stringify(updated.history),
+      updated_at: now,
+    });
+  });
 
-  writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
+  backupLoyaltyJson(getDb());
   return updated;
+}
+
+export async function saveLoyaltyAccountSafe(
+  account: LoyaltyAccount,
+): Promise<LoyaltyAccount> {
+  return saveLoyaltyAccount(account);
 }
