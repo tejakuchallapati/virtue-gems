@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const SPLASH_KEY = "vg-splash-seen";
-const SPLASH_MS = 2200;
+const SPLASH_MS = 1200;
 
 export function LoadingScreen() {
   const [show, setShow] = useState(true);
@@ -69,7 +69,7 @@ export function LoadingScreen() {
                 alt="Virtue Gems"
                 fill
                 priority
-                quality={100}
+                quality={75}
                 sizes="(max-width: 640px) 176px, 224px"
                 className="object-contain drop-shadow-[0_0_28px_rgba(212,175,55,0.35)]"
               />

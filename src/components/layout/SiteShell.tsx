@@ -1,14 +1,19 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { DesktopNavbar } from "./DesktopNavbar";
 import { LandingNavbar } from "./LandingNavbar";
 import { MobileHeader } from "./MobileHeader";
 import { MobileBottomNav } from "./MobileBottomNav";
 import { Footer } from "./Footer";
 import { WhatsAppFloat } from "./WhatsAppFloat";
-import { LoadingScreen } from "./LoadingScreen";
 import { PageTransition } from "./PageTransition";
 import { usePathname } from "next/navigation";
+
+const LoadingScreen = dynamic(
+  () => import("./LoadingScreen").then((m) => m.LoadingScreen),
+  { ssr: false },
+);
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -21,9 +26,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <LoadingScreen />
-      {/* Landing: dedicated dark nav with hover effects */}
       {isHome && <LandingNavbar />}
-      {/* Inner pages: standard nav */}
       {!isHome && <DesktopNavbar />}
       {!isHome && <MobileHeader />}
       <PageTransition key={pathname}>
@@ -38,9 +41,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         </main>
       </PageTransition>
       <Footer />
-      {/* Mobile: bottom nav with effects */}
       <MobileBottomNav />
-      {/* WhatsApp float — desktop only (bottom nav has WhatsApp on mobile) */}
       <WhatsAppFloat />
     </>
   );

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Suspense } from "react";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { VirtualTryOn } from "@/components/try-on/VirtualTryOn";
+import { TryOnSection } from "@/components/try-on/TryOnSection";
 import { getAllProducts, getProductBySlug } from "@/lib/products";
 
 export const metadata: Metadata = {
@@ -44,7 +43,7 @@ export default async function TryOnPage({ searchParams }: Props) {
         </div>
       </section>
 
-      <div className="mx-auto max-w-3xl px-4 py-8 pb-24 sm:px-6 sm:pb-8 lg:px-8">
+      <div className="page-mobile-safe mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <div className="mb-6">
           <label htmlFor="try-on-product" className="mb-2 block text-sm font-medium text-dark">
             Choose a piece to try
@@ -73,9 +72,7 @@ export default async function TryOnPage({ searchParams }: Props) {
         </div>
 
         {selected ? (
-          <Suspense fallback={<p className="text-center text-dark/50">Loading...</p>}>
-            <VirtualTryOn product={selected} />
-          </Suspense>
+          <TryOnSection product={selected} />
         ) : (
           <p className="text-center text-dark/50">Select a product from the shop to try on.</p>
         )}

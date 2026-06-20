@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import {
   Heart,
@@ -18,11 +19,24 @@ import { useStore } from "@/context/StoreProvider";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { TryOnModal } from "@/components/try-on/TryOnModal";
-import { VirtualTryOn } from "@/components/try-on/VirtualTryOn";
 import { formatPrice } from "@/lib/utils";
 import { buildProductShareMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import type { Product } from "@/types";
+
+const TryOnModal = dynamic(
+  () => import("@/components/try-on/TryOnModal").then((m) => m.TryOnModal),
+  { ssr: false },
+);
+
+const VirtualTryOn = dynamic(
+  () => import("@/components/try-on/VirtualTryOn").then((m) => m.VirtualTryOn),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="mt-10 hidden h-48 animate-pulse rounded-2xl bg-light sm:block" />
+    ),
+  },
+);
 
 export function ProductDetailClient({
   product,
@@ -65,8 +79,10 @@ export function ProductDetailClient({
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
         {/* Images */}
         <div>
-          <div
-            className="relative aspect-square cursor-zoom-in overflow-hidden rounded-2xl bg-[#1a0a2e]"
+          <button
+            type="button"
+            aria-label="Zoom product image"
+            className="relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-2xl bg-[#1a0a2e] text-left"
             onClick={() => setZoom(true)}
           >
             <Image
@@ -77,10 +93,10 @@ export function ProductDetailClient({
               className="object-contain p-2 sm:p-4"
               priority
             />
-            <div className="absolute right-3 top-3 rounded-full bg-white/80 p-2">
+            <div className="pointer-events-none absolute right-3 top-3 rounded-full bg-white/80 p-2">
               <ZoomIn className="h-4 w-4 text-dark" />
             </div>
-          </div>
+          </button>
           <div className="mt-3 flex gap-2 overflow-x-auto no-scrollbar">
             {product.images.map((img, i) => (
               <button
@@ -191,6 +207,7 @@ export function ProductDetailClient({
             </button>
             <button
               type="button"
+              aria-label="Share product"
               onClick={handleShare}
               className="flex items-center justify-center gap-2 rounded-xl border border-light-muted py-3.5 px-6 text-sm font-semibold text-dark hover:border-gold"
             >

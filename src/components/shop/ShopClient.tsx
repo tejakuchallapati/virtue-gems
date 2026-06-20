@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
@@ -106,6 +106,15 @@ export function ShopClient({ products }: { products: Product[] }) {
   const [search, setSearch] = useState("");
   const [priceIdx, setPriceIdx] = useState(0);
   const [filtersOpen, setFiltersOpen] = useState(false);
+
+  useEffect(() => {
+    if (!filtersOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [filtersOpen]);
 
   const category = (searchParams.get("category") ?? "") as ProductCategory | "";
   const tag = searchParams.get("tag") ?? "";
@@ -279,7 +288,7 @@ export function ShopClient({ products }: { products: Product[] }) {
           <aside
             className={`${
               filtersOpen
-                ? "safe-top safe-bottom fixed inset-0 z-50 flex flex-col bg-white p-4 pt-14 pb-6"
+                ? "safe-top safe-bottom fixed inset-0 z-[60] flex flex-col bg-white p-4 pt-14 pb-6"
                 : "hidden"
             } w-full lg:static lg:block lg:w-60 lg:shrink-0 lg:bg-transparent lg:p-0`}
           >

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Heart, ShoppingCart } from "lucide-react";
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { useStore } from "@/context/StoreProvider";
 import { formatPrice } from "@/lib/utils";
@@ -27,21 +26,16 @@ export function ProductCard({ product }: { product: Product }) {
   const wished = isInWishlist(product.id);
   const [added, setAdded] = useState(false);
 
-  function handleAddToCart(e: React.MouseEvent) {
-    e.preventDefault();
-    e.stopPropagation();
+  function handleAddToCart() {
     addToCart(product);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
   }
 
   return (
-    <motion.article
-      layout
-      className="group relative overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-light-muted/60 transition hover:shadow-lg hover:ring-gold/30"
-    >
-      <Link href={`/product/${product.slug}`} className="block">
-        <div className="relative aspect-square overflow-hidden bg-[#1a0a2e]">
+    <article className="group relative overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-light-muted/60 transition hover:shadow-lg hover:ring-gold/30">
+      <div className="relative aspect-square overflow-hidden bg-[#1a0a2e]">
+        <Link href={`/product/${product.slug}`} className="block h-full w-full">
           <Image
             src={product.images[0]}
             alt={product.name}
@@ -49,32 +43,31 @@ export function ProductCard({ product }: { product: Product }) {
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             className="object-contain p-1 transition duration-500 group-hover:scale-[1.03] sm:p-2"
           />
-          <div className="absolute left-2 top-2 flex flex-wrap gap-1">
-            {product.tags.slice(0, 2).map((tag) => (
-              <span
-                key={tag}
-                className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide sm:text-xs ${tagStyles[tag]}`}
-              >
-                {tagLabels[tag]}
-              </span>
-            ))}
-          </div>
-
-          {/* Image overlay add-to-cart */}
-          <button
-            type="button"
-            aria-label="Add to cart"
-            onClick={handleAddToCart}
-            className={`absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full shadow-lg transition sm:bottom-3 sm:right-3 sm:h-11 sm:w-11 ${
-              added
-                ? "bg-green-600 text-white"
-                : "bg-gold text-dark hover:bg-gold-light"
-            }`}
-          >
-            <ShoppingCart className="h-5 w-5" />
-          </button>
+        </Link>
+        <div className="pointer-events-none absolute left-2 top-2 flex flex-wrap gap-1">
+          {product.tags.slice(0, 2).map((tag) => (
+            <span
+              key={tag}
+              className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide sm:text-xs ${tagStyles[tag]}`}
+            >
+              {tagLabels[tag]}
+            </span>
+          ))}
         </div>
-      </Link>
+
+        <button
+          type="button"
+          aria-label="Add to cart"
+          onClick={handleAddToCart}
+          className={`absolute bottom-2 right-2 z-10 flex h-10 w-10 items-center justify-center rounded-full shadow-lg transition sm:bottom-3 sm:right-3 sm:h-11 sm:w-11 ${
+            added
+              ? "bg-green-600 text-white"
+              : "bg-gold text-dark hover:bg-gold-light"
+          }`}
+        >
+          <ShoppingCart className="h-5 w-5" />
+        </button>
+      </div>
 
       <div className="p-3 sm:p-4">
         <Link href={`/product/${product.slug}`}>
@@ -131,6 +124,6 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
