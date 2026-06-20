@@ -32,6 +32,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -39,6 +40,18 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Extra bottom space on long mobile pages (above fixed bottom nav) */
+.page-mobile-safe {
+  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0));
+}
+
+@media (min-width: 768px) {
+  .page-mobile-safe {
+    padding-bottom: 0;
+  }
 }
 
 .glass {

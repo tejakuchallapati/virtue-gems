@@ -29,7 +29,7 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+    <div className="page-mobile-safe mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Wishlist" }]} />
       <h1 className="mb-6 text-2xl font-semibold text-dark sm:text-3xl">
         My Wishlist
