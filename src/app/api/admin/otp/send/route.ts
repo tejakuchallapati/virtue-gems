@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server";
 import { isEmailConfigured, sendNotificationEmail } from "@/lib/email";
 import {
+  apiFail,
+  apiOk,
+  checkRateLimit,
+  clientIp,
+  parseJsonBody,
+  requireString,
+} from "@/lib/api-server";
+import {
   createOtpPayload,
   generateOtp,
   getAdminEmail,
@@ -9,22 +17,22 @@ import {
 } from "@/lib/otp";
 
 export async function POST(request: Request) {
+  const limited = checkRateLimit(`otp-send:${clientIp(request)}`, 5, 15 * 60_000);
+  if (limited) return limited;
+
   try {
-    const { email } = await request.json();
+    const parsed = await parseJsonBody<Record<string, unknown>>(request);
+    if ("error" in parsed) return parsed.error;
+
+    const email = requireString(parsed.data.email, "email", 200);
     const adminEmail = getAdminEmail().toLowerCase();
 
     if (!email || email.toLowerCase() !== adminEmail) {
-      return NextResponse.json(
-        { error: "This email is not authorized for admin access." },
-        { status: 403 },
-      );
+      return apiFail("This email is not authorized for admin access.", 403);
     }
 
     if (!isEmailConfigured()) {
-      return NextResponse.json(
-        { error: "Email service is not configured." },
-        { status: 503 },
-      );
+      return apiFail("Email service is not configured.", 503);
     }
 
     const otp = generateOtp();
@@ -45,7 +53,7 @@ export async function POST(request: Request) {
       text: `Virtue Gems Admin OTP: ${otp}\nValid for 10 minutes.`,
     });
 
-    const response = NextResponse.json({ success: true });
+    const response = apiOk({});
     response.cookies.set(OTP_COOKIE, payload, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -57,6 +65,6 @@ export async function POST(request: Request) {
     return response;
   } catch (error) {
     console.error("OTP send error:", error);
-    return NextResponse.json({ error: "Failed to send OTP." }, { status: 500 });
+    return apiFail("Failed to send OTP.", 500);
   }
 }

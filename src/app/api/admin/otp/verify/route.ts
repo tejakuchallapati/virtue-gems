@@ -1,5 +1,12 @@
-import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import {
+  apiFail,
+  apiOk,
+  checkRateLimit,
+  clientIp,
+  parseJsonBody,
+  requireString,
+} from "@/lib/api-server";
 import {
   createSessionToken,
   getAdminEmail,
@@ -9,35 +16,39 @@ import {
 } from "@/lib/otp";
 
 export async function POST(request: Request) {
+  const limited = checkRateLimit(`otp-verify:${clientIp(request)}`, 10, 15 * 60_000);
+  if (limited) return limited;
+
   try {
-    const { email, otp } = await request.json();
+    const parsed = await parseJsonBody<Record<string, unknown>>(request);
+    if ("error" in parsed) return parsed.error;
+
+    const email = requireString(parsed.data.email, "email", 200);
+    const otp = requireString(parsed.data.otp, "otp", 6);
     const adminEmail = getAdminEmail().toLowerCase();
 
     if (!email || email.toLowerCase() !== adminEmail) {
-      return NextResponse.json({ error: "Unauthorized email." }, { status: 403 });
+      return apiFail("Unauthorized email.", 403);
     }
 
-    if (!otp || String(otp).length !== 6) {
-      return NextResponse.json({ error: "Enter a valid 6-digit OTP." }, { status: 400 });
+    if (!otp || otp.length !== 6) {
+      return apiFail("Enter a valid 6-digit OTP.", 400);
     }
 
     const cookieStore = await cookies();
     const challenge = cookieStore.get(OTP_COOKIE);
 
     if (!challenge?.value) {
-      return NextResponse.json(
-        { error: "OTP expired. Please request a new code." },
-        { status: 400 },
-      );
+      return apiFail("OTP expired. Please request a new code.", 400);
     }
 
-    const valid = verifyOtpPayload(challenge.value, email, String(otp));
+    const valid = verifyOtpPayload(challenge.value, email, otp);
     if (!valid) {
-      return NextResponse.json({ error: "Invalid OTP. Please try again." }, { status: 401 });
+      return apiFail("Invalid OTP. Please try again.", 401);
     }
 
     const sessionToken = createSessionToken(email);
-    const response = NextResponse.json({ success: true });
+    const response = apiOk({});
     response.cookies.delete(OTP_COOKIE);
     response.cookies.set(SESSION_COOKIE, sessionToken, {
       httpOnly: true,
@@ -50,6 +61,6 @@ export async function POST(request: Request) {
     return response;
   } catch (error) {
     console.error("OTP verify error:", error);
-    return NextResponse.json({ error: "Verification failed." }, { status: 500 });
+    return apiFail("Verification failed.", 500);
   }
 }
