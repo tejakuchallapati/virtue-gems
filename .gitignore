@@ -9,7 +9,7 @@ out/
 build/
 
 # Database (SQLite — auto-created on first run)
-data/
+/data/
 *.db
 *.db-wal
 *.db-shm
