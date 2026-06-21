@@ -1,6 +1,13 @@
 import type { ActiveRedemption, CartItem, CheckoutForm } from "@/types";
 import { formatPrice } from "./utils";
 import { DELIVERY_REGION_LABEL } from "./delivery";
+import {
+  BANK_DETAILS,
+  COD_POLICY,
+  PAYMENT_METHODS_SUMMARY,
+  UPI_ID,
+  UPI_PAYEE_NAME,
+} from "./payments";
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "917396178039";
 
@@ -95,9 +102,18 @@ export function buildOrderMessage(
     padBillLine("*GRAND TOTAL*", `*${formatPrice(total)}*`),
     "━━━━━━━━━━━━━━━━━━━━━━━━━━",
     "",
-    "Payment : To be confirmed on WhatsApp",
+    "Payment : *Via WhatsApp after confirmation*",
     "Status  : *Order Request — Pending*",
     `Delivery: *${DELIVERY_REGION_LABEL} only*`,
+    "",
+    "📋 *WHAT HAPPENS NEXT*",
+    "1. We confirm item availability on WhatsApp",
+    "2. You pay via UPI or bank transfer",
+    "3. Send payment screenshot on WhatsApp",
+    "4. We ship and share tracking details",
+    "",
+    `Accepted: ${PAYMENT_METHODS_SUMMARY}`,
+    COD_POLICY,
     "",
   );
 
@@ -132,6 +148,39 @@ export function buildOrderMessage(
     "Please confirm availability, payment mode, and delivery timeline.",
     "",
     "Thank you for shopping with Virtue Gems!",
+  );
+
+  return lines.join("\n");
+}
+
+/** Admin copy-paste reply after confirming an order on WhatsApp. */
+export function buildPaymentReplyMessage(
+  customerName: string,
+  orderId: string,
+  total: number,
+): string {
+  const lines = [
+    `Hi ${customerName}! 👋`,
+    "",
+    `Your order *${orderId}* is confirmed ✅`,
+    `Amount to pay: *${formatPrice(total)}*`,
+    "",
+    "💳 *Pay via UPI:*",
+    `UPI ID: *${UPI_ID}*`,
+    `Name: ${UPI_PAYEE_NAME}`,
+  ];
+
+  if (BANK_DETAILS) {
+    lines.push("", "🏦 *Or bank transfer:*", BANK_DETAILS);
+  }
+
+  lines.push(
+    "",
+    "📸 Please send a *payment screenshot* on WhatsApp after paying.",
+    "",
+    COD_POLICY,
+    "",
+    "We'll dispatch your order once payment is verified. Thank you! 🙏",
   );
 
   return lines.join("\n");
