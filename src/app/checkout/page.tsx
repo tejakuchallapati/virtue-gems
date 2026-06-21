@@ -13,6 +13,7 @@ import { buildOrderMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import { calculateDiscount, calculatePointsEarned } from "@/lib/loyalty";
 import { UnboxingVideoNotice } from "@/components/ui/UnboxingVideoNotice";
 import { DELIVERY_NOTICE, DELIVERY_REGION_LABEL, DELIVERY_STATES } from "@/lib/delivery";
+import { CHECKOUT_PAYMENT_NOTICE, COD_POLICY, ONLINE_PAYMENT_COMING_SOON, PAYMENT_METHODS_SUMMARY } from "@/lib/payments";
 import type { CheckoutForm } from "@/types";
 
 export default function CheckoutPage() {
@@ -121,10 +122,24 @@ export default function CheckoutPage() {
 
       <div className="grid gap-8 lg:grid-cols-2">
         <form onSubmit={handleSubmit} className="space-y-4">
-          <p className="text-sm text-dark/60">
-            No payment required. Place your order via WhatsApp and we&apos;ll confirm
-            availability.
-          </p>
+          <p className="text-sm text-dark/60">{CHECKOUT_PAYMENT_NOTICE}</p>
+
+          <div className="rounded-xl border border-gold/30 bg-gold/10 px-4 py-3 text-xs text-dark/80">
+            <p className="font-medium text-gold-dark">Online payment coming soon</p>
+            <p className="mt-1">{ONLINE_PAYMENT_COMING_SOON}</p>
+          </div>
+
+          <div className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 p-4 text-xs text-dark/80">
+            <p className="font-medium text-dark">How payment works</p>
+            <ol className="mt-2 list-decimal space-y-1 pl-4">
+              <li>Place order — opens WhatsApp with your bill</li>
+              <li>We confirm availability (usually within 2–4 hours)</li>
+              <li>Pay via {PAYMENT_METHODS_SUMMARY.toLowerCase()}</li>
+              <li>Send payment screenshot on WhatsApp</li>
+              <li>We ship and share tracking</li>
+            </ol>
+            <p className="mt-2 text-dark/70">{COD_POLICY}</p>
+          </div>
 
           <div className="rounded-xl border border-gold/30 bg-gold/10 p-3 text-xs text-dark/80">
             <p className="font-medium text-dark">Delivery: {DELIVERY_REGION_LABEL}</p>
