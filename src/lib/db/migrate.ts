@@ -83,3 +83,19 @@ export function migrateFromJsonIfNeeded(db: Database.Database) {
     "INSERT OR REPLACE INTO meta (key, value) VALUES ('json_migrated', '1')",
   ).run();
 }
+
+/** One-time: map old status values to the WhatsApp workflow statuses. */
+export function migrateLegacyOrderStatuses(db: Database.Database) {
+  const done = db
+    .prepare("SELECT value FROM meta WHERE key = 'order_status_migrated'")
+    .get() as { value: string } | undefined;
+
+  if (done?.value === "1") return;
+
+  db.prepare("UPDATE orders SET status = 'confirmed' WHERE status = 'processing'").run();
+  db.prepare("UPDATE orders SET status = 'delivered' WHERE status = 'completed'").run();
+
+  db.prepare(
+    "INSERT OR REPLACE INTO meta (key, value) VALUES ('order_status_migrated', '1')",
+  ).run();
+}

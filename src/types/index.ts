@@ -38,7 +38,12 @@ export type CartItem = {
   quantity: number;
 };
 
-export type OrderStatus = "pending" | "processing" | "completed";
+export type OrderStatus =
+  | "pending"
+  | "confirmed"
+  | "paid"
+  | "shipped"
+  | "delivered";
 
 export type Order = {
   id: string;

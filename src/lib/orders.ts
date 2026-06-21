@@ -1,5 +1,6 @@
 import type { Order, OrderStatus } from "@/types";
 import { DELIVERY_STATES } from "@/lib/delivery";
+import { normalizeOrderStatus } from "@/lib/order-status";
 import { backupOrdersJson } from "@/lib/db/backup";
 import { getDb, withTransaction } from "@/lib/db";
 import { uniqueId } from "@/lib/json-store";
@@ -31,7 +32,7 @@ function rowToOrder(row: OrderRow): Order {
     pincode: row.pincode,
     items: JSON.parse(row.items),
     total: row.total,
-    status: row.status as OrderStatus,
+    status: normalizeOrderStatus(row.status),
     createdAt: row.created_at,
   };
 }

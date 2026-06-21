@@ -2,7 +2,7 @@ import Database from "better-sqlite3";
 import fs from "fs";
 import path from "path";
 import { initSchema } from "./schema";
-import { migrateFromJsonIfNeeded } from "./migrate";
+import { migrateFromJsonIfNeeded, migrateLegacyOrderStatuses } from "./migrate";
 
 const DB_DIR = process.env.DATABASE_DIR ?? path.join(process.cwd(), "data");
 const DB_PATH = process.env.DATABASE_PATH ?? path.join(DB_DIR, "virtue-gems.db");
@@ -23,6 +23,7 @@ export function getDb(): Database.Database {
       db.pragma("foreign_keys = ON");
       initSchema(db);
       migrateFromJsonIfNeeded(db);
+      migrateLegacyOrderStatuses(db);
     } catch (err) {
       initError = err instanceof Error ? err : new Error(String(err));
       throw initError;
