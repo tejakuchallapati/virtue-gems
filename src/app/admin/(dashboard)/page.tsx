@@ -4,6 +4,7 @@ import { getOrders } from "@/lib/orders";
 import { getAllProducts } from "@/lib/products";
 import { StatCard } from "@/components/admin/StatCard";
 import { RevenueChart } from "@/components/admin/RevenueChart";
+import { ORDER_STATUS_LABELS } from "@/lib/order-status";
 import { formatPrice } from "@/lib/utils";
 
 export default async function AdminOverviewPage() {
@@ -56,7 +57,9 @@ export default async function AdminOverviewPage() {
                     <td className="py-3 pr-4 text-gold">{o.id}</td>
                     <td className="py-3 pr-4">{o.customerName}</td>
                     <td className="py-3 pr-4">{formatPrice(o.total)}</td>
-                    <td className="py-3 capitalize text-light/70">{o.status}</td>
+                    <td className="py-3 text-light/70">
+                      {ORDER_STATUS_LABELS[o.status]}
+                    </td>
                   </tr>
                 ))}
               </tbody>

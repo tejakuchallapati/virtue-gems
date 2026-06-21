@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getOrders, updateOrderStatusSafe } from "@/lib/orders";
+import { isValidOrderStatus } from "@/lib/order-status";
 import type { OrderStatus } from "@/types";
 import { apiFail, apiOk, parseJsonBody } from "@/lib/api-server";
-
-const VALID_STATUSES: OrderStatus[] = ["pending", "processing", "completed"];
 
 export async function GET() {
   if (!(await isAdminAuthenticated())) {
@@ -31,7 +30,7 @@ export async function PATCH(request: Request) {
   const status = parsed.data.status;
 
   if (!id) return apiFail("Order id required.", 400);
-  if (typeof status !== "string" || !VALID_STATUSES.includes(status as OrderStatus)) {
+  if (typeof status !== "string" || !isValidOrderStatus(status)) {
     return apiFail("Invalid status.", 400);
   }
 
