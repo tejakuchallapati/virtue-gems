@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { ShopClient } from "@/components/shop/ShopClient";
+import { ShopLoadingSkeleton } from "@/components/ui/ShopLoadingSkeleton";
 import { getAllProducts } from "@/lib/products";
 
 export const metadata: Metadata = {
@@ -11,13 +12,7 @@ export const metadata: Metadata = {
 export default function ShopPage() {
   const products = getAllProducts();
   return (
-    <Suspense
-      fallback={
-        <div className="flex min-h-[50vh] items-center justify-center bg-gradient-to-b from-[#faf6ee] to-light">
-          <p className="text-sm text-dark/50">Loading collections...</p>
-        </div>
-      }
-    >
+    <Suspense fallback={<ShopLoadingSkeleton />}>
       <ShopClient products={products} />
     </Suspense>
   );
