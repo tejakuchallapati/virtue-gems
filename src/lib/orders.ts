@@ -1,6 +1,7 @@
 import type { Order, OrderStatus } from "@/types";
 import { DELIVERY_STATES } from "@/lib/delivery";
 import { normalizeOrderStatus } from "@/lib/order-status";
+import { getProductById } from "@/lib/products";
 import { backupOrdersJson } from "@/lib/db/backup";
 import { getDb, withTransaction } from "@/lib/db";
 import { uniqueId } from "@/lib/json-store";
@@ -74,6 +75,10 @@ export function validateOrderInput(body: Record<string, unknown>): OrderInput | 
     const price = row.price;
 
     if (!productId || !name) return "Invalid order item details.";
+    const catalogProduct = getProductById(productId);
+    if (!catalogProduct) return "Unknown product in order.";
+    if (catalogProduct.price !== price) return "Invalid item price.";
+    if (name !== catalogProduct.name) return "Invalid item name.";
     if (typeof quantity !== "number" || !Number.isInteger(quantity) || quantity < 1 || quantity > 99) {
       return "Invalid item quantity.";
     }
@@ -81,8 +86,11 @@ export function validateOrderInput(body: Record<string, unknown>): OrderInput | 
       return "Invalid item price.";
     }
 
-    parsedItems.push({ productId, name, quantity, price });
+    parsedItems.push({ productId, name: catalogProduct.name, quantity, price });
   }
+
+  const subtotal = parsedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  if (total > subtotal) return "Order total cannot exceed item subtotal.";
 
   return {
     customerName,

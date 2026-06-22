@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getLoyaltyAccount, saveLoyaltyAccountSafe } from "@/lib/loyalty-store";
-import { normalizePhone } from "@/lib/loyalty";
+import { calculatePointsEarned, normalizePhone } from "@/lib/loyalty";
 import type { LoyaltyAccount } from "@/types";
 import {
   apiFail,
@@ -68,6 +68,26 @@ export async function POST(request: Request) {
     lifetimePoints: Math.round(lifetimePoints),
     history: history as LoyaltyAccount["history"],
   };
+
+  const existing = getLoyaltyAccount(account.phone);
+  if (existing) {
+    const maxSingleEarn = calculatePointsEarned(1_000_000);
+    const pointDelta = account.points - existing.points;
+    const maxRedeem = existing.points;
+
+    if (pointDelta > maxSingleEarn) {
+      return apiFail("Points increase exceeds allowed limit.", 400);
+    }
+    if (pointDelta < -maxRedeem) {
+      return apiFail("Insufficient points for redemption.", 400);
+    }
+    if (account.lifetimePoints < existing.lifetimePoints) {
+      return apiFail("Lifetime points cannot decrease.", 400);
+    }
+    if (pointDelta > 0 && account.lifetimePoints < existing.lifetimePoints + pointDelta) {
+      return apiFail("Lifetime points do not match earned balance.", 400);
+    }
+  }
 
   try {
     const saved = await saveLoyaltyAccountSafe(account);
