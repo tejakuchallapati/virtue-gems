@@ -41,7 +41,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000 — try the contact form at `/contact`.
+Open http://localhost:3001 — try the contact form at `/contact`.
 
 ### 4. Send the "project started" email (once)
 
@@ -68,7 +68,7 @@ After secrets are set, every push to `main` and every PR open/update/close will 
 Send a manual project notification from a script or CI:
 
 ```bash
-curl -X POST http://localhost:3000/api/notify \
+curl -X POST http://localhost:3001/api/notify \
   -H "Content-Type: application/json" \
   -H "x-api-key: YOUR_NOTIFY_API_KEY" \
   -d '{
