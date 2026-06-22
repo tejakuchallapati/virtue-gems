@@ -1,9 +1,17 @@
 export function getSiteUrl(): string {
-  const url =
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    process.env.VERCEL_URL ??
-    "http://localhost:3001";
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+  if (configured) return configured;
 
-  if (url.startsWith("http")) return url.replace(/\/$/, "");
-  return `https://${url}`.replace(/\/$/, "");
+  const vercel = process.env.VERCEL_URL;
+  if (vercel) {
+    return vercel.startsWith("http")
+      ? vercel.replace(/\/$/, "")
+      : `https://${vercel}`.replace(/\/$/, "");
+  }
+
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3001";
+  }
+
+  return "https://virtuegems.com";
 }

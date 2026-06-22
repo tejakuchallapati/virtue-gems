@@ -23,6 +23,12 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function resolveApiUrl(url: string): string {
+  const base = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "";
+  if (!base || url.startsWith("http")) return url;
+  return `${base}${url.startsWith("/") ? url : `/${url}`}`;
+}
+
 /** Resilient client fetch — timeout, retry on network failure, safe JSON parse. */
 export async function apiFetch<T = Record<string, unknown>>(
   url: string,
@@ -31,6 +37,7 @@ export async function apiFetch<T = Record<string, unknown>>(
   const { timeoutMs = DEFAULT_TIMEOUT, retries = 1, ...init } = options;
   const method = (init.method ?? "GET").toUpperCase();
   const maxAttempts = method === "GET" ? retries + 1 : 1;
+  const requestUrl = resolveApiUrl(url);
 
   let lastError = "Network error. Please check your connection.";
 
@@ -39,7 +46,7 @@ export async function apiFetch<T = Record<string, unknown>>(
     const timer = setTimeout(() => controller.abort(), timeoutMs);
 
     try {
-      const res = await fetch(url, { ...init, signal: controller.signal });
+      const res = await fetch(requestUrl, { ...init, signal: controller.signal });
       clearTimeout(timer);
 
       const data = await parseResponse<T & { error?: string; success?: boolean }>(res);

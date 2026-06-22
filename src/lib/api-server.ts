@@ -17,6 +17,7 @@ export function checkRateLimit(
 
   if (!bucket || now > bucket.resetAt) {
     rateLimits.set(key, { count: 1, resetAt: now + windowMs });
+    pruneRateLimits(now);
     return null;
   }
 
@@ -29,6 +30,13 @@ export function checkRateLimit(
 
   bucket.count += 1;
   return null;
+}
+
+function pruneRateLimits(now: number) {
+  if (rateLimits.size < 500) return;
+  for (const [key, bucket] of rateLimits) {
+    if (now > bucket.resetAt) rateLimits.delete(key);
+  }
 }
 
 export function clientIp(request: Request): string {
