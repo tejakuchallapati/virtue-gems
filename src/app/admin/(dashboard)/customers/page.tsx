@@ -32,7 +32,7 @@ export default async function CustomersPage() {
         </div>
         <div className="rounded-2xl bg-dark-soft p-5 ring-1 ring-light/10">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-light/50">
-            Popular Wishlist Items
+            Popular Best Sellers
           </h2>
           <ul className="space-y-3 text-sm">
             {products.filter((p) => p.tags.includes("bestseller")).map((p) => (

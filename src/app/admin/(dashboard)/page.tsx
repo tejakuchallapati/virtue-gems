@@ -2,10 +2,11 @@ import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getOrders } from "@/lib/orders";
 import { getAllProducts } from "@/lib/products";
+import { getWeeklyChartData } from "@/lib/admin-analytics";
 import { StatCard } from "@/components/admin/StatCard";
 import { RevenueChart } from "@/components/admin/RevenueChart";
-import { ORDER_STATUS_LABELS } from "@/lib/order-status";
 import { formatPrice } from "@/lib/utils";
+import { ORDER_STATUS_LABELS } from "@/lib/order-status";
 
 export default async function AdminOverviewPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
@@ -14,6 +15,7 @@ export default async function AdminOverviewPage() {
   const products = getAllProducts();
   const totalRevenue = orders.reduce((s, o) => s + o.total, 0);
   const customers = new Set(orders.map((o) => o.phone)).size;
+  const weeklyChart = getWeeklyChartData(orders);
 
   return (
     <div>
@@ -21,17 +23,17 @@ export default async function AdminOverviewPage() {
       <p className="mt-1 text-sm text-light/50">Dashboard summary</p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard label="Total Revenue" value={formatPrice(totalRevenue || 245000)} />
-        <StatCard label="Total Orders" value={String(orders.length || 12)} />
-        <StatCard label="Total Customers" value={String(customers || 8)} />
+        <StatCard label="Total Revenue" value={formatPrice(totalRevenue)} />
+        <StatCard label="Total Orders" value={String(orders.length)} />
+        <StatCard label="Total Customers" value={String(customers)} />
         <StatCard label="Products" value={String(products.length)} sub="In inventory" />
       </div>
 
       <div className="mt-8 rounded-2xl bg-dark-soft p-5 ring-1 ring-light/10">
         <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-light/50">
-          Revenue Analytics (Weekly)
+          Revenue Analytics (Last 7 Days)
         </h2>
-        <RevenueChart />
+        <RevenueChart data={weeklyChart} />
       </div>
 
       <div className="mt-8 rounded-2xl bg-dark-soft p-5 ring-1 ring-light/10">
