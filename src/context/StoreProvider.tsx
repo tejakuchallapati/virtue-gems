@@ -34,6 +34,28 @@ const StoreContext = createContext<StoreContextValue | null>(null);
 
 type StoredCart = { productId: string; quantity: number }[];
 
+function hydrateProducts(ids: string[]): Product[] {
+  return ids
+    .map((id) => getProductById(id))
+    .filter((product): product is Product => Boolean(product));
+}
+
+function normalizeStoredIds(raw: unknown): string[] {
+  if (!Array.isArray(raw)) return [];
+  if (raw.length === 0) return [];
+  if (typeof raw[0] === "string") {
+    return raw.filter((id): id is string => typeof id === "string");
+  }
+  return raw
+    .map((item) => {
+      if (item && typeof item === "object" && "id" in item) {
+        return String((item as Product).id);
+      }
+      return null;
+    })
+    .filter((id): id is string => Boolean(id));
+}
+
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [wishlist, setWishlist] = useState<Product[]>([]);
@@ -41,23 +63,30 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    const storedCart = getStorage<StoredCart>(STORAGE_KEYS.cart, []);
-    const storedWishlist = getStorage<Product[]>(STORAGE_KEYS.wishlist, []);
-    const storedRecent = getStorage<Product[]>(
-      STORAGE_KEYS.recentlyViewed,
-      [],
-    );
+    const storedCart = getStorage<StoredCart | unknown>(STORAGE_KEYS.cart, []);
+    const cartRows = Array.isArray(storedCart) ? storedCart : [];
 
     setCart(
-      storedCart
+      cartRows
         .map((item) => {
-          const product = getProductById(item.productId);
-          return product ? { product, quantity: item.quantity } : null;
+          if (!item || typeof item !== "object") return null;
+          const row = item as { productId?: string; quantity?: number };
+          if (!row.productId || typeof row.quantity !== "number") return null;
+          const product = getProductById(row.productId);
+          return product ? { product, quantity: row.quantity } : null;
         })
         .filter(Boolean) as CartItem[],
     );
-    setWishlist(storedWishlist);
-    setRecentlyViewed(storedRecent);
+
+    const wishlistIds = normalizeStoredIds(
+      getStorage<unknown>(STORAGE_KEYS.wishlist, []),
+    );
+    const recentIds = normalizeStoredIds(
+      getStorage<unknown>(STORAGE_KEYS.recentlyViewed, []),
+    );
+
+    setWishlist(hydrateProducts(wishlistIds));
+    setRecentlyViewed(hydrateProducts(recentIds).slice(0, 8));
     setHydrated(true);
   }, []);
 
@@ -71,12 +100,18 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!hydrated) return;
-    setStorage(STORAGE_KEYS.wishlist, wishlist);
+    setStorage(
+      STORAGE_KEYS.wishlist,
+      wishlist.map((product) => product.id),
+    );
   }, [wishlist, hydrated]);
 
   useEffect(() => {
     if (!hydrated) return;
-    setStorage(STORAGE_KEYS.recentlyViewed, recentlyViewed.slice(0, 8));
+    setStorage(
+      STORAGE_KEYS.recentlyViewed,
+      recentlyViewed.map((product) => product.id).slice(0, 8),
+    );
   }, [recentlyViewed, hydrated]);
 
   const addToCart = useCallback((product: Product, qty = 1) => {
@@ -97,14 +132,20 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     setCart((prev) => prev.filter((c) => c.product.id !== productId));
   }, []);
 
-  const updateQuantity = useCallback((productId: string, quantity: number) => {
-    if (quantity < 1) return;
-    setCart((prev) =>
-      prev.map((c) =>
-        c.product.id === productId ? { ...c, quantity } : c,
-      ),
-    );
-  }, []);
+  const updateQuantity = useCallback(
+    (productId: string, quantity: number) => {
+      if (quantity < 1) {
+        setCart((prev) => prev.filter((c) => c.product.id !== productId));
+        return;
+      }
+      setCart((prev) =>
+        prev.map((c) =>
+          c.product.id === productId ? { ...c, quantity } : c,
+        ),
+      );
+    },
+    [],
+  );
 
   const clearCart = useCallback(() => setCart([]), []);
 

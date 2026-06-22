@@ -12,7 +12,11 @@ export function getStorage<T>(key: string, fallback: T): T {
 
 export function setStorage<T>(key: string, value: T): void {
   if (!isBrowser) return;
-  localStorage.setItem(key, JSON.stringify(value));
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Quota exceeded or private browsing — fail silently
+  }
 }
 
 export const STORAGE_KEYS = {
