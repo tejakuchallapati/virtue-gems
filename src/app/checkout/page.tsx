@@ -56,8 +56,7 @@ export default function CheckoutPage() {
     try {
       await loadAccount(form.phone);
 
-      let orderId: string | undefined;
-      let invoiceUrl: string | undefined;
+      const redemptionSnapshot = activeRedemption;
 
       const orderRes = await apiFetch<{ order?: { id: string } }>("/api/orders", {
         method: "POST",
@@ -74,12 +73,15 @@ export default function CheckoutPage() {
         }),
       });
 
-      if (orderRes.ok && orderRes.data.order?.id) {
-        orderId = orderRes.data.order.id;
-        invoiceUrl = `${window.location.origin}/invoice/${orderId}`;
+      if (!orderRes.ok || !orderRes.data.order?.id) {
+        setError(orderRes.ok ? "Could not save your order. Please try again." : orderRes.error);
+        return;
       }
 
-      const { earned, balanceAfter } = await completeOrder(
+      const orderId = orderRes.data.order.id;
+      const invoiceUrl = `${window.location.origin}/invoice/${orderId}`;
+
+      const { earned, balanceAfter, redemption } = await completeOrder(
         form.phone,
         form.customerName,
         finalTotal,
@@ -87,7 +89,7 @@ export default function CheckoutPage() {
 
       const message = buildOrderMessage(form, cart, finalTotal, orderId, invoiceUrl, {
         discount,
-        redemption: activeRedemption,
+        redemption: redemption ?? redemptionSnapshot,
         pointsEarned: earned,
         pointsBalance: balanceAfter,
       });
@@ -95,12 +97,11 @@ export default function CheckoutPage() {
       clearCart();
       window.open(getWhatsAppUrl(message), "_blank");
 
-      const invoicePath = orderId
-        ? `/invoice/${orderId}?earned=${earned}&balance=${balanceAfter}`
-        : `/rewards`;
-      router.push(invoicePath);
-    } catch {
-      setError("Something went wrong. Please try again.");
+      router.push(`/invoice/${orderId}?earned=${earned}&balance=${balanceAfter}`);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Something went wrong. Please try again.",
+      );
     } finally {
       setLoading(false);
     }

@@ -27,14 +27,14 @@ type LoyaltyContextValue = {
   hydrated: boolean;
   setPhone: (phone: string) => void;
   setName: (name: string) => void;
-  loadAccount: (phone: string) => Promise<void>;
+  loadAccount: (phone: string) => Promise<LoyaltyAccount | null>;
   redeemReward: (rewardId: string) => boolean;
   clearRedemption: () => void;
   completeOrder: (
     phone: string,
     name: string,
     orderTotal: number,
-  ) => Promise<{ earned: number; balanceAfter: number }>;
+  ) => Promise<{ earned: number; balanceAfter: number; redemption: ActiveRedemption | null }>;
 };
 
 const LoyaltyContext = createContext<LoyaltyContextValue | null>(null);
@@ -88,9 +88,9 @@ export function LoyaltyProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const loadAccount = useCallback(
-    async (rawPhone: string) => {
+    async (rawPhone: string): Promise<LoyaltyAccount | null> => {
       const normalized = normalizePhone(rawPhone);
-      if (normalized.length < 10) return;
+      if (normalized.length < 10) return null;
 
       const res = await apiFetch<{ account?: LoyaltyAccount }>(
         `/api/loyalty?phone=${encodeURIComponent(normalized)}`,
@@ -99,18 +99,21 @@ export function LoyaltyProvider({ children }: { children: React.ReactNode }) {
 
       if (res.ok && res.data.account) {
         applyAccount(res.data.account);
-        return;
+        return res.data.account;
       }
 
       const local = getStorage<LoyaltyAccount | null>(STORAGE_KEYS.loyalty, null);
       if (local?.phone === normalized) {
         applyAccount(local);
-      } else {
-        applyAccount({
-          phone: normalized,
-          ...emptyAccount(),
-        });
+        return local;
       }
+
+      const empty: LoyaltyAccount = {
+        phone: normalized,
+        ...emptyAccount(),
+      };
+      applyAccount(empty);
+      return empty;
     },
     [applyAccount],
   );
@@ -162,39 +165,32 @@ export function LoyaltyProvider({ children }: { children: React.ReactNode }) {
       const normalized = normalizePhone(orderPhone);
       const earned = calculatePointsEarned(orderTotal);
       const now = new Date().toISOString();
+      const redemptionSnapshot = activeRedemption;
 
-      let currentPoints = points;
-      let currentLifetime = lifetimePoints;
-      let currentHistory = [...history];
-      let currentPhone = phone;
-      let currentName = name;
+      const res = await apiFetch<{ account?: LoyaltyAccount }>(
+        `/api/loyalty?phone=${encodeURIComponent(normalized)}`,
+        { retries: 2 },
+      );
 
-      if (currentPhone !== normalized) {
-        const res = await apiFetch<{ account?: LoyaltyAccount }>(
-          `/api/loyalty?phone=${encodeURIComponent(normalized)}`,
-          { retries: 2 },
-        );
-
-        if (res.ok && res.data.account) {
-          currentPoints = res.data.account.points;
-          currentLifetime = res.data.account.lifetimePoints;
-          currentHistory = res.data.account.history ?? [];
-        } else {
-          currentPoints = 0;
-          currentLifetime = 0;
-          currentHistory = [];
-        }
-        currentPhone = normalized;
+      if (!res.ok || !res.data.account) {
+        throw new Error("Could not load loyalty account. Please try again.");
       }
 
-      currentName = orderName || currentName;
+      let currentPoints = res.data.account.points;
+      let currentLifetime = res.data.account.lifetimePoints;
+      let currentHistory = [...(res.data.account.history ?? [])];
+      const currentPhone = normalized;
+      const currentName = orderName || res.data.account.name || "";
 
-      if (activeRedemption) {
-        currentPoints = Math.max(0, currentPoints - activeRedemption.pointsCost);
+      if (redemptionSnapshot) {
+        if (currentPoints < redemptionSnapshot.pointsCost) {
+          throw new Error("Not enough points for the selected reward.");
+        }
+        currentPoints = Math.max(0, currentPoints - redemptionSnapshot.pointsCost);
         currentHistory.unshift({
           type: "redeem",
-          points: activeRedemption.pointsCost,
-          label: `Redeemed: ${activeRedemption.title}`,
+          points: redemptionSnapshot.pointsCost,
+          label: `Redeemed: ${redemptionSnapshot.title}`,
           date: now,
         });
         setActiveRedemption(null);
@@ -218,9 +214,9 @@ export function LoyaltyProvider({ children }: { children: React.ReactNode }) {
       };
 
       await syncAccount(account);
-      return { earned, balanceAfter: currentPoints };
+      return { earned, balanceAfter: currentPoints, redemption: redemptionSnapshot };
     },
-    [phone, name, points, lifetimePoints, history, activeRedemption, syncAccount],
+    [activeRedemption, syncAccount],
   );
 
   const value = useMemo(

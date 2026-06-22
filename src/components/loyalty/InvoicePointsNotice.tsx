@@ -14,7 +14,7 @@ export function InvoicePointsNotice({
   const earned = Number(searchParams.get("earned") ?? 0);
   const balance = Number(searchParams.get("balance") ?? 0);
 
-  if (!earned || !balance) return null;
+  if (!earned) return null;
 
   return (
     <PointsEarnedBanner
