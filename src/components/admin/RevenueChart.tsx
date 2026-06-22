@@ -10,21 +10,23 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const chartData = [
-  { name: "Mon", sales: 45000 },
-  { name: "Tue", sales: 32000 },
-  { name: "Wed", sales: 78000 },
-  { name: "Thu", sales: 56000 },
-  { name: "Fri", sales: 91000 },
-  { name: "Sat", sales: 120000 },
-  { name: "Sun", sales: 85000 },
-];
+type ChartPoint = { name: string; sales: number };
 
-export function RevenueChart() {
+export function RevenueChart({ data }: { data: ChartPoint[] }) {
+  const hasSales = data.some((point) => point.sales > 0);
+
+  if (!hasSales) {
+    return (
+      <p className="flex h-64 items-center justify-center text-sm text-light/40">
+        No sales data yet this week.
+      </p>
+    );
+  }
+
   return (
     <div className="h-64">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={chartData}>
+        <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
           <XAxis dataKey="name" stroke="#94a3b8" fontSize={12} />
           <YAxis stroke="#94a3b8" fontSize={12} tickFormatter={(v) => `₹${v / 1000}k`} />
