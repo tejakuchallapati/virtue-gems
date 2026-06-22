@@ -35,7 +35,7 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <article className="group relative overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-light-muted/60 transition hover:shadow-lg hover:ring-gold/30">
       <div className="relative aspect-square overflow-hidden bg-[#1a0a2e]">
-        <Link href={`/product/${product.slug}`} className="block h-full w-full">
+        <Link href={`/product/${product.slug}`} className="relative block h-full w-full">
           <Image
             src={product.images[0]}
             alt={product.name}
@@ -50,7 +50,7 @@ export function ProductCard({ product }: { product: Product }) {
               key={tag}
               className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide sm:text-xs ${tagStyles[tag]}`}
             >
-              {tagLabels[tag]}
+              {tagLabels[tag] ?? tag}
             </span>
           ))}
         </div>

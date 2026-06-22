@@ -104,6 +104,8 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
       setPlacements(auto);
       setActiveOverlay(auto[0]?.id ?? "");
       setFitMessage("Re-positioned on your photo.");
+    } catch {
+      setFitMessage("Could not detect face — adjust the jewellery manually.");
     } finally {
       setFitting(false);
     }
