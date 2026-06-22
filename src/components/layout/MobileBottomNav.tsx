@@ -24,7 +24,7 @@ const items = [
 
 export function MobileBottomNav() {
   const pathname = usePathname();
-  const { cartCount, wishlistCount } = useStore();
+  const { cartCount, wishlistCount, hydrated } = useStore();
 
   if (pathname.startsWith("/admin")) return null;
 
@@ -78,7 +78,7 @@ export function MobileBottomNav() {
                             : "text-light/50",
                       )}
                     />
-                    {badge > 0 && (
+                    {hydrated && badge > 0 && (
                       <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark">
                         {badge}
                       </span>

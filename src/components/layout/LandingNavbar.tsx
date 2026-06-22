@@ -72,7 +72,7 @@ function MobileNavLink({ href, label }: { href: string; label: string }) {
 
 export function LandingNavbar() {
   const pathname = usePathname();
-  const { cartCount, wishlistCount } = useStore();
+  const { cartCount, wishlistCount, hydrated } = useStore();
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
 
@@ -115,7 +115,7 @@ export function LandingNavbar() {
             <div className="flex items-center gap-2.5">
               <Link href="/wishlist" className="relative text-light/65 hover:text-gold" aria-label="Wishlist">
                 <Heart className="h-4 w-4" />
-                {wishlistCount > 0 && (
+                {hydrated && wishlistCount > 0 && (
                   <span className="absolute -right-1.5 -top-1.5 text-[9px] font-bold text-gold">
                     {wishlistCount}
                   </span>
@@ -123,7 +123,7 @@ export function LandingNavbar() {
               </Link>
               <Link href="/cart" className="relative text-light/65 hover:text-gold" aria-label="Cart">
                 <ShoppingCart className="h-4 w-4" />
-                {cartCount > 0 && (
+                {hydrated && cartCount > 0 && (
                   <span className="absolute -right-1.5 -top-1.5 text-[9px] font-bold text-gold">
                     {cartCount}
                   </span>
@@ -167,7 +167,7 @@ export function LandingNavbar() {
               aria-label="Cart"
             >
               <ShoppingCart className="h-[18px] w-[18px] transition-transform duration-300 group-hover:scale-110" />
-              {cartCount > 0 && (
+              {hydrated && cartCount > 0 && (
                 <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark">
                   {cartCount}
                 </span>

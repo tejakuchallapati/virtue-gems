@@ -50,7 +50,7 @@ function NavLink({
 
 export function DesktopNavbar() {
   const pathname = usePathname();
-  const { cartCount } = useStore();
+  const { cartCount, hydrated } = useStore();
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
 
@@ -96,7 +96,7 @@ export function DesktopNavbar() {
             aria-label="Cart"
           >
             <ShoppingCart className="h-[18px] w-[18px] transition-transform duration-300 group-hover:scale-110" />
-            {cartCount > 0 && (
+            {hydrated && cartCount > 0 && (
               <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark">
                 {cartCount}
               </span>
