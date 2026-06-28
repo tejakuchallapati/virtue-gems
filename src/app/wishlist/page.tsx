@@ -6,13 +6,14 @@ import { useStore } from "@/context/StoreProvider";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { PRODUCT_GRID } from "@/lib/ui-classes";
 
 export default function WishlistPage() {
   const { wishlist } = useStore();
 
   if (wishlist.length === 0) {
     return (
-      <div className="mx-auto max-w-lg px-4 py-16 text-center sm:py-24">
+      <div className="mx-auto max-w-lg px-4 py-16 text-center page-mobile-safe sm:py-24">
         <Heart className="mx-auto h-12 w-12 text-dark/20" />
         <h1 className="mt-4 text-xl font-semibold text-dark">Wishlist is empty</h1>
         <p className="mt-2 text-sm text-dark/60">
@@ -35,7 +36,7 @@ export default function WishlistPage() {
         My Wishlist
       </h1>
       <p className="mb-6 text-sm text-dark/60">{wishlist.length} saved item(s)</p>
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      <div className={PRODUCT_GRID}>
         {wishlist.map((p, i) => (
           <ScrollReveal key={p.id} delay={i * 0.05}>
             <ProductCard product={p} />

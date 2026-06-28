@@ -7,6 +7,7 @@ import { useStore } from "@/context/StoreProvider";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { formatPrice } from "@/lib/utils";
+import { CARD_SURFACE, PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
 import { DELIVERY_SHORT } from "@/lib/delivery";
 
 export default function CartPage() {
@@ -14,7 +15,7 @@ export default function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="mx-auto max-w-lg px-4 py-16 text-center sm:py-24">
+      <div className="mx-auto max-w-lg px-4 py-16 text-center page-mobile-safe sm:py-24">
         <ShoppingBag className="mx-auto h-12 w-12 text-dark/20" />
         <h1 className="mt-4 text-xl font-semibold text-dark">Your cart is empty</h1>
         <p className="mt-2 text-sm text-dark/60">
@@ -41,17 +42,17 @@ export default function CartPage() {
         <div className="space-y-4 lg:col-span-2">
           {cart.map((item, i) => (
             <ScrollReveal key={item.product.id} delay={i * 0.05}>
-              <div className="flex gap-4 rounded-2xl bg-white p-4 ring-1 ring-light-muted/60">
+              <div className={`flex gap-4 p-4 ${CARD_SURFACE}`}>
                 <Link
                   href={`/product/${item.product.slug}`}
-                  className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-light sm:h-28 sm:w-28"
+                  className={`h-24 w-24 shrink-0 rounded-xl sm:h-28 sm:w-28 ${PRODUCT_IMAGE_FRAME}`}
                 >
                   <Image
                     src={item.product.images[0]}
                     alt={item.product.name}
                     fill
                     sizes="112px"
-                    className="object-cover"
+                    className={PRODUCT_IMAGE_FIT}
                   />
                 </Link>
                 <div className="flex flex-1 flex-col justify-between">
@@ -111,7 +112,7 @@ export default function CartPage() {
 
         {/* Order summary */}
         <div className="lg:col-span-1">
-          <div className="sticky top-20 rounded-2xl bg-white p-6 ring-1 ring-light-muted/60">
+          <div className={`sticky top-20 p-6 ${CARD_SURFACE}`}>
             <h2 className="text-lg font-semibold text-dark">Order Summary</h2>
             <div className="mt-4 space-y-2 text-sm">
               <div className="flex justify-between text-dark/70">
