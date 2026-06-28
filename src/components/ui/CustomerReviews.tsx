@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Quote, Play, X } from "lucide-react";
 import customerMedia from "@/data/customer-media.json";
+import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
 
 const textReviews = [
   {
@@ -166,14 +167,14 @@ export function CustomerReviews() {
               key={item.id}
               type="button"
               onClick={() => setActiveMedia(item)}
-              className="group relative h-48 w-36 shrink-0 snap-center overflow-hidden rounded-xl bg-[#1a0a2e] ring-1 ring-gold/20 transition active:scale-[0.98] hover:ring-gold/50 sm:h-52 sm:w-36"
+              className={`group h-48 w-36 shrink-0 snap-center rounded-xl transition active:scale-[0.98] hover:ring-gold/50 sm:h-52 sm:w-36 ${PRODUCT_IMAGE_FRAME} ring-1 ring-gold/20`}
             >
               <Image
                 src={item.poster}
                 alt={item.caption}
                 fill
                 sizes="144px"
-                className="object-cover transition duration-500 group-hover:scale-105"
+                className={`${PRODUCT_IMAGE_FIT} group-hover:scale-105`}
               />
               {item.type === "video" && (
                 <div className="absolute inset-0 flex items-center justify-center bg-dark/30">

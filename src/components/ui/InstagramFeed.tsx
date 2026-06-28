@@ -42,7 +42,7 @@ export function InstagramFeed() {
             href={post.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative aspect-square overflow-hidden rounded-lg bg-[#1a0a2e] sm:rounded-xl"
+            className="group relative aspect-square overflow-hidden rounded-lg bg-[#1a0a2e] ring-1 ring-inset ring-white/10 sm:rounded-xl"
           >
             <Image
               src={post.image}
