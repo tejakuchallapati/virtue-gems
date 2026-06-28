@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
+import { FooterYear } from "./FooterYear";
 
 const shop = [
   { href: "/shop", label: "All Collections" },
@@ -24,7 +25,7 @@ const legal = [
 
 export function Footer() {
   return (
-    <footer className="safe-bottom bg-dark text-light/80 pb-[calc(4.75rem+env(safe-area-inset-bottom))] md:pb-0">
+    <footer className="safe-bottom border-t border-gold/20 bg-dark text-light/80 pb-[calc(4.75rem+env(safe-area-inset-bottom))] md:pb-0">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
@@ -87,7 +88,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-10 border-t border-light/10 pt-6 text-center text-xs text-light/40">
-          &copy; {new Date().getFullYear()} Virtue Gems. All rights reserved.
+          &copy; <FooterYear /> Virtue Gems. All rights reserved.
         </div>
       </div>
     </footer>
