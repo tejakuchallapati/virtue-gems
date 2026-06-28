@@ -6,6 +6,7 @@ import { Heart, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { useStore } from "@/context/StoreProvider";
 import { formatPrice } from "@/lib/utils";
+import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
 import type { Product } from "@/types";
 
 const tagStyles: Record<string, string> = {
@@ -33,16 +34,18 @@ export function ProductCard({ product }: { product: Product }) {
   }
 
   return (
-    <article className="group relative overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-light-muted/60 transition hover:shadow-lg hover:ring-gold/30">
-      <div className="relative aspect-square overflow-hidden bg-[#1a0a2e]">
-        <Link href={`/product/${product.slug}`} className="relative block h-full w-full">
-          <Image
-            src={product.images[0]}
-            alt={product.name}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-contain p-1 transition duration-500 group-hover:scale-[1.03] sm:p-2"
-          />
+    <article className="group relative overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-light-muted/60 transition hover:shadow-md hover:ring-gold/35">
+      <div className={`aspect-square ${PRODUCT_IMAGE_FRAME}`}>
+        <Link href={`/product/${product.slug}`} className="block h-full w-full">
+          <span className="relative block h-full w-full">
+            <Image
+              src={product.images[0]}
+              alt={product.name}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className={`${PRODUCT_IMAGE_FIT} group-hover:scale-[1.03]`}
+            />
+          </span>
         </Link>
         <div className="pointer-events-none absolute left-2 top-2 flex flex-wrap gap-1">
           {product.tags.slice(0, 2).map((tag) => (
@@ -69,7 +72,7 @@ export function ProductCard({ product }: { product: Product }) {
         </button>
       </div>
 
-      <div className="p-3 sm:p-4">
+      <div className="border-t border-light-muted/50 p-3 sm:p-4">
         <Link href={`/product/${product.slug}`}>
           <h3 className="line-clamp-1 text-sm font-medium text-dark sm:text-base">
             {product.name}
