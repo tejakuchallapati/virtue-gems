@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Gift, Sparkles } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { formatPrice } from "@/lib/utils";
+import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
 import type { Product } from "@/types";
 
 const tagLabels: Record<string, string> = {
@@ -17,16 +18,18 @@ function HighlightCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl bg-[#1a0a2e] ring-1 ring-gold/20 transition hover:ring-gold/50 md:flex-row"
+      className="group relative flex flex-col overflow-hidden rounded-2xl bg-[#1a0a2e] ring-1 ring-gold/25 transition hover:ring-gold/50 md:flex-row"
     >
-      <div className="relative aspect-square w-full shrink-0 bg-[#12061f] md:aspect-auto md:h-56 md:w-56">
-        <Image
-          src={product.images[0]}
-          alt={product.name}
-          fill
-          sizes="(max-width: 768px) 50vw, 224px"
-          className="object-contain p-3 transition duration-500 group-hover:scale-[1.04]"
-        />
+      <div className={`aspect-square w-full shrink-0 md:aspect-auto md:h-56 md:w-56 ${PRODUCT_IMAGE_FRAME}`}>
+        <span className="relative block h-full w-full">
+          <Image
+            src={product.images[0]}
+            alt={product.name}
+            fill
+            sizes="(max-width: 768px) 50vw, 224px"
+            className={`${PRODUCT_IMAGE_FIT} group-hover:scale-[1.04]`}
+          />
+        </span>
       </div>
       <div className="flex flex-1 flex-col justify-center p-4 md:p-6">
         {primaryTag && (
