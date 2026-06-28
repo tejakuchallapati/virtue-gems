@@ -418,7 +418,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
                 {filtered.map((p, i) => (
                   <ScrollReveal key={p.id} delay={Math.min(i * 0.04, 0.4)}>
                     <ProductCard product={p} />

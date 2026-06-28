@@ -20,6 +20,7 @@ import { ProductCard } from "@/components/ui/ProductCard";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { formatPrice } from "@/lib/utils";
+import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME, PRODUCT_GRID } from "@/lib/ui-classes";
 import { buildProductShareMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import type { Product } from "@/types";
 
@@ -82,7 +83,7 @@ export function ProductDetailClient({
           <button
             type="button"
             aria-label="Zoom product image"
-            className="relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-2xl bg-[#1a0a2e] text-left"
+            className={`relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-2xl text-left ${PRODUCT_IMAGE_FRAME}`}
             onClick={() => setZoom(true)}
           >
             <Image
@@ -90,7 +91,7 @@ export function ProductDetailClient({
               alt={product.name}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-contain p-2 sm:p-4"
+              className={`${PRODUCT_IMAGE_FIT} sm:p-4`}
               priority
             />
             <div className="pointer-events-none absolute right-3 top-3 rounded-full bg-white/80 p-2">
@@ -103,11 +104,11 @@ export function ProductDetailClient({
                 key={i}
                 type="button"
                 onClick={() => setActiveImage(i)}
-                className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-lg ring-2 transition sm:h-20 sm:w-20 ${
+                className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20 ${PRODUCT_IMAGE_FRAME} ring-2 transition ${
                   i === activeImage ? "ring-gold" : "ring-transparent"
                 }`}
               >
-                <Image src={img} alt="" fill sizes="80px" className="object-contain bg-[#1a0a2e] p-0.5" />
+                <Image src={img} alt="" fill sizes="80px" className={PRODUCT_IMAGE_FIT} />
               </button>
             ))}
           </div>
@@ -277,7 +278,7 @@ export function ProductDetailClient({
       {similar.length > 0 && (
         <ScrollReveal className="mt-12 sm:mt-16">
           <h2 className="mb-6 text-xl font-semibold text-dark">Similar Pieces</h2>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <div className={PRODUCT_GRID}>
             {similar.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
