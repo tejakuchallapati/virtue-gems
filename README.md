@@ -78,6 +78,20 @@ curl -X POST http://localhost:3001/api/notify \
   }'
 ```
 
+## Production checklist (client handoff)
+
+Before going live, set these in your hosting provider (e.g. Vercel) — copy from `.env.example`:
+
+| Variable | Purpose |
+|----------|---------|
+| `NEXT_PUBLIC_SITE_URL` | Your live domain (sitemap, SEO) |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp checkout number |
+| `NEXT_PUBLIC_UPI_ID` | UPI ID for payment replies |
+| `SMTP_*` / `NOTIFY_EMAIL` | Contact form & order emails |
+| `OTP_SECRET` / `ADMIN_EMAIL` | Admin login |
+
+Run `npm run build` locally to verify before deploy. Orders and loyalty data live in `data/virtue-gems.db` (SQLite).
+
 ## Tech stack
 
 - Next.js (App Router)
