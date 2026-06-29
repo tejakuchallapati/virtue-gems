@@ -92,6 +92,10 @@ Before going live, set these in your hosting provider (e.g. Vercel) — copy fro
 
 Run `npm run build` locally to verify before deploy. Orders and loyalty data live in `data/virtue-gems.db` (SQLite).
 
+## Phase 2 roadmap
+
+See [docs/phase-2/README.md](./docs/phase-2/README.md) for the post-launch plan (Razorpay, auth, admin CRUD, PostgreSQL).
+
 ## Tech stack
 
 - Next.js (App Router)
