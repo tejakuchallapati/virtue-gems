@@ -1,3 +1,5 @@
+import { PRODUCT_GRID } from "@/lib/ui-classes";
+
 export function ShopLoadingSkeleton() {
   return (
     <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
@@ -15,7 +17,7 @@ export function ShopLoadingSkeleton() {
           ))}
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <div className={`mt-8 ${PRODUCT_GRID} md:grid-cols-3`}>
           {Array.from({ length: 8 }).map((_, i) => (
             <div
               key={i}
