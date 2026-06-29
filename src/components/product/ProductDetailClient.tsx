@@ -68,7 +68,7 @@ export function ProductDetailClient({
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 pb-28 sm:px-6 sm:py-10 sm:pb-10 lg:px-8">
+    <div className="page-mobile-safe mx-auto max-w-7xl px-4 py-6 pb-28 sm:px-6 sm:py-10 sm:pb-10 lg:px-8">
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
