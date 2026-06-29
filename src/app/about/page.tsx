@@ -18,7 +18,7 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+    <div className="page-mobile-safe mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "About Us" }]} />
 
       <div className="relative mb-12 overflow-hidden rounded-3xl bg-dark">
