@@ -3,11 +3,14 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { MessageCircle, Sparkles } from "lucide-react";
+import { MessageCircle, Sparkles, ShoppingBag } from "lucide-react";
 import { useStore } from "@/context/StoreProvider";
 import { useLoyalty } from "@/context/LoyaltyProvider";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { SectionDivider } from "@/components/ui/PageSection";
 import { formatPrice } from "@/lib/utils";
+import { CARD_SURFACE, PAGE_SHELL } from "@/lib/ui-classes";
 import { apiFetch } from "@/lib/api-client";
 import { buildOrderMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import { calculateDiscount, calculatePointsEarned } from "@/lib/loyalty";
@@ -29,12 +32,13 @@ export default function CheckoutPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="mx-auto max-w-lg px-4 py-16 text-center">
-        <p className="text-dark/60">Your cart is empty.</p>
-        <Link href="/shop" className="mt-4 inline-block text-gold underline">
-          Go to Shop
-        </Link>
-      </div>
+      <EmptyState
+        icon={ShoppingBag}
+        title="Your cart is empty"
+        description="Add items before checkout."
+        actionLabel="Go to Shop"
+        actionHref="/shop"
+      />
     );
   }
 
@@ -111,7 +115,8 @@ export default function CheckoutPage() {
     "w-full rounded-xl border border-light-muted bg-white px-4 py-3 text-base outline-none focus:border-gold focus:ring-2 focus:ring-gold/20";
 
   return (
-    <div className="page-mobile-safe mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
+      <div className={PAGE_SHELL}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -248,7 +253,7 @@ export default function CheckoutPage() {
           </button>
         </form>
 
-        <div className="rounded-2xl bg-white p-6 ring-1 ring-light-muted/60 lg:sticky lg:top-20 lg:self-start">
+        <div className={`p-6 lg:sticky lg:top-20 lg:self-start ${CARD_SURFACE}`}>
           <h2 className="text-lg font-semibold text-dark">Your Order</h2>
           <ul className="mt-4 space-y-3">
             {cart.map((item) => (
@@ -287,6 +292,8 @@ export default function CheckoutPage() {
           </div>
         </div>
       </div>
+      </div>
+      <SectionDivider />
     </div>
   );
 }

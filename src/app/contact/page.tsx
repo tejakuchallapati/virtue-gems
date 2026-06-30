@@ -17,7 +17,9 @@ import {
 } from "lucide-react";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { SectionDivider } from "@/components/ui/PageSection";
 import { apiFetch } from "@/lib/api-client";
+import { CARD_SURFACE, PAGE_SHELL } from "@/lib/ui-classes";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 import {
   DELIVERY_NOTICE,
@@ -156,7 +158,8 @@ export default function ContactPage() {
     "w-full rounded-xl border border-light-muted bg-white px-4 py-3 text-base outline-none focus:border-gold focus:ring-2 focus:ring-gold/20";
 
   return (
-    <div className="page-mobile-safe mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
+      <div className={PAGE_SHELL}>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
 
       {/* Hero */}
@@ -229,7 +232,7 @@ export default function ContactPage() {
       {/* Instagram + business info */}
       <div className="mb-12 grid gap-6 lg:grid-cols-2">
         <ScrollReveal>
-          <div className="h-full rounded-2xl bg-white p-6 ring-1 ring-light-muted/60 sm:p-8">
+          <div className={`h-full p-6 sm:p-8 ${CARD_SURFACE}`}>
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gold/10 text-gold-dark">
                 <InstagramIcon className="h-5 w-5" />
@@ -254,7 +257,7 @@ export default function ContactPage() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.08}>
-          <div className="h-full rounded-2xl bg-light p-6 ring-1 ring-light-muted/60 sm:p-8">
+          <div className="h-full rounded-2xl bg-light p-6 ring-1 ring-light-muted/60 shadow-sm sm:p-8">
             <h2 className="font-semibold text-dark">Good to Know</h2>
             <ul className="mt-4 space-y-4">
               {businessInfo.map(({ icon: Icon, label, value }) => (
@@ -297,12 +300,12 @@ export default function ContactPage() {
                 {topic.href ? (
                   <Link
                     href={topic.href}
-                    className="block h-full rounded-2xl bg-white p-5 ring-1 ring-light-muted/60 transition hover:ring-gold/30"
+                    className={`block h-full p-5 transition hover:ring-gold/30 ${CARD_SURFACE}`}
                   >
                     {content}
                   </Link>
                 ) : (
-                  <div className="h-full rounded-2xl bg-white p-5 ring-1 ring-light-muted/60">
+                  <div className={`h-full p-5 ${CARD_SURFACE}`}>
                     {content}
                   </div>
                 )}
@@ -336,7 +339,7 @@ export default function ContactPage() {
 
         <ScrollReveal delay={0.1} className="lg:col-span-3">
           {status === "success" ? (
-            <div className="rounded-2xl bg-white p-8 text-center ring-1 ring-gold/30">
+            <div className={`p-8 text-center ring-gold/30 ${CARD_SURFACE}`}>
               <p className="text-lg font-medium text-gold-dark">Message sent!</p>
               <p className="mt-2 text-sm text-dark/60">
                 Thank you for reaching out. We&apos;ll reply to your email soon.
@@ -352,7 +355,7 @@ export default function ContactPage() {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="space-y-4 rounded-2xl bg-white p-6 ring-1 ring-light-muted/60 sm:p-8"
+              className={`space-y-4 p-6 sm:p-8 ${CARD_SURFACE}`}
             >
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
@@ -421,6 +424,8 @@ export default function ContactPage() {
           )}
         </ScrollReveal>
       </div>
+      </div>
+      <SectionDivider />
     </div>
   );
 }
