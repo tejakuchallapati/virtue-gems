@@ -1,6 +1,10 @@
 import { cn } from "@/lib/utils";
 import { PAGE_CONTAINER, SECTION_DIVIDER } from "@/lib/ui-classes";
 
+export function SectionDivider({ className }: { className?: string }) {
+  return <div className={cn(SECTION_DIVIDER, className)} aria-hidden />;
+}
+
 type PageSectionProps = {
   children: React.ReactNode;
   id?: string;
@@ -31,13 +35,9 @@ export function PageSection({
       id={id}
       className={cn("relative py-12 sm:py-16", toneClasses[tone], className)}
     >
-      {dividerTop && (
-        <div className={cn(SECTION_DIVIDER, "absolute inset-x-0 top-0")} aria-hidden />
-      )}
+      {dividerTop && <SectionDivider className="absolute inset-x-0 top-0" />}
       <div className={cn(PAGE_CONTAINER, containerClassName)}>{children}</div>
-      {dividerBottom && (
-        <div className={cn(SECTION_DIVIDER, "absolute inset-x-0 bottom-0")} aria-hidden />
-      )}
+      {dividerBottom && <SectionDivider className="absolute inset-x-0 bottom-0" />}
     </section>
   );
 }
