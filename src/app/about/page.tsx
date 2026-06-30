@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { Gem, Award, Heart, Shield } from "lucide-react";
+import { CARD_SURFACE, PAGE_SHELL } from "@/lib/ui-classes";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -18,10 +19,10 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <div className="page-mobile-safe mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+    <div className={PAGE_SHELL}>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "About Us" }]} />
 
-      <div className="relative mb-12 overflow-hidden rounded-3xl bg-dark">
+      <div className="relative mb-12 overflow-hidden rounded-3xl bg-dark ring-1 ring-gold/20">
         <Image
           src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&q=80"
           alt="Jewellery craftsmanship"
@@ -54,7 +55,7 @@ export default function AboutPage() {
           const Icon = v.icon;
           return (
             <ScrollReveal key={v.title} delay={i * 0.1}>
-              <div className="rounded-2xl bg-white p-6 text-center ring-1 ring-light-muted/60">
+              <div className={`${CARD_SURFACE} p-6 text-center`}>
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gold/15">
                   <Icon className="h-6 w-6 text-gold-dark" />
                 </div>
