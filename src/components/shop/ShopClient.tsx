@@ -18,6 +18,12 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { filterProducts, getCategories } from "@/lib/products";
 import { DELIVERY_REGION_LABEL, DELIVERY_SHORT } from "@/lib/delivery";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
+import {
+  CARD_SURFACE,
+  DARK_PANEL,
+  PRODUCT_GRID,
+  SECTION_DIVIDER,
+} from "@/lib/ui-classes";
 import type { Product, ProductCategory } from "@/types";
 
 const tags = [
@@ -157,7 +163,7 @@ export function ShopClient({ products }: { products: Product[] }) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
+    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-4 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-8 lg:px-8">
         <div
@@ -305,7 +311,7 @@ export function ShopClient({ products }: { products: Product[] }) {
 
             <div className="space-y-5 overflow-y-auto lg:sticky lg:top-24">
               {/* Mobile: category in filters panel when hero is scrolled away */}
-              <div className="rounded-2xl bg-white p-5 ring-1 ring-light-muted/60 lg:hidden">
+              <div className={`${CARD_SURFACE} p-5 lg:hidden`}>
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark/50">
                   Category
                 </h3>
@@ -333,7 +339,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                 </a>
               </div>
 
-              <div className="rounded-2xl bg-white p-5 ring-1 ring-light-muted/60 lg:shadow-sm">
+              <div className={`${CARD_SURFACE} p-5 lg:shadow-sm`}>
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark/50">
                   Collection
                 </h3>
@@ -355,7 +361,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-white p-5 ring-1 ring-light-muted/60 lg:shadow-sm">
+              <div className={`${CARD_SURFACE} p-5 lg:shadow-sm`}>
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark/50">
                   Price
                 </h3>
@@ -418,7 +424,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+              <div className={`${PRODUCT_GRID} md:grid-cols-3`}>
                 {filtered.map((p, i) => (
                   <ScrollReveal key={p.id} delay={Math.min(i * 0.04, 0.4)}>
                     <ProductCard product={p} />
@@ -428,7 +434,7 @@ export function ShopClient({ products }: { products: Product[] }) {
             )}
 
             {filtered.length > 0 && (
-              <div className="mt-12 rounded-2xl bg-gradient-to-r from-[#1a0a2e] to-[#2d1450] p-6 text-center sm:p-8">
+              <div className={`mt-12 p-6 text-center sm:p-8 ${DARK_PANEL}`}>
                 <p className="text-sm text-light/70">
                   Earn loyalty points on every order
                 </p>
@@ -444,6 +450,7 @@ export function ShopClient({ products }: { products: Product[] }) {
           </div>
         </div>
       </div>
+      <div className={SECTION_DIVIDER} aria-hidden />
     </div>
   );
 }
