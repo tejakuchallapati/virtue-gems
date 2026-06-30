@@ -3,6 +3,7 @@ import Image from "next/image";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getAllProducts } from "@/lib/products";
 import { formatPrice } from "@/lib/utils";
+import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
 
 export default async function InventoryPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
@@ -30,8 +31,8 @@ export default async function InventoryPage() {
               <tr key={p.id} className="border-b border-light/5">
                 <td className="p-4">
                   <div className="flex items-center gap-3">
-                    <div className="relative h-10 w-10 overflow-hidden rounded-lg">
-                      <Image src={p.images[0]} alt="" fill sizes="40px" className="object-cover" />
+                    <div className={`relative h-10 w-10 overflow-hidden rounded-lg ${PRODUCT_IMAGE_FRAME}`}>
+                      <Image src={p.images[0]} alt="" fill sizes="40px" className={PRODUCT_IMAGE_FIT} />
                     </div>
                     <span className="font-medium text-light">{p.name}</span>
                   </div>
