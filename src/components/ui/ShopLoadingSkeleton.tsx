@@ -1,4 +1,4 @@
-import { PRODUCT_GRID } from "@/lib/ui-classes";
+import { PRODUCT_GRID, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
 
 export function ShopLoadingSkeleton() {
   return (
@@ -23,7 +23,7 @@ export function ShopLoadingSkeleton() {
               key={i}
               className="overflow-hidden rounded-2xl bg-white ring-1 ring-light-muted/60"
             >
-              <div className="aspect-square animate-pulse bg-[#1a0a2e]/80" />
+              <div className={`aspect-square animate-pulse ${PRODUCT_IMAGE_FRAME}`} />
               <div className="space-y-2 border-t border-light-muted/50 p-3">
                 <div className="h-4 w-3/4 animate-pulse rounded bg-light-muted/50" />
                 <div className="h-4 w-1/2 animate-pulse rounded bg-light-muted/40" />

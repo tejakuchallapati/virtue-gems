@@ -1,3 +1,5 @@
+import { PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
+
 export function ProductLoadingSkeleton() {
   return (
     <div className="page-mobile-safe mx-auto max-w-7xl px-4 py-6 pb-28 sm:px-6 sm:py-10 sm:pb-10 lg:px-8">
@@ -5,12 +7,12 @@ export function ProductLoadingSkeleton() {
 
       <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-12">
         <div>
-          <div className="aspect-square animate-pulse rounded-2xl bg-light-muted/40" />
+          <div className={`aspect-square animate-pulse ${PRODUCT_IMAGE_FRAME}`} />
           <div className="mt-3 flex gap-2">
             {Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={i}
-                className="h-16 w-16 shrink-0 animate-pulse rounded-xl bg-light-muted/40"
+                className={`h-16 w-16 shrink-0 animate-pulse rounded-xl ${PRODUCT_IMAGE_FRAME}`}
               />
             ))}
           </div>
