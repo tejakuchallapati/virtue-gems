@@ -6,8 +6,9 @@ import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { useStore } from "@/context/StoreProvider";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { formatPrice } from "@/lib/utils";
-import { CARD_SURFACE, PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
+import { CARD_SURFACE, PAGE_SHELL, PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
 import { DELIVERY_SHORT } from "@/lib/delivery";
 
 export default function CartPage() {
@@ -15,24 +16,18 @@ export default function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="mx-auto max-w-lg px-4 py-16 text-center page-mobile-safe sm:py-24">
-        <ShoppingBag className="mx-auto h-12 w-12 text-dark/20" />
-        <h1 className="mt-4 text-xl font-semibold text-dark">Your cart is empty</h1>
-        <p className="mt-2 text-sm text-dark/60">
-          Discover our exquisite collections.
-        </p>
-        <Link
-          href="/shop"
-          className="mt-6 inline-block rounded-xl bg-gold px-8 py-3 text-sm font-semibold text-dark"
-        >
-          Browse Shop
-        </Link>
-      </div>
+      <EmptyState
+        icon={ShoppingBag}
+        title="Your cart is empty"
+        description="Discover our exquisite collections."
+        actionLabel="Browse Shop"
+        actionHref="/shop"
+      />
     );
   }
 
   return (
-    <div className="page-mobile-safe mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+    <div className={PAGE_SHELL}>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Cart" }]} />
       <h1 className="mb-6 text-2xl font-semibold text-dark sm:text-3xl">
         Shopping Cart
