@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { SectionDivider } from "@/components/ui/PageSection";
 import { Gem, Award, Heart, Shield } from "lucide-react";
 import { CARD_SURFACE, PAGE_SHELL } from "@/lib/ui-classes";
 
@@ -19,7 +20,8 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <div className={PAGE_SHELL}>
+    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
+      <div className={PAGE_SHELL}>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "About Us" }]} />
 
       <div className="relative mb-12 overflow-hidden rounded-3xl bg-dark ring-1 ring-gold/20">
@@ -66,6 +68,8 @@ export default function AboutPage() {
           );
         })}
       </div>
+      </div>
+      <SectionDivider />
     </div>
   );
 }
