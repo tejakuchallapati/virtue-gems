@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { MessageCircle } from "lucide-react";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { SectionDivider } from "@/components/ui/PageSection";
 import { FaqAccordion } from "@/components/faq/FaqAccordion";
 import { FAQ_ITEMS } from "@/data/faq";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
@@ -76,6 +77,7 @@ export default function FaqPage() {
           </a>
         </div>
       </div>
+      <SectionDivider />
     </div>
   );
 }
