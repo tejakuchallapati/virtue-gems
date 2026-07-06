@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { FAQ_CATEGORIES, FAQ_ITEMS, type FaqItem } from "@/data/faq";
+import { CARD_SURFACE } from "@/lib/ui-classes";
 
 const categoryOrder: FaqItem["category"][] = [
   "orders",
@@ -59,7 +60,7 @@ export function FaqAccordion() {
           return (
             <div
               key={item.id}
-              className="overflow-hidden rounded-2xl bg-white ring-1 ring-light-muted/60"
+              className={`overflow-hidden ${CARD_SURFACE}`}
             >
               <button
                 type="button"
