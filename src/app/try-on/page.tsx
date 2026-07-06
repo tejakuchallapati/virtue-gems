@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { SectionDivider } from "@/components/ui/PageSection";
 import { TryOnSection } from "@/components/try-on/TryOnSection";
 import { getAllProducts, getProductBySlug } from "@/lib/products";
 
@@ -77,6 +78,7 @@ export default async function TryOnPage({ searchParams }: Props) {
           <p className="text-center text-dark/50">Select a product from the shop to try on.</p>
         )}
       </div>
+      <SectionDivider />
     </div>
   );
 }
