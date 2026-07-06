@@ -19,6 +19,7 @@ import { useStore } from "@/context/StoreProvider";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { SectionDivider } from "@/components/ui/PageSection";
 import { formatPrice } from "@/lib/utils";
 import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME, PRODUCT_GRID } from "@/lib/ui-classes";
 import { buildProductShareMessage, getWhatsAppUrl } from "@/lib/whatsapp";
@@ -68,7 +69,8 @@ export function ProductDetailClient({
   }
 
   return (
-    <div className="page-mobile-safe mx-auto max-w-7xl px-4 py-6 pb-28 sm:px-6 sm:py-10 sm:pb-10 lg:px-8">
+    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
+      <div className="mx-auto max-w-7xl px-4 py-6 pb-28 sm:px-6 sm:py-10 sm:pb-10 lg:px-8">
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -346,6 +348,8 @@ export function ProductDetailClient({
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
+      <SectionDivider />
     </div>
   );
 }
