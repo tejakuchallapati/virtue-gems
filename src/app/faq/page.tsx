@@ -5,6 +5,7 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { FaqAccordion } from "@/components/faq/FaqAccordion";
 import { FAQ_ITEMS } from "@/data/faq";
+import { DARK_PANEL } from "@/lib/ui-classes";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -61,7 +62,7 @@ export default function FaqPage() {
           <FaqAccordion />
         </div>
 
-        <div className="mt-10 rounded-2xl bg-gradient-to-br from-[#1a0a2e] to-[#2d1450] p-6 text-center text-light sm:p-8">
+        <div className={`mt-10 p-6 text-center text-light sm:p-8 ${DARK_PANEL}`}>
           <p className="text-lg font-semibold">Didn&apos;t find your answer?</p>
           <p className="mt-2 text-sm text-light/65">
             Our team replies on WhatsApp within 2–4 hours.
