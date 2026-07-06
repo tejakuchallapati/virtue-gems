@@ -5,7 +5,8 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { FaqAccordion } from "@/components/faq/FaqAccordion";
 import { FAQ_ITEMS } from "@/data/faq";
-import { DARK_PANEL } from "@/lib/ui-classes";
+import { DARK_PANEL, PAGE_SHELL } from "@/lib/ui-classes";
+import { cn } from "@/lib/utils";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -44,7 +45,7 @@ export default function FaqPage() {
   return (
     <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
       <FaqJsonLd />
-      <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+      <div className={cn(PAGE_SHELL, "max-w-3xl")}>
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "FAQ" }]} />
         <h1 className="mt-2 text-2xl font-semibold text-dark sm:text-3xl">
           Frequently Asked Questions
