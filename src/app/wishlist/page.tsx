@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/ui/ProductCard";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { SectionDivider } from "@/components/ui/PageSection";
 import { PAGE_SHELL, PRODUCT_GRID } from "@/lib/ui-classes";
 
 export default function WishlistPage() {
@@ -24,7 +25,8 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className={PAGE_SHELL}>
+    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
+      <div className={PAGE_SHELL}>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Wishlist" }]} />
       <h1 className="mb-6 text-2xl font-semibold text-dark sm:text-3xl">
         My Wishlist
@@ -37,6 +39,8 @@ export default function WishlistPage() {
           </ScrollReveal>
         ))}
       </div>
+      </div>
+      <SectionDivider />
     </div>
   );
 }
