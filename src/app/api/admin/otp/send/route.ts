@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { isEmailConfigured, sendNotificationEmail } from "@/lib/email";
 import {
   apiFail,

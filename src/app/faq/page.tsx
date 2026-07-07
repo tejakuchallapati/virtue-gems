@@ -5,7 +5,7 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { FaqAccordion } from "@/components/faq/FaqAccordion";
 import { FAQ_ITEMS } from "@/data/faq";
-import { DARK_PANEL, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL, PAGE_SHELL } from "@/lib/ui-classes";
+import { DARK_PANEL, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
 import { cn } from "@/lib/utils";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 
@@ -45,7 +45,7 @@ export default function FaqPage() {
   return (
     <div className={PAGE_GRADIENT_SHELL}>
       <FaqJsonLd />
-      <div className={cn(PAGE_SHELL, "max-w-3xl")}>
+      <div className={cn(PAGE_CONTENT_SHELL, "max-w-3xl")}>
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "FAQ" }]} />
         <h1 className="mt-2 text-2xl font-semibold text-dark sm:text-3xl">
           Frequently Asked Questions

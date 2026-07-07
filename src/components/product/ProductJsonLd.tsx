@@ -6,9 +6,6 @@ type Props = { product: Product };
 export function ProductJsonLd({ product }: Props) {
   const siteUrl = getSiteUrl();
   const url = `${siteUrl}/product/${product.slug}`;
-  const image = product.images[0]?.startsWith("http")
-    ? product.images[0]
-    : `${siteUrl}${product.images[0]}`;
 
   const schema = {
     "@context": "https://schema.org",
