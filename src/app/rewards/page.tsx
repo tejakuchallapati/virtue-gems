@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { RewardsClient } from "@/components/loyalty/RewardsClient";
+import { PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Rewards & Points",
@@ -10,8 +12,8 @@ export const metadata: Metadata = {
 
 export default function RewardsPage() {
   return (
-    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
-      <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
+    <div className={PAGE_GRADIENT_SHELL}>
+      <div className={cn("mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10")}>
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Rewards" }]} />
         <h1 className="mb-2 text-2xl font-semibold text-dark sm:text-3xl">
           Virtue Gems Rewards

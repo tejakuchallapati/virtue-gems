@@ -1,9 +1,9 @@
-import { PRODUCT_GRID, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
+import { PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL, PRODUCT_GRID, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
 
 export function ShopLoadingSkeleton() {
   return (
-    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+    <div className={PAGE_GRADIENT_SHELL}>
+      <div className={PAGE_CONTENT_SHELL}>
         <div className="h-4 w-32 animate-pulse rounded bg-light-muted/60" />
         <div className="mt-4 h-8 w-56 animate-pulse rounded-lg bg-light-muted/60 sm:h-10 sm:w-72" />
         <div className="mt-3 h-4 w-full max-w-md animate-pulse rounded bg-light-muted/40" />
