@@ -2,6 +2,14 @@
 
 export const PAGE_CONTAINER = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8";
 
+/** Cream gradient page backdrop with mobile bottom-nav clearance. */
+export const PAGE_GRADIENT_SHELL =
+  "page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white";
+
+/** Inner content width and vertical rhythm (pair with PAGE_GRADIENT_SHELL). */
+export const PAGE_CONTENT_SHELL =
+  "mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8";
+
 /** Standard page shell with safe-area padding and vertical rhythm. */
 export const PAGE_SHELL =
   "page-mobile-safe mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8";
