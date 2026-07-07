@@ -4,6 +4,8 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { TryOnSection } from "@/components/try-on/TryOnSection";
 import { getAllProducts, getProductBySlug } from "@/lib/products";
+import { PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Virtual Try-On",
@@ -21,7 +23,7 @@ export default async function TryOnPage({ searchParams }: Props) {
   const selected = slug ? getProductBySlug(slug) : products[0];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
+    <div className={PAGE_GRADIENT_SHELL}>
       <section className="bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-4 py-8 pb-24 sm:px-6 sm:pb-8 lg:px-8">
         <div className="mx-auto max-w-3xl">
           <div className="[&_a]:text-light/60 [&_a:hover]:text-gold [&_span]:text-light/80">
@@ -44,7 +46,7 @@ export default async function TryOnPage({ searchParams }: Props) {
         </div>
       </section>
 
-      <div className="page-mobile-safe mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+      <div className={cn("mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8")}>
         <div className="mb-6">
           <label htmlFor="try-on-product" className="mb-2 block text-sm font-medium text-dark">
             Choose a piece to try
