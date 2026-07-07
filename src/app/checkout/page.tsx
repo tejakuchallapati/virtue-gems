@@ -10,7 +10,7 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { formatPrice } from "@/lib/utils";
-import { CARD_SURFACE, PAGE_SHELL } from "@/lib/ui-classes";
+import { CARD_SURFACE, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
 import { apiFetch } from "@/lib/api-client";
 import { buildOrderMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import { calculateDiscount, calculatePointsEarned } from "@/lib/loyalty";
@@ -115,8 +115,8 @@ export default function CheckoutPage() {
     "w-full rounded-xl border border-light-muted bg-white px-4 py-3 text-base outline-none focus:border-gold focus:ring-2 focus:ring-gold/20";
 
   return (
-    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
-      <div className={PAGE_SHELL}>
+    <div className={PAGE_GRADIENT_SHELL}>
+      <div className={PAGE_CONTENT_SHELL}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
