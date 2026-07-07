@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Heart, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { useStore } from "@/context/StoreProvider";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, cn } from "@/lib/utils";
 import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
 import type { Product } from "@/types";
 
@@ -35,17 +35,18 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="group relative overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-light-muted/60 transition hover:shadow-md hover:ring-gold/35">
-      <div className={`aspect-square ${PRODUCT_IMAGE_FRAME}`}>
-        <Link href={`/product/${product.slug}`} className="block h-full w-full">
-          <span className="relative block h-full w-full">
-            <Image
-              src={product.images[0]}
-              alt={product.name}
-              fill
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              className={`${PRODUCT_IMAGE_FIT} group-hover:scale-[1.03]`}
-            />
-          </span>
+      <div className={cn("aspect-square", PRODUCT_IMAGE_FRAME)}>
+        <Link
+          href={`/product/${product.slug}`}
+          className="relative block h-full w-full"
+        >
+          <Image
+            src={product.images[0]}
+            alt={product.name}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            className={`${PRODUCT_IMAGE_FIT} group-hover:scale-[1.03]`}
+          />
         </Link>
         <div className="pointer-events-none absolute left-2 top-2 flex flex-wrap gap-1">
           {product.tags.slice(0, 2).map((tag) => (

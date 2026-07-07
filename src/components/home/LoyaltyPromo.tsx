@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Gift, ShoppingBag, Sparkles, Star, TrendingUp } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { SectionDivider } from "@/components/ui/PageSection";
 import { useLoyalty } from "@/context/LoyaltyProvider";
 import { LOYALTY_REWARDS } from "@/lib/loyalty";
 
@@ -35,9 +34,7 @@ export function LoyaltyPromo() {
   const pointsAway = upcoming && hydrated ? upcoming.pointsCost - points : null;
 
   return (
-    <>
-      <SectionDivider />
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] py-14 sm:py-20">
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] py-14 sm:py-20">
       <div
         className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-gold/10 blur-3xl"
         aria-hidden
@@ -166,7 +163,5 @@ export function LoyaltyPromo() {
         </ScrollReveal>
       </div>
     </section>
-      <SectionDivider />
-    </>
   );
 }

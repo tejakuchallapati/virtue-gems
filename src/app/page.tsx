@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { PageSection, SectionHeader } from "@/components/ui/PageSection";
+import { PageSection, SectionDivider, SectionHeader } from "@/components/ui/PageSection";
 import { HeroLanding } from "@/components/home/HeroLanding";
 import { TrendingHighlight } from "@/components/home/TrendingHighlight";
 import { ProductCard } from "@/components/ui/ProductCard";
@@ -24,9 +24,11 @@ export default function HomePage() {
 
       <TrendingHighlight trending={trending} bestseller={bestseller} />
 
+      <SectionDivider />
       <LoyaltyPromo />
+      <SectionDivider />
 
-      <PageSection tone="white" dividerTop>
+      <PageSection tone="white">
         <ScrollReveal>
           <SectionHeader
             eyebrow="Curated"
