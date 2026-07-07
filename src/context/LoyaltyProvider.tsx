@@ -51,7 +51,6 @@ export function LoyaltyProvider({ children }: { children: React.ReactNode }) {
   const [name, setNameState] = useState("");
   const [points, setPoints] = useState(0);
   const [history, setHistory] = useState<LoyaltyHistoryEntry[]>([]);
-  const [lifetimePoints, setLifetimePoints] = useState(0);
   const [activeRedemption, setActiveRedemption] = useState<ActiveRedemption | null>(null);
   const [hydrated, setHydrated] = useState(false);
 
@@ -66,7 +65,6 @@ export function LoyaltyProvider({ children }: { children: React.ReactNode }) {
       setPhoneState(stored.phone);
       setNameState(stored.name ?? "");
       setPoints(stored.points);
-      setLifetimePoints(stored.lifetimePoints);
       setHistory(stored.history ?? []);
     }
     setActiveRedemption(storedRedemption);
@@ -82,7 +80,6 @@ export function LoyaltyProvider({ children }: { children: React.ReactNode }) {
     setPhoneState(account.phone);
     setNameState(account.name ?? "");
     setPoints(account.points);
-    setLifetimePoints(account.lifetimePoints);
     setHistory(account.history ?? []);
     setStorage(STORAGE_KEYS.loyalty, account);
   }, []);
@@ -178,7 +175,7 @@ export function LoyaltyProvider({ children }: { children: React.ReactNode }) {
 
       let currentPoints = res.data.account.points;
       let currentLifetime = res.data.account.lifetimePoints;
-      let currentHistory = [...(res.data.account.history ?? [])];
+      const currentHistory = [...(res.data.account.history ?? [])];
       const currentPhone = normalized;
       const currentName = orderName || res.data.account.name || "";
 
