@@ -9,7 +9,7 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { formatPrice } from "@/lib/utils";
-import { CARD_SURFACE, PAGE_SHELL, PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
+import { CARD_SURFACE, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL, PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
 import { DELIVERY_SHORT } from "@/lib/delivery";
 
 export default function CartPage() {
@@ -28,8 +28,8 @@ export default function CartPage() {
   }
 
   return (
-    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
-      <div className={PAGE_SHELL}>
+    <div className={PAGE_GRADIENT_SHELL}>
+      <div className={PAGE_CONTENT_SHELL}>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Cart" }]} />
       <h1 className="mb-6 text-2xl font-semibold text-dark sm:text-3xl">
         Shopping Cart

@@ -4,7 +4,7 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { Gem, Award, Heart, Shield } from "lucide-react";
-import { CARD_SURFACE, PAGE_SHELL } from "@/lib/ui-classes";
+import { CARD_SURFACE, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -20,8 +20,8 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
-      <div className={PAGE_SHELL}>
+    <div className={PAGE_GRADIENT_SHELL}>
+      <div className={PAGE_CONTENT_SHELL}>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "About Us" }]} />
 
       <div className="relative mb-12 overflow-hidden rounded-3xl bg-dark ring-1 ring-gold/20">
