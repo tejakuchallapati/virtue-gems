@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import {
@@ -21,7 +20,7 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { formatPrice } from "@/lib/utils";
-import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME, PRODUCT_GRID } from "@/lib/ui-classes";
+import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL, PRODUCT_GRID } from "@/lib/ui-classes";
 import { buildProductShareMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import type { Product } from "@/types";
 
@@ -69,8 +68,8 @@ export function ProductDetailClient({
   }
 
   return (
-    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
-      <div className="mx-auto max-w-7xl px-4 py-6 pb-28 sm:px-6 sm:py-10 sm:pb-10 lg:px-8">
+    <div className={PAGE_GRADIENT_SHELL}>
+      <div className={`${PAGE_CONTENT_SHELL} pb-28 sm:pb-10`}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },

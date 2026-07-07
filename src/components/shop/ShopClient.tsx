@@ -15,14 +15,15 @@ import {
 import { ProductCard } from "@/components/ui/ProductCard";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { SectionDivider } from "@/components/ui/PageSection";
 import { filterProducts, getCategories } from "@/lib/products";
 import { DELIVERY_REGION_LABEL, DELIVERY_SHORT } from "@/lib/delivery";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 import {
   CARD_SURFACE,
   DARK_PANEL,
+  PAGE_GRADIENT_SHELL,
   PRODUCT_GRID,
-  SECTION_DIVIDER,
 } from "@/lib/ui-classes";
 import type { Product, ProductCategory } from "@/types";
 
@@ -139,7 +140,7 @@ export function ShopClient({ products }: { products: Product[] }) {
         minPrice: range.min,
         maxPrice: range.max === Infinity ? undefined : range.max,
       }),
-    [search, category, tag, range, products],
+    [search, category, tag, range],
   );
 
   function updateQuery(key: "category" | "tag", value: string) {
@@ -163,7 +164,7 @@ export function ShopClient({ products }: { products: Product[] }) {
   }
 
   return (
-    <div className="page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white">
+    <div className={PAGE_GRADIENT_SHELL}>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-4 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-8 lg:px-8">
         <div
@@ -450,7 +451,7 @@ export function ShopClient({ products }: { products: Product[] }) {
           </div>
         </div>
       </div>
-      <div className={SECTION_DIVIDER} aria-hidden />
+      <SectionDivider />
     </div>
   );
 }
