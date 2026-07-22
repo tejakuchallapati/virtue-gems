@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { MessageCircle, Sparkles } from "lucide-react";
+import { getAbsoluteUrl } from "@/lib/site";
 import {
   buildCustomerPointsMessage,
   getCustomerPointsWhatsAppUrl,
@@ -20,10 +21,7 @@ export function PointsEarnedBanner({
   pointsEarned,
   pointsBalance,
 }: Props) {
-  const rewardsUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/rewards`
-      : "/rewards";
+  const rewardsUrl = getAbsoluteUrl("/rewards");
 
   const pointsMessage = buildCustomerPointsMessage(
     customerName,
