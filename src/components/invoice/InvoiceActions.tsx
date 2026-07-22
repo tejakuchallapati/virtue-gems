@@ -1,15 +1,13 @@
 "use client";
 
 import { MessageCircle, Printer } from "lucide-react";
+import { getAbsoluteUrl } from "@/lib/site";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 import type { Order } from "@/types";
 import { formatPrice, formatDate } from "@/lib/utils";
 
 export function InvoiceActions({ order }: { order: Order }) {
-  const invoiceUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/invoice/${order.id}`
-      : `/invoice/${order.id}`;
+  const invoiceUrl = getAbsoluteUrl(`/invoice/${order.id}`);
 
   function shareOnWhatsApp() {
     const itemList = order.items
