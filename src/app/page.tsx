@@ -8,6 +8,7 @@ import { CustomerReviews } from "@/components/ui/CustomerReviews";
 import { InstagramFeed } from "@/components/ui/InstagramFeed";
 import { RecentlyViewed } from "@/components/home/RecentlyViewed";
 import { LoyaltyPromo } from "@/components/home/LoyaltyPromo";
+import { WebsiteJsonLd } from "@/components/seo/WebsiteJsonLd";
 import { PRODUCT_GRID } from "@/lib/ui-classes";
 import { getAllProducts } from "@/lib/products";
 
@@ -20,6 +21,7 @@ export default function HomePage() {
 
   return (
     <>
+      <WebsiteJsonLd />
       <HeroLanding />
 
       <TrendingHighlight trending={trending} bestseller={bestseller} />
