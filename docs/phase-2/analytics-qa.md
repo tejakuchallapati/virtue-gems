@@ -20,7 +20,9 @@
 
 ## Pre-launch checklist
 
-- [ ] `NEXT_PUBLIC_SITE_URL` set on production
+- [x] Custom domain connected (`https://virtuegems.com`)
+- [ ] `NEXT_PUBLIC_SITE_URL=https://virtuegems.com` set on Vercel production
 - [ ] UPI ID and WhatsApp number in env
 - [ ] SMTP working for contact form
 - [ ] Admin OTP email verified
+- [ ] Open `/robots.txt` and `/sitemap.xml` on the live domain and confirm URLs use `virtuegems.com`
