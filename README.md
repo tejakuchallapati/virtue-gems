@@ -80,17 +80,21 @@ curl -X POST http://localhost:3001/api/notify \
 
 ## Production checklist (client handoff)
 
-Before going live, set these in your hosting provider (e.g. Vercel) — copy from `.env.example`:
+**Live domain:** [https://virtuegems.com](https://virtuegems.com)
+
+Before going live (or after connecting a custom domain on Vercel), set these in your hosting provider — copy from `.env.example`:
 
 | Variable | Purpose |
 |----------|---------|
-| `NEXT_PUBLIC_SITE_URL` | Your live domain (sitemap, SEO) |
+| `NEXT_PUBLIC_SITE_URL` | `https://virtuegems.com` (sitemap, SEO, WhatsApp links) |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp checkout number |
 | `NEXT_PUBLIC_UPI_ID` | UPI ID for payment replies |
 | `SMTP_*` / `NOTIFY_EMAIL` | Contact form & order emails |
 | `OTP_SECRET` / `ADMIN_EMAIL` | Admin login |
 
 Run `npm run build` locally to verify before deploy. Orders and loyalty data live in `data/virtue-gems.db` (SQLite).
+
+**Custom domain tip:** After pointing DNS to Vercel, set `NEXT_PUBLIC_SITE_URL=https://virtuegems.com` in the project env so invoices, sitemap, and WhatsApp links never use the `*.vercel.app` preview host.
 
 ## Phase 2 roadmap
 

@@ -1,4 +1,4 @@
-import { getSiteUrl, PRODUCTION_SITE_URL } from "@/lib/site";
+import { getSiteUrl } from "@/lib/site";
 
 /** Site-wide Organization + WebSite JSON-LD for the custom domain. */
 export function WebsiteJsonLd() {
@@ -31,7 +31,7 @@ export function WebsiteJsonLd() {
         inLanguage: "en-IN",
         potentialAction: {
           "@type": "SearchAction",
-          target: `${PRODUCTION_SITE_URL}/shop?search={search_term_string}`,
+          target: `${siteUrl}/shop?search={search_term_string}`,
           "query-input": "required name=search_term_string",
         },
       },
