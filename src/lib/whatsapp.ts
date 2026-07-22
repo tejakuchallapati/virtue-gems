@@ -1,5 +1,6 @@
 import type { ActiveRedemption, CartItem, CheckoutForm } from "@/types";
 import { formatPrice } from "./utils";
+import { getAbsoluteUrl } from "./site";
 import { DELIVERY_REGION_LABEL } from "./delivery";
 import {
   BANK_DETAILS,
@@ -187,10 +188,7 @@ export function buildPaymentReplyMessage(
 }
 
 export function buildProductShareMessage(name: string, slug: string): string {
-  const url =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/product/${slug}`
-      : `/product/${slug}`;
+  const url = getAbsoluteUrl(`/product/${slug}`);
   return `Check out this beautiful piece from Virtue Gems: *${name}*\n${url}`;
 }
 
