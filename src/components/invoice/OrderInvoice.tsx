@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Order } from "@/types";
 import { formatPrice, formatDate } from "@/lib/utils";
+import { getSiteHost } from "@/lib/site";
 
 type OrderInvoiceProps = {
   order: Order;
@@ -136,7 +137,7 @@ export function OrderInvoice({ order, className = "" }: OrderInvoiceProps) {
       </div>
 
       <div className="bg-gold px-4 py-1.5 text-center text-[9px] font-medium text-dark/80">
-        +91 73961 78039 | Hyderabad | virtue-gems.vercel.app
+        +91 73961 78039 | Hyderabad | {getSiteHost()}
       </div>
     </article>
   );
