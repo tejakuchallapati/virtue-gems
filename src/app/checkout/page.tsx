@@ -12,6 +12,7 @@ import { SectionDivider } from "@/components/ui/PageSection";
 import { formatPrice } from "@/lib/utils";
 import { CARD_SURFACE, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
 import { apiFetch } from "@/lib/api-client";
+import { getAbsoluteUrl } from "@/lib/site";
 import { buildOrderMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import { calculateDiscount, calculatePointsEarned } from "@/lib/loyalty";
 import { UnboxingVideoNotice } from "@/components/ui/UnboxingVideoNotice";
@@ -83,7 +84,7 @@ export default function CheckoutPage() {
       }
 
       const orderId = orderRes.data.order.id;
-      const invoiceUrl = `${window.location.origin}/invoice/${orderId}`;
+      const invoiceUrl = getAbsoluteUrl(`/invoice/${orderId}`);
 
       const { earned, balanceAfter, redemption } = await completeOrder(
         form.phone,
