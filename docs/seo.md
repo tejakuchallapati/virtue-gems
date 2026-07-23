@@ -1,6 +1,22 @@
-# SEO guide — Virtue Gems (`virtuegems.com`)
+# SEO guide — Virtue Gems (`www.virtuegems.com`)
 
 Technical SEO is wired in the app. Ranking on Google also needs **Search Console**, good content, and time.
+
+## Canonical domain
+
+Your live site redirects:
+
+- `https://virtuegems.com` → `https://www.virtuegems.com`
+
+So the **canonical** URL is **`https://www.virtuegems.com`**.
+
+Always set in Vercel (Production):
+
+```
+NEXT_PUBLIC_SITE_URL=https://www.virtuegems.com
+```
+
+Without this, sitemap/robots can accidentally list a temporary `*.vercel.app` URL and Google will fail to fetch.
 
 ## What the site already does
 
@@ -18,39 +34,42 @@ Technical SEO is wired in the app. Ranking on Google also needs **Search Console
 | Cart / checkout / wishlist | `noindex` (not for Google) |
 | Web app manifest | `/manifest.webmanifest` |
 
-## Required: Google Search Console (do this once)
+## Google Search Console
 
-1. Open [Google Search Console](https://search.google.com/search-console)
-2. Add property → **URL prefix** → `https://virtuegems.com`
-3. Verify with **HTML tag** method
-4. Copy the content value (looks like `abc123...`) into Vercel env:
+### Preferred: Domain property
 
-```
-NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=abc123...
-```
+1. Search Console → Add property → **Domain** → `virtuegems.com`
+2. Verify via DNS (TXT record at Hostinger)
+3. Submit sitemap: `https://www.virtuegems.com/sitemap.xml`
 
-5. Redeploy, then click **Verify** in Search Console
-6. Submit sitemap: `https://virtuegems.com/sitemap.xml`
+### Or: URL-prefix property
+
+1. Add **`https://www.virtuegems.com/`** (with `www`)
+2. Verify (HTML file already at `/google65b9989051857934.html`)
+3. Submit sitemap: `https://www.virtuegems.com/sitemap.xml`
+
+> If you only verified `https://virtuegems.com/` (no www), Google may show **Couldn't fetch** for `/sitemap.xml` because that host **308-redirects** to www. Use the www property or a Domain property.
 
 ## Vercel env checklist
 
 ```
-NEXT_PUBLIC_SITE_URL=https://virtuegems.com
+NEXT_PUBLIC_SITE_URL=https://www.virtuegems.com
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-code-from-search-console
 ```
+
+Redeploy after saving env vars.
 
 ## Tips to rank higher (beyond code)
 
 - Post weekly on Instagram (`@virtue_gems`) and link to product pages
 - Ask happy customers for Google reviews if you add a Google Business Profile
 - Keep product titles and descriptions unique (already in catalog)
-- Share WhatsApp catalog links that point to `virtuegems.com/product/...`
+- Share WhatsApp links that point to `https://www.virtuegems.com/product/...`
 - Expect **weeks/months** for new domains — Google needs crawl history
 
 ## Quick self-check after deploy
 
-- [ ] https://virtuegems.com loads with HTTPS
-- [ ] View source → see `og:url` with `virtuegems.com`
-- [ ] https://virtuegems.com/sitemap.xml lists products
-- [ ] https://virtuegems.com/robots.txt allows `/` and points to sitemap
-- [ ] Search Console shows sitemap as “Success”
+- [ ] https://www.virtuegems.com loads with HTTPS
+- [ ] https://www.virtuegems.com/sitemap.xml shows `www.virtuegems.com` URLs (not `*.vercel.app`)
+- [ ] https://www.virtuegems.com/robots.txt Sitemap line uses `www.virtuegems.com`
+- [ ] Search Console sitemap status becomes **Success**

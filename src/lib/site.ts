@@ -1,30 +1,34 @@
-/** Canonical production domain for Virtue Gems (custom domain on Vercel). */
-export const PRODUCTION_SITE_URL = "https://virtuegems.com";
+/**
+ * Canonical production domain for Virtue Gems.
+ * Vercel currently redirects apex → www, so www is the public URL.
+ */
+export const PRODUCTION_SITE_URL = "https://www.virtuegems.com";
 
 export function getSiteUrl(): string {
   const configured = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
   if (configured) return configured;
 
-  const vercel = process.env.VERCEL_URL;
-  if (vercel) {
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3001";
+  }
+
+  // Preview deployments only — never use ephemeral Vercel URLs in production SEO.
+  if (process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL) {
+    const vercel = process.env.VERCEL_URL;
     return vercel.startsWith("http")
       ? vercel.replace(/\/$/, "")
       : `https://${vercel}`.replace(/\/$/, "");
   }
 
-  if (process.env.NODE_ENV === "development") {
-    return "http://localhost:3001";
-  }
-
   return PRODUCTION_SITE_URL;
 }
 
-/** Hostname only (e.g. virtuegems.com) for invoices and footers. */
+/** Hostname only (e.g. www.virtuegems.com) for invoices and footers. */
 export function getSiteHost(): string {
   try {
     return new URL(getSiteUrl()).host;
   } catch {
-    return "virtuegems.com";
+    return "www.virtuegems.com";
   }
 }
 

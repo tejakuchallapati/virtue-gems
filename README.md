@@ -80,13 +80,13 @@ curl -X POST http://localhost:3001/api/notify \
 
 ## Production checklist (client handoff)
 
-**Live domain:** [https://virtuegems.com](https://virtuegems.com)
+**Live domain:** [https://www.virtuegems.com](https://www.virtuegems.com)
 
 Before going live (or after connecting a custom domain on Vercel), set these in your hosting provider — copy from `.env.example`:
 
 | Variable | Purpose |
 |----------|---------|
-| `NEXT_PUBLIC_SITE_URL` | `https://virtuegems.com` (sitemap, SEO, WhatsApp links) |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.virtuegems.com` (sitemap, SEO, WhatsApp links) |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp checkout number |
 | `NEXT_PUBLIC_UPI_ID` | UPI ID for payment replies |
 | `SMTP_*` / `NOTIFY_EMAIL` | Contact form & order emails |
@@ -94,7 +94,7 @@ Before going live (or after connecting a custom domain on Vercel), set these in 
 
 Run `npm run build` locally to verify before deploy. Orders and loyalty data live in `data/virtue-gems.db` (SQLite).
 
-**Custom domain tip:** After pointing DNS to Vercel, set `NEXT_PUBLIC_SITE_URL=https://virtuegems.com` in the project env so invoices, sitemap, and WhatsApp links never use the `*.vercel.app` preview host.
+**Custom domain tip:** Apex (`virtuegems.com`) redirects to **www**. Set `NEXT_PUBLIC_SITE_URL=https://www.virtuegems.com` in Vercel so invoices, sitemap, and WhatsApp links never use a `*.vercel.app` preview host.
 
 ## Phase 2 roadmap
 
@@ -102,7 +102,7 @@ See [docs/phase-2/README.md](./docs/phase-2/README.md) for the post-launch plan 
 
 ## SEO & Google ranking
 
-See [docs/seo.md](./docs/seo.md) for Search Console setup, sitemap checks, and ranking tips for `virtuegems.com`.
+See [docs/seo.md](./docs/seo.md) for Search Console setup, sitemap checks, and ranking tips for `www.virtuegems.com`.
 
 ## Tech stack
 
