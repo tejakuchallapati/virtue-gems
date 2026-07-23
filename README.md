@@ -100,6 +100,10 @@ Run `npm run build` locally to verify before deploy. Orders and loyalty data liv
 
 See [docs/phase-2/README.md](./docs/phase-2/README.md) for the post-launch plan (Razorpay, auth, admin CRUD, PostgreSQL).
 
+## SEO & Google ranking
+
+See [docs/seo.md](./docs/seo.md) for Search Console setup, sitemap checks, and ranking tips for `virtuegems.com`.
+
 ## Tech stack
 
 - Next.js (App Router)
