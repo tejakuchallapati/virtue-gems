@@ -66,8 +66,11 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [{ url: "/logo-with-text.png", type: "image/png" }],
-    apple: [{ url: "/logo-with-text.png" }],
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon", type: "image/png" }],
   },
   verification: getVerificationMetadata(),
   other: {
