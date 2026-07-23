@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/ui/LegalPage";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Privacy Policy",
-};
+  description:
+    "How Virtue Gems collects and protects your personal information for WhatsApp orders, contact forms, and loyalty rewards.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

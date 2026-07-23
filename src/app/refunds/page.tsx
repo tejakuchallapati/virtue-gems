@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/ui/LegalPage";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Refund & Return Policy",
-};
+  description:
+    "Virtue Gems return rules including mandatory unboxing video proof for refunds and damaged-item claims.",
+  path: "/refunds",
+  keywords: ["jewellery return policy", "unboxing video refund", "Virtue Gems refunds"],
+});
 
 export default function RefundsPage() {
   return (

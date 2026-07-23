@@ -3,21 +3,21 @@ import Link from "next/link";
 import { MessageCircle } from "lucide-react";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { FaqAccordion } from "@/components/faq/FaqAccordion";
 import { FAQ_ITEMS } from "@/data/faq";
 import { DARK_PANEL, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
+import { buildPageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 
-export const metadata: Metadata = {
-  title: "FAQ",
+export const metadata: Metadata = buildPageMetadata({
+  title: "FAQ — Orders, Delivery, Rewards & Returns",
   description:
-    "Frequently asked questions about Virtue Gems orders, delivery, rewards, returns, and virtual try-on.",
-  openGraph: {
-    title: "FAQ | Virtue Gems",
-    description: "Answers to common questions about shopping at Virtue Gems.",
-  },
-};
+    "Answers about Virtue Gems WhatsApp orders, AP & Telangana delivery, loyalty rewards, unboxing video returns, and virtual try-on.",
+  path: "/faq",
+  keywords: ["Virtue Gems FAQ", "jewellery delivery Hyderabad", "jewellery return policy"],
+});
 
 function FaqJsonLd() {
   const schema = {
@@ -45,6 +45,12 @@ export default function FaqPage() {
   return (
     <div className={PAGE_GRADIENT_SHELL}>
       <FaqJsonLd />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "FAQ" },
+        ]}
+      />
       <div className={cn(PAGE_CONTENT_SHELL, "max-w-3xl")}>
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "FAQ" }]} />
         <h1 className="mt-2 text-2xl font-semibold text-dark sm:text-3xl">

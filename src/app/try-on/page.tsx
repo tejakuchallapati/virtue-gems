@@ -2,16 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { TryOnSection } from "@/components/try-on/TryOnSection";
 import { getAllProducts, getProductBySlug } from "@/lib/products";
 import { PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
+import { buildPageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Virtual Try-On",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Virtual Try-On Jewellery Online",
   description:
-    "Upload your photo and preview Virtue Gems jewellery on yourself before you buy.",
-};
+    "Try Virtue Gems rings, earrings and necklaces on your photo before you buy. Free virtual try-on with WhatsApp ordering.",
+  path: "/try-on",
+  keywords: [
+    "virtual try on jewellery",
+    "try jewellery online",
+    "AR jewellery try on India",
+  ],
+});
 
 type Props = {
   searchParams: Promise<{ product?: string }>;
@@ -24,6 +32,13 @@ export default async function TryOnPage({ searchParams }: Props) {
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Shop", path: "/shop" },
+          { name: "Virtual Try-On" },
+        ]}
+      />
       <section className="bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-4 py-8 pb-24 sm:px-6 sm:pb-8 lg:px-8">
         <div className="mx-auto max-w-3xl">
           <div className="[&_a]:text-light/60 [&_a:hover]:text-gold [&_span]:text-light/80">

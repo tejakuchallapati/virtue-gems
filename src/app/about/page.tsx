@@ -3,13 +3,18 @@ import Image from "next/image";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { Gem, Award, Heart, Shield } from "lucide-react";
 import { CARD_SURFACE, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Us",
-  description: "Learn about Virtue Gems — premium handcrafted jewellery with hallmarked gold and ethical sourcing.",
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "About Virtue Gems — Handcrafted Jewellery from Hyderabad",
+  description:
+    "Virtue Gems crafts premium gold-plated jewellery with hallmarked quality and ethical sourcing. Learn our story and why customers across AP & Telangana trust us.",
+  path: "/about",
+  keywords: ["about Virtue Gems", "jewellery brand Hyderabad", "handcrafted jewellery story"],
+});
 
 const values = [
   { icon: Gem, title: "Craftsmanship", desc: "Every piece is handcrafted by master artisans with decades of expertise." },
@@ -21,6 +26,12 @@ const values = [
 export default function AboutPage() {
   return (
     <div className={PAGE_GRADIENT_SHELL}>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "About Us" },
+        ]}
+      />
       <div className={PAGE_CONTENT_SHELL}>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "About Us" }]} />
 

@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/ui/LegalPage";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Terms & Conditions",
-};
+  description:
+    "Terms for shopping at Virtue Gems — WhatsApp orders, pricing, delivery across Andhra Pradesh & Telangana, and site usage.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

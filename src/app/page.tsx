@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { PageSection, SectionDivider, SectionHeader } from "@/components/ui/PageSection";
@@ -10,7 +11,19 @@ import { RecentlyViewed } from "@/components/home/RecentlyViewed";
 import { LoyaltyPromo } from "@/components/home/LoyaltyPromo";
 import { WebsiteJsonLd } from "@/components/seo/WebsiteJsonLd";
 import { PRODUCT_GRID } from "@/lib/ui-classes";
+import { buildPageMetadata, DEFAULT_DESCRIPTION, SITE_NAME } from "@/lib/seo";
 import { getAllProducts } from "@/lib/products";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: `${SITE_NAME} | Premium Handcrafted Jewellery Hyderabad`,
+  description: DEFAULT_DESCRIPTION,
+  path: "/",
+  keywords: [
+    "best jewellery shop Hyderabad",
+    "online jewellery AP Telangana",
+    "festive jewellery online India",
+  ],
+});
 
 export default function HomePage() {
   const products = getAllProducts();
