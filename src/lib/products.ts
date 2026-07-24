@@ -1,7 +1,11 @@
 import productsData from "@/data/products.json";
 import type { Product, ProductCategory } from "@/types";
 
-const products = productsData as unknown as Product[];
+/**
+ * Seed catalog used on the client (cart hydrate) and as a build-time fallback.
+ * Live shop/admin reads go through SQLite via the server-only helpers below.
+ */
+const seedProducts = productsData as unknown as Product[];
 
 const CATEGORY_LABELS: Record<ProductCategory, string> = {
   rings: "Rings",
@@ -19,31 +23,64 @@ const CATEGORY_ORDER: ProductCategory[] = [
   "pendants",
 ];
 
+function readLiveProducts(): Product[] {
+  if (typeof window !== "undefined") {
+    return seedProducts;
+  }
+  try {
+    // Lazy require so the client bundle never pulls in better-sqlite3.
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { listProducts } = require("@/lib/product-store") as typeof import("@/lib/product-store");
+    return listProducts();
+  } catch {
+    return seedProducts;
+  }
+}
+
 export function getAllProducts(): Product[] {
-  return products;
+  return readLiveProducts();
 }
 
 export function getProductBySlug(slug: string): Product | undefined {
-  return products.find((p) => p.slug === slug);
+  if (typeof window === "undefined") {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { getStoredProductBySlug } = require("@/lib/product-store") as typeof import("@/lib/product-store");
+      return getStoredProductBySlug(slug);
+    } catch {
+      /* fall through */
+    }
+  }
+  return seedProducts.find((p) => p.slug === slug);
 }
 
 export function getProductById(id: string): Product | undefined {
-  return products.find((p) => p.id === id);
+  if (typeof window === "undefined") {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { getStoredProductById } = require("@/lib/product-store") as typeof import("@/lib/product-store");
+      return getStoredProductById(id);
+    } catch {
+      /* fall through */
+    }
+  }
+  return seedProducts.find((p) => p.id === id);
 }
 
 export function getSimilarProducts(product: Product, limit = 4): Product[] {
-  return products
+  return getAllProducts()
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, limit);
 }
 
-export function getCategories(): {
+export function getCategories(products?: Product[]): {
   value: ProductCategory;
   label: string;
   count: number;
 }[] {
+  const list = products ?? getAllProducts();
   const counts = new Map<ProductCategory, number>();
-  for (const product of products) {
+  for (const product of list) {
     counts.set(product.category, (counts.get(product.category) ?? 0) + 1);
   }
 
@@ -56,14 +93,18 @@ export function getCategories(): {
   );
 }
 
-export function filterProducts(options: {
-  search?: string;
-  category?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  tag?: string;
-}): Product[] {
-  return products.filter((p) => {
+export function filterProducts(
+  options: {
+    search?: string;
+    category?: string;
+    minPrice?: number;
+    maxPrice?: number;
+    tag?: string;
+  },
+  products?: Product[],
+): Product[] {
+  const list = products ?? getAllProducts();
+  return list.filter((p) => {
     if (options.search) {
       const q = options.search.toLowerCase();
       if (
@@ -83,3 +124,5 @@ export function filterProducts(options: {
     return true;
   });
 }
+
+export { CATEGORY_LABELS, CATEGORY_ORDER };

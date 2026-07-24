@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const MAX_BODY_BYTES = 64 * 1024;
+const MAX_BODY_BYTES = 512 * 1024;
 
 type RateBucket = { count: number; resetAt: number };
 
