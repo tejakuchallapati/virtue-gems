@@ -218,6 +218,42 @@ export function buildCustomerPointsMessage(
   ].join("\n");
 }
 
+/** Post-delivery thank-you + review request (admin opens to customer). */
+export function buildDeliveryThankYouMessage(options: {
+  customerName: string;
+  orderId: string;
+  pointsEarned: number;
+  pointsBalance: number;
+  rewardsUrl?: string;
+  shopUrl?: string;
+  instagramUrl?: string;
+}): string {
+  const rewardsUrl = options.rewardsUrl ?? getAbsoluteUrl("/rewards");
+  const shopUrl = options.shopUrl ?? getAbsoluteUrl("/shop");
+  const instagramUrl =
+    options.instagramUrl ?? "https://www.instagram.com/virtue_gems/";
+
+  return [
+    `Hi ${options.customerName}! ✨`,
+    "",
+    "Thank you for choosing *Virtue Gems*.",
+    `Your order *${options.orderId}* is delivered — we hope you love your jewellery!`,
+    "",
+    `⭐ Points from this order: *+${options.pointsEarned}*`,
+    `💎 Your points balance: *${options.pointsBalance}*`,
+    `Redeem rewards: ${rewardsUrl}`,
+    "",
+    "💬 *We'd love your feedback*",
+    "1. Reply here with a short review (and a photo if you like)",
+    "2. Tag us on Instagram @virtue_gems",
+    `3. Shop again anytime: ${shopUrl}`,
+    "",
+    `Instagram: ${instagramUrl}`,
+    "",
+    "Thank you for supporting our small business 💛",
+  ].join("\n");
+}
+
 export function getCustomerPointsWhatsAppUrl(
   customerPhone: string,
   message: string,
