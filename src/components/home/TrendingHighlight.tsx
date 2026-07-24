@@ -56,7 +56,9 @@ export function TrendingHighlight({
   trending: Product | undefined;
   bestseller: Product | undefined;
 }) {
-  const picks = [trending, bestseller].filter(Boolean) as Product[];
+  const picks: Product[] = [];
+  if (trending) picks.push(trending);
+  if (bestseller && bestseller.id !== trending?.id) picks.push(bestseller);
   if (picks.length === 0) return null;
 
   return (

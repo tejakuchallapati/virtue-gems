@@ -30,7 +30,11 @@ export default function HomePage() {
   const featured = products.filter((p) => p.tags.includes("bestseller")).slice(0, 4);
   const newArrivals = products.filter((p) => p.tags.includes("new")).slice(0, 4);
   const trending = products.find((p) => p.tags.includes("trending"));
-  const bestseller = products.find((p) => p.tags.includes("bestseller"));
+  // Prefer a different piece than trending so the highlight row isn't duplicated
+  const bestseller =
+    products.find(
+      (p) => p.tags.includes("bestseller") && p.id !== trending?.id,
+    ) ?? products.find((p) => p.tags.includes("bestseller"));
 
   return (
     <>

@@ -126,21 +126,24 @@ export function ShopClient({ products }: { products: Product[] }) {
   const category = (searchParams.get("category") ?? "") as ProductCategory | "";
   const tag = searchParams.get("tag") ?? "";
 
-  const categories = getCategories();
+  const categories = getCategories(products);
   const range = priceRanges[priceIdx];
   const activeCategory = categories.find((c) => c.value === category);
   const activeTag = tags.find((t) => t.value === tag);
 
   const filtered = useMemo(
     () =>
-      filterProducts({
-        search,
-        category: category || undefined,
-        tag: tag || undefined,
-        minPrice: range.min,
-        maxPrice: range.max === Infinity ? undefined : range.max,
-      }),
-    [search, category, tag, range],
+      filterProducts(
+        {
+          search,
+          category: category || undefined,
+          tag: tag || undefined,
+          minPrice: range.min,
+          maxPrice: range.max === Infinity ? undefined : range.max,
+        },
+        products,
+      ),
+    [products, search, category, tag, range],
   );
 
   function updateQuery(key: "category" | "tag", value: string) {

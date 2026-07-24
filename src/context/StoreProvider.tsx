@@ -34,12 +34,6 @@ const StoreContext = createContext<StoreContextValue | null>(null);
 
 type StoredCart = { productId: string; quantity: number }[];
 
-function hydrateProducts(ids: string[]): Product[] {
-  return ids
-    .map((id) => getProductById(id))
-    .filter((product): product is Product => Boolean(product));
-}
-
 function normalizeStoredIds(raw: unknown): string[] {
   if (!Array.isArray(raw)) return [];
   if (raw.length === 0) return [];
@@ -63,33 +57,68 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    const storedCart = getStorage<StoredCart | unknown>(STORAGE_KEYS.cart, []);
-    const cartRows = Array.isArray(storedCart) ? storedCart : [];
+    let cancelled = false;
 
-    setCart(
-      cartRows
-        .map((item) => {
-          if (!item || typeof item !== "object") return null;
-          const row = item as { productId?: string; quantity?: number };
-          if (!row.productId || typeof row.quantity !== "number") return null;
-          const product = getProductById(row.productId);
-          return product ? { product, quantity: row.quantity } : null;
-        })
-        .filter(Boolean) as CartItem[],
-    );
+    async function hydrate() {
+      const lookup = new Map<string, Product>();
 
-    const wishlistIds = normalizeStoredIds(
-      getStorage<unknown>(STORAGE_KEYS.wishlist, []),
-    );
-    const recentIds = normalizeStoredIds(
-      getStorage<unknown>(STORAGE_KEYS.recentlyViewed, []),
-    );
+      try {
+        const res = await fetch("/api/products");
+        if (res.ok) {
+          const data = (await res.json()) as { products?: Product[] };
+          for (const p of data.products ?? []) {
+            lookup.set(p.id, p);
+          }
+        }
+      } catch {
+        /* fall back to seed below */
+      }
 
-    setWishlist(hydrateProducts(wishlistIds));
-    setRecentlyViewed(hydrateProducts(recentIds).slice(0, 8));
-    setHydrated(true);
+      const resolve = (id: string) => lookup.get(id) ?? getProductById(id);
+
+      const storedCart = getStorage<StoredCart | unknown>(STORAGE_KEYS.cart, []);
+      const cartRows = Array.isArray(storedCart) ? storedCart : [];
+
+      if (cancelled) return;
+
+      setCart(
+        cartRows
+          .map((item) => {
+            if (!item || typeof item !== "object") return null;
+            const row = item as { productId?: string; quantity?: number };
+            if (!row.productId || typeof row.quantity !== "number") return null;
+            const product = resolve(row.productId);
+            return product ? { product, quantity: row.quantity } : null;
+          })
+          .filter(Boolean) as CartItem[],
+      );
+
+      const wishlistIds = normalizeStoredIds(
+        getStorage<unknown>(STORAGE_KEYS.wishlist, []),
+      );
+      const recentIds = normalizeStoredIds(
+        getStorage<unknown>(STORAGE_KEYS.recentlyViewed, []),
+      );
+
+      setWishlist(
+        wishlistIds
+          .map((id) => resolve(id))
+          .filter((p): p is Product => Boolean(p)),
+      );
+      setRecentlyViewed(
+        recentIds
+          .map((id) => resolve(id))
+          .filter((p): p is Product => Boolean(p))
+          .slice(0, 8),
+      );
+      setHydrated(true);
+    }
+
+    void hydrate();
+    return () => {
+      cancelled = true;
+    };
   }, []);
-
   useEffect(() => {
     if (!hydrated) return;
     setStorage(
