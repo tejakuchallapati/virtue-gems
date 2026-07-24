@@ -25,6 +25,26 @@ export function initSchema(db: Database.Database) {
       updated_at TEXT NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS products (
+      id TEXT PRIMARY KEY,
+      slug TEXT NOT NULL UNIQUE,
+      name TEXT NOT NULL,
+      description TEXT NOT NULL,
+      long_description TEXT NOT NULL,
+      price REAL NOT NULL,
+      original_price REAL,
+      images TEXT NOT NULL,
+      category TEXT NOT NULL,
+      tags TEXT NOT NULL,
+      specifications TEXT NOT NULL,
+      stock INTEGER NOT NULL DEFAULT 0,
+      rating REAL NOT NULL DEFAULT 0,
+      review_count INTEGER NOT NULL DEFAULT 0,
+      reviews TEXT NOT NULL DEFAULT '[]',
+      active INTEGER NOT NULL DEFAULT 1,
+      updated_at TEXT NOT NULL
+    );
+
     CREATE TABLE IF NOT EXISTS meta (
       key TEXT PRIMARY KEY,
       value TEXT NOT NULL
@@ -33,5 +53,8 @@ export function initSchema(db: Database.Database) {
     CREATE INDEX IF NOT EXISTS idx_orders_created ON orders(created_at DESC);
     CREATE INDEX IF NOT EXISTS idx_orders_phone ON orders(phone);
     CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
+    CREATE INDEX IF NOT EXISTS idx_products_slug ON products(slug);
+    CREATE INDEX IF NOT EXISTS idx_products_category ON products(category);
+    CREATE INDEX IF NOT EXISTS idx_products_active ON products(active);
   `);
 }
