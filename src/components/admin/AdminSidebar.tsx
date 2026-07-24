@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard },
-  { href: "/admin/inventory", label: "Inventory", icon: Package },
+  { href: "/admin/inventory", label: "Products", icon: Package },
   { href: "/admin/analytics", label: "Sales Analytics", icon: BarChart3 },
   { href: "/admin/products", label: "Top Products", icon: TrendingUp },
   { href: "/admin/customers", label: "Customer Activity", icon: Users },
