@@ -1,70 +1,18 @@
 [
   {
-    "id": "vg-001",
-    "slug": "pearl-charm-layer-necklace",
-    "name": "Pearl Charm Layer Necklace",
-    "description": "Layered pearl necklace with gold charm accents.",
-    "longDescription": "Layered pearl necklace with gold charm accents. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 899,
-    "originalPrice": 1199,
+    "id": "vg-028",
+    "slug": "antique-bridal-temple-set",
+    "name": "Antique Bridal Temple Set",
+    "description": "Complete antique gold bridal set with haram, necklace, and maang tikka.",
+    "longDescription": "Complete antique gold bridal set with haram, necklace, and maang tikka. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1499,
+    "originalPrice": 1999,
     "images": [
-      "/products/vg-001.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "new"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 11,
-    "rating": 4.9,
-    "reviewCount": 41,
-    "reviews": []
-  },
-  {
-    "id": "vg-002",
-    "slug": "crystal-floral-short-necklace",
-    "name": "Crystal Floral Short Necklace",
-    "description": "Short crystal floral necklace perfect for festive wear.",
-    "longDescription": "Short crystal floral necklace perfect for festive wear. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 749,
-    "originalPrice": 1049,
-    "images": [
-      "/products/vg-002.jpg"
+      "/products/upload-mrxf30uz-ea0z3.jpg"
     ],
     "category": "necklaces",
     "tags": [
       "bestseller"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 8,
-    "rating": 4.7,
-    "reviewCount": 41,
-    "reviews": []
-  },
-  {
-    "id": "vg-003",
-    "slug": "gold-heart-charm-necklace",
-    "name": "Gold Heart Charm Necklace",
-    "description": "Minimal gold chain with heart charm and crystal accents.",
-    "longDescription": "Minimal gold chain with heart charm and crystal accents. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 649,
-    "originalPrice": 949,
-    "images": [
-      "/products/vg-003.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "trending"
     ],
     "specifications": {
       "Material": "Gold-plated alloy",
@@ -73,113 +21,8 @@
       "Care": "Store in dry pouch"
     },
     "stock": 13,
-    "rating": 4.7,
-    "reviewCount": 31,
-    "reviews": []
-  },
-  {
-    "id": "vg-004",
-    "slug": "pearl-trio-pendant-necklace",
-    "name": "Pearl Trio Pendant Necklace",
-    "description": "Elegant double-strand pearl necklace with ornate gold pendant.",
-    "longDescription": "Elegant double-strand pearl necklace with ornate gold pendant. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1399,
-    "originalPrice": 1699,
-    "images": [
-      "/products/vg-004.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "new"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 14,
-    "rating": 4.9,
-    "reviewCount": 31,
-    "reviews": []
-  },
-  {
-    "id": "vg-005",
-    "slug": "emerald-floral-necklace-set",
-    "name": "Emerald Floral Necklace Set",
-    "description": "Gold-toned necklace and stud earrings with emerald floral motifs.",
-    "longDescription": "Gold-toned necklace and stud earrings with emerald floral motifs. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1899,
-    "originalPrice": 2199,
-    "images": [
-      "/products/vg-005.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "bestseller",
-      "new"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 10,
-    "rating": 4.9,
-    "reviewCount": 21,
-    "reviews": []
-  },
-  {
-    "id": "vg-006",
-    "slug": "sapphire-teardrop-floral-necklace",
-    "name": "Sapphire Teardrop Floral Necklace",
-    "description": "Sapphire teardrop pendant necklace with crystal floral accents.",
-    "longDescription": "Sapphire teardrop pendant necklace with crystal floral accents. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 599,
-    "originalPrice": 899,
-    "images": [
-      "/products/vg-006.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "bestseller"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 12,
-    "rating": 4.9,
-    "reviewCount": 41,
-    "reviews": []
-  },
-  {
-    "id": "vg-007",
-    "slug": "crystal-bow-necklace-collection",
-    "name": "Crystal Bow Necklace Collection",
-    "description": "Delicate gold bow necklaces with crystal and heart charms.",
-    "longDescription": "Delicate gold bow necklaces with crystal and heart charms. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1099,
-    "originalPrice": 1399,
-    "images": [
-      "/products/vg-007.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "trending"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 8,
-    "rating": 4.9,
-    "reviewCount": 31,
+    "rating": 4.6,
+    "reviewCount": 32,
     "reviews": []
   },
   {
@@ -209,15 +52,15 @@
     "reviews": []
   },
   {
-    "id": "vg-009",
-    "slug": "gold-bow-pendant-necklace",
-    "name": "Gold Bow Pendant Necklace",
-    "description": "Delicate gold bow pendant with crystal heart charm.",
-    "longDescription": "Delicate gold bow pendant with crystal heart charm. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 899,
-    "originalPrice": 1199,
+    "id": "vg-007",
+    "slug": "crystal-bow-necklace-collection",
+    "name": "Crystal Bow Necklace Collection",
+    "description": "Delicate gold bow necklaces with crystal and heart charms.",
+    "longDescription": "Delicate gold bow necklaces with crystal and heart charms. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1099,
+    "originalPrice": 1399,
     "images": [
-      "/products/vg-009.jpg"
+      "/products/vg-007.jpg"
     ],
     "category": "necklaces",
     "tags": [
@@ -229,218 +72,35 @@
       "Style": "Contemporary Indian",
       "Care": "Store in dry pouch"
     },
-    "stock": 11,
+    "stock": 8,
     "rating": 4.9,
+    "reviewCount": 31,
+    "reviews": []
+  },
+  {
+    "id": "vg-002",
+    "slug": "crystal-floral-short-necklace",
+    "name": "Crystal Floral Short Necklace",
+    "description": "Short crystal floral necklace perfect for festive wear.",
+    "longDescription": "Short crystal floral necklace perfect for festive wear. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 749,
+    "originalPrice": 1049,
+    "images": [
+      "/products/vg-002.jpg"
+    ],
+    "category": "necklaces",
+    "tags": [
+      "bestseller"
+    ],
+    "specifications": {
+      "Material": "Gold-plated alloy",
+      "Finish": "Anti-tarnish polish",
+      "Style": "Contemporary Indian",
+      "Care": "Store in dry pouch"
+    },
+    "stock": 8,
+    "rating": 4.7,
     "reviewCount": 41,
-    "reviews": []
-  },
-  {
-    "id": "vg-010",
-    "slug": "butterfly-leaf-cuff-bracelet",
-    "name": "Butterfly Leaf Cuff Bracelet",
-    "description": "Open cuff bracelet with butterfly and wheat-leaf gold detailing.",
-    "longDescription": "Open cuff bracelet with butterfly and wheat-leaf gold detailing. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 799,
-    "originalPrice": 1099,
-    "images": [
-      "/products/vg-010.jpg"
-    ],
-    "category": "bracelets",
-    "tags": [
-      "bestseller"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 12,
-    "rating": 4.9,
-    "reviewCount": 31,
-    "reviews": []
-  },
-  {
-    "id": "vg-011",
-    "slug": "ruby-floral-choker-set",
-    "name": "Ruby Floral Choker Set",
-    "description": "Traditional floral choker with ruby accents and matching earrings.",
-    "longDescription": "Traditional floral choker with ruby accents and matching earrings. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1749,
-    "originalPrice": 2049,
-    "images": [
-      "/products/vg-011.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "bestseller"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 14,
-    "rating": 4.7,
-    "reviewCount": 21,
-    "reviews": []
-  },
-  {
-    "id": "vg-012",
-    "slug": "gold-filigree-layered-necklace",
-    "name": "Gold Filigree Layered Necklace",
-    "description": "Layered gold necklace with intricate filigree pendant.",
-    "longDescription": "Layered gold necklace with intricate filigree pendant. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1549,
-    "originalPrice": 1849,
-    "images": [
-      "/products/vg-012.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "trending"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 10,
-    "rating": 4.7,
-    "reviewCount": 31,
-    "reviews": []
-  },
-  {
-    "id": "vg-013",
-    "slug": "pink-kundan-bead-choker",
-    "name": "Pink Kundan Bead Choker",
-    "description": "Three-strand pink bead choker with floral Kundan centerpiece.",
-    "longDescription": "Three-strand pink bead choker with floral Kundan centerpiece. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 699,
-    "originalPrice": 999,
-    "images": [
-      "/products/vg-013.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "new"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 14,
-    "rating": 4.9,
-    "reviewCount": 21,
-    "reviews": []
-  },
-  {
-    "id": "vg-014",
-    "slug": "sapphire-teardrop-necklace",
-    "name": "Sapphire Teardrop Necklace",
-    "description": "Gold mesh chain with sapphire teardrop and crystal florals.",
-    "longDescription": "Gold mesh chain with sapphire teardrop and crystal florals. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1599,
-    "originalPrice": 1899,
-    "images": [
-      "/products/vg-014.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "bestseller"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 11,
-    "rating": 4.9,
-    "reviewCount": 21,
-    "reviews": []
-  },
-  {
-    "id": "vg-015",
-    "slug": "pearl-bloom-pendant-necklace",
-    "name": "Pearl Bloom Pendant Necklace",
-    "description": "Double-strand pearl necklace with green teardrop floral pendant.",
-    "longDescription": "Double-strand pearl necklace with green teardrop floral pendant. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1499,
-    "originalPrice": 1799,
-    "images": [
-      "/products/vg-015.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "new",
-      "trending"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 9,
-    "rating": 4.9,
-    "reviewCount": 41,
-    "reviews": []
-  },
-  {
-    "id": "vg-016",
-    "slug": "pearl-cascade-long-necklace",
-    "name": "Pearl Cascade Long Necklace",
-    "description": "Long pearl strand necklace with gold floral spacer beads.",
-    "longDescription": "Long pearl strand necklace with gold floral spacer beads. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1249,
-    "originalPrice": 1549,
-    "images": [
-      "/products/vg-016.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "new"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 11,
-    "rating": 4.7,
-    "reviewCount": 31,
-    "reviews": []
-  },
-  {
-    "id": "vg-017",
-    "slug": "rose-quartz-bib-necklace",
-    "name": "Rose Quartz Bib Necklace",
-    "description": "Statement bib necklace with pink stones and pearl drops.",
-    "longDescription": "Statement bib necklace with pink stones and pearl drops. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1999,
-    "originalPrice": 2299,
-    "images": [
-      "/products/vg-017.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "trending"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 10,
-    "rating": 4.7,
-    "reviewCount": 21,
     "reviews": []
   },
   {
@@ -470,6 +130,33 @@
     "reviews": []
   },
   {
+    "id": "vg-005",
+    "slug": "emerald-floral-necklace-set",
+    "name": "Emerald Floral Necklace Set",
+    "description": "Gold-toned necklace and stud earrings with emerald floral motifs.",
+    "longDescription": "Gold-toned necklace and stud earrings with emerald floral motifs. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 599,
+    "originalPrice": 999,
+    "images": [
+      "/products/vg-005.jpg"
+    ],
+    "category": "necklaces",
+    "tags": [
+      "bestseller",
+      "new"
+    ],
+    "specifications": {
+      "Material": "Gold-plated alloy",
+      "Finish": "Anti-tarnish polish",
+      "Style": "Contemporary Indian",
+      "Care": "Store in dry pouch"
+    },
+    "stock": 10,
+    "rating": 4.9,
+    "reviewCount": 21,
+    "reviews": []
+  },
+  {
     "id": "vg-019",
     "slug": "emerald-leaf-vine-necklace-set",
     "name": "Emerald Leaf Vine Necklace Set",
@@ -491,6 +178,32 @@
       "Care": "Store in dry pouch"
     },
     "stock": 8,
+    "rating": 4.9,
+    "reviewCount": 41,
+    "reviews": []
+  },
+  {
+    "id": "vg-009",
+    "slug": "gold-bow-pendant-necklace",
+    "name": "Gold Bow Pendant Necklace",
+    "description": "Delicate gold bow pendant with crystal heart charm.",
+    "longDescription": "Delicate gold bow pendant with crystal heart charm. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 899,
+    "originalPrice": 1199,
+    "images": [
+      "/products/vg-009.jpg"
+    ],
+    "category": "necklaces",
+    "tags": [
+      "trending"
+    ],
+    "specifications": {
+      "Material": "Gold-plated alloy",
+      "Finish": "Anti-tarnish polish",
+      "Style": "Contemporary Indian",
+      "Care": "Store in dry pouch"
+    },
+    "stock": 11,
     "rating": 4.9,
     "reviewCount": 41,
     "reviews": []
@@ -522,19 +235,43 @@
     "reviews": []
   },
   {
-    "id": "vg-021",
-    "slug": "heritage-gold-pendant-set",
-    "name": "Heritage Gold Pendant Set",
-    "description": "Layered gold necklace set with filigree pendant and bead drops.",
-    "longDescription": "Layered gold necklace set with filigree pendant and bead drops. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1699,
-    "originalPrice": 1999,
+    "id": "vg-012",
+    "slug": "gold-filigree-layered-necklace",
+    "name": "Gold Filigree Layered Necklace",
+    "description": "Layered gold necklace with intricate filigree pendant.",
+    "longDescription": "Layered gold necklace with intricate filigree pendant. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 999,
+    "originalPrice": 1499,
     "images": [
-      "/products/vg-021.jpg"
+      "/products/vg-012.jpg"
+    ],
+    "category": "necklaces",
+    "tags": [],
+    "specifications": {
+      "Material": "Gold-plated alloy",
+      "Finish": "Anti-tarnish polish",
+      "Style": "Contemporary Indian",
+      "Care": "Store in dry pouch"
+    },
+    "stock": 10,
+    "rating": 4.7,
+    "reviewCount": 31,
+    "reviews": []
+  },
+  {
+    "id": "vg-003",
+    "slug": "gold-heart-charm-necklace",
+    "name": "Gold Heart Charm Necklace",
+    "description": "Minimal gold chain with heart charm and crystal accents.",
+    "longDescription": "Minimal gold chain with heart charm and crystal accents. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 649,
+    "originalPrice": 949,
+    "images": [
+      "/products/vg-003.jpg"
     ],
     "category": "necklaces",
     "tags": [
-      "bestseller"
+      "trending"
     ],
     "specifications": {
       "Material": "Gold-plated alloy",
@@ -543,24 +280,51 @@
       "Care": "Store in dry pouch"
     },
     "stock": 13,
-    "rating": 4.9,
+    "rating": 4.7,
     "reviewCount": 31,
     "reviews": []
   },
   {
-    "id": "vg-022",
-    "slug": "ruby-temple-pendant-necklace",
-    "name": "Ruby Temple Pendant Necklace",
-    "description": "Temple-style pendant with ruby center on delicate gold chain.",
-    "longDescription": "Temple-style pendant with ruby center on delicate gold chain. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1049,
-    "originalPrice": 1349,
+    "id": "vg-016",
+    "slug": "pearl-cascade-long-necklace",
+    "name": "Pearl Cascade Long Necklace",
+    "description": "Long pearl strand necklace with gold floral spacer beads.",
+    "longDescription": "Long pearl strand necklace with gold floral spacer beads. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1249,
+    "originalPrice": 1549,
     "images": [
-      "/products/vg-022.jpg"
+      "/products/vg-016.jpg",
+      "/products/upload-mrxgq6qw-9vr26.jpg"
     ],
     "category": "necklaces",
     "tags": [
-      "trending"
+      "new"
+    ],
+    "specifications": {
+      "Material": "Gold-plated alloy",
+      "Finish": "Anti-tarnish polish",
+      "Style": "Contemporary Indian",
+      "Care": "Store in dry pouch"
+    },
+    "stock": 11,
+    "rating": 4.7,
+    "reviewCount": 31,
+    "reviews": []
+  },
+  {
+    "id": "vg-004",
+    "slug": "pearl-trio-pendant-necklace",
+    "name": "Pearl Trio Pendant Necklace",
+    "description": "Elegant double-strand pearl necklace with ornate gold pendant.",
+    "longDescription": "Elegant double-strand pearl necklace with ornate gold pendant. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1399,
+    "originalPrice": 1699,
+    "images": [
+      "/products/vg-004.jpg"
+    ],
+    "category": "necklaces",
+    "tags": [
+      "new"
     ],
     "specifications": {
       "Material": "Gold-plated alloy",
@@ -569,20 +333,20 @@
       "Care": "Store in dry pouch"
     },
     "stock": 14,
-    "rating": 4.7,
-    "reviewCount": 41,
+    "rating": 4.9,
+    "reviewCount": 31,
     "reviews": []
   },
   {
-    "id": "vg-023",
-    "slug": "pink-teardrop-collar-necklace-set",
-    "name": "Pink Teardrop Collar Necklace Set",
-    "description": "Gold lattice collar necklace with pink teardrop pendant and matching studs.",
-    "longDescription": "Gold lattice collar necklace with pink teardrop pendant and matching studs. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1499,
-    "originalPrice": 1799,
+    "id": "vg-013",
+    "slug": "pink-kundan-bead-choker",
+    "name": "Pink Kundan Bead Choker",
+    "description": "Three-strand pink bead choker with floral Kundan centerpiece.",
+    "longDescription": "Three-strand pink bead choker with floral Kundan centerpiece. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 699,
+    "originalPrice": 999,
     "images": [
-      "/products/vg-023.jpg"
+      "/products/vg-013.jpg"
     ],
     "category": "necklaces",
     "tags": [
@@ -594,88 +358,9 @@
       "Style": "Contemporary Indian",
       "Care": "Store in dry pouch"
     },
-    "stock": 9,
-    "rating": 4.9,
-    "reviewCount": 31,
-    "reviews": []
-  },
-  {
-    "id": "vg-024",
-    "slug": "ruby-quintet-strand-necklace",
-    "name": "Ruby Quintet Strand Necklace",
-    "description": "Five-strand crystal necklace with ruby drop centerpiece.",
-    "longDescription": "Five-strand crystal necklace with ruby drop centerpiece. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1299,
-    "originalPrice": 1599,
-    "images": [
-      "/products/vg-024.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "trending"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 12,
+    "stock": 14,
     "rating": 4.9,
     "reviewCount": 21,
-    "reviews": []
-  },
-  {
-    "id": "vg-025",
-    "slug": "temple-collar-necklace-set",
-    "name": "Temple Collar Necklace Set",
-    "description": "Traditional collar necklace with peach stone drops and matching earrings.",
-    "longDescription": "Traditional collar necklace with peach stone drops and matching earrings. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1999,
-    "originalPrice": 2299,
-    "images": [
-      "/products/vg-025.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "bestseller",
-      "new"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 12,
-    "rating": 4.9,
-    "reviewCount": 31,
-    "reviews": []
-  },
-  {
-    "id": "vg-026",
-    "slug": "ruby-halo-charm-necklace",
-    "name": "Ruby Halo Charm Necklace",
-    "description": "Fine chain necklace with five ruby floral halo pendants.",
-    "longDescription": "Fine chain necklace with five ruby floral halo pendants. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 1199,
-    "originalPrice": 1499,
-    "images": [
-      "/products/vg-026.jpg"
-    ],
-    "category": "necklaces",
-    "tags": [
-      "trending"
-    ],
-    "specifications": {
-      "Material": "Gold-plated alloy",
-      "Finish": "Anti-tarnish polish",
-      "Style": "Contemporary Indian",
-      "Care": "Store in dry pouch"
-    },
-    "stock": 10,
-    "rating": 4.9,
-    "reviewCount": 41,
     "reviews": []
   },
   {
@@ -705,20 +390,19 @@
     "reviews": []
   },
   {
-    "id": "vg-028",
-    "slug": "antique-bridal-temple-set",
-    "name": "Antique Bridal Temple Set",
-    "description": "Complete antique gold bridal set with haram, necklace, and maang tikka.",
-    "longDescription": "Complete antique gold bridal set with haram, necklace, and maang tikka. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 2000,
-    "originalPrice": 2299,
+    "id": "vg-023",
+    "slug": "pink-teardrop-collar-necklace-set",
+    "name": "Pink Teardrop Collar Necklace Set",
+    "description": "Gold lattice collar necklace with pink teardrop pendant and matching studs.",
+    "longDescription": "Gold lattice collar necklace with pink teardrop pendant and matching studs. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1499,
+    "originalPrice": 1799,
     "images": [
-      "/products/vg-028.jpg"
+      "/products/vg-023.jpg"
     ],
     "category": "necklaces",
     "tags": [
-      "bestseller",
-      "trending"
+      "new"
     ],
     "specifications": {
       "Material": "Gold-plated alloy",
@@ -726,23 +410,23 @@
       "Style": "Contemporary Indian",
       "Care": "Store in dry pouch"
     },
-    "stock": 13,
-    "rating": 4.6,
-    "reviewCount": 32,
+    "stock": 9,
+    "rating": 4.9,
+    "reviewCount": 31,
     "reviews": []
   },
   {
-    "id": "vg-029",
-    "slug": "gold-crystal-drop-earrings",
-    "name": "Gold Crystal Drop Earrings",
-    "description": "Elegant gold drop earrings with crystal accents in gift packaging.",
-    "longDescription": "Elegant gold drop earrings with crystal accents in gift packaging. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
-    "price": 649,
-    "originalPrice": 899,
+    "id": "vg-017",
+    "slug": "rose-quartz-bib-necklace",
+    "name": "Rose Quartz Bib Necklace",
+    "description": "Statement bib necklace with pink stones and pearl drops.",
+    "longDescription": "Statement bib necklace with pink stones and pearl drops. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1999,
+    "originalPrice": 2299,
     "images": [
-      "/products/vg-029.jpg"
+      "/products/vg-017.jpg"
     ],
-    "category": "earrings",
+    "category": "necklaces",
     "tags": [
       "trending"
     ],
@@ -755,6 +439,189 @@
     "stock": 10,
     "rating": 4.7,
     "reviewCount": 21,
+    "reviews": []
+  },
+  {
+    "id": "vg-011",
+    "slug": "ruby-floral-choker-set",
+    "name": "Ruby Floral Choker Set",
+    "description": "Traditional floral choker with ruby accents and matching earrings.",
+    "longDescription": "Traditional floral choker with ruby accents and matching earrings. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1749,
+    "originalPrice": 2049,
+    "images": [
+      "/products/vg-011.jpg"
+    ],
+    "category": "necklaces",
+    "tags": [
+      "bestseller"
+    ],
+    "specifications": {
+      "Material": "Gold-plated alloy",
+      "Finish": "Anti-tarnish polish",
+      "Style": "Contemporary Indian",
+      "Care": "Store in dry pouch"
+    },
+    "stock": 14,
+    "rating": 4.7,
+    "reviewCount": 21,
+    "reviews": []
+  },
+  {
+    "id": "vg-026",
+    "slug": "ruby-halo-charm-necklace",
+    "name": "Ruby Halo Charm Necklace",
+    "description": "Fine chain necklace with five ruby floral halo pendants.",
+    "longDescription": "Fine chain necklace with five ruby floral halo pendants. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1199,
+    "originalPrice": 1499,
+    "images": [
+      "/products/vg-026.jpg"
+    ],
+    "category": "necklaces",
+    "tags": [
+      "trending"
+    ],
+    "specifications": {
+      "Material": "Gold-plated alloy",
+      "Finish": "Anti-tarnish polish",
+      "Style": "Contemporary Indian",
+      "Care": "Store in dry pouch"
+    },
+    "stock": 10,
+    "rating": 4.9,
+    "reviewCount": 41,
+    "reviews": []
+  },
+  {
+    "id": "vg-024",
+    "slug": "ruby-quintet-strand-necklace",
+    "name": "Ruby Quintet Strand Necklace",
+    "description": "Five-strand crystal necklace with ruby drop centerpiece.",
+    "longDescription": "Five-strand crystal necklace with ruby drop centerpiece. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1299,
+    "originalPrice": 1599,
+    "images": [
+      "/products/vg-024.jpg"
+    ],
+    "category": "necklaces",
+    "tags": [
+      "trending"
+    ],
+    "specifications": {
+      "Material": "Gold-plated alloy",
+      "Finish": "Anti-tarnish polish",
+      "Style": "Contemporary Indian",
+      "Care": "Store in dry pouch"
+    },
+    "stock": 12,
+    "rating": 4.9,
+    "reviewCount": 21,
+    "reviews": []
+  },
+  {
+    "id": "vg-022",
+    "slug": "ruby-temple-pendant-necklace",
+    "name": "Ruby Temple Pendant Necklace",
+    "description": "Temple-style pendant with ruby center on delicate gold chain.",
+    "longDescription": "Temple-style pendant with ruby center on delicate gold chain. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1049,
+    "originalPrice": 1349,
+    "images": [
+      "/products/vg-022.jpg"
+    ],
+    "category": "necklaces",
+    "tags": [
+      "trending"
+    ],
+    "specifications": {
+      "Material": "Gold-plated alloy",
+      "Finish": "Anti-tarnish polish",
+      "Style": "Contemporary Indian",
+      "Care": "Store in dry pouch"
+    },
+    "stock": 14,
+    "rating": 4.7,
+    "reviewCount": 41,
+    "reviews": []
+  },
+  {
+    "id": "vg-006",
+    "slug": "sapphire-teardrop-floral-necklace",
+    "name": "Sapphire Teardrop Floral Necklace",
+    "description": "Sapphire teardrop pendant necklace with crystal floral accents.",
+    "longDescription": "Sapphire teardrop pendant necklace with crystal floral accents. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 599,
+    "originalPrice": 899,
+    "images": [
+      "/products/vg-006.jpg"
+    ],
+    "category": "necklaces",
+    "tags": [
+      "bestseller"
+    ],
+    "specifications": {
+      "Material": "Gold-plated alloy",
+      "Finish": "Anti-tarnish polish",
+      "Style": "Contemporary Indian",
+      "Care": "Store in dry pouch"
+    },
+    "stock": 12,
+    "rating": 4.9,
+    "reviewCount": 41,
+    "reviews": []
+  },
+  {
+    "id": "vg-014",
+    "slug": "sapphire-teardrop-necklace",
+    "name": "Sapphire Teardrop Necklace",
+    "description": "Gold mesh chain with sapphire teardrop and crystal florals.",
+    "longDescription": "Gold mesh chain with sapphire teardrop and crystal florals. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1599,
+    "originalPrice": 1899,
+    "images": [
+      "/products/vg-014.jpg"
+    ],
+    "category": "necklaces",
+    "tags": [
+      "bestseller"
+    ],
+    "specifications": {
+      "Material": "Gold-plated alloy",
+      "Finish": "Anti-tarnish polish",
+      "Style": "Contemporary Indian",
+      "Care": "Store in dry pouch"
+    },
+    "stock": 11,
+    "rating": 4.9,
+    "reviewCount": 21,
+    "reviews": []
+  },
+  {
+    "id": "vg-025",
+    "slug": "temple-collar-necklace-set",
+    "name": "Temple Collar Necklace Set",
+    "description": "Traditional collar necklace with peach stone drops and matching earrings.",
+    "longDescription": "Traditional collar necklace with peach stone drops and matching earrings. Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.",
+    "price": 1999,
+    "originalPrice": 2299,
+    "images": [
+      "/products/vg-025.jpg"
+    ],
+    "category": "necklaces",
+    "tags": [
+      "bestseller",
+      "new"
+    ],
+    "specifications": {
+      "Material": "Gold-plated alloy",
+      "Finish": "Anti-tarnish polish",
+      "Style": "Contemporary Indian",
+      "Care": "Store in dry pouch"
+    },
+    "stock": 12,
+    "rating": 4.9,
+    "reviewCount": 31,
     "reviews": []
   }
 ]
