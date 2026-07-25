@@ -43,7 +43,13 @@ export function AdminTopNav() {
         {/* Brand */}
         <Link href="/admin" className="flex shrink-0 items-center gap-3">
           <div className="relative h-9 w-9">
-            <Image src="/logo.png" alt="VG" fill className="object-contain" />
+            <Image
+              src="/logo.png"
+              alt="VG"
+              fill
+              sizes="36px"
+              className="object-contain"
+            />
           </div>
           <div className="hidden sm:block">
             <p className="text-[10px] tracking-[0.3em] text-gold/70 uppercase">
