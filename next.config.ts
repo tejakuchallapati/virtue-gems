@@ -20,11 +20,24 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
-    // Do not set Cache-Control on /_next/static in config — Next already
-    // fingerprints prod chunks, and immutable caching breaks Turbopack HMR in dev
-    // (stale JS → hydration mismatch / old UI until hard refresh).
+    // Do not set immutable Cache-Control on /_next in production config —
+    // Next already fingerprints hashed chunks. In development, force no-store
+    // so Turbopack HMR is not blocked by sticky browser caches.
     const isProd = process.env.NODE_ENV === "production";
     return [
+      ...(isProd
+        ? []
+        : [
+            {
+              source: "/_next/:path*",
+              headers: [
+                {
+                  key: "Cache-Control",
+                  value: "no-store, must-revalidate",
+                },
+              ],
+            },
+          ]),
       {
         source: "/(.*\\.(?:png|jpg|jpeg|webp|avif|svg|ico|woff2?))",
         headers: [
