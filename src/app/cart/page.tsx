@@ -42,7 +42,7 @@ export default function CartPage() {
               <div className={`flex gap-4 p-4 ${CARD_SURFACE}`}>
                 <Link
                   href={`/product/${item.product.slug}`}
-                  className={`h-24 w-24 shrink-0 rounded-xl sm:h-28 sm:w-28 ${PRODUCT_IMAGE_FRAME}`}
+                  className={`relative h-24 w-24 shrink-0 rounded-xl sm:h-28 sm:w-28 ${PRODUCT_IMAGE_FRAME}`}
                 >
                   <Image
                     src={item.product.images[0]}
