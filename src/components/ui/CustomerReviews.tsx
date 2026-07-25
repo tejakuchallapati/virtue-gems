@@ -168,13 +168,15 @@ export function CustomerReviews() {
               onClick={() => setActiveMedia(item)}
               className="group relative h-48 w-36 shrink-0 snap-center overflow-hidden rounded-xl bg-[#1a0a2e] ring-1 ring-gold/20 transition active:scale-[0.98] hover:ring-gold/50 sm:h-52 sm:w-36"
             >
-              <Image
-                src={item.poster}
-                alt={item.caption}
-                fill
-                sizes="144px"
-                className="object-cover transition duration-500 group-hover:scale-105"
-              />
+              <span className="absolute inset-0">
+                <Image
+                  src={item.poster}
+                  alt={item.caption}
+                  fill
+                  sizes="144px"
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                />
+              </span>
               {item.type === "video" && (
                 <div className="absolute inset-0 flex items-center justify-center bg-dark/30">
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gold/90 text-dark shadow-lg">
@@ -188,7 +190,8 @@ export function CustomerReviews() {
                 </p>
               </div>
             </button>
-          ))}        </div>
+          ))}
+        </div>
       </div>
 
       <AnimatePresence>
