@@ -27,6 +27,7 @@ export const DARK_PANEL =
 
 export const PRODUCT_IMAGE_BG = "bg-[#1a0a2e]";
 
+/** Dark square frame for product photos — always includes `relative` for next/image `fill`. */
 export const PRODUCT_IMAGE_FRAME = `relative overflow-hidden ${PRODUCT_IMAGE_BG} ring-1 ring-inset ring-white/10`;
 
 export const PRODUCT_IMAGE_FIT =
