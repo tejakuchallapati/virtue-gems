@@ -35,7 +35,7 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="group relative overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-light-muted/60 transition hover:shadow-md hover:ring-gold/35">
-      <div className={cn("aspect-square", PRODUCT_IMAGE_FRAME)}>
+      <div className={cn(PRODUCT_IMAGE_FRAME, "aspect-square")}>
         <Link
           href={`/product/${product.slug}`}
           className="relative block h-full w-full"
