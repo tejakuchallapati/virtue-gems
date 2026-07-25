@@ -85,6 +85,7 @@ export default function AdminLoginPage() {
               src="/logo.png"
               alt="Virtue Gems"
               fill
+              sizes="64px"
               className="object-contain"
             />
           </div>
