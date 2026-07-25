@@ -20,7 +20,9 @@ function HighlightCard({ product }: { product: Product }) {
       href={`/product/${product.slug}`}
       className="group relative flex flex-col overflow-hidden rounded-2xl bg-[#1a0a2e] ring-1 ring-gold/25 transition hover:ring-gold/50 md:flex-row"
     >
-      <div className={`aspect-square w-full shrink-0 md:aspect-auto md:h-56 md:w-56 ${PRODUCT_IMAGE_FRAME}`}>
+      <div
+        className={`${PRODUCT_IMAGE_FRAME} aspect-square w-full shrink-0 md:aspect-auto md:h-56 md:w-56`}
+      >
         <span className="relative block h-full w-full">
           <Image
             src={product.images[0]}
