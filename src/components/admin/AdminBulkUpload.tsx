@@ -446,6 +446,7 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
                             src={r.previewUrl}
                             alt=""
                             fill
+                            sizes="48px"
                             unoptimized
                             className="object-cover"
                           />
