@@ -4,8 +4,9 @@ import { useEffect, useMemo, useRef, useState, type InputHTMLAttributes } from "
 import Image from "next/image";
 import { FolderUp, Trash2, X } from "lucide-react";
 import { apiFetch } from "@/lib/api-client";
-import { PRODUCT_CATEGORIES } from "@/lib/product-constants";
+import { PRODUCT_CATEGORIES, CATEGORY_LABELS } from "@/lib/product-constants";
 import type { ProductCategory } from "@/types";
+import { ADMIN_INPUT } from "@/lib/ui-classes";
 
 type BulkRow = {
   id: string;
@@ -28,8 +29,7 @@ function cleanNameFromFile(filename: string): string {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-const inputClass =
-  "w-full rounded-lg border border-light/10 bg-[#0f0a1a] px-2.5 py-2 text-sm text-light outline-none focus:border-gold/40";
+const inputClass = ADMIN_INPUT;
 
 type Props = {
   open: boolean;
@@ -400,7 +400,7 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
               >
                 {PRODUCT_CATEGORIES.map((c) => (
                   <option key={c} value={c}>
-                    {c}
+                    {CATEGORY_LABELS[c]}
                   </option>
                 ))}
               </select>
@@ -488,7 +488,7 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
                         >
                           {PRODUCT_CATEGORIES.map((c) => (
                             <option key={c} value={c}>
-                              {c}
+                              {CATEGORY_LABELS[c]}
                             </option>
                           ))}
                         </select>

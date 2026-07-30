@@ -19,6 +19,11 @@ import {
   PRODUCT_TAGS,
 } from "@/lib/product-constants";
 import { formatPrice } from "@/lib/utils";
+import {
+  ADMIN_INPUT,
+  ADMIN_SEARCH,
+  PRODUCT_IMAGE_FRAME,
+} from "@/lib/ui-classes";
 import type { Product, ProductCategory, ProductTag } from "@/types";
 
 type AdminProduct = Product & { active?: boolean };
@@ -66,8 +71,7 @@ function productToForm(p: AdminProduct): FormState {
   };
 }
 
-const inputClass =
-  "w-full rounded-xl border border-light/10 bg-[#0f0a1a] px-3.5 py-2.5 text-sm text-light outline-none focus:border-gold/40";
+const inputClass = ADMIN_INPUT;
 
 export function AdminCatalogManager({
   initialProducts,
@@ -326,7 +330,7 @@ export function AdminCatalogManager({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search products…"
-          className="w-full max-w-md rounded-xl border border-light/10 bg-dark px-4 py-2.5 text-sm text-light outline-none focus:border-gold/40"
+          className={ADMIN_SEARCH}
         />
         <div className="flex flex-wrap items-center gap-2">
           <button
@@ -386,7 +390,7 @@ export function AdminCatalogManager({
               }}
               className="block w-full text-left"
             >
-              <div className="relative aspect-square w-full bg-[#1a0a2e]">
+              <div className={`aspect-square w-full ${PRODUCT_IMAGE_FRAME}`}>
                 {p.images[0] ? (
                   <Image
                     src={p.images[0]}
@@ -475,7 +479,7 @@ export function AdminCatalogManager({
                   }}
                   className="block w-full text-left"
                 >
-                  <div className="relative aspect-square w-full bg-[#1a0a2e]">
+                  <div className={`aspect-square w-full ${PRODUCT_IMAGE_FRAME}`}>
                     {p.images[0] ? (
                       <Image
                         src={p.images[0]}
@@ -619,7 +623,7 @@ export function AdminCatalogManager({
                   >
                     {PRODUCT_CATEGORIES.map((c) => (
                       <option key={c} value={c}>
-                        {c}
+                        {CATEGORY_LABELS[c]}
                       </option>
                     ))}
                   </select>
@@ -779,7 +783,7 @@ export function AdminCatalogManager({
                   src={preview.images[previewIndex]}
                   alt={preview.name}
                   fill
-                  sizes="100vw"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
                   className="object-contain"
                   priority
                 />
@@ -859,7 +863,8 @@ export function AdminCatalogManager({
               >
                 Edit product
               </button>
-            </div>          </div>
+            </div>
+          </div>
         </div>
       )}
 

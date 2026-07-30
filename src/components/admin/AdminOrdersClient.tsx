@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { ORDER_STATUSES, ORDER_STATUS_LABELS } from "@/lib/order-status";
 import { formatPrice, formatDate } from "@/lib/utils";
+import { ADMIN_SEARCH } from "@/lib/ui-classes";
 import { OrderStatusButtons } from "@/components/admin/OrderStatusButtons";
 import type { Order, OrderStatus } from "@/types";
 
@@ -48,7 +49,7 @@ export function AdminOrdersClient({
           onChange={(e) => setPhoneQuery(e.target.value)}
           placeholder="Search by phone number…"
           inputMode="tel"
-          className="w-full max-w-md rounded-xl border border-light/10 bg-dark px-4 py-2.5 text-sm text-light outline-none focus:border-gold/40"
+          className={ADMIN_SEARCH}
         />
         {phoneQuery.trim() && (
           <p className="mt-2 text-xs text-light/45">

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, ShieldCheck, ArrowRight, KeyRound } from "lucide-react";
 import { apiFetch } from "@/lib/api-client";
+import { ADMIN_SHELL_BG } from "@/lib/ui-classes";
 
 type Step = "email" | "otp";
 
@@ -64,7 +65,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0a0612] px-4">
+    <div className={`relative flex min-h-screen items-center justify-center overflow-hidden ${ADMIN_SHELL_BG} px-4`}>
       {/* Background accents */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.12),transparent_50%)]" />
       <motion.div
@@ -130,7 +131,7 @@ export default function AdminLoginPage() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="virtuegems777@gmail.com"
+                      placeholder="admin@example.com"
                       className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none transition focus:border-gold focus:ring-1 focus:ring-gold/30"
                     />
                   </div>

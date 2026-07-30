@@ -18,10 +18,12 @@ import {
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { ADMIN_NAV_BG } from "@/lib/ui-classes";
+import { apiFetch } from "@/lib/api-client";
 
 const links = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard },
-  { href: "/admin/inventory", label: "Inventory", icon: Package },
+  { href: "/admin/inventory", label: "Products", icon: Package },
   { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/admin/products", label: "Top Products", icon: TrendingUp },
   { href: "/admin/customers", label: "Customers", icon: Users },
@@ -33,12 +35,17 @@ export function AdminTopNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   async function logout() {
-    await fetch("/api/admin/login", { method: "DELETE" });
+    await apiFetch("/api/admin/login", { method: "DELETE" });
     window.location.href = "/admin/login";
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gold/15 bg-[#0a0612]/95 shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b border-gold/15 shadow-[0_4px_24px_rgba(0,0,0,0.4)]",
+        ADMIN_NAV_BG,
+      )}
+    >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 lg:px-6">
         {/* Brand */}
         <Link href="/admin" className="flex shrink-0 items-center gap-3">
