@@ -17,3 +17,9 @@ export const CATEGORY_LABELS: Record<ProductCategory, string> = {
   bracelets: "Bracelets",
   pendants: "Pendants",
 };
+
+export const TAG_LABELS: Record<ProductTag, string> = {
+  bestseller: "Best Seller",
+  new: "New Arrival",
+  trending: "Trending",
+};
