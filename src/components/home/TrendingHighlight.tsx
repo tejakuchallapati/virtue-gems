@@ -2,15 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { Gift, Sparkles } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { formatPrice } from "@/lib/utils";
-import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
+import { TAG_LABELS } from "@/lib/product-constants";
+import { formatPrice, cn } from "@/lib/utils";
+import {
+  PAGE_CONTAINER,
+  PRODUCT_IMAGE_BG,
+  PRODUCT_IMAGE_FIT,
+  PRODUCT_IMAGE_FRAME,
+  SECTION_DIVIDER,
+} from "@/lib/ui-classes";
 import type { Product } from "@/types";
-
-const tagLabels: Record<string, string> = {
-  bestseller: "Best Seller",
-  new: "New Arrival",
-  trending: "Trending",
-};
 
 function HighlightCard({ product }: { product: Product }) {
   const primaryTag = product.tags[0];
@@ -18,25 +19,29 @@ function HighlightCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl bg-[#1a0a2e] ring-1 ring-gold/25 transition hover:ring-gold/50 md:flex-row"
+      className={cn(
+        "group relative flex flex-col overflow-hidden rounded-2xl ring-1 ring-gold/25 transition hover:ring-gold/50 md:flex-row",
+        PRODUCT_IMAGE_BG,
+      )}
     >
       <div
-        className={`${PRODUCT_IMAGE_FRAME} aspect-square w-full shrink-0 md:aspect-auto md:h-56 md:w-56`}
+        className={cn(
+          PRODUCT_IMAGE_FRAME,
+          "aspect-square w-full shrink-0 md:aspect-auto md:h-56 md:w-56",
+        )}
       >
-        <span className="relative block h-full w-full">
-          <Image
-            src={product.images[0]}
-            alt={product.name}
-            fill
-            sizes="(max-width: 768px) 50vw, 224px"
-            className={`${PRODUCT_IMAGE_FIT} group-hover:scale-[1.04]`}
-          />
-        </span>
+        <Image
+          src={product.images[0]}
+          alt={product.name}
+          fill
+          sizes="(max-width: 768px) 50vw, 224px"
+          className={cn(PRODUCT_IMAGE_FIT, "group-hover:scale-[1.04]")}
+        />
       </div>
       <div className="flex flex-1 flex-col justify-center p-4 md:p-6">
         {primaryTag && (
           <span className="mb-2 w-fit rounded-full bg-gold/15 px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gold md:text-xs">
-            {tagLabels[primaryTag] ?? primaryTag}
+            {TAG_LABELS[primaryTag] ?? primaryTag}
           </span>
         )}
         <h3 className="text-sm font-semibold text-light md:text-lg">{product.name}</h3>
@@ -68,11 +73,8 @@ export function TrendingHighlight({
       id="collections"
       className="relative overflow-hidden bg-gradient-to-b from-[#faf6ee] via-[#f3ead8] to-[#ebe0c8] py-10 sm:py-14"
     >
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
-        aria-hidden
-      />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className={cn(SECTION_DIVIDER, "absolute inset-x-0 top-0")} aria-hidden />
+      <div className={PAGE_CONTAINER}>
         <ScrollReveal className="text-center">
           <p className="text-sm tracking-[0.2em] text-gold-dark uppercase">Limited Stock</p>
           <h2 className="mt-2 text-2xl font-semibold text-dark sm:text-3xl">
@@ -111,10 +113,7 @@ export function TrendingHighlight({
           </Link>
         </ScrollReveal>
       </div>
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent"
-        aria-hidden
-      />
+      <div className={cn(SECTION_DIVIDER, "absolute inset-x-0 bottom-0")} aria-hidden />
     </section>
   );
 }

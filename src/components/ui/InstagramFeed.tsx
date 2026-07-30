@@ -1,6 +1,7 @@
 import Image from "next/image";
 import instagramData from "@/data/instagram.json";
-import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
+import { cn } from "@/lib/utils";
+import { PRODUCT_IMAGE_COVER, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
 
 const PROFILE_URL = instagramData.profileUrl;
 
@@ -43,14 +44,17 @@ export function InstagramFeed() {
             href={post.url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group ${PRODUCT_IMAGE_FRAME} aspect-square overflow-hidden rounded-lg sm:rounded-xl`}
+            className={cn(
+              PRODUCT_IMAGE_FRAME,
+              "group aspect-square rounded-lg sm:rounded-xl",
+            )}
           >
             <Image
               src={post.image}
               alt={post.alt}
               fill
               sizes="(max-width: 640px) 33vw, 16vw"
-              className={`${PRODUCT_IMAGE_FIT} group-hover:scale-[1.03]`}
+              className={cn(PRODUCT_IMAGE_COVER, "group-hover:scale-[1.03]")}
             />
             <div className="absolute inset-0 flex items-center justify-center bg-dark/0 transition group-hover:bg-dark/45">
               <InstagramIcon className="h-6 w-6 text-white opacity-0 transition group-hover:opacity-100" />

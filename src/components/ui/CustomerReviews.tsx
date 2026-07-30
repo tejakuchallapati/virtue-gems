@@ -5,6 +5,8 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Quote, Play, X } from "lucide-react";
 import customerMedia from "@/data/customer-media.json";
+import { cn } from "@/lib/utils";
+import { PRODUCT_IMAGE_BG } from "@/lib/ui-classes";
 
 const textReviews = [
   {
@@ -49,7 +51,7 @@ function MediaModal({
       onClick={onClose}
     >
       <motion.div
-        className="relative w-full max-w-lg overflow-hidden rounded-2xl bg-[#1a0a2e] shadow-2xl ring-1 ring-gold/30 max-sm:max-h-[92dvh] max-sm:rounded-xl"
+        className="relative w-full max-w-lg overflow-hidden rounded-2xl shadow-2xl ring-1 ring-gold/30 max-sm:max-h-[92dvh] max-sm:rounded-xl bg-[#1a0a2e]"
         initial={{ scale: 0.92, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.92, y: 20 }}
@@ -64,7 +66,7 @@ function MediaModal({
           <X className="h-4 w-4" />
         </button>
 
-        <div className="relative aspect-[9/16] max-h-[75dvh] w-full overflow-hidden bg-[#1a0a2e]">
+        <div className={cn("relative aspect-[9/16] max-h-[75dvh] w-full overflow-hidden", PRODUCT_IMAGE_BG)}>
           {isVideoFile && item.video ? (
             <video
               src={item.video}
@@ -166,17 +168,18 @@ export function CustomerReviews() {
               key={item.id}
               type="button"
               onClick={() => setActiveMedia(item)}
-              className="group relative h-48 w-36 shrink-0 snap-center overflow-hidden rounded-xl bg-[#1a0a2e] ring-1 ring-gold/20 transition active:scale-[0.98] hover:ring-gold/50 sm:h-52 sm:w-36"
+              className={cn(
+                "group relative h-48 w-36 shrink-0 snap-center overflow-hidden rounded-xl ring-1 ring-gold/20 transition active:scale-[0.98] hover:ring-gold/50 sm:h-52 sm:w-36",
+                PRODUCT_IMAGE_BG,
+              )}
             >
-              <span className="absolute inset-0">
-                <Image
-                  src={item.poster}
-                  alt={item.caption}
-                  fill
-                  sizes="144px"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                />
-              </span>
+              <Image
+                src={item.poster}
+                alt={item.caption}
+                fill
+                sizes="144px"
+                className="object-cover transition duration-500 group-hover:scale-105"
+              />
               {item.type === "video" && (
                 <div className="absolute inset-0 flex items-center justify-center bg-dark/30">
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gold/90 text-dark shadow-lg">

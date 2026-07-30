@@ -20,6 +20,7 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { formatPrice } from "@/lib/utils";
+import { TAG_LABELS } from "@/lib/product-constants";
 import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL, PRODUCT_GRID } from "@/lib/ui-classes";
 import { buildProductShareMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import type { Product } from "@/types";
@@ -123,7 +124,7 @@ export function ProductDetailClient({
                 key={tag}
                 className="rounded-full bg-gold/15 px-3 py-0.5 text-xs font-semibold uppercase text-gold-dark"
               >
-                {tag.replace("_", " ")}
+                {TAG_LABELS[tag] ?? tag}
               </span>
             ))}
           </div>

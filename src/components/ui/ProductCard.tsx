@@ -5,20 +5,15 @@ import Link from "next/link";
 import { Heart, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { useStore } from "@/context/StoreProvider";
+import { TAG_LABELS } from "@/lib/product-constants";
 import { formatPrice, cn } from "@/lib/utils";
 import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
-import type { Product } from "@/types";
+import type { Product, ProductTag } from "@/types";
 
-const tagStyles: Record<string, string> = {
+const tagStyles: Partial<Record<ProductTag, string>> = {
   bestseller: "bg-gold text-dark",
   new: "bg-dark text-gold",
   trending: "bg-dark-soft text-light",
-};
-
-const tagLabels: Record<string, string> = {
-  bestseller: "Best Seller",
-  new: "New Arrival",
-  trending: "Trending",
 };
 
 export function ProductCard({ product }: { product: Product }) {
@@ -45,32 +40,22 @@ export function ProductCard({ product }: { product: Product }) {
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className={`${PRODUCT_IMAGE_FIT} group-hover:scale-[1.03]`}
+            className={cn(PRODUCT_IMAGE_FIT, "group-hover:scale-[1.03]")}
           />
         </Link>
         <div className="pointer-events-none absolute left-2 top-2 flex flex-wrap gap-1">
           {product.tags.slice(0, 2).map((tag) => (
             <span
               key={tag}
-              className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide sm:text-xs ${tagStyles[tag]}`}
+              className={cn(
+                "rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide sm:text-xs",
+                tagStyles[tag],
+              )}
             >
-              {tagLabels[tag] ?? tag}
+              {TAG_LABELS[tag] ?? tag}
             </span>
           ))}
         </div>
-
-        <button
-          type="button"
-          aria-label="Add to cart"
-          onClick={handleAddToCart}
-          className={`absolute bottom-2 right-2 z-10 flex h-10 w-10 items-center justify-center rounded-full shadow-lg transition sm:bottom-3 sm:right-3 sm:h-11 sm:w-11 ${
-            added
-              ? "bg-green-600 text-white"
-              : "bg-gold text-dark hover:bg-gold-light"
-          }`}
-        >
-          <ShoppingCart className="h-5 w-5" />
-        </button>
       </div>
 
       <div className="border-t border-light-muted/50 p-3 sm:p-4">
@@ -102,23 +87,25 @@ export function ProductCard({ product }: { product: Product }) {
                   ? removeFromWishlist(product.id)
                   : addToWishlist(product)
               }
-              className={`flex h-10 w-10 items-center justify-center rounded-full transition sm:h-9 sm:w-9 ${
+              className={cn(
+                "flex h-9 w-9 items-center justify-center rounded-full transition",
                 wished
                   ? "bg-gold/20 text-gold-dark"
-                  : "bg-light text-dark/60 hover:bg-gold/10 hover:text-gold-dark"
-              }`}
+                  : "bg-light text-dark/60 hover:bg-gold/10 hover:text-gold-dark",
+              )}
             >
-              <Heart className={`h-4 w-4 ${wished ? "fill-current" : ""}`} />
+              <Heart className={cn("h-4 w-4", wished && "fill-current")} />
             </button>
             <button
               type="button"
               aria-label="Add to cart"
               onClick={handleAddToCart}
-              className={`flex h-10 min-w-10 items-center justify-center gap-1.5 rounded-full px-3 text-xs font-semibold transition sm:h-9 sm:min-w-0 sm:px-3.5 sm:py-2 sm:text-sm ${
+              className={cn(
+                "flex h-9 min-w-9 items-center justify-center gap-1.5 rounded-full px-3 text-xs font-semibold transition sm:min-w-0 sm:px-3.5 sm:text-sm",
                 added
                   ? "bg-green-600 text-white"
-                  : "bg-dark text-gold hover:bg-gold hover:text-dark"
-              }`}
+                  : "bg-dark text-gold hover:bg-gold hover:text-dark",
+              )}
             >
               <ShoppingCart className="h-4 w-4 shrink-0" />
               <span className="hidden sm:inline">
