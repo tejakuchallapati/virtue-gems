@@ -16,6 +16,9 @@ export async function POST(request: Request) {
     return apiOk({ order });
   } catch (error) {
     console.error("Order save error:", error);
+    if (error instanceof Error && /stock|available/i.test(error.message)) {
+      return apiFail(error.message, 409);
+    }
     return apiFail("Failed to save order. Please try again.", 500);
   }
 }

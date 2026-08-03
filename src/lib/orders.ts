@@ -2,7 +2,7 @@ import type { Order, OrderStatus } from "@/types";
 import { DELIVERY_STATES } from "@/lib/delivery";
 import { normalizeOrderStatus } from "@/lib/order-status";
 import { getProductById } from "@/lib/products";
-import { backupOrdersJson } from "@/lib/db/backup";
+import { backupOrdersJson, backupProductsJson } from "@/lib/db/backup";
 import { getDb, withTransaction } from "@/lib/db";
 import { uniqueId } from "@/lib/json-store";
 
@@ -82,6 +82,9 @@ export function validateOrderInput(body: Record<string, unknown>): OrderInput | 
     if (typeof quantity !== "number" || !Number.isInteger(quantity) || quantity < 1 || quantity > 99) {
       return "Invalid item quantity.";
     }
+    if (catalogProduct.stock < quantity) {
+      return `"${catalogProduct.name}" only has ${catalogProduct.stock} in stock.`;
+    }
     if (typeof price !== "number" || !Number.isFinite(price) || price < 0 || price > 100_000) {
       return "Invalid item price.";
     }
@@ -127,6 +130,21 @@ export function saveOrder(order: OrderInput): Order {
   };
 
   withTransaction((db) => {
+    for (const item of newOrder.items) {
+      const result = db
+        .prepare(
+          `UPDATE products
+           SET stock = stock - ?, updated_at = ?
+           WHERE id = ? AND active = 1 AND stock >= ?`,
+        )
+        .run(item.quantity, new Date().toISOString(), item.productId, item.quantity);
+      if (result.changes === 0) {
+        throw new Error(
+          `"${item.name}" is out of stock or no longer available.`,
+        );
+      }
+    }
+
     db.prepare(`
       INSERT INTO orders
         (id, customer_name, phone, address, city, state, pincode, items, total, status, created_at)
@@ -148,6 +166,7 @@ export function saveOrder(order: OrderInput): Order {
   });
 
   backupOrdersJson(getDb());
+  backupProductsJson(getDb());
   return newOrder;
 }
 
