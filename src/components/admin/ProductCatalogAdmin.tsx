@@ -244,7 +244,9 @@ export function AdminCatalogManager({
       tags: form.tags,
       stock,
       slug: form.slug || undefined,
-      active: true,
+      active: editingId
+        ? products.find((p) => p.id === editingId)?.active !== false
+        : true,
     };
 
     const res = editingId
@@ -271,7 +273,7 @@ export function AdminCatalogManager({
   }
 
   async function removeProduct(id: string, name: string) {
-    if (!window.confirm(`Move "${name}" to Soft delete? It will be hidden from the shop.`))
+    if (!window.confirm(`Move "${name}" to Hidden products? It will be removed from the shop.`))
       return;
     const res = await apiFetch(`/api/admin/products/${id}`, { method: "DELETE" });
     if (!res.ok) {
@@ -286,6 +288,7 @@ export function AdminCatalogManager({
       `/api/admin/products/${id}`,
       {
         method: "PATCH",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ active: true }),
       },
     );
@@ -436,7 +439,7 @@ export function AdminCatalogManager({
                   type="button"
                   onClick={() => void removeProduct(p.id, p.name)}
                   className="inline-flex items-center justify-center rounded-xl bg-light/10 px-2 py-1.5 text-light/70 hover:bg-red-500/20 hover:text-red-400"
-                  aria-label={`Soft delete ${p.name}`}
+                  aria-label={`Hide ${p.name} from shop`}
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>
@@ -456,14 +459,14 @@ export function AdminCatalogManager({
 
       <section className="mt-12 border-t border-light/10 pt-8">
         <div className="mb-4">
-          <h2 className="text-lg font-semibold text-light">Soft delete</h2>
+          <h2 className="text-lg font-semibold text-light">Hidden products</h2>
           <p className="mt-1 text-sm text-light/45">
-            Hidden from the shop. Restore anytime to make them live again.
+            Hidden items stay here. Restore anytime to make them live again.
           </p>
         </div>
 
         {deletedProducts.length === 0 ? (
-          <p className="text-sm text-light/35">No soft-deleted products.</p>
+          <p className="text-sm text-light/35">No hidden products.</p>
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             {deletedProducts.map((p) => (
@@ -494,7 +497,7 @@ export function AdminCatalogManager({
                       </span>
                     )}
                     <span className="absolute left-2 top-2 rounded-full bg-red-500/90 px-2 py-0.5 text-[10px] font-medium text-white">
-                      Deleted
+                      Hidden
                     </span>
                   </div>
                 </button>
