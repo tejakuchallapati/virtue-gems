@@ -70,7 +70,7 @@ export function ProductDetailClient({
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
-      <div className={`${PAGE_CONTENT_SHELL} pb-28 sm:pb-10`}>
+      <div className={`${PAGE_CONTENT_SHELL} pb-28 md:pb-10`}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -175,28 +175,31 @@ export function ProductDetailClient({
               <span className="w-8 text-center text-sm font-medium">{qty}</span>
               <button
                 type="button"
-                onClick={() => setQty(qty + 1)}
-                className="px-3 py-2 text-dark/60 hover:text-dark"
+                onClick={() => setQty(Math.min(product.stock, qty + 1))}
+                disabled={qty >= product.stock}
+                className="px-3 py-2 text-dark/60 hover:text-dark disabled:opacity-40"
               >
                 <Plus className="h-4 w-4" />
               </button>
             </div>
             <span className="text-xs text-dark/50">
-              {product.stock} in stock
+              {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
             </span>
           </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <button
               type="button"
-              onClick={() => addToCart(product, qty)}
-              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-dark py-3.5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark"
+              disabled={product.stock < 1}
+              onClick={() => addToCart(product, Math.min(qty, product.stock))}
+              className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-dark py-3.5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark disabled:cursor-not-allowed disabled:opacity-50"
             >
               <ShoppingCart className="h-4 w-4" />
-              Add to Cart
+              {product.stock < 1 ? "Out of Stock" : "Add to Cart"}
             </button>
             <button
               type="button"
+              aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
               onClick={() =>
                 wished ? removeFromWishlist(product.id) : addToWishlist(product)
               }
@@ -303,11 +306,12 @@ export function ProductDetailClient({
           </div>
           <button
             type="button"
-            onClick={() => addToCart(product, qty)}
-            className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-dark text-sm font-semibold text-gold"
+            disabled={product.stock < 1}
+            onClick={() => addToCart(product, Math.min(qty, product.stock))}
+            className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-dark text-sm font-semibold text-gold disabled:cursor-not-allowed disabled:opacity-50"
           >
             <ShoppingCart className="h-4 w-4" />
-            Add to Cart
+            {product.stock < 1 ? "Out of Stock" : "Add to Cart"}
           </button>
           <button
             type="button"
