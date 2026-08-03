@@ -10,14 +10,24 @@ import { SectionDivider } from "@/components/ui/PageSection";
 import { PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL, PRODUCT_GRID } from "@/lib/ui-classes";
 
 export default function WishlistPage() {
-  const { wishlist } = useStore();
+  const { wishlist, hydrated } = useStore();
+
+  if (!hydrated) {
+    return (
+      <div className={PAGE_GRADIENT_SHELL}>
+        <div className={`${PAGE_CONTENT_SHELL} py-16 text-center text-sm text-dark/50`}>
+          Loading wishlist…
+        </div>
+      </div>
+    );
+  }
 
   if (wishlist.length === 0) {
     return (
       <EmptyState
         icon={Heart}
         title="Wishlist is empty"
-        description="Save your favourite pieces for later."
+        description="Tap the heart on any piece to save it for later."
         actionLabel="Explore Shop"
         actionHref="/shop"
       />

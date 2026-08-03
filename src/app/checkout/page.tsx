@@ -22,21 +22,32 @@ import type { CheckoutForm } from "@/types";
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cart, cartTotal, clearCart } = useStore();
+  const { cart, cartTotal, clearCart, hydrated } = useStore();
   const { activeRedemption, completeOrder, loadAccount } = useLoyalty();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [whatsappFallback, setWhatsappFallback] = useState<string | null>(null);
 
   const discount = calculateDiscount(cartTotal, activeRedemption);
   const finalTotal = Math.max(0, cartTotal - discount);
   const pointsToEarn = calculatePointsEarned(finalTotal);
 
-  if (cart.length === 0) {
+  if (!hydrated) {
+    return (
+      <div className={PAGE_GRADIENT_SHELL}>
+        <div className={`${PAGE_CONTENT_SHELL} py-16 text-center text-sm text-dark/50`}>
+          Loading checkout…
+        </div>
+      </div>
+    );
+  }
+
+  if (cart.length === 0 && !whatsappFallback) {
     return (
       <EmptyState
         icon={ShoppingBag}
         title="Your cart is empty"
-        description="Add items before checkout."
+        description="Add jewellery from the shop, then checkout on WhatsApp — no card payment needed."
         actionLabel="Go to Shop"
         actionHref="/shop"
       />
@@ -47,6 +58,12 @@ export default function CheckoutPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setWhatsappFallback(null);
+
+    const redemptionSnapshot = activeRedemption;
+    const discountSnapshot = discount;
+    const finalTotalSnapshot = finalTotal;
+    const pointsSnapshot = pointsToEarn;
 
     const formData = new FormData(e.currentTarget);
     const form: CheckoutForm = {
@@ -61,8 +78,6 @@ export default function CheckoutPage() {
     try {
       await loadAccount(form.phone);
 
-      const redemptionSnapshot = activeRedemption;
-
       const orderRes = await apiFetch<{ order?: { id: string } }>("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -74,7 +89,7 @@ export default function CheckoutPage() {
             quantity: c.quantity,
             price: c.product.price,
           })),
-          total: finalTotal,
+          total: finalTotalSnapshot,
         }),
       });
 
@@ -86,22 +101,34 @@ export default function CheckoutPage() {
       const orderId = orderRes.data.order.id;
       const invoiceUrl = getAbsoluteUrl(`/invoice/${orderId}`);
 
-      const { earned, balanceAfter, redemption } = await completeOrder(
-        form.phone,
-        form.customerName,
-        finalTotal,
-      );
+      let earned = pointsSnapshot;
+      let balanceAfter = pointsSnapshot;
+      let redemption = redemptionSnapshot;
 
-      const message = buildOrderMessage(form, cart, finalTotal, orderId, invoiceUrl, {
-        discount,
-        redemption: redemption ?? redemptionSnapshot,
+      try {
+        const loyalty = await completeOrder(
+          form.phone,
+          form.customerName,
+          finalTotalSnapshot,
+        );
+        earned = loyalty.earned;
+        balanceAfter = loyalty.balanceAfter;
+        redemption = loyalty.redemption ?? redemptionSnapshot;
+      } catch {
+        // Order is already saved — continue WhatsApp even if loyalty sync fails.
+      }
+
+      const message = buildOrderMessage(form, cart, finalTotalSnapshot, orderId, invoiceUrl, {
+        discount: discountSnapshot,
+        redemption,
         pointsEarned: earned,
         pointsBalance: balanceAfter,
       });
 
+      const waUrl = getWhatsAppUrl(message);
+      setWhatsappFallback(waUrl);
+      window.open(waUrl, "_blank");
       clearCart();
-      window.open(getWhatsAppUrl(message), "_blank");
-
       router.push(`/invoice/${orderId}?earned=${earned}&balance=${balanceAfter}`);
     } catch (err) {
       setError(
@@ -131,21 +158,17 @@ export default function CheckoutPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <p className="text-sm text-dark/60">{CHECKOUT_PAYMENT_NOTICE}</p>
 
-          <div className="rounded-xl border border-gold/30 bg-gold/10 px-4 py-3 text-xs text-dark/80">
-            <p className="font-medium text-gold-dark">Online payment coming soon</p>
-            <p className="mt-1">{ONLINE_PAYMENT_COMING_SOON}</p>
-          </div>
-
           <div className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 p-4 text-xs text-dark/80">
-            <p className="font-medium text-dark">How payment works</p>
+            <p className="font-medium text-dark">Your order journey</p>
             <ol className="mt-2 list-decimal space-y-1 pl-4">
-              <li>Place order — opens WhatsApp with your bill</li>
+              <li>Place order — WhatsApp opens with your bill</li>
               <li>We confirm availability (usually within 2–4 hours)</li>
               <li>Pay via {PAYMENT_METHODS_SUMMARY.toLowerCase()}</li>
               <li>Send payment screenshot on WhatsApp</li>
-              <li>We ship and share tracking</li>
+              <li>We ship, share tracking, then ask for your review & feedback</li>
             </ol>
             <p className="mt-2 text-dark/70">{COD_POLICY}</p>
+            <p className="mt-1 text-dark/55">{ONLINE_PAYMENT_COMING_SOON}</p>
           </div>
 
           <div className="rounded-xl border border-gold/30 bg-gold/10 p-3 text-xs text-dark/80">
@@ -190,7 +213,10 @@ export default function CheckoutPage() {
               name="phone"
               type="tel"
               required
-              placeholder="+91 ..."
+              inputMode="tel"
+              pattern="[0-9+\s-]{10,15}"
+              title="Enter a valid 10-digit mobile number"
+              placeholder="10-digit mobile (e.g. 7396178039)"
               className={inputClass}
             />
           </div>
@@ -244,13 +270,25 @@ export default function CheckoutPage() {
             </p>
           )}
 
+          {whatsappFallback && (
+            <a
+              href={whatsappFallback}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-[#25D366] bg-[#25D366]/10 py-3.5 text-sm font-semibold text-[#128C7E]"
+            >
+              <MessageCircle className="h-5 w-5" />
+              WhatsApp didn’t open? Tap here to send your order
+            </a>
+          )}
+
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || cart.length === 0}
             className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] py-3.5 text-sm font-semibold text-white transition hover:bg-[#1fb855] disabled:opacity-60"
           >
             <MessageCircle className="h-5 w-5" />
-            {loading ? "Processing..." : "Place Order via WhatsApp"}
+            {loading ? "Placing order…" : "Place Order via WhatsApp"}
           </button>
         </form>
 
