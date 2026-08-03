@@ -21,7 +21,7 @@ export function HeroLanding() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="mb-6 rounded-full border border-gold/30 bg-gold/10 px-5 py-1.5 text-[10px] tracking-[0.35em] text-gold uppercase backdrop-blur-sm"
         >
-          ✦ New Festive Collection ✦
+          ✦ Shop · WhatsApp checkout · Free delivery in AP & TG ✦
         </motion.p>
 
         <motion.div

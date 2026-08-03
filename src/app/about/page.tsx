@@ -11,16 +11,16 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "About Virtue Gems — Handcrafted Jewellery from Hyderabad",
   description:
-    "Virtue Gems crafts premium gold-plated jewellery with hallmarked quality and ethical sourcing. Learn our story and why customers across AP & Telangana trust us.",
+    "Virtue Gems offers premium gold-plated fashion jewellery from Hyderabad. Learn our story and why customers across AP & Telangana shop with us on WhatsApp.",
   path: "/about",
   keywords: ["about Virtue Gems", "jewellery brand Hyderabad", "handcrafted jewellery story"],
 });
 
 const values = [
-  { icon: Gem, title: "Craftsmanship", desc: "Every piece is handcrafted by master artisans with decades of expertise." },
-  { icon: Award, title: "Hallmarked Quality", desc: "916 and 750 hallmarked gold with certified gemstones." },
-  { icon: Heart, title: "Ethical Sourcing", desc: "Responsibly sourced materials with transparent supply chains." },
-  { icon: Shield, title: "Lifetime Trust", desc: "Buy-back assurance and complimentary cleaning for life." },
+  { icon: Gem, title: "Craftsmanship", desc: "Every piece is carefully finished for festive and everyday wear." },
+  { icon: Award, title: "Quality Finish", desc: "Premium gold-plated fashion jewellery with lasting shine." },
+  { icon: Heart, title: "Thoughtful Design", desc: "Traditional and trendy designs chosen for AP & Telangana styles." },
+  { icon: Shield, title: "Customer Care", desc: "WhatsApp support, unboxing guidance, and easy reorders." },
 ];
 
 export default function AboutPage() {

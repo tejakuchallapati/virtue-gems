@@ -29,7 +29,7 @@ export default function RefundsPage() {
       <ul className="list-disc pl-5 space-y-1">
         <li>Returns accepted within 7 days of delivery for unused items in original packaging</li>
         <li>Custom-made or engraved pieces are non-returnable</li>
-        <li>Items must be accompanied by original invoice and hallmarked certification</li>
+        <li>Items must be unused, in original packaging, with the invoice</li>
       </ul>
       <h2 className="text-lg font-semibold text-dark">Mandatory Unboxing Video</h2>
       <p>

@@ -19,7 +19,14 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "orders",
     question: "How do I place an order?",
     answer:
-      "Browse our shop, add items to your cart, and proceed to checkout. Fill in your delivery details and tap Place Order via WhatsApp — we confirm availability and guide you through payment on WhatsApp.",
+      "Browse the shop → add to cart → checkout → Place Order via WhatsApp. We confirm availability, you pay on WhatsApp (UPI/bank), send a payment screenshot, we ship with tracking, and after delivery we ask for a short review — that feedback helps other shoppers.",
+  },
+  {
+    id: "after-delivery-feedback",
+    category: "orders",
+    question: "What happens after my order is delivered?",
+    answer:
+      "Once your parcel arrives, open it while recording a short unboxing video (needed if you ever request a return). We will message you on WhatsApp for a quick review — a photo or a few words helps other customers and earns goodwill with our team.",
   },
   {
     id: "payment-methods",
@@ -73,9 +80,9 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: "product-quality",
     category: "products",
-    question: "Are your jewellery pieces hallmarked?",
+    question: "What material is your jewellery made of?",
     answer:
-      "Yes. Our gold and silver pieces come with proper hallmark certification. Product specifications are listed on each product page.",
+      "Most pieces are premium gold-plated fashion jewellery (alloy base with a lasting gold finish). Exact materials for each item are listed in the product specifications on the product page.",
   },
   {
     id: "virtual-try-on",
