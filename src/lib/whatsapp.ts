@@ -112,6 +112,7 @@ export function buildOrderMessage(
     "2. You pay via UPI or bank transfer",
     "3. Send payment screenshot on WhatsApp",
     "4. We ship and share tracking details",
+    "5. After delivery, reply with a short review — we love your feedback!",
     "",
     `Accepted: ${PAYMENT_METHODS_SUMMARY}`,
     COD_POLICY,
@@ -152,6 +153,66 @@ export function buildOrderMessage(
   );
 
   return lines.join("\n");
+}
+
+/** Re-open WhatsApp from the invoice page if checkout popup was blocked. */
+export function buildOrderFollowUpMessage(
+  order: {
+    id: string;
+    customerName: string;
+    phone: string;
+    address: string;
+    city: string;
+    state: string;
+    pincode: string;
+    items: { name: string; quantity: number; price: number }[];
+    total: number;
+  },
+  invoiceUrl: string,
+): string {
+  const itemLines = order.items.flatMap((item, i) => {
+    const lineTotal = item.price * item.quantity;
+    return [
+      `${i + 1}. *${item.name}*`,
+      padBillLine("   Qty", `${item.quantity}`),
+      padBillLine("   Amount", formatPrice(lineTotal)),
+      "",
+    ];
+  });
+
+  return [
+    "╔══════════════════════════╗",
+    "║     *VIRTUE GEMS*        ║",
+    "║      ORDER REQUEST       ║",
+    "╚══════════════════════════╝",
+    "",
+    padBillLine("Order No.", order.id),
+    `Name    : ${order.customerName}`,
+    `Phone   : ${order.phone}`,
+    `Address : ${order.address}, ${order.city}, ${order.state} ${order.pincode}`,
+    "",
+    "━━━━━━━━━━━━━━━━━━━━━━━━━━",
+    "*ITEMS*",
+    "",
+    ...itemLines,
+    padBillLine("*TOTAL*", `*${formatPrice(order.total)}*`),
+    "━━━━━━━━━━━━━━━━━━━━━━━━━━",
+    "",
+    "📋 *WHAT HAPPENS NEXT*",
+    "1. Confirm availability",
+    "2. Pay via UPI / bank transfer",
+    "3. Send payment screenshot",
+    "4. We ship + share tracking",
+    "5. After delivery — leave a short review",
+    "",
+    `Accepted: ${PAYMENT_METHODS_SUMMARY}`,
+    COD_POLICY,
+    "",
+    "📄 Full bill:",
+    invoiceUrl,
+    "",
+    "Please confirm this order. Thank you!",
+  ].join("\n");
 }
 
 /** Admin copy-paste reply after confirming an order on WhatsApp. */
