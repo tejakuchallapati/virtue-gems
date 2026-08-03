@@ -1,10 +1,15 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getOrderById } from "@/lib/orders";
 import { OrderInvoice } from "@/components/invoice/OrderInvoice";
 import { InvoiceActions } from "@/components/invoice/InvoiceActions";
 import { InvoicePointsNotice } from "@/components/loyalty/InvoicePointsNotice";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -17,7 +22,7 @@ export default async function InvoicePage({ params }: Props) {
   if (!order) notFound();
 
   return (
-    <div className="min-h-screen bg-light-muted/40 px-4 py-8 print:bg-white print:p-0">
+    <div className="min-h-screen bg-light-muted/40 px-4 py-8 pb-[calc(6.5rem+env(safe-area-inset-bottom))] print:bg-white print:p-0 md:pb-8">
       <div className="mb-6 text-center print:hidden">
         <Link href="/shop" className="text-sm text-gold-dark hover:underline">
           ← Continue shopping
