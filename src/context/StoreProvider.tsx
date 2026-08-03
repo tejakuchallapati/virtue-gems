@@ -144,16 +144,16 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   }, [recentlyViewed, hydrated]);
 
   const addToCart = useCallback((product: Product, qty = 1) => {
+    if (product.stock < 1) return;
     setCart((prev) => {
       const existing = prev.find((c) => c.product.id === product.id);
       if (existing) {
+        const nextQty = Math.min(product.stock, existing.quantity + qty);
         return prev.map((c) =>
-          c.product.id === product.id
-            ? { ...c, quantity: c.quantity + qty }
-            : c,
+          c.product.id === product.id ? { ...c, quantity: nextQty } : c,
         );
       }
-      return [...prev, { product, quantity: qty }];
+      return [...prev, { product, quantity: Math.min(product.stock, qty) }];
     });
   }, []);
 
@@ -168,9 +168,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         return;
       }
       setCart((prev) =>
-        prev.map((c) =>
-          c.product.id === productId ? { ...c, quantity } : c,
-        ),
+        prev.map((c) => {
+          if (c.product.id !== productId) return c;
+          return { ...c, quantity: Math.min(c.product.stock, quantity) };
+        }),
       );
     },
     [],

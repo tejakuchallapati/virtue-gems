@@ -23,6 +23,7 @@ export function ProductCard({ product }: { product: Product }) {
   const [added, setAdded] = useState(false);
 
   function handleAddToCart() {
+    if (product.stock < 1) return;
     addToCart(product);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
@@ -98,10 +99,11 @@ export function ProductCard({ product }: { product: Product }) {
             </button>
             <button
               type="button"
-              aria-label="Add to cart"
+              aria-label={product.stock < 1 ? "Out of stock" : "Add to cart"}
+              disabled={product.stock < 1}
               onClick={handleAddToCart}
               className={cn(
-                "flex h-9 min-w-9 items-center justify-center gap-1.5 rounded-full px-3 text-xs font-semibold transition sm:min-w-0 sm:px-3.5 sm:text-sm",
+                "flex h-9 min-w-9 items-center justify-center gap-1.5 rounded-full px-3 text-xs font-semibold transition sm:min-w-0 sm:px-3.5 sm:text-sm disabled:cursor-not-allowed disabled:opacity-50",
                 added
                   ? "bg-green-600 text-white"
                   : "bg-dark text-gold hover:bg-gold hover:text-dark",
@@ -109,7 +111,7 @@ export function ProductCard({ product }: { product: Product }) {
             >
               <ShoppingCart className="h-4 w-4 shrink-0" />
               <span className="hidden sm:inline">
-                {added ? "Added!" : "Add"}
+                {product.stock < 1 ? "Sold out" : added ? "Added!" : "Add"}
               </span>
             </button>
           </div>

@@ -19,14 +19,24 @@ import {
 import { DELIVERY_SHORT } from "@/lib/delivery";
 
 export default function CartPage() {
-  const { cart, cartTotal, updateQuantity, removeFromCart } = useStore();
+  const { cart, cartTotal, updateQuantity, removeFromCart, hydrated } = useStore();
+
+  if (!hydrated) {
+    return (
+      <div className={PAGE_GRADIENT_SHELL}>
+        <div className={`${PAGE_CONTENT_SHELL} py-16 text-center text-sm text-dark/50`}>
+          Loading cart…
+        </div>
+      </div>
+    );
+  }
 
   if (cart.length === 0) {
     return (
       <EmptyState
         icon={ShoppingBag}
         title="Your cart is empty"
-        description="Discover our exquisite collections."
+        description="Browse the shop, add pieces you love, then checkout on WhatsApp."
         actionLabel="Browse Shop"
         actionHref="/shop"
       />
@@ -89,10 +99,11 @@ export default function CartPage() {
                         </span>
                         <button
                           type="button"
+                          disabled={item.quantity >= item.product.stock}
                           onClick={() =>
                             updateQuantity(item.product.id, item.quantity + 1)
                           }
-                          className="px-2.5 py-1.5"
+                          className="px-2.5 py-1.5 disabled:opacity-40"
                         >
                           <Plus className="h-3.5 w-3.5" />
                         </button>
@@ -136,10 +147,13 @@ export default function CartPage() {
               </div>
               <Link
                 href="/checkout"
-                className="mt-6 block w-full rounded-xl bg-dark py-3.5 text-center text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark"
+                className="mt-6 block min-h-12 w-full rounded-xl bg-[#25D366] py-3.5 text-center text-sm font-semibold text-white transition hover:bg-[#1fb855]"
               >
-                Proceed to Checkout
+                Checkout on WhatsApp
               </Link>
+              <p className="mt-2 text-center text-[11px] text-dark/50">
+                No card payment on site — we confirm and collect payment on WhatsApp.
+              </p>
               <Link
                 href="/shop"
                 className="mt-3 block text-center text-sm text-gold hover:underline"
