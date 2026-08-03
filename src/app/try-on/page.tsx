@@ -39,7 +39,7 @@ export default async function TryOnPage({ searchParams }: Props) {
           { name: "Virtual Try-On" },
         ]}
       />
-      <section className="bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-4 py-8 pb-24 sm:px-6 sm:pb-8 lg:px-8">
+      <section className="bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-4 py-8 pb-24 sm:px-6 md:pb-8 lg:px-8">
         <div className="mx-auto max-w-3xl">
           <div className="[&_a]:text-light/60 [&_a:hover]:text-gold [&_span]:text-light/80">
             <Breadcrumb

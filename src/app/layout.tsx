@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { StoreProvider } from "@/context/StoreProvider";
 import { LoyaltyProvider } from "@/context/LoyaltyProvider";
@@ -12,6 +12,16 @@ import {
   SITE_NAME,
 } from "@/lib/seo";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8f6f0" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
+  ],
+};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
