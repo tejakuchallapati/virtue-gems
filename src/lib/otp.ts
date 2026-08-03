@@ -6,11 +6,15 @@ const OTP_TTL_MS = 10 * 60 * 1000; // 10 minutes
 const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 function getSecret(): string {
-  return (
-    process.env.OTP_SECRET ??
-    process.env.ADMIN_PASSWORD ??
-    "virtue-gems-otp-secret"
-  );
+  const secret =
+    process.env.OTP_SECRET ?? process.env.ADMIN_PASSWORD ?? "";
+  if (!secret) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("OTP_SECRET must be set in production.");
+    }
+    return "virtue-gems-otp-secret-dev-only";
+  }
+  return secret;
 }
 
 export function getAdminEmail(): string {
@@ -34,8 +38,9 @@ export function hashOtp(otp: string): string {
 }
 
 export function createOtpPayload(email: string, otp: string): string {
+  const normalizedEmail = email.trim().toLowerCase();
   const exp = Date.now() + OTP_TTL_MS;
-  const data = `${email}|${exp}|${hashOtp(otp)}`;
+  const data = `${normalizedEmail}|${exp}|${hashOtp(otp)}`;
   const sig = hashValue(`challenge:${data}`);
   return Buffer.from(`${data}|${sig}`).toString("base64url");
 }
