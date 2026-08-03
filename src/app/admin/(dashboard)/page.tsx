@@ -22,6 +22,15 @@ export default async function AdminOverviewPage() {
       <h1 className="text-2xl font-semibold text-light">Overview</h1>
       <p className="mt-1 text-sm text-light/50">Dashboard summary</p>
 
+      <div className="mt-4 rounded-xl border border-gold/20 bg-gold/5 px-4 py-3 text-xs leading-relaxed text-light/70">
+        <p className="font-medium text-gold">Admin order flow</p>
+        <p className="mt-1">
+          Pending → Confirmed → Paid → Shipped → Delivered. Copy the payment reply after
+          confirming; send the thank-you + review WhatsApp only when status is{" "}
+          <span className="text-gold">Delivered</span>.
+        </p>
+      </div>
+
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard label="Total Revenue" value={formatPrice(totalRevenue)} />
         <StatCard label="Total Orders" value={String(orders.length)} />

@@ -18,13 +18,14 @@ export function AdminOrdersClient({
 }: {
   initialOrders: AdminOrderRow[];
 }) {
+  const [orders, setOrders] = useState(initialOrders);
   const [phoneQuery, setPhoneQuery] = useState("");
 
   const filtered = useMemo(() => {
     const q = digitsOnly(phoneQuery.trim());
-    if (!q) return initialOrders;
-    return initialOrders.filter((o) => digitsOnly(o.phone).includes(q));
-  }, [initialOrders, phoneQuery]);
+    if (!q) return orders;
+    return orders.filter((o) => digitsOnly(o.phone).includes(q));
+  }, [orders, phoneQuery]);
 
   const grouped = useMemo(() => {
     return ORDER_STATUSES.reduce(
@@ -35,6 +36,12 @@ export function AdminOrdersClient({
       {} as Record<OrderStatus, AdminOrderRow[]>,
     );
   }, [filtered]);
+
+  function handleStatusChange(orderId: string, status: OrderStatus) {
+    setOrders((prev) =>
+      prev.map((o) => (o.id === orderId ? { ...o, status } : o)),
+    );
+  }
 
   return (
     <div>
@@ -70,6 +77,7 @@ export function AdminOrdersClient({
                 ? "No matching orders in this status."
                 : "No orders in this status."
             }
+            onStatusChange={handleStatusChange}
           />
         ))}
       </div>
@@ -81,10 +89,12 @@ function OrderTable({
   title,
   items,
   emptyHint,
+  onStatusChange,
 }: {
   title: string;
   items: AdminOrderRow[];
   emptyHint: string;
+  onStatusChange: (orderId: string, status: OrderStatus) => void;
 }) {
   return (
     <div className="rounded-2xl bg-dark-soft p-5 ring-1 ring-light/10">
@@ -126,6 +136,7 @@ function OrderTable({
                 total={o.total}
                 currentStatus={o.status}
                 pointsBalance={o.pointsBalance}
+                onStatusChange={onStatusChange}
               />
             </div>
           ))}

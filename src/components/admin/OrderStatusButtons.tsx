@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Copy, Check, MessageCircle } from "lucide-react";
 import { apiFetch } from "@/lib/api-client";
 import { calculatePointsEarned } from "@/lib/loyalty";
@@ -20,6 +20,7 @@ export function OrderStatusButtons({
   total,
   currentStatus,
   pointsBalance,
+  onStatusChange,
 }: {
   orderId: string;
   customerName: string;
@@ -28,15 +29,20 @@ export function OrderStatusButtons({
   currentStatus: OrderStatus;
   /** Known loyalty balance after this order (optional). */
   pointsBalance?: number;
+  onStatusChange?: (orderId: string, status: OrderStatus) => void;
 }) {
+  const [status, setStatus] = useState(currentStatus);
   const [updating, setUpdating] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
+  useEffect(() => {
+    setStatus(currentStatus);
+  }, [currentStatus]);
+
   const pointsEarned = calculatePointsEarned(total);
   const balance = pointsBalance ?? pointsEarned;
-  const showThankYou =
-    currentStatus === "delivered" || currentStatus === "shipped";
+  const showThankYou = status === "delivered";
 
   const thankYouUrl = useMemo(() => {
     if (!showThankYou) return null;
@@ -58,14 +64,15 @@ export function OrderStatusButtons({
     balance,
   ]);
 
-  async function updateStatus(status: OrderStatus) {
-    setUpdating(status);
+  async function updateStatus(next: OrderStatus) {
+    if (next === status) return;
+    setUpdating(next);
     setError(null);
 
     const res = await apiFetch("/api/admin/orders", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: orderId, status }),
+      body: JSON.stringify({ id: orderId, status: next }),
     });
 
     if (!res.ok) {
@@ -74,7 +81,9 @@ export function OrderStatusButtons({
       return;
     }
 
-    window.location.reload();
+    setStatus(next);
+    onStatusChange?.(orderId, next);
+    setUpdating(null);
   }
 
   async function copyPaymentReply() {
@@ -91,19 +100,19 @@ export function OrderStatusButtons({
   return (
     <div>
       <div className="mt-3 flex flex-wrap gap-2">
-        {ORDER_STATUSES.map((status) => (
+        {ORDER_STATUSES.map((s) => (
           <button
-            key={status}
+            key={s}
             type="button"
             disabled={updating !== null}
-            onClick={() => updateStatus(status)}
-            className={`rounded-lg px-3 py-1 text-xs font-medium transition disabled:opacity-50 ${
-              currentStatus === status
+            onClick={() => void updateStatus(s)}
+            className={`rounded-lg px-3 py-1.5 text-xs font-medium transition disabled:opacity-50 ${
+              status === s
                 ? "bg-gold text-dark"
                 : "bg-light/10 text-light/60 hover:bg-light/20"
             }`}
           >
-            {updating === status ? "Updating…" : ORDER_STATUS_LABELS[status]}
+            {updating === s ? "Updating…" : ORDER_STATUS_LABELS[s]}
           </button>
         ))}
       </div>
@@ -111,13 +120,13 @@ export function OrderStatusButtons({
       <div className="mt-3 flex flex-wrap gap-2">
         <button
           type="button"
-          onClick={copyPaymentReply}
+          onClick={() => void copyPaymentReply()}
           className="inline-flex items-center gap-1.5 rounded-lg bg-[#25D366]/15 px-3 py-1.5 text-xs font-medium text-[#25D366] transition hover:bg-[#25D366]/25"
         >
           {copied ? (
             <>
               <Check className="h-3.5 w-3.5" />
-              Copied!
+              Copied
             </>
           ) : (
             <>
@@ -135,9 +144,7 @@ export function OrderStatusButtons({
             className="inline-flex items-center gap-1.5 rounded-lg bg-gold/15 px-3 py-1.5 text-xs font-medium text-gold transition hover:bg-gold/25"
           >
             <MessageCircle className="h-3.5 w-3.5" />
-            {currentStatus === "delivered"
-              ? "Send thank-you + review WhatsApp"
-              : "Preview thank-you WhatsApp"}
+            Send thank-you + review WhatsApp
           </a>
         )}
       </div>
