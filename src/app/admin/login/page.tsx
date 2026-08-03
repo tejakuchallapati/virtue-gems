@@ -17,28 +17,46 @@ export default function AdminLoginPage() {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resending, setResending] = useState(false);
   const [sent, setSent] = useState(false);
+
+  async function sendOtp(): Promise<boolean> {
+    const res = await apiFetch("/api/admin/otp/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email.trim() }),
+    });
+
+    if (res.ok) {
+      setStep("otp");
+      setSent(true);
+      setError("");
+      return true;
+    }
+
+    setError(res.error);
+    return false;
+  }
 
   async function handleSendOtp(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError("");
-
     try {
-      const res = await apiFetch("/api/admin/otp/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      if (res.ok) {
-        setStep("otp");
-        setSent(true);
-      } else {
-        setError(res.error);
-      }
+      await sendOtp();
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleResendOtp() {
+    setResending(true);
+    setError("");
+    setOtp("");
+    try {
+      await sendOtp();
+    } finally {
+      setResending(false);
     }
   }
 
@@ -187,10 +205,19 @@ export default function AdminLoginPage() {
                   </button>
                   <button
                     type="button"
+                    disabled={resending || loading}
+                    onClick={() => void handleResendOtp()}
+                    className="w-full text-sm text-gold/80 transition hover:text-gold disabled:opacity-50"
+                  >
+                    {resending ? "Resending OTP…" : "Resend OTP"}
+                  </button>
+                  <button
+                    type="button"
                     onClick={() => {
                       setStep("email");
                       setOtp("");
                       setError("");
+                      setSent(false);
                     }}
                     className="w-full text-sm text-white/40 transition hover:text-gold"
                   >
