@@ -23,7 +23,15 @@ export async function GET(request: Request) {
   if (normalized.length < 10) return apiFail("Valid phone required.", 400);
 
   try {
-    const account = getLoyaltyAccount(normalized);
+    const account =
+      getLoyaltyAccount(normalized) ??
+      ({
+        phone: normalized,
+        name: "",
+        points: 0,
+        lifetimePoints: 0,
+        history: [],
+      } satisfies LoyaltyAccount);
     return NextResponse.json({ success: true, account });
   } catch (error) {
     console.error("Loyalty GET error:", error);
