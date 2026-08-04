@@ -148,6 +148,30 @@ export function HeroLanding() {
                   transition={{ duration: 1.8, delay: 0.65 + s.delay, ease: "easeInOut" }}
                 />
               ))}
+
+              <div className="relative z-[5] flex h-full w-full flex-col items-center justify-end px-8 pb-14 pointer-events-none [&_a]:pointer-events-auto">
+                <motion.p
+                  initial={{ opacity: 0, y: 16, letterSpacing: "0.55em" }}
+                  animate={{ opacity: 1, y: 0, letterSpacing: "0.4em" }}
+                  transition={{ delay: 0.9, duration: 0.75, ease }}
+                  className="mb-5 text-[11px] tracking-[0.4em] text-gold/85 uppercase"
+                >
+                  Introducing Virtue Gems
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0, y: 24, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ delay: 1.1, duration: 0.7, ease }}
+                >
+                  <Link
+                    href="/shop"
+                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gold px-10 py-4 text-sm font-semibold text-dark shadow-[0_0_32px_rgba(212,175,55,0.45)]"
+                  >
+                    <span className="relative">Explore Collection</span>
+                    <ArrowRight className="relative h-4 w-4 transition group-hover:translate-x-1" />
+                  </Link>
+                </motion.div>
+              </div>
             </>
           )}
         </AnimatePresence>
