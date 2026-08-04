@@ -108,6 +108,46 @@ export function HeroLanding() {
                 animate={{ x: "105%" }}
                 transition={{ duration: 1.2, ease }}
               />
+              <motion.div
+                key="d-bloom"
+                aria-hidden
+                className="pointer-events-none absolute left-1/2 top-[42%] z-[2] h-[55vmin] w-[55vmin] -translate-x-1/2 -translate-y-1/2 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(212,175,55,0.28) 0%, transparent 68%)",
+                }}
+                initial={{ opacity: 0, scale: 0.4 }}
+                animate={{ opacity: [0, 0.9, 0.35], scale: [0.4, 1.15, 1] }}
+                transition={{ duration: 1.6, delay: 0.15, ease }}
+              />
+              <motion.div
+                key="d-sweep"
+                aria-hidden
+                className="pointer-events-none absolute inset-0 z-[3]"
+                style={{
+                  background:
+                    "linear-gradient(105deg, transparent 38%, rgba(212,175,55,0.18) 50%, transparent 62%)",
+                }}
+                initial={{ x: "-100%", opacity: 0 }}
+                animate={{ x: "130%", opacity: [0, 1, 0] }}
+                transition={{ duration: 1.7, delay: 0.5, ease: "easeInOut" }}
+              />
+              {[
+                { left: "18%", top: "28%", delay: 0.2 },
+                { left: "78%", top: "24%", delay: 0.45 },
+                { left: "22%", top: "62%", delay: 0.65 },
+                { left: "72%", top: "58%", delay: 0.35 },
+              ].map((s, i) => (
+                <motion.span
+                  key={`spark-${i}`}
+                  aria-hidden
+                  className="pointer-events-none absolute z-[3] h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_10px_rgba(212,175,55,0.8)]"
+                  style={{ left: s.left, top: s.top }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: [0, 1, 0.5], scale: [0, 1.5, 1] }}
+                  transition={{ duration: 1.8, delay: 0.65 + s.delay, ease: "easeInOut" }}
+                />
+              ))}
             </>
           )}
         </AnimatePresence>
