@@ -11,6 +11,7 @@ import {
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useState } from "react";
 import { useStore } from "@/context/StoreProvider";
+import { useBrandIntroReady } from "@/hooks/useBrandIntroReady";
 import { cn } from "@/lib/utils";
 import { NavBrand } from "./NavBrand";
 
@@ -75,6 +76,7 @@ export function LandingNavbar() {
   const { cartCount, wishlistCount, hydrated } = useStore();
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
+  const introReady = useBrandIntroReady();
 
   useMotionValueEvent(scrollY, "change", (y) => {
     setScrolled(y > 60);
@@ -142,21 +144,27 @@ export function LandingNavbar() {
             ? "border-b border-gold/20 bg-[#1a0a2e]/92 backdrop-blur-xl"
             : "bg-gradient-to-b from-[#1a0a2e]/70 via-[#1a0a2e]/30 to-transparent",
         )}
-        initial={{ y: -60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ y: -72, opacity: 0 }}
+        animate={introReady ? { y: 0, opacity: 1 } : { y: -72, opacity: 0 }}
+        transition={{ duration: 0.7, delay: introReady ? 0.35 : 0, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="relative mx-auto flex h-16 max-w-[1400px] items-center px-6 lg:px-10">
           <NavBrand className="relative z-10" logoClassName="h-9 w-9" />
 
           <nav className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center">
-            {desktopLinks.map((link) => (
-              <DesktopNavLink
+            {desktopLinks.map((link, i) => (
+              <motion.div
                 key={link.href}
-                href={link.href}
-                label={link.label}
-                active={pathname === link.href}
-              />
+                initial={{ opacity: 0, y: -10 }}
+                animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
+                transition={{ delay: 0.5 + i * 0.1, duration: 0.45 }}
+              >
+                <DesktopNavLink
+                  href={link.href}
+                  label={link.label}
+                  active={pathname === link.href}
+                />
+              </motion.div>
             ))}
           </nav>
 
