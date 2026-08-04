@@ -88,6 +88,30 @@ export function HeroLanding() {
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#1a0a2e]/25 via-transparent to-[#1a0a2e]/88" />
         </motion.div>
+
+        <AnimatePresence>
+          {introReady && (
+            <>
+              <motion.div
+                key="d-curtain-l"
+                aria-hidden
+                className="pointer-events-none absolute inset-y-0 left-0 z-[4] w-1/2 bg-[#1a0a2e]"
+                initial={{ x: "0%" }}
+                animate={{ x: "-105%" }}
+                transition={{ duration: 1.2, ease }}
+              />
+              <motion.div
+                key="d-curtain-r"
+                aria-hidden
+                className="pointer-events-none absolute inset-y-0 right-0 z-[4] w-1/2 bg-[#1a0a2e]"
+                initial={{ x: "0%" }}
+                animate={{ x: "105%" }}
+                transition={{ duration: 1.2, ease }}
+              />
+            </>
+          )}
+        </AnimatePresence>
+
         {!introReady && <div className="absolute inset-0 z-[6] bg-[#1a0a2e]" aria-hidden />}
       </div>
     </section>
