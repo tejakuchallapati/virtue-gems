@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { VIRTUAL_TRY_ON_ENABLED } from "@/lib/features";
 import { getSiteUrl } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
@@ -16,6 +17,7 @@ export default function robots(): MetadataRoute.Robots {
           "/cart",
           "/checkout",
           "/wishlist",
+          ...(VIRTUAL_TRY_ON_ENABLED ? [] : ["/try-on"]),
         ],
       },
     ],
