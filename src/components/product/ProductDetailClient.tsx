@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import {
   Heart,
@@ -11,7 +10,6 @@ import {
   Minus,
   Plus,
   ZoomIn,
-  Camera,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStore } from "@/context/StoreProvider";
@@ -23,22 +21,9 @@ import { formatPrice } from "@/lib/utils";
 import { TAG_LABELS } from "@/lib/product-constants";
 import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL, PRODUCT_GRID } from "@/lib/ui-classes";
 import { buildProductShareMessage, getWhatsAppUrl } from "@/lib/whatsapp";
+import { VIRTUAL_TRY_ON_ENABLED } from "@/lib/features";
+import { ProductTryOnExtras } from "@/components/product/ProductTryOnExtras";
 import type { Product } from "@/types";
-
-const TryOnModal = dynamic(
-  () => import("@/components/try-on/TryOnModal").then((m) => m.TryOnModal),
-  { ssr: false },
-);
-
-const VirtualTryOn = dynamic(
-  () => import("@/components/try-on/VirtualTryOn").then((m) => m.VirtualTryOn),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="mt-10 hidden h-48 animate-pulse rounded-2xl bg-light sm:block" />
-    ),
-  },
-);
 
 export function ProductDetailClient({
   product,
@@ -50,7 +35,6 @@ export function ProductDetailClient({
   const [activeImage, setActiveImage] = useState(0);
   const [qty, setQty] = useState(1);
   const [zoom, setZoom] = useState(false);
-  const [tryOnOpen, setTryOnOpen] = useState(false);
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist, addRecentlyViewed } =
     useStore();
   const wished = isInWishlist(product.id);
@@ -221,14 +205,7 @@ export function ProductDetailClient({
             </button>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setTryOnOpen(true)}
-            className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-gold/40 bg-gold/10 py-3.5 text-sm font-semibold text-gold-dark transition hover:bg-gold/20 sm:hidden"
-          >
-            <Camera className="h-4 w-4" />
-            Try on me — see how it looks
-          </button>
+          {VIRTUAL_TRY_ON_ENABLED && <ProductTryOnExtras product={product} />}
 
           {/* Specifications */}
           <div className="mt-8 rounded-2xl bg-white p-5 ring-1 ring-light-muted/60">
@@ -246,12 +223,6 @@ export function ProductDetailClient({
           </div>
         </div>
       </div>
-
-      <ScrollReveal className="mt-10 hidden sm:block">
-        <VirtualTryOn product={product} />
-      </ScrollReveal>
-
-      <TryOnModal product={product} open={tryOnOpen} onClose={() => setTryOnOpen(false)} />
 
       {/* Reviews */}
       {product.reviews.length > 0 && (
