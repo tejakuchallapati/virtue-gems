@@ -89,7 +89,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "products",
     question: "Can I try jewellery on before buying?",
     answer:
-      "Yes! Use our Virtual Try-On feature on any product page — upload a selfie and see how necklaces, earrings, rings, and more look on you.",
+      "Virtual Try-On is coming soon. For now, browse photos on each product page and message us on WhatsApp — we can share more angles or styling tips before you order.",
   },
   {
     id: "out-of-stock",
