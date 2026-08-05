@@ -14,7 +14,7 @@ import { whatsAppContactUrl } from "@/lib/whatsapp";
 export const metadata: Metadata = buildPageMetadata({
   title: "FAQ — Orders, Delivery, Rewards & Returns",
   description:
-    "Answers about Virtue Gems WhatsApp orders, AP & Telangana delivery, loyalty rewards, unboxing video returns, and virtual try-on.",
+    "Answers about Virtue Gems WhatsApp orders, AP & Telangana delivery, loyalty rewards, and unboxing video returns.",
   path: "/faq",
   keywords: ["Virtue Gems FAQ", "jewellery delivery Hyderabad", "jewellery return policy"],
 });
