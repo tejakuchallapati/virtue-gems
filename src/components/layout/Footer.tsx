@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
+import { VIRTUAL_TRY_ON_ENABLED } from "@/lib/features";
 import { FooterYear } from "./FooterYear";
 
 const shop = [
   { href: "/shop", label: "All Collections" },
-  { href: "/try-on", label: "Virtual Try-On" },
+  ...(VIRTUAL_TRY_ON_ENABLED
+    ? [{ href: "/try-on", label: "Virtual Try-On" }]
+    : []),
   { href: "/shop?category=rings", label: "Rings" },
   { href: "/shop?category=necklaces", label: "Necklaces" },
   { href: "/shop?category=earrings", label: "Earrings" },
