@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { TryOnSection } from "@/components/try-on/TryOnSection";
+import { VIRTUAL_TRY_ON_ENABLED } from "@/lib/features";
 import { getAllProducts, getProductBySlug } from "@/lib/products";
 import { PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
 import { buildPageMetadata } from "@/lib/seo";
@@ -26,6 +28,8 @@ type Props = {
 };
 
 export default async function TryOnPage({ searchParams }: Props) {
+  if (!VIRTUAL_TRY_ON_ENABLED) redirect("/shop");
+
   const { product: slug } = await searchParams;
   const products = getAllProducts();
   const selected = slug ? getProductBySlug(slug) : products[0];
