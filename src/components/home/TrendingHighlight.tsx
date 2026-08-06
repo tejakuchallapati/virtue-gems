@@ -103,10 +103,10 @@ export function TrendingHighlight({
           ))}
         </div>
 
-        <ScrollReveal delay={0.2} className="mt-8 hidden text-center md:block">
+        <ScrollReveal delay={0.15} className="mt-8 text-center">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 rounded-full border border-gold/50 bg-white/60 px-6 py-2.5 text-sm font-medium text-gold-dark transition hover:bg-gold hover:text-dark"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-gold/50 bg-white/60 px-6 py-2.5 text-sm font-medium text-gold-dark transition hover:bg-gold hover:text-dark"
           >
             <Sparkles className="h-4 w-4" />
             View Full Collection

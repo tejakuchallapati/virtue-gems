@@ -36,11 +36,11 @@ export function LoyaltyPromo() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] py-14 sm:py-20">
       <div
-        className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-gold/10 blur-3xl"
+        className="pointer-events-none absolute -right-24 -top-24 hidden h-64 w-64 rounded-full bg-gold/10 blur-3xl sm:block"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-gold/5 blur-3xl"
+        className="pointer-events-none absolute -bottom-16 -left-16 hidden h-48 w-48 rounded-full bg-gold/5 blur-3xl sm:block"
         aria-hidden
       />
 
