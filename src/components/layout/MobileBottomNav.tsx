@@ -33,17 +33,10 @@ export function MobileBottomNav() {
 
   return (
     <nav className="safe-bottom fixed bottom-0 left-0 right-0 z-50 md:hidden">
-      {/* Gold shimmer top edge */}
-      <div className="relative h-px overflow-hidden">
-        <motion.div
-          className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-gold to-transparent"
-          animate={{ x: ["-100%", "300%"] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-        />
-      </div>
+      <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
 
-      <div className="border-t border-gold/20 bg-[#0f172a]/95 shadow-[0_-8px_32px_rgba(0,0,0,0.25)]">
-        <div className="flex items-stretch justify-around px-1 py-1.5">
+      <div className="border-t border-gold/20 bg-[#0f172a]/95 shadow-[0_-8px_32px_rgba(0,0,0,0.25)] backdrop-blur-md">
+        <div className="flex items-stretch justify-around px-1 py-1">
           {navItems.map((item) => {
             const Icon = item.icon;
             const active = !item.external && pathname === item.href;
@@ -63,10 +56,7 @@ export function MobileBottomNav() {
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
-                <motion.span
-                  className="relative flex flex-col items-center gap-0.5"
-                  whileTap={{ scale: 0.9 }}
-                >
+                <span className="relative flex flex-col items-center gap-0.5">
                   <span className="relative">
                     <Icon
                       className={cn(
@@ -96,7 +86,7 @@ export function MobileBottomNav() {
                   >
                     {item.label}
                   </span>
-                </motion.span>
+                </span>
               </>
             );
 
@@ -107,7 +97,7 @@ export function MobileBottomNav() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative flex min-h-[52px] flex-1 flex-col items-center justify-center py-1.5"
+                  className="relative flex min-h-[48px] flex-1 flex-col items-center justify-center py-1 active:scale-95"
                 >
                   {inner}
                 </a>
@@ -118,7 +108,7 @@ export function MobileBottomNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative flex min-h-[52px] flex-1 flex-col items-center justify-center py-1.5"
+                className="relative flex min-h-[48px] flex-1 flex-col items-center justify-center py-1 active:scale-95"
               >
                 {inner}
               </Link>
