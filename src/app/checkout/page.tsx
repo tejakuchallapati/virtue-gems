@@ -154,8 +154,8 @@ export default function CheckoutPage() {
       />
       <h1 className="mb-6 text-2xl font-semibold text-dark sm:text-3xl">Checkout</h1>
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+        <form onSubmit={handleSubmit} className="order-2 space-y-4 lg:order-1">
           <p className="text-sm text-dark/60">{CHECKOUT_PAYMENT_NOTICE}</p>
 
           <div className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 p-4 text-xs text-dark/80">
@@ -292,7 +292,7 @@ export default function CheckoutPage() {
           </button>
         </form>
 
-        <div className={`p-6 lg:sticky lg:top-20 lg:self-start ${CARD_SURFACE}`}>
+        <div className={`order-1 p-5 sm:p-6 lg:order-2 lg:sticky lg:top-20 lg:self-start ${CARD_SURFACE}`}>
           <h2 className="text-lg font-semibold text-dark">Your Order</h2>
           <ul className="mt-4 space-y-3">
             {cart.map((item) => (
