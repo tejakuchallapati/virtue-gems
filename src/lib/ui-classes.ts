@@ -2,17 +2,17 @@
 
 export const PAGE_CONTAINER = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8";
 
-/** Cream gradient page backdrop with mobile bottom-nav clearance. */
+/** Cream gradient page backdrop (bottom-nav clearance comes from SiteShell). */
 export const PAGE_GRADIENT_SHELL =
-  "page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white";
+  "min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white";
 
 /** Inner content width and vertical rhythm (pair with PAGE_GRADIENT_SHELL). */
 export const PAGE_CONTENT_SHELL =
-  "mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8";
+  "mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-10 lg:px-8";
 
 /** Narrow centered layout for empty cart, wishlist, and similar states. */
 export const EMPTY_STATE_SHELL =
-  "page-mobile-safe mx-auto max-w-lg px-4 py-16 text-center sm:py-24";
+  "mx-auto max-w-lg px-4 py-14 text-center sm:py-24";
 
 export const CARD_SURFACE =
   "rounded-2xl bg-white ring-1 ring-light-muted/60 shadow-sm";
@@ -34,7 +34,7 @@ export const PRODUCT_IMAGE_COVER =
   "object-cover transition duration-500";
 
 export const PRODUCT_GRID =
-  "grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4";
+  "grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4";
 
 export const SECTION_DIVIDER =
   "pointer-events-none h-px w-full bg-gradient-to-r from-transparent via-gold/35 to-transparent";
