@@ -83,17 +83,13 @@ export function HeroLanding() {
                 />
 
                 <motion.div
-                  animate={{
-                    y: [0, -10, 0],
-                    rotateY: [0, 4, 0, -4, 0],
-                  }}
+                  animate={{ y: [0, -8, 0] }}
                   transition={{
-                    duration: 6,
+                    duration: 5.5,
                     repeat: Infinity,
                     ease: "easeInOut",
                     delay: 1.4,
                   }}
-                  style={{ transformStyle: "preserve-3d" }}
                   className="relative aspect-square w-full"
                 >
                   <Image
@@ -125,7 +121,7 @@ export function HeroLanding() {
                 animate={{ opacity: 1, rotateX: 0, z: 60, y: 0 }}
                 transition={{ delay: 0.95, duration: 0.75, ease }}
                 style={{ transformStyle: "preserve-3d" }}
-                className="absolute inset-x-0 bottom-[calc(5.5rem+env(safe-area-inset-bottom))] z-20 flex justify-center px-4"
+                className="absolute inset-x-0 bottom-[calc(var(--mobile-nav-height)+1.25rem+env(safe-area-inset-bottom))] z-20 flex justify-center px-4"
               >
                 <Link
                   href="/shop"
