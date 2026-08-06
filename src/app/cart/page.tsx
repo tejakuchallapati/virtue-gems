@@ -83,18 +83,19 @@ export default function CartPage() {
                         {formatPrice(item.product.price)}
                       </p>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center rounded-lg border border-light-muted">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center rounded-xl border border-light-muted">
                         <button
                           type="button"
                           onClick={() =>
                             updateQuantity(item.product.id, item.quantity - 1)
                           }
-                          className="px-2.5 py-1.5"
+                          className="flex h-11 w-11 items-center justify-center"
+                          aria-label="Decrease quantity"
                         >
-                          <Minus className="h-3.5 w-3.5" />
+                          <Minus className="h-4 w-4" />
                         </button>
-                        <span className="w-8 text-center text-sm">
+                        <span className="w-8 text-center text-sm font-medium">
                           {item.quantity}
                         </span>
                         <button
@@ -103,15 +104,16 @@ export default function CartPage() {
                           onClick={() =>
                             updateQuantity(item.product.id, item.quantity + 1)
                           }
-                          className="px-2.5 py-1.5 disabled:opacity-40"
+                          className="flex h-11 w-11 items-center justify-center disabled:opacity-40"
+                          aria-label="Increase quantity"
                         >
-                          <Plus className="h-3.5 w-3.5" />
+                          <Plus className="h-4 w-4" />
                         </button>
                       </div>
                       <button
                         type="button"
                         onClick={() => removeFromCart(item.product.id)}
-                        className="text-dark/40 hover:text-red-500"
+                        className="flex h-11 w-11 items-center justify-center rounded-xl text-dark/40 hover:bg-red-50 hover:text-red-500"
                         aria-label="Remove"
                       >
                         <Trash2 className="h-4 w-4" />

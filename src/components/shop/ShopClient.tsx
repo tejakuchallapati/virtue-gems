@@ -306,10 +306,10 @@ export function ShopClient({ products }: { products: Product[] }) {
               <button
                 type="button"
                 onClick={() => setFiltersOpen(false)}
-                className="absolute right-4 top-4 lg:hidden"
+                className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark lg:hidden"
                 aria-label="Close filters"
               >
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5" />
               </button>
             )}
 

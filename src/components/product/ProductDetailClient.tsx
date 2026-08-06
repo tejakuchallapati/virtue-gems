@@ -54,7 +54,7 @@ export function ProductDetailClient({
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
-      <div className={`${PAGE_CONTENT_SHELL} pb-28 md:pb-10`}>
+      <div className={`${PAGE_CONTENT_SHELL} pb-32 md:pb-10`}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -152,7 +152,8 @@ export function ProductDetailClient({
               <button
                 type="button"
                 onClick={() => setQty(Math.max(1, qty - 1))}
-                className="px-3 py-2 text-dark/60 hover:text-dark"
+                className="flex h-11 w-11 items-center justify-center text-dark/60 hover:text-dark"
+                aria-label="Decrease quantity"
               >
                 <Minus className="h-4 w-4" />
               </button>
@@ -161,7 +162,8 @@ export function ProductDetailClient({
                 type="button"
                 onClick={() => setQty(Math.min(product.stock, qty + 1))}
                 disabled={qty >= product.stock}
-                className="px-3 py-2 text-dark/60 hover:text-dark disabled:opacity-40"
+                className="flex h-11 w-11 items-center justify-center text-dark/60 hover:text-dark disabled:opacity-40"
+                aria-label="Increase quantity"
               >
                 <Plus className="h-4 w-4" />
               </button>
@@ -262,8 +264,8 @@ export function ProductDetailClient({
         </ScrollReveal>
       )}
 
-      {/* Mobile sticky add-to-cart bar */}
-      <div className="safe-bottom fixed bottom-[calc(4.25rem+env(safe-area-inset-bottom))] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-4 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md md:hidden">
+      {/* Mobile sticky add-to-cart bar — sits above bottom nav; nav already has safe-area */}
+      <div className="fixed bottom-[var(--mobile-nav-height)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-4 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md md:hidden">
         <div className="mx-auto flex max-w-lg items-center gap-3">
           <div className="min-w-0 shrink-0">
             <p className="text-base font-bold text-gold-dark">
