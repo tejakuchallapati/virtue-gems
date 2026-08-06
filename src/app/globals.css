@@ -10,6 +10,8 @@
   --light-muted: #e8e4dc;
   --background: #f8f6f0;
   --foreground: #0f172a;
+  /* Fixed mobile bottom nav (~52px row + border) */
+  --mobile-nav-height: 4.25rem;
 }
 
 @theme inline {
@@ -33,6 +35,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -41,11 +44,33 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+/* Coarse pointers: instant scroll feels smoother with long shop grids */
+@media (hover: none) and (pointer: coarse) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Extra bottom space on long mobile pages (above fixed bottom nav) */
 .page-mobile-safe {
-  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0));
+  padding-bottom: calc(var(--mobile-nav-height) + env(safe-area-inset-bottom, 0px));
 }
 
 @media (min-width: 768px) {
