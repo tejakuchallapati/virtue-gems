@@ -63,7 +63,7 @@ function MobileNavLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="group relative flex min-h-11 items-center px-3 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-light/75 transition hover:text-gold active:scale-95"
+      className="group relative flex min-h-10 items-center px-2 py-2 text-[10px] font-medium uppercase tracking-[0.08em] text-light/75 transition hover:text-gold active:scale-95"
     >
       {label}
       <span className="absolute bottom-1 left-1/2 h-px w-0 -translate-x-1/2 bg-gold transition-all group-hover:w-3/4" />
@@ -95,51 +95,47 @@ export function LandingNavbar() {
             : "bg-gradient-to-b from-[#1a0a2e]/80 to-transparent",
         )}
       >
-        <div className="flex h-12 items-center justify-center border-b border-gold/15 px-2">
-          <div className="flex max-w-full items-center gap-1.5">
-            <Link href="/" className="shrink-0 px-1 transition opacity-90 hover:opacity-100 active:scale-95">
-              <Image
-                src="/logo.png"
-                alt="Virtue Gems"
-                width={100}
-                height={40}
-                className="h-7 w-auto object-contain"
-                priority
-              />
+        <div className="flex h-12 items-center justify-between gap-1 border-b border-gold/15 px-2">
+          <Link href="/" className="shrink-0 px-1 transition opacity-90 hover:opacity-100 active:scale-95">
+            <Image
+              src="/logo.png"
+              alt="Virtue Gems"
+              width={100}
+              height={40}
+              className="h-6 w-auto object-contain"
+              priority
+            />
+          </Link>
+          <nav className="flex min-w-0 flex-1 items-center justify-center">
+            {mobileLinks.map((link) => (
+              <MobileNavLink key={link.href} href={link.href} label={link.label} />
+            ))}
+          </nav>
+          <div className="flex shrink-0 items-center">
+            <Link
+              href="/wishlist"
+              className="relative flex h-10 w-10 items-center justify-center text-light/70 hover:text-gold active:scale-95"
+              aria-label="Wishlist"
+            >
+              <Heart className="h-[18px] w-[18px]" />
+              {hydrated && wishlistCount > 0 && (
+                <span className="absolute right-1 top-1 text-[9px] font-bold text-gold">
+                  {wishlistCount}
+                </span>
+              )}
             </Link>
-            <span className="h-4 w-px shrink-0 bg-gold/25" aria-hidden />
-            <nav className="flex items-center">
-              {mobileLinks.map((link) => (
-                <MobileNavLink key={link.href} href={link.href} label={link.label} />
-              ))}
-            </nav>
-            <span className="h-4 w-px shrink-0 bg-gold/25" aria-hidden />
-            <div className="flex items-center">
-              <Link
-                href="/wishlist"
-                className="relative flex h-11 w-11 items-center justify-center text-light/70 hover:text-gold active:scale-95"
-                aria-label="Wishlist"
-              >
-                <Heart className="h-5 w-5" />
-                {hydrated && wishlistCount > 0 && (
-                  <span className="absolute right-1.5 top-1.5 text-[9px] font-bold text-gold">
-                    {wishlistCount}
-                  </span>
-                )}
-              </Link>
-              <Link
-                href="/cart"
-                className="relative flex h-11 w-11 items-center justify-center text-light/70 hover:text-gold active:scale-95"
-                aria-label="Cart"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                {hydrated && cartCount > 0 && (
-                  <span className="absolute right-1.5 top-1.5 text-[9px] font-bold text-gold">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
-            </div>
+            <Link
+              href="/cart"
+              className="relative flex h-10 w-10 items-center justify-center text-light/70 hover:text-gold active:scale-95"
+              aria-label="Cart"
+            >
+              <ShoppingCart className="h-[18px] w-[18px]" />
+              {hydrated && cartCount > 0 && (
+                <span className="absolute right-1 top-1 text-[9px] font-bold text-gold">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
       </header>
