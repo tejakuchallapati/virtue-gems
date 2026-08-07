@@ -10,8 +10,9 @@
   --light-muted: #e8e4dc;
   --background: #f8f6f0;
   --foreground: #0f172a;
-  /* Fixed mobile bottom nav (~52px row + border) */
-  --mobile-nav-height: 4.25rem;
+  /* Mobile bottom nav content height (safe-area added where needed) */
+  --mobile-nav-height: 3.5rem;
+  --mobile-nav-offset: calc(var(--mobile-nav-height) + env(safe-area-inset-bottom, 0px));
 }
 
 @theme inline {
@@ -70,7 +71,7 @@ body {
 
 /* Extra bottom space on long mobile pages (above fixed bottom nav) */
 .page-mobile-safe {
-  padding-bottom: calc(var(--mobile-nav-height) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: var(--mobile-nav-offset);
 }
 
 @media (min-width: 768px) {
