@@ -202,7 +202,7 @@ export default function CheckoutPage() {
             <label htmlFor="customerName" className="mb-1 block text-sm font-medium">
               Full Name *
             </label>
-            <input id="customerName" name="customerName" required className={inputClass} />
+            <input id="customerName" name="customerName" required autoComplete="name" className={inputClass} />
           </div>
           <div>
             <label htmlFor="phone" className="mb-1 block text-sm font-medium">
@@ -214,6 +214,7 @@ export default function CheckoutPage() {
               type="tel"
               required
               inputMode="tel"
+              autoComplete="tel"
               pattern="[0-9+\s-]{10,15}"
               title="Enter a valid 10-digit mobile number"
               placeholder="10-digit mobile (e.g. 7396178039)"
@@ -229,6 +230,7 @@ export default function CheckoutPage() {
               name="address"
               required
               rows={3}
+              autoComplete="street-address"
               className={`${inputClass} resize-none`}
             />
           </div>
@@ -237,7 +239,7 @@ export default function CheckoutPage() {
               <label htmlFor="city" className="mb-1 block text-sm font-medium">
                 City *
               </label>
-              <input id="city" name="city" required className={inputClass} />
+              <input id="city" name="city" required autoComplete="address-level2" className={inputClass} />
             </div>
             <div>
               <label htmlFor="state" className="mb-1 block text-sm font-medium">
@@ -259,7 +261,17 @@ export default function CheckoutPage() {
             <label htmlFor="pincode" className="mb-1 block text-sm font-medium">
               Pincode *
             </label>
-            <input id="pincode" name="pincode" required className={inputClass} />
+            <input
+              id="pincode"
+              name="pincode"
+              required
+              inputMode="numeric"
+              autoComplete="postal-code"
+              pattern="[0-9]{6}"
+              maxLength={6}
+              title="Enter a 6-digit pincode"
+              className={inputClass}
+            />
           </div>
 
           <UnboxingVideoNotice />

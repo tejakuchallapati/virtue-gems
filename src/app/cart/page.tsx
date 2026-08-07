@@ -75,7 +75,7 @@ export default function CartPage() {
                     <div>
                       <Link
                         href={`/product/${item.product.slug}`}
-                        className="font-medium text-dark hover:text-gold"
+                        className="line-clamp-2 font-medium text-dark hover:text-gold"
                       >
                         {item.product.name}
                       </Link>
