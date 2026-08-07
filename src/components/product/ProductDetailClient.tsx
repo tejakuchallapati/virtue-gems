@@ -265,7 +265,7 @@ export function ProductDetailClient({
       )}
 
       {/* Mobile sticky add-to-cart bar — sits above bottom nav; nav already has safe-area */}
-      <div className="fixed bottom-[var(--mobile-nav-height)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-4 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md md:hidden">
+      <div className="fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-4 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md md:hidden">
         <div className="mx-auto flex max-w-lg items-center gap-3">
           <div className="min-w-0 shrink-0">
             <p className="text-base font-bold text-gold-dark">

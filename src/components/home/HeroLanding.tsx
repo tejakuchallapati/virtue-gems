@@ -121,7 +121,7 @@ export function HeroLanding() {
                 animate={{ opacity: 1, rotateX: 0, z: 60, y: 0 }}
                 transition={{ delay: 0.95, duration: 0.75, ease }}
                 style={{ transformStyle: "preserve-3d" }}
-                className="absolute inset-x-0 bottom-[calc(var(--mobile-nav-height)+1.25rem+env(safe-area-inset-bottom))] z-20 flex justify-center px-4"
+                className="absolute inset-x-0 bottom-[calc(var(--mobile-nav-offset)+1.25rem)] z-20 flex justify-center px-4"
               >
                 <Link
                   href="/shop"

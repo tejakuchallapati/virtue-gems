@@ -33,8 +33,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         <main
           className={
             isHome
-              ? "min-h-[100dvh] pb-[calc(var(--mobile-nav-height)+env(safe-area-inset-bottom))] md:pb-0"
-              : "min-h-[calc(100dvh-3rem)] pb-[calc(var(--mobile-nav-height)+env(safe-area-inset-bottom))] md:min-h-[calc(100vh-4rem)] md:pb-0"
+              ? "min-h-[100dvh] md:pb-0"
+              : "min-h-[calc(100dvh-3rem)] md:min-h-[calc(100vh-4rem)] md:pb-0"
           }
         >
           {children}
