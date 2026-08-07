@@ -58,7 +58,7 @@ export function OrderJourney() {
       <div className="mt-6 text-center">
         <Link
           href="/shop"
-          className="text-sm font-medium text-gold-dark underline-offset-2 hover:underline"
+          className="inline-flex min-h-11 items-center justify-center rounded-full border border-gold/40 bg-white/70 px-6 text-sm font-medium text-gold-dark transition hover:bg-gold hover:text-dark"
         >
           Start shopping
         </Link>

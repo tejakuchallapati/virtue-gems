@@ -56,8 +56,8 @@ export function InstagramFeed() {
               sizes="(max-width: 640px) 33vw, 16vw"
               className={cn(PRODUCT_IMAGE_COVER, "group-hover:scale-[1.03]")}
             />
-            <div className="absolute inset-0 flex items-center justify-center bg-dark/0 transition group-hover:bg-dark/45">
-              <InstagramIcon className="h-6 w-6 text-white opacity-0 transition group-hover:opacity-100" />
+            <div className="absolute inset-0 flex items-center justify-center bg-dark/20 transition sm:bg-dark/0 sm:group-hover:bg-dark/45">
+              <InstagramIcon className="h-5 w-5 text-white opacity-70 transition sm:h-6 sm:w-6 sm:opacity-0 sm:group-hover:opacity-100" />
             </div>
           </a>
         ))}

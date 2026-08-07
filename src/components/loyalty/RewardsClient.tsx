@@ -88,7 +88,7 @@ export function RewardsClient() {
           <button
             type="submit"
             disabled={loading}
-            className="rounded-xl bg-dark px-6 py-3 text-sm font-semibold text-gold transition hover:bg-dark-soft disabled:opacity-60"
+            className="min-h-12 rounded-xl bg-dark px-6 py-3 text-sm font-semibold text-gold transition hover:bg-dark-soft disabled:opacity-60"
           >
             {loading ? "Loading..." : "Load Points"}
           </button>
@@ -109,7 +109,7 @@ export function RewardsClient() {
           <button
             type="button"
             onClick={clearRedemption}
-            className="text-xs font-medium text-gold-dark underline"
+            className="min-h-11 rounded-lg px-3 text-sm font-medium text-gold-dark underline"
           >
             Remove
           </button>
@@ -160,7 +160,7 @@ export function RewardsClient() {
                   type="button"
                   disabled={!canRedeem}
                   onClick={() => handleRedeem(reward.id, reward.pointsCost)}
-                  className="mt-4 w-full rounded-xl bg-dark py-2.5 text-sm font-semibold text-gold transition hover:bg-dark-soft disabled:cursor-not-allowed disabled:opacity-40"
+                  className="mt-4 min-h-12 w-full rounded-xl bg-dark py-3 text-sm font-semibold text-gold transition hover:bg-dark-soft disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {points >= reward.pointsCost ? "Redeem Reward" : `Need ${reward.pointsCost - points} more pts`}
                 </button>
