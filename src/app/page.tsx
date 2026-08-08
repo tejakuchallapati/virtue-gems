@@ -12,6 +12,7 @@ import { LoyaltyPromo } from "@/components/home/LoyaltyPromo";
 import { OrderJourney } from "@/components/home/OrderJourney";
 import { WebsiteJsonLd } from "@/components/seo/WebsiteJsonLd";
 import { PRODUCT_GRID } from "@/lib/ui-classes";
+import { LOYALTY_ENABLED } from "@/lib/features";
 import { buildPageMetadata, DEFAULT_DESCRIPTION, SITE_NAME } from "@/lib/seo";
 import { getAllProducts } from "@/lib/products";
 
@@ -46,9 +47,13 @@ export default function HomePage() {
 
       <TrendingHighlight trending={trending} bestseller={bestseller} />
 
-      <SectionDivider />
-      <LoyaltyPromo />
-      <SectionDivider />
+      {LOYALTY_ENABLED && (
+        <>
+          <SectionDivider />
+          <LoyaltyPromo />
+          <SectionDivider />
+        </>
+      )}
 
       <PageSection tone="white">
         <ScrollReveal>
