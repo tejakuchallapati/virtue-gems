@@ -18,6 +18,7 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { filterProducts, getCategories } from "@/lib/products";
 import { DELIVERY_REGION_LABEL, DELIVERY_SHORT } from "@/lib/delivery";
+import { LOYALTY_ENABLED } from "@/lib/features";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 import {
   CARD_SURFACE,
@@ -44,7 +45,9 @@ const priceRanges = [
 const trustItems = [
   { icon: Truck, text: `Free delivery · ${DELIVERY_SHORT}` },
   { icon: MessageCircle, text: "Order easily via WhatsApp" },
-  { icon: Gift, text: "Earn rewards on every purchase" },
+  ...(LOYALTY_ENABLED
+    ? [{ icon: Gift, text: "Earn rewards on every purchase" }]
+    : []),
 ];
 
 function CategoryFilters({
@@ -437,7 +440,7 @@ export function ShopClient({ products }: { products: Product[] }) {
               </div>
             )}
 
-            {filtered.length > 0 && (
+            {LOYALTY_ENABLED && filtered.length > 0 && (
               <div className={`mt-12 p-6 text-center sm:p-8 ${DARK_PANEL}`}>
                 <p className="text-sm text-light/70">
                   Earn loyalty points on every order
