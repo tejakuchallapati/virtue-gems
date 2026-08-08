@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
-import { VIRTUAL_TRY_ON_ENABLED } from "@/lib/features";
+import { VIRTUAL_TRY_ON_ENABLED, LOYALTY_ENABLED } from "@/lib/features";
 import { FooterYear } from "./FooterYear";
 
 const shop = [
@@ -18,7 +18,9 @@ const shop = [
 const company = [
   { href: "/about", label: "About Us" },
   { href: "/faq", label: "FAQ" },
-  { href: "/rewards", label: "Rewards & Points" },
+  ...(LOYALTY_ENABLED
+    ? [{ href: "/rewards", label: "Rewards & Points" }]
+    : []),
   { href: "/contact", label: "Contact" },
 ];
 
