@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllProducts } from "@/lib/products";
-import { VIRTUAL_TRY_ON_ENABLED } from "@/lib/features";
+import { VIRTUAL_TRY_ON_ENABLED, LOYALTY_ENABLED } from "@/lib/features";
 import { getSiteUrl } from "@/lib/site";
 import { absoluteAssetUrl } from "@/lib/seo";
 
@@ -14,7 +14,9 @@ const STATIC_ROUTES: {
   ...(VIRTUAL_TRY_ON_ENABLED
     ? [{ path: "/try-on", changeFrequency: "weekly" as const, priority: 0.85 }]
     : []),
-  { path: "/rewards", changeFrequency: "weekly", priority: 0.8 },
+  ...(LOYALTY_ENABLED
+    ? [{ path: "/rewards", changeFrequency: "weekly" as const, priority: 0.8 }]
+    : []),
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
   { path: "/faq", changeFrequency: "monthly", priority: 0.75 },
