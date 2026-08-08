@@ -26,6 +26,7 @@ import {
   DELIVERY_REGION_LABEL,
   DELIVERY_TIMELINE,
 } from "@/lib/delivery";
+import { LOYALTY_ENABLED } from "@/lib/features";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -80,12 +81,16 @@ const helpTopics = [
     title: "Custom & Gifting",
     text: "Festive gifting, letter-packed orders, or bulk purchases for events.",
   },
-  {
-    icon: Gift,
-    title: "Rewards & Points",
-    text: "Check loyalty balance, redeem rewards, or points after your order.",
-    href: "/rewards",
-  },
+  ...(LOYALTY_ENABLED
+    ? [
+        {
+          icon: Gift,
+          title: "Rewards & Points",
+          text: "Check loyalty balance, redeem rewards, or points after your order.",
+          href: "/rewards",
+        },
+      ]
+    : []),
   {
     icon: Shield,
     title: "Returns & Refunds",
@@ -169,7 +174,7 @@ export default function ContactPage() {
           We&apos;re Here to Help You Shine
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-sm text-light/70 sm:text-base">
-          Questions about an order, sizing, custom gifting, or rewards?{" "}
+          Questions about an order, sizing, or custom gifting?{" "}
           <span className="text-gold">For any enquiries, message us on WhatsApp</span> for the
           quickest reply — or send a message below. We currently deliver to{" "}
           <span className="text-gold">{DELIVERY_REGION_LABEL}</span>.
@@ -331,9 +336,11 @@ export default function ContactPage() {
             <Link href="/shop" className="font-medium text-gold-dark hover:underline">
               Browse Shop →
             </Link>
-            <Link href="/rewards" className="font-medium text-gold-dark hover:underline">
-              Rewards & Points →
-            </Link>
+            {LOYALTY_ENABLED && (
+              <Link href="/rewards" className="font-medium text-gold-dark hover:underline">
+                Rewards & Points →
+              </Link>
+            )}
           </div>
         </ScrollReveal>
 
@@ -392,7 +399,9 @@ export default function ContactPage() {
                   <option value="Order enquiry">Order enquiry</option>
                   <option value="Product & sizing">Product & sizing</option>
                   <option value="Custom / bulk order">Custom / bulk order</option>
-                  <option value="Rewards & points">Rewards & points</option>
+                  {LOYALTY_ENABLED && (
+                    <option value="Rewards & points">Rewards & points</option>
+                  )}
                   <option value="Return or refund">Return or refund</option>
                   <option value="Other">Other</option>
                 </select>
