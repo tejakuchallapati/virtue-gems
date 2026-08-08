@@ -6,6 +6,7 @@ import { getOrderById } from "@/lib/orders";
 import { OrderInvoice } from "@/components/invoice/OrderInvoice";
 import { InvoiceActions } from "@/components/invoice/InvoiceActions";
 import { InvoicePointsNotice } from "@/components/loyalty/InvoicePointsNotice";
+import { LOYALTY_ENABLED } from "@/lib/features";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -29,12 +30,14 @@ export default async function InvoicePage({ params }: Props) {
         </Link>
       </div>
 
-      <Suspense fallback={null}>
-        <InvoicePointsNotice
-          customerName={order.customerName}
-          customerPhone={order.phone}
-        />
-      </Suspense>
+      {LOYALTY_ENABLED && (
+        <Suspense fallback={null}>
+          <InvoicePointsNotice
+            customerName={order.customerName}
+            customerPhone={order.phone}
+          />
+        </Suspense>
+      )}
 
       <OrderInvoice order={order} className="print:shadow-none print:ring-0" />
 
