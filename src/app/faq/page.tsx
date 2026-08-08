@@ -12,9 +12,9 @@ import { cn } from "@/lib/utils";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "FAQ — Orders, Delivery, Rewards & Returns",
+  title: "FAQ — Orders, Delivery & Returns",
   description:
-    "Answers about Virtue Gems WhatsApp orders, AP & Telangana delivery, loyalty rewards, and unboxing video returns.",
+    "Answers about Virtue Gems WhatsApp orders, AP & Telangana delivery, and unboxing video returns.",
   path: "/faq",
   keywords: ["Virtue Gems FAQ", "jewellery delivery Hyderabad", "jewellery return policy"],
 });
@@ -57,7 +57,7 @@ export default function FaqPage() {
           Frequently Asked Questions
         </h1>
         <p className="mt-2 text-sm text-dark/60 sm:text-base">
-          Quick answers about orders, delivery across AP & Telangana, rewards, and
+          Quick answers about orders, delivery across AP & Telangana, and
           returns. Still need help?{" "}
           <Link href="/contact" className="font-medium text-gold-dark underline">
             Contact us

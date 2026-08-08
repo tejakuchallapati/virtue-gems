@@ -103,14 +103,14 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "rewards",
     question: "How do Virtue Gems Rewards points work?",
     answer:
-      "You earn points on every order placed through checkout. Visit the Rewards page to check your balance and redeem discounts or free jewellery items.",
+      "Virtue Gems Rewards is coming soon. For now, place your order through WhatsApp checkout as usual — we'll share loyalty details when the programme launches.",
   },
   {
     id: "redeem-rewards",
     category: "rewards",
     question: "How do I redeem rewards at checkout?",
     answer:
-      "Go to Rewards, enter your phone number, and select a reward to activate. The discount applies automatically when you checkout with the same phone number.",
+      "Reward redemption is coming soon. Until then, checkout works without points — message us on WhatsApp if you have a special request.",
   },
   {
     id: "return-policy",
