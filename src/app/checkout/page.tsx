@@ -12,6 +12,7 @@ import { SectionDivider } from "@/components/ui/PageSection";
 import { formatPrice } from "@/lib/utils";
 import { CARD_SURFACE, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
 import { apiFetch } from "@/lib/api-client";
+import { LOYALTY_ENABLED } from "@/lib/features";
 import { getAbsoluteUrl } from "@/lib/site";
 import { buildOrderMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import { calculateDiscount, calculatePointsEarned } from "@/lib/loyalty";
@@ -28,9 +29,10 @@ export default function CheckoutPage() {
   const [error, setError] = useState<string | null>(null);
   const [whatsappFallback, setWhatsappFallback] = useState<string | null>(null);
 
-  const discount = calculateDiscount(cartTotal, activeRedemption);
+  const redemption = LOYALTY_ENABLED ? activeRedemption : null;
+  const discount = LOYALTY_ENABLED ? calculateDiscount(cartTotal, redemption) : 0;
   const finalTotal = Math.max(0, cartTotal - discount);
-  const pointsToEarn = calculatePointsEarned(finalTotal);
+  const pointsToEarn = LOYALTY_ENABLED ? calculatePointsEarned(finalTotal) : 0;
 
   if (!hydrated) {
     return (
@@ -60,7 +62,7 @@ export default function CheckoutPage() {
     setError(null);
     setWhatsappFallback(null);
 
-    const redemptionSnapshot = activeRedemption;
+    const redemptionSnapshot = redemption;
     const discountSnapshot = discount;
     const finalTotalSnapshot = finalTotal;
     const pointsSnapshot = pointsToEarn;
@@ -76,7 +78,9 @@ export default function CheckoutPage() {
     };
 
     try {
-      await loadAccount(form.phone);
+      if (LOYALTY_ENABLED) {
+        await loadAccount(form.phone);
+      }
 
       const orderRes = await apiFetch<{ order?: { id: string } }>("/api/orders", {
         method: "POST",
@@ -101,35 +105,52 @@ export default function CheckoutPage() {
       const orderId = orderRes.data.order.id;
       const invoiceUrl = getAbsoluteUrl(`/invoice/${orderId}`);
 
-      let earned = pointsSnapshot;
-      let balanceAfter = pointsSnapshot;
-      let redemption = redemptionSnapshot;
+      let earned = 0;
+      let balanceAfter = 0;
+      let appliedRedemption = redemptionSnapshot;
 
-      try {
-        const loyalty = await completeOrder(
-          form.phone,
-          form.customerName,
-          finalTotalSnapshot,
-        );
-        earned = loyalty.earned;
-        balanceAfter = loyalty.balanceAfter;
-        redemption = loyalty.redemption ?? redemptionSnapshot;
-      } catch {
-        // Order is already saved — continue WhatsApp even if loyalty sync fails.
+      if (LOYALTY_ENABLED) {
+        earned = pointsSnapshot;
+        balanceAfter = pointsSnapshot;
+        try {
+          const loyalty = await completeOrder(
+            form.phone,
+            form.customerName,
+            finalTotalSnapshot,
+          );
+          earned = loyalty.earned;
+          balanceAfter = loyalty.balanceAfter;
+          appliedRedemption = loyalty.redemption ?? redemptionSnapshot;
+        } catch {
+          // Order is already saved — continue WhatsApp even if loyalty sync fails.
+        }
       }
 
-      const message = buildOrderMessage(form, cart, finalTotalSnapshot, orderId, invoiceUrl, {
-        discount: discountSnapshot,
-        redemption,
-        pointsEarned: earned,
-        pointsBalance: balanceAfter,
-      });
+      const message = buildOrderMessage(
+        form,
+        cart,
+        finalTotalSnapshot,
+        orderId,
+        invoiceUrl,
+        LOYALTY_ENABLED
+          ? {
+              discount: discountSnapshot,
+              redemption: appliedRedemption,
+              pointsEarned: earned,
+              pointsBalance: balanceAfter,
+            }
+          : undefined,
+      );
 
       const waUrl = getWhatsAppUrl(message);
       setWhatsappFallback(waUrl);
       window.open(waUrl, "_blank");
       clearCart();
-      router.push(`/invoice/${orderId}?earned=${earned}&balance=${balanceAfter}`);
+      router.push(
+        LOYALTY_ENABLED
+          ? `/invoice/${orderId}?earned=${earned}&balance=${balanceAfter}`
+          : `/invoice/${orderId}`,
+      );
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Something went wrong. Please try again.",
@@ -176,27 +197,29 @@ export default function CheckoutPage() {
             <p className="mt-1">{DELIVERY_NOTICE}</p>
           </div>
 
-          <div className="rounded-xl border border-gold/30 bg-gold/10 p-3 text-xs text-dark">
-            <div className="flex items-center gap-1.5 font-medium">
-              <Sparkles className="h-3.5 w-3.5 text-gold-dark" />
-              Earn {pointsToEarn} pts on this order
+          {LOYALTY_ENABLED && (
+            <div className="rounded-xl border border-gold/30 bg-gold/10 p-3 text-xs text-dark">
+              <div className="flex items-center gap-1.5 font-medium">
+                <Sparkles className="h-3.5 w-3.5 text-gold-dark" />
+                Earn {pointsToEarn} pts on this order
+              </div>
+              <p className="mt-1 text-dark/70">
+                {redemption ? (
+                  <>
+                    Reward applied: <strong>{redemption.title}</strong>
+                  </>
+                ) : (
+                  <>
+                    Have points?{" "}
+                    <Link href="/rewards" className="font-medium text-gold-dark underline">
+                      Redeem a reward
+                    </Link>{" "}
+                    before checkout.
+                  </>
+                )}
+              </p>
             </div>
-            <p className="mt-1 text-dark/70">
-              {activeRedemption ? (
-                <>
-                  Reward applied: <strong>{activeRedemption.title}</strong>
-                </>
-              ) : (
-                <>
-                  Have points?{" "}
-                  <Link href="/rewards" className="font-medium text-gold-dark underline">
-                    Redeem a reward
-                  </Link>{" "}
-                  before checkout.
-                </>
-              )}
-            </p>
-          </div>
+          )}
 
           <div>
             <label htmlFor="customerName" className="mb-1 block text-sm font-medium">
@@ -323,23 +346,25 @@ export default function CheckoutPage() {
               <span>Subtotal</span>
               <span>{formatPrice(cartTotal)}</span>
             </div>
-            {discount > 0 && (
+            {LOYALTY_ENABLED && discount > 0 && (
               <div className="flex justify-between text-green-700">
                 <span>Reward discount</span>
                 <span>-{formatPrice(discount)}</span>
               </div>
             )}
-            {activeRedemption?.type === "free_item" && (
+            {LOYALTY_ENABLED && redemption?.type === "free_item" && (
               <div className="flex justify-between text-gold-dark">
                 <span>Free reward</span>
-                <span>{activeRedemption.freeItemLabel}</span>
+                <span>{redemption.freeItemLabel}</span>
               </div>
             )}
             <div className="flex justify-between text-lg font-semibold">
               <span>Total</span>
               <span className="text-gold-dark">{formatPrice(finalTotal)}</span>
             </div>
-            <p className="text-[11px] text-dark/50">+{pointsToEarn} pts after order</p>
+            {LOYALTY_ENABLED && (
+              <p className="text-[11px] text-dark/50">+{pointsToEarn} pts after order</p>
+            )}
           </div>
         </div>
       </div>
