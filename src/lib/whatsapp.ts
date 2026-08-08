@@ -1,4 +1,5 @@
 import type { ActiveRedemption, CartItem, CheckoutForm } from "@/types";
+import { LOYALTY_ENABLED } from "./features";
 import { formatPrice } from "./utils";
 import { getAbsoluteUrl } from "./site";
 import { DELIVERY_REGION_LABEL } from "./delivery";
@@ -119,7 +120,7 @@ export function buildOrderMessage(
     "",
   );
 
-  if (options?.redemption) {
+  if (LOYALTY_ENABLED && options?.redemption) {
     lines.push(
       "🎁 *Loyalty Reward Applied:*",
       options.redemption.title,
@@ -127,7 +128,7 @@ export function buildOrderMessage(
     );
   }
 
-  if (options?.pointsEarned !== undefined) {
+  if (LOYALTY_ENABLED && options?.pointsEarned !== undefined) {
     lines.push(
       "⭐ *Virtue Gems Rewards:*",
       `Points earned this order: +${options.pointsEarned}`,
@@ -283,8 +284,8 @@ export function buildCustomerPointsMessage(
 export function buildDeliveryThankYouMessage(options: {
   customerName: string;
   orderId: string;
-  pointsEarned: number;
-  pointsBalance: number;
+  pointsEarned?: number;
+  pointsBalance?: number;
   rewardsUrl?: string;
   shopUrl?: string;
   instagramUrl?: string;
@@ -294,16 +295,25 @@ export function buildDeliveryThankYouMessage(options: {
   const instagramUrl =
     options.instagramUrl ?? "https://www.instagram.com/virtue_gems/";
 
+  const pointsLines =
+    LOYALTY_ENABLED &&
+    options.pointsEarned !== undefined &&
+    options.pointsBalance !== undefined
+      ? [
+          `⭐ Points from this order: *+${options.pointsEarned}*`,
+          `💎 Your points balance: *${options.pointsBalance}*`,
+          `Redeem rewards: ${rewardsUrl}`,
+          "",
+        ]
+      : [];
+
   return [
     `Hi ${options.customerName}! ✨`,
     "",
     "Thank you for choosing *Virtue Gems*.",
     `Your order *${options.orderId}* is delivered — we hope you love your jewellery!`,
     "",
-    `⭐ Points from this order: *+${options.pointsEarned}*`,
-    `💎 Your points balance: *${options.pointsBalance}*`,
-    `Redeem rewards: ${rewardsUrl}`,
-    "",
+    ...pointsLines,
     "💬 *We'd love your feedback*",
     "1. Reply here with a short review (and a photo if you like)",
     "2. Tag us on Instagram @virtue_gems",

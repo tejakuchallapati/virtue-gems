@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Copy, Check, MessageCircle } from "lucide-react";
 import { apiFetch } from "@/lib/api-client";
+import { LOYALTY_ENABLED } from "@/lib/features";
 import { calculatePointsEarned } from "@/lib/loyalty";
 import { getAbsoluteUrl } from "@/lib/site";
 import {
@@ -40,8 +41,8 @@ export function OrderStatusButtons({
     setStatus(currentStatus);
   }, [currentStatus]);
 
-  const pointsEarned = calculatePointsEarned(total);
-  const balance = pointsBalance ?? pointsEarned;
+  const pointsEarned = LOYALTY_ENABLED ? calculatePointsEarned(total) : undefined;
+  const balance = LOYALTY_ENABLED ? (pointsBalance ?? pointsEarned) : undefined;
   const showThankYou = status === "delivered";
 
   const thankYouUrl = useMemo(() => {
@@ -49,9 +50,13 @@ export function OrderStatusButtons({
     const message = buildDeliveryThankYouMessage({
       customerName,
       orderId,
-      pointsEarned,
-      pointsBalance: balance,
-      rewardsUrl: getAbsoluteUrl("/rewards"),
+      ...(LOYALTY_ENABLED && pointsEarned !== undefined && balance !== undefined
+        ? {
+            pointsEarned,
+            pointsBalance: balance,
+            rewardsUrl: getAbsoluteUrl("/rewards"),
+          }
+        : {}),
       shopUrl: getAbsoluteUrl("/shop"),
     });
     return getCustomerWhatsAppUrl(customerPhone, message);
