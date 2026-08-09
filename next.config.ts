@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   compress: true,
   serverExternalPackages: ["better-sqlite3"],
   images: {
-    qualities: [75, 100],
+    qualities: [75, 90, 100],
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {

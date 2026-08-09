@@ -126,7 +126,7 @@ export default function CartPage() {
           </div>
 
           <div className="lg:col-span-1">
-            <div className={cn("sticky top-20 p-6", CARD_SURFACE)}>
+            <div className={cn("sticky top-16 z-10 p-6 md:top-20", CARD_SURFACE)}>
               <h2 className="text-lg font-semibold text-dark">Order Summary</h2>
               <div className="mt-4 space-y-2 text-sm">
                 <div className="flex justify-between text-dark/70">
