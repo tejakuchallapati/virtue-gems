@@ -22,6 +22,7 @@ import { TAG_LABELS } from "@/lib/product-constants";
 import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL, PRODUCT_GRID } from "@/lib/ui-classes";
 import { buildProductShareMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import { VIRTUAL_TRY_ON_ENABLED } from "@/lib/features";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { ProductTryOnExtras } from "@/components/product/ProductTryOnExtras";
 import type { Product } from "@/types";
 
@@ -39,6 +40,8 @@ export function ProductDetailClient({
     useStore();
   const wished = isInWishlist(product.id);
 
+  useBodyScrollLock(zoom);
+
   useEffect(() => {
     addRecentlyViewed(product);
   }, [product, addRecentlyViewed]);
@@ -54,7 +57,7 @@ export function ProductDetailClient({
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
-      <div className={`${PAGE_CONTENT_SHELL} pb-32 md:pb-10`}>
+      <div className={`${PAGE_CONTENT_SHELL} pb-24 md:pb-10`}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -310,9 +313,20 @@ export function ProductDetailClient({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-dark/90 p-4"
+            className="safe-x fixed inset-0 z-[60] flex items-center justify-center bg-dark/90 p-4"
             onClick={() => setZoom(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Zoomed product image"
           >
+            <button
+              type="button"
+              onClick={() => setZoom(false)}
+              className="absolute right-4 top-[calc(1rem+env(safe-area-inset-top))] z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-light backdrop-blur-sm"
+              aria-label="Close zoom"
+            >
+              <span className="text-xl leading-none">×</span>
+            </button>
             <div className="relative h-full max-h-[80vh] w-full max-w-3xl">
               <Image
                 src={product.images[activeImage]}

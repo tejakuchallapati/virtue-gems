@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { VirtualTryOn } from "./VirtualTryOn";
 import type { Product } from "@/types";
 
@@ -15,16 +15,7 @@ export function TryOnModal({
   open: boolean;
   onClose: () => void;
 }) {
-  useEffect(() => {
-    if (!open) return;
-
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = prevOverflow;
-    };
-  }, [open]);
+  useBodyScrollLock(open);
 
   return (
     <AnimatePresence>

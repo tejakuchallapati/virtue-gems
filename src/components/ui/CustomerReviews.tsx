@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Quote, Play, X } from "lucide-react";
 import customerMedia from "@/data/customer-media.json";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { cn } from "@/lib/utils";
 import { PRODUCT_IMAGE_BG } from "@/lib/ui-classes";
 
@@ -41,14 +42,26 @@ function MediaModal({
   onClose: () => void;
 }) {
   const isVideoFile = item.video?.endsWith(".mp4") || item.video?.endsWith(".webm");
+  useBodyScrollLock(true);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-dark/90 p-4"
+      className="safe-x fixed inset-0 z-[100] flex items-center justify-center bg-dark/90 p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={item.caption}
     >
       <motion.div
         className="relative w-full max-w-lg overflow-hidden rounded-2xl shadow-2xl ring-1 ring-gold/30 max-sm:max-h-[92dvh] max-sm:rounded-xl bg-[#1a0a2e]"

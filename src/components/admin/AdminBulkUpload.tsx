@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type InputHTMLAttributes } from "react";
+import { useMemo, useRef, useState, type InputHTMLAttributes } from "react";
 import Image from "next/image";
 import { FolderUp, Trash2, X } from "lucide-react";
 import { apiFetch } from "@/lib/api-client";
@@ -56,15 +56,6 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
       rows.filter((r) => r.name.trim() && Number(r.price) > 0).length,
     [rows],
   );
-
-  useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
 
   if (!open) return null;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import {
   FolderUp,
@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { apiFetch } from "@/lib/api-client";
 import { AdminBulkUpload } from "@/components/admin/AdminBulkUpload";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import {
   CATEGORY_LABELS,
   PRODUCT_CATEGORIES,
@@ -95,14 +96,7 @@ export function AdminCatalogManager({
   const [previewIndex, setPreviewIndex] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (!open && !bulkOpen && !preview) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open, bulkOpen, preview]);
+  useBodyScrollLock(open || bulkOpen || Boolean(preview));
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
