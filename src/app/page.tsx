@@ -43,8 +43,6 @@ export default function HomePage() {
       <WebsiteJsonLd />
       <HeroLanding />
 
-      <OrderJourney />
-
       <TrendingHighlight trending={trending} bestseller={bestseller} />
 
       {LOYALTY_ENABLED && (
@@ -113,6 +111,8 @@ export default function HomePage() {
       </PageSection>
 
       <RecentlyViewed />
+
+      <OrderJourney />
 
       <PageSection tone="cream" dividerTop>
         <ScrollReveal>

@@ -28,7 +28,7 @@ const STEPS = [
 
 export function OrderJourney() {
   return (
-    <PageSection tone="cream" dividerBottom>
+    <PageSection tone="cream" dividerTop dividerBottom>
       <ScrollReveal>
         <SectionHeader
           eyebrow="Simple"
