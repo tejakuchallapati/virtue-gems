@@ -35,7 +35,7 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  scroll-padding-top: 4.5rem;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -44,15 +44,14 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  overscroll-behavior-y: none;
+  /* Only clip horizontal bleed — never set overflow-y on html/body (breaks mobile scroll) */
+  overflow-x: clip;
 }
 
-/* Coarse pointers: instant scroll feels smoother with long shop grids */
-@media (hover: none) and (pointer: coarse) {
-  html {
-    scroll-behavior: auto;
-  }
+/* Modal / filter overlay lock — body class only */
+body.scroll-locked {
+  overflow: hidden;
+  touch-action: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
