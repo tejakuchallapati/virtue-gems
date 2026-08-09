@@ -19,6 +19,7 @@ import { SectionDivider } from "@/components/ui/PageSection";
 import { filterProducts, getCategories } from "@/lib/products";
 import { DELIVERY_REGION_LABEL, DELIVERY_SHORT } from "@/lib/delivery";
 import { LOYALTY_ENABLED } from "@/lib/features";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 import {
   CARD_SURFACE,
@@ -117,13 +118,15 @@ export function ShopClient({ products }: { products: Product[] }) {
   const [priceIdx, setPriceIdx] = useState(0);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
+  useBodyScrollLock(filtersOpen);
+
   useEffect(() => {
     if (!filtersOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFiltersOpen(false);
     };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [filtersOpen]);
 
   const category = (searchParams.get("category") ?? "") as ProductCategory | "";
@@ -301,22 +304,22 @@ export function ShopClient({ products }: { products: Product[] }) {
           <aside
             className={`${
               filtersOpen
-                ? "safe-top safe-bottom fixed inset-0 z-[60] flex flex-col bg-white p-4 pt-14 pb-6"
+                ? "safe-top safe-bottom fixed inset-0 z-[60] flex flex-col overflow-hidden bg-white p-4 pt-14 pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
                 : "hidden"
-            } w-full lg:static lg:block lg:w-60 lg:shrink-0 lg:bg-transparent lg:p-0`}
+            } w-full lg:static lg:block lg:w-60 lg:shrink-0 lg:overflow-visible lg:bg-transparent lg:p-0`}
           >
             {filtersOpen && (
               <button
                 type="button"
                 onClick={() => setFiltersOpen(false)}
-                className="absolute right-3 top-[calc(0.75rem+env(safe-area-inset-top))] flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark lg:hidden"
+                className="absolute right-3 top-[calc(0.75rem+env(safe-area-inset-top))] z-10 flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark lg:hidden"
                 aria-label="Close filters"
               >
                 <X className="h-5 w-5" />
               </button>
             )}
 
-            <div className="space-y-5 overflow-y-auto lg:sticky lg:top-24">
+            <div className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain lg:sticky lg:top-24 lg:flex-none lg:overflow-visible">
               {/* Mobile: category in filters panel when hero is scrolled away */}
               <div className={`${CARD_SURFACE} p-5 lg:hidden`}>
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark/50">
@@ -326,7 +329,10 @@ export function ShopClient({ products }: { products: Product[] }) {
                   category={category}
                   categories={categories}
                   variant="panel"
-                  onSelect={(value) => updateQuery("category", value)}
+                  onSelect={(value) => {
+                    updateQuery("category", value);
+                    setFiltersOpen(false);
+                  }}
                 />
               </div>
 
@@ -395,7 +401,7 @@ export function ShopClient({ products }: { products: Product[] }) {
               <button
                 type="button"
                 onClick={() => setFiltersOpen(false)}
-                className="mt-4 w-full rounded-xl bg-gold py-3 text-sm font-semibold text-dark lg:hidden"
+                className="mt-4 w-full shrink-0 rounded-xl bg-gold py-3.5 text-sm font-semibold text-dark lg:hidden"
               >
                 Show {filtered.length} results
               </button>
