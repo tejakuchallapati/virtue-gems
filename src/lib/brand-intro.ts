@@ -4,11 +4,11 @@ export const BRAND_INTRO_MS = 2600;
 export const BRAND_INTRO_READY_EVENT = "vg-intro-ready";
 
 export function hasSeenBrandIntro(): boolean {
-  if (typeof window === "undefined") return true;
+  if (typeof window === "undefined") return false;
   try {
     return sessionStorage.getItem(BRAND_INTRO_KEY) === "1";
   } catch {
-    return true;
+    return false;
   }
 }
 

@@ -7,7 +7,10 @@ import {
   hasSeenBrandIntro,
 } from "@/lib/brand-intro";
 
-/** True once the home splash has finished (or was already seen this session). */
+/**
+ * True once the home splash has finished (or was already seen this session).
+ * Always starts `false` on server + client so SSR HTML matches hydration.
+ */
 export function useBrandIntroReady() {
   const [ready, setReady] = useState(false);
 
