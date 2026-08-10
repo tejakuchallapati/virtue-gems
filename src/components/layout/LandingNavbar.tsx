@@ -9,12 +9,6 @@ import { useStore } from "@/context/StoreProvider";
 import { cn } from "@/lib/utils";
 import { NavBrand } from "./NavBrand";
 
-const mobileLinks = [
-  { href: "/shop", label: "Shop" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
-
 const desktopLinks = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
@@ -60,29 +54,6 @@ function DesktopNavLink({
   );
 }
 
-function MobileNavLink({
-  href,
-  label,
-  active,
-}: {
-  href: string;
-  label: string;
-  active: boolean;
-}) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        "relative flex min-h-11 min-w-[3.25rem] items-center justify-center px-2 text-[11px] font-semibold uppercase tracking-[0.08em] transition active:scale-95",
-        active ? "text-gold" : "text-light/80",
-      )}
-      aria-current={active ? "page" : undefined}
-    >
-      {label}
-    </Link>
-  );
-}
-
 export function LandingNavbar() {
   const pathname = usePathname();
   const { cartCount, wishlistCount, hydrated } = useStore();
@@ -99,19 +70,22 @@ export function LandingNavbar() {
 
   return (
     <>
-      {/* Mobile top bar — always interactive */}
+      {/*
+        Mobile top bar — logo + actions only.
+        Primary destinations live in the bottom nav so this row never overflows.
+      */}
       <header
         className={cn(
-          "safe-top fixed left-0 right-0 top-0 z-[60] md:hidden",
+          "safe-top safe-x fixed inset-x-0 top-0 z-[60] w-full overflow-hidden md:hidden",
           scrolled
             ? "border-b border-gold/20 bg-[#1a0a2e]/95 backdrop-blur-lg"
             : "bg-gradient-to-b from-[#1a0a2e]/90 to-transparent",
         )}
       >
-        <div className="flex h-12 items-center gap-1 px-2">
+        <div className="flex h-12 w-full items-center justify-between px-2">
           <Link
             href="/"
-            className="shrink-0 px-1 opacity-95 active:scale-95"
+            className="flex min-w-0 shrink items-center px-1 opacity-95 active:scale-95"
             aria-label="Virtue Gems home"
           >
             <Image
@@ -119,20 +93,10 @@ export function LandingNavbar() {
               alt="Virtue Gems"
               width={100}
               height={40}
-              className="h-6 w-auto object-contain"
+              className="h-6 w-auto max-w-[7.5rem] object-contain"
               priority
             />
           </Link>
-          <nav className="flex min-w-0 flex-1 items-center justify-center gap-0.5">
-            {mobileLinks.map((link) => (
-              <MobileNavLink
-                key={link.href}
-                href={link.href}
-                label={link.label}
-                active={isActivePath(pathname, link.href)}
-              />
-            ))}
-          </nav>
           <div className="flex shrink-0 items-center">
             <Link
               href="/wishlist"
@@ -165,7 +129,7 @@ export function LandingNavbar() {
       {/* Desktop — no 3D transforms (they broke link hit-testing) */}
       <header
         className={cn(
-          "safe-top fixed left-0 right-0 top-0 z-[60] hidden transition-[background,border-color] duration-300 md:block",
+          "safe-top fixed inset-x-0 top-0 z-[60] hidden w-full transition-[background,border-color] duration-300 md:block",
           scrolled
             ? "border-b border-gold/20 bg-[#1a0a2e]/92 backdrop-blur-xl"
             : "border-b border-transparent bg-gradient-to-b from-[#1a0a2e]/75 via-[#1a0a2e]/30 to-transparent",

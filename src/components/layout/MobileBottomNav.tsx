@@ -34,13 +34,13 @@ export function MobileBottomNav() {
 
   return (
     <nav
-      className="safe-bottom fixed bottom-0 left-0 right-0 z-[60] md:hidden"
+      className="safe-bottom safe-x fixed inset-x-0 bottom-0 z-[60] w-full overflow-hidden md:hidden"
       aria-label="Mobile primary"
     >
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
 
       <div className="border-t border-gold/20 bg-[#0f172a]/96 shadow-[0_-8px_32px_rgba(0,0,0,0.25)] backdrop-blur-md">
-        <div className="flex items-stretch justify-around px-0.5 py-1">
+        <div className="flex w-full min-w-0 items-stretch justify-around px-0.5 py-1">
           {items.map((item) => {
             const Icon = item.icon;
             const active = !item.external && isActivePath(pathname, item.href);
