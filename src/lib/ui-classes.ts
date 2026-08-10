@@ -1,14 +1,15 @@
 /** Shared Tailwind class groups for consistent layout and product imagery. */
 
-export const PAGE_CONTAINER = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8";
+export const PAGE_CONTAINER =
+  "mx-auto w-full max-w-7xl min-w-0 px-4 sm:px-6 lg:px-8";
 
 /** Cream gradient page backdrop with mobile bottom-nav clearance. */
 export const PAGE_GRADIENT_SHELL =
-  "page-mobile-safe min-h-screen bg-gradient-to-b from-[#faf6ee] via-light to-white";
+  "page-mobile-safe min-h-screen w-full max-w-full overflow-x-clip bg-gradient-to-b from-[#faf6ee] via-light to-white";
 
 /** Inner content width and vertical rhythm (pair with PAGE_GRADIENT_SHELL). */
 export const PAGE_CONTENT_SHELL =
-  "mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-10 lg:px-8";
+  "mx-auto w-full max-w-7xl min-w-0 px-4 py-5 sm:px-6 sm:py-10 lg:px-8";
 
 /** Narrow centered layout for empty cart, wishlist, and similar states. */
 export const EMPTY_STATE_SHELL =

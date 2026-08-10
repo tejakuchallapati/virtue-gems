@@ -37,6 +37,10 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 4.5rem;
   -webkit-text-size-adjust: 100%;
+  max-width: 100%;
+  /* Clip sideways bleed so the page cannot rubber-band into empty white */
+  overflow-x: clip;
+  overscroll-behavior-x: none;
 }
 
 body {
@@ -44,8 +48,10 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  max-width: 100%;
   /* Only clip horizontal bleed — never set overflow-y on html/body (breaks mobile scroll) */
   overflow-x: clip;
+  overscroll-behavior-x: none;
 }
 
 /* Modal / filter overlay lock — body class only */

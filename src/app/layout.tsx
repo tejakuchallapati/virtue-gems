@@ -100,7 +100,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-dvh">
+      <body className="min-h-dvh w-full max-w-full overflow-x-clip">
         <StoreProvider>
           <LoyaltyProvider>
             <ErrorBoundary>

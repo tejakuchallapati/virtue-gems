@@ -68,7 +68,7 @@ function CategoryFilters({
     <div
       className={
         isHero
-          ? "flex gap-2 overflow-x-auto pb-1 no-scrollbar"
+          ? "flex max-w-full gap-2 overflow-x-auto overscroll-x-contain pb-1 no-scrollbar"
           : "flex flex-wrap gap-2"
       }
     >
@@ -249,7 +249,7 @@ export function ShopClient({ products }: { products: Product[] }) {
 
       {/* Trust strip */}
       <div className="border-b border-gold/15 bg-white/90 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-7xl gap-4 overflow-x-auto px-4 py-3 no-scrollbar sm:justify-center sm:gap-8 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl gap-4 overflow-x-auto overscroll-x-contain px-4 py-3 no-scrollbar sm:justify-center sm:gap-8 sm:px-6 lg:px-8">
           {trustItems.map(({ icon: Icon, text }) => (
             <div
               key={text}

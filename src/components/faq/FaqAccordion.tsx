@@ -26,7 +26,7 @@ export function FaqAccordion() {
 
   return (
     <div>
-      <div className="mb-6 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+      <div className="mb-6 flex max-w-full gap-2 overflow-x-auto overscroll-x-contain pb-1 no-scrollbar">
         <button
           type="button"
           onClick={() => setActiveCategory("all")}
