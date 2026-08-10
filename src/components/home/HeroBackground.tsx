@@ -11,9 +11,10 @@ const sparkles = Array.from({ length: 10 }, (_, i) => ({
   duration: 3.5 + (i % 3),
 }));
 
+/* Keep rings within typical phone widths so they never force horizontal scroll. */
 const rings = [
-  { size: 260, opacity: 0.12, duration: 22 },
-  { size: 400, opacity: 0.07, duration: 30 },
+  { size: 220, opacity: 0.12, duration: 22 },
+  { size: 320, opacity: 0.07, duration: 30 },
 ];
 
 export function HeroBackground() {
