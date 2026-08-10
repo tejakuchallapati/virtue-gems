@@ -1,9 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { clearBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { AnalyticsPageViews } from "@/components/analytics/AnalyticsPageViews";
 import { DesktopNavbar } from "./DesktopNavbar";
 import { LandingNavbar } from "./LandingNavbar";
 import { MobileHeader } from "./MobileHeader";
@@ -33,7 +35,11 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   const isHome = pathname === "/";
 
   return (
-    <>
+    <div className="relative w-full max-w-full overflow-x-clip">
+      <GoogleAnalytics />
+      <Suspense fallback={null}>
+        <AnalyticsPageViews />
+      </Suspense>
       <LoadingScreen />
       {isHome && <LandingNavbar />}
       {!isHome && <DesktopNavbar />}
@@ -41,8 +47,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <main
         className={
           isHome
-            ? "min-h-dvh"
-            : "min-h-[calc(100dvh-3rem)] md:min-h-[calc(100vh-4rem)]"
+            ? "min-h-dvh w-full overflow-x-clip"
+            : "min-h-[calc(100dvh-3rem)] w-full overflow-x-clip md:min-h-[calc(100vh-4rem)]"
         }
       >
         {children}
@@ -50,6 +56,6 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <Footer />
       <MobileBottomNav />
       <WhatsAppFloat />
-    </>
+    </div>
   );
 }
