@@ -23,6 +23,7 @@ import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME, PAGE_CONTENT_SHELL, PAGE_GRADIE
 import { buildProductShareMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import { VIRTUAL_TRY_ON_ENABLED } from "@/lib/features";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import { trackEvent } from "@/lib/analytics";
 import { ProductTryOnExtras } from "@/components/product/ProductTryOnExtras";
 import type { Product } from "@/types";
 
@@ -45,6 +46,27 @@ export function ProductDetailClient({
   useEffect(() => {
     addRecentlyViewed(product);
   }, [product, addRecentlyViewed]);
+
+  useEffect(() => {
+    trackEvent("view_item", {
+      currency: "INR",
+      value: product.price,
+      item_id: product.id,
+      item_name: product.name,
+      item_category: product.category,
+    });
+  }, [product.id, product.name, product.category, product.price]);
+
+  function trackAddToCart(quantity: number) {
+    trackEvent("add_to_cart", {
+      currency: "INR",
+      value: product.price * quantity,
+      quantity,
+      item_id: product.id,
+      item_name: product.name,
+      item_category: product.category,
+    });
+  }
 
   function handleShare() {
     const msg = buildProductShareMessage(product.name, product.slug);
@@ -180,7 +202,11 @@ export function ProductDetailClient({
             <button
               type="button"
               disabled={product.stock < 1}
-              onClick={() => addToCart(product, Math.min(qty, product.stock))}
+              onClick={() => {
+                const quantity = Math.min(qty, product.stock);
+                addToCart(product, quantity);
+                trackAddToCart(quantity);
+              }}
               className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-dark py-3.5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark disabled:cursor-not-allowed disabled:opacity-50"
             >
               <ShoppingCart className="h-4 w-4" />
@@ -283,7 +309,11 @@ export function ProductDetailClient({
           <button
             type="button"
             disabled={product.stock < 1}
-            onClick={() => addToCart(product, Math.min(qty, product.stock))}
+            onClick={() => {
+                const quantity = Math.min(qty, product.stock);
+                addToCart(product, quantity);
+                trackAddToCart(quantity);
+              }}
             className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-dark text-sm font-semibold text-gold disabled:cursor-not-allowed disabled:opacity-50"
           >
             <ShoppingCart className="h-4 w-4" />
