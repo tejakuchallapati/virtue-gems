@@ -8,6 +8,7 @@ import { useStore } from "@/context/StoreProvider";
 import { TAG_LABELS } from "@/lib/product-constants";
 import { formatPrice, cn } from "@/lib/utils";
 import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
+import { trackEvent } from "@/lib/analytics";
 import type { Product, ProductTag } from "@/types";
 
 const tagStyles: Partial<Record<ProductTag, string>> = {
@@ -25,6 +26,14 @@ export function ProductCard({ product }: { product: Product }) {
   function handleAddToCart() {
     if (product.stock < 1) return;
     addToCart(product);
+    trackEvent("add_to_cart", {
+      currency: "INR",
+      value: product.price,
+      items: 1,
+      item_id: product.id,
+      item_name: product.name,
+      item_category: product.category,
+    });
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
   }
