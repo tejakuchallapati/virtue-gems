@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { MessageCircle, Sparkles, ShoppingBag } from "lucide-react";
@@ -12,6 +12,7 @@ import { SectionDivider } from "@/components/ui/PageSection";
 import { formatPrice } from "@/lib/utils";
 import { CARD_SURFACE, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
 import { apiFetch } from "@/lib/api-client";
+import { trackEvent } from "@/lib/analytics";
 import { LOYALTY_ENABLED } from "@/lib/features";
 import { getAbsoluteUrl } from "@/lib/site";
 import { buildOrderMessage, getWhatsAppUrl } from "@/lib/whatsapp";
@@ -33,6 +34,17 @@ export default function CheckoutPage() {
   const discount = LOYALTY_ENABLED ? calculateDiscount(cartTotal, redemption) : 0;
   const finalTotal = Math.max(0, cartTotal - discount);
   const pointsToEarn = LOYALTY_ENABLED ? calculatePointsEarned(finalTotal) : 0;
+  const beganCheckout = useRef(false);
+
+  useEffect(() => {
+    if (!hydrated || cart.length === 0 || beganCheckout.current) return;
+    beganCheckout.current = true;
+    trackEvent("begin_checkout", {
+      currency: "INR",
+      value: finalTotal,
+      items_count: cart.length,
+    });
+  }, [hydrated, cart.length, finalTotal]);
 
   if (!hydrated) {
     return (
@@ -104,6 +116,19 @@ export default function CheckoutPage() {
 
       const orderId = orderRes.data.order.id;
       const invoiceUrl = getAbsoluteUrl(`/invoice/${orderId}`);
+
+      trackEvent("generate_lead", {
+        currency: "INR",
+        value: finalTotalSnapshot,
+        items_count: cart.length,
+        transaction_id: orderId,
+      });
+      trackEvent("purchase", {
+        currency: "INR",
+        value: finalTotalSnapshot,
+        transaction_id: orderId,
+        items_count: cart.length,
+      });
 
       let earned = 0;
       let balanceAfter = 0;
