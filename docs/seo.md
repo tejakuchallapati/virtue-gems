@@ -18,6 +18,10 @@ NEXT_PUBLIC_SITE_URL=https://www.virtuegems.com
 
 Without this, sitemap/robots can accidentally list a temporary `*.vercel.app` URL and Google will fail to fetch.
 
+## Visitor analytics (GA4)
+
+Set `NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXX` on Vercel Production after creating a GA4 property. Reports (users, pages, devices, sources) appear in [Google Analytics](https://analytics.google.com), not `/admin`. Setup details: [`docs/phase-2/analytics-qa.md`](phase-2/analytics-qa.md).
+
 ## What the site already does
 
 | Feature | Where |

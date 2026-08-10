@@ -1,10 +1,27 @@
 # Phase 2 — Analytics & QA
 
-## Analytics
+## Analytics (GA4)
 
-- GA4 via `NEXT_PUBLIC_GA_MEASUREMENT_ID`
-- Events: `add_to_cart`, `begin_checkout`, `purchase` (WhatsApp order saved)
-- Admin dashboard: replace static charts with real-time if needed
+Visitor analytics use **Google Analytics 4**. Counts and reports live in the [Google Analytics](https://analytics.google.com) dashboard — not inside `/admin` (admin stays order/sales focused).
+
+### Setup
+
+1. Create a GA4 property for `www.virtuegems.com` in Google Analytics.
+2. Copy the Measurement ID (`G-XXXXXXXX`).
+3. Set `NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXX` in Vercel → Production → Environment Variables.
+4. Redeploy. Confirm hits under GA4 → Reports → Realtime.
+
+Local/dev stays quiet when the env var is empty. GA scripts are also skipped on `/admin` routes.
+
+### What is tracked
+
+- Page views (including App Router client navigations)
+- `view_item` — product detail open
+- `add_to_cart` — product card / PDP
+- `begin_checkout` — checkout page with items in cart
+- `generate_lead` / `purchase` — order successfully saved (WhatsApp checkout)
+
+No PII in event payloads (no customer name or phone).
 
 ## Testing
 
