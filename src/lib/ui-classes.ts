@@ -3,9 +3,9 @@
 export const PAGE_CONTAINER =
   "mx-auto w-full max-w-7xl min-w-0 px-4 sm:px-6 lg:px-8";
 
-/** Cream gradient page backdrop with mobile bottom-nav clearance. */
+/** Cream gradient page backdrop (footer owns mobile bottom-nav clearance). */
 export const PAGE_GRADIENT_SHELL =
-  "page-mobile-safe min-h-screen w-full max-w-full overflow-x-clip bg-gradient-to-b from-[#faf6ee] via-light to-white";
+  "min-h-dvh w-full max-w-full bg-gradient-to-b from-[#faf6ee] via-light to-white";
 
 /** Inner content width and vertical rhythm (pair with PAGE_GRADIENT_SHELL). */
 export const PAGE_CONTENT_SHELL =
@@ -13,7 +13,7 @@ export const PAGE_CONTENT_SHELL =
 
 /** Narrow centered layout for empty cart, wishlist, and similar states. */
 export const EMPTY_STATE_SHELL =
-  "page-mobile-safe mx-auto max-w-lg px-4 py-14 text-center sm:py-24";
+  "mx-auto max-w-lg px-4 py-14 text-center sm:py-24";
 
 export const CARD_SURFACE =
   "rounded-2xl bg-white ring-1 ring-light-muted/60 shadow-sm";

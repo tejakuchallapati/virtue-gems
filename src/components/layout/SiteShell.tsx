@@ -35,7 +35,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   const isHome = pathname === "/";
 
   return (
-    <div className="relative w-full max-w-full overflow-x-clip">
+    <div className="relative w-full max-w-full">
       <GoogleAnalytics />
       <Suspense fallback={null}>
         <AnalyticsPageViews />
@@ -47,8 +47,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <main
         className={
           isHome
-            ? "min-h-dvh w-full overflow-x-clip"
-            : "min-h-[calc(100dvh-3rem)] w-full overflow-x-clip md:min-h-[calc(100vh-4rem)]"
+            ? "min-h-dvh w-full"
+            : "min-h-[calc(100dvh-3rem)] w-full md:min-h-[calc(100vh-4rem)]"
         }
       >
         {children}
