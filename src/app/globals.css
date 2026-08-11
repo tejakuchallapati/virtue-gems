@@ -10,8 +10,8 @@
   --light-muted: #e8e4dc;
   --background: #f8f6f0;
   --foreground: #0f172a;
-  /* Mobile bottom nav content height (safe-area added where needed) */
-  --mobile-nav-height: 3.5rem;
+  /* Mobile bottom nav: divider + min-h-12 items + py-1 + labels */
+  --mobile-nav-height: 4rem;
   --mobile-nav-offset: calc(var(--mobile-nav-height) + env(safe-area-inset-bottom, 0px));
 }
 
@@ -58,6 +58,12 @@ body {
 body.scroll-locked {
   overflow: hidden;
   touch-action: none;
+}
+
+/* Hide fixed chrome while overlays lock scroll (filters, zoom, etc.) */
+body.scroll-locked [data-mobile-bottom-nav] {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
