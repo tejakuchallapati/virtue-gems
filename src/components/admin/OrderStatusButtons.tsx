@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Copy, Check, MessageCircle } from "lucide-react";
 import { apiFetch } from "@/lib/api-client";
 import { LOYALTY_ENABLED } from "@/lib/features";
@@ -32,18 +32,16 @@ export function OrderStatusButtons({
   pointsBalance?: number;
   onStatusChange?: (orderId: string, status: OrderStatus) => void;
 }) {
-  const [status, setStatus] = useState(currentStatus);
+  const [pendingStatus, setPendingStatus] = useState<OrderStatus | null>(null);
   const [updating, setUpdating] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    setStatus(currentStatus);
-  }, [currentStatus]);
+  const displayStatus = pendingStatus ?? currentStatus;
 
   const pointsEarned = LOYALTY_ENABLED ? calculatePointsEarned(total) : undefined;
   const balance = LOYALTY_ENABLED ? (pointsBalance ?? pointsEarned) : undefined;
-  const showThankYou = status === "delivered";
+  const showThankYou = displayStatus === "delivered";
 
   const thankYouUrl = useMemo(() => {
     if (!showThankYou) return null;
@@ -70,7 +68,7 @@ export function OrderStatusButtons({
   ]);
 
   async function updateStatus(next: OrderStatus) {
-    if (next === status) return;
+    if (next === displayStatus) return;
     setUpdating(next);
     setError(null);
 
@@ -86,7 +84,7 @@ export function OrderStatusButtons({
       return;
     }
 
-    setStatus(next);
+    setPendingStatus(next);
     onStatusChange?.(orderId, next);
     setUpdating(null);
   }
@@ -112,7 +110,7 @@ export function OrderStatusButtons({
             disabled={updating !== null}
             onClick={() => void updateStatus(s)}
             className={`rounded-lg px-3 py-1.5 text-xs font-medium transition disabled:opacity-50 ${
-              status === s
+              displayStatus === s
                 ? "bg-gold text-dark"
                 : "bg-light/10 text-light/60 hover:bg-light/20"
             }`}

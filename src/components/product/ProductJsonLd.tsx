@@ -28,9 +28,7 @@ export function ProductJsonLd({ product }: Props) {
       url,
       priceCurrency: "INR",
       price: product.price,
-      priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90)
-        .toISOString()
-        .slice(0, 10),
+      priceValidUntil: "2027-12-31",
       availability:
         product.stock > 0
           ? "https://schema.org/InStock"
