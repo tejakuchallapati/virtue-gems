@@ -27,7 +27,9 @@ export function Breadcrumb({
               {item.label}
             </Link>
           ) : (
-            <span className="font-medium opacity-90">{item.label}</span>
+            <span className="max-w-[min(60vw,18rem)] truncate font-medium opacity-90">
+              {item.label}
+            </span>
           )}
         </span>
       ))}

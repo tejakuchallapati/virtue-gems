@@ -119,7 +119,7 @@ export function ProductCard({ product }: { product: Product }) {
               )}
             >
               <ShoppingCart className="h-4 w-4 shrink-0" />
-              <span>
+              <span className="truncate">
                 {product.stock < 1 ? "Sold out" : added ? "Added!" : "Add"}
               </span>
             </button>

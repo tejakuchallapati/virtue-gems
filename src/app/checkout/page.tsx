@@ -356,11 +356,11 @@ export default function CheckoutPage() {
           <h2 className="text-lg font-semibold text-dark">Your Order</h2>
           <ul className="mt-4 space-y-3">
             {cart.map((item) => (
-              <li key={item.product.id} className="flex justify-between text-sm">
-                <span className="text-dark/70">
+              <li key={item.product.id} className="flex justify-between gap-3 text-sm">
+                <span className="min-w-0 flex-1 break-words text-dark/70">
                   {item.product.name} × {item.quantity}
                 </span>
-                <span className="font-medium">
+                <span className="shrink-0 font-medium">
                   {formatPrice(item.product.price * item.quantity)}
                 </span>
               </li>
