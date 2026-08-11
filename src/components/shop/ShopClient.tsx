@@ -220,7 +220,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                 placeholder="Search necklaces, rings, earrings..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full rounded-2xl border border-white/10 bg-white py-3.5 pl-11 pr-4 text-sm text-dark shadow-lg outline-none focus:border-gold focus:ring-2 focus:ring-gold/25"
+                className="w-full rounded-2xl border border-white/10 bg-white py-3.5 pl-11 pr-4 text-base text-dark shadow-lg outline-none focus:border-gold focus:ring-2 focus:ring-gold/25 sm:text-sm"
               />
             </div>
             <button
@@ -304,7 +304,7 @@ export function ShopClient({ products }: { products: Product[] }) {
           <aside
             className={`${
               filtersOpen
-                ? "safe-top safe-bottom fixed inset-0 z-[60] flex flex-col overflow-hidden bg-white p-4 pt-14 pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
+                ? "safe-top safe-bottom fixed inset-0 z-[70] flex flex-col overflow-hidden bg-white p-4 pt-14 pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
                 : "hidden"
             } w-full lg:static lg:block lg:w-60 lg:shrink-0 lg:overflow-visible lg:bg-transparent lg:p-0`}
           >
