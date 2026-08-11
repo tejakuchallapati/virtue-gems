@@ -245,9 +245,9 @@ export function ProductDetailClient({
             </h3>
             <dl className="space-y-2">
               {Object.entries(product.specifications).map(([key, val]) => (
-                <div key={key} className="flex justify-between text-sm">
-                  <dt className="text-dark/60">{key}</dt>
-                  <dd className="font-medium text-dark">{val}</dd>
+                <div key={key} className="flex justify-between gap-3 text-sm">
+                  <dt className="shrink-0 text-dark/60">{key}</dt>
+                  <dd className="min-w-0 text-right font-medium break-words text-dark">{val}</dd>
                 </div>
               ))}
             </dl>
@@ -294,7 +294,7 @@ export function ProductDetailClient({
       )}
 
       {/* Mobile sticky add-to-cart bar — sits above bottom nav; nav already has safe-area */}
-      <div className="fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-4 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md md:hidden">
+      <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-4 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md md:hidden">
         <div className="mx-auto flex max-w-lg items-center gap-3">
           <div className="min-w-0 shrink-0">
             <p className="text-base font-bold text-gold-dark">
@@ -343,7 +343,7 @@ export function ProductDetailClient({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="safe-x fixed inset-0 z-[60] flex items-center justify-center bg-dark/90 p-4"
+            className="safe-x safe-top safe-bottom fixed inset-0 z-[70] flex items-center justify-center bg-dark/90 p-4"
             onClick={() => setZoom(false)}
             role="dialog"
             aria-modal="true"
