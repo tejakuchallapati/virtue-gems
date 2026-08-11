@@ -15,17 +15,27 @@ export function useBrandIntroReady() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
+
+    const markReady = () => {
+      if (!cancelled) setReady(true);
+    };
+
     if (hasSeenBrandIntro()) {
-      setReady(true);
-      return;
+      // Defer so we don't setState synchronously inside the effect body.
+      const id = window.setTimeout(markReady, 0);
+      return () => {
+        cancelled = true;
+        window.clearTimeout(id);
+      };
     }
 
-    const onReady = () => setReady(true);
-    window.addEventListener(BRAND_INTRO_READY_EVENT, onReady);
-    const fallback = window.setTimeout(onReady, BRAND_INTRO_MS + 400);
+    window.addEventListener(BRAND_INTRO_READY_EVENT, markReady);
+    const fallback = window.setTimeout(markReady, BRAND_INTRO_MS + 400);
 
     return () => {
-      window.removeEventListener(BRAND_INTRO_READY_EVENT, onReady);
+      cancelled = true;
+      window.removeEventListener(BRAND_INTRO_READY_EVENT, markReady);
       window.clearTimeout(fallback);
     };
   }, []);

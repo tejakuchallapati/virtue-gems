@@ -55,20 +55,30 @@ export function LoyaltyProvider({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    const stored = getStorage<LoyaltyAccount | null>(STORAGE_KEYS.loyalty, null);
-    const storedRedemption = getStorage<ActiveRedemption | null>(
-      STORAGE_KEYS.activeRedemption,
-      null,
-    );
+    let cancelled = false;
 
-    if (stored) {
-      setPhoneState(stored.phone);
-      setNameState(stored.name ?? "");
-      setPoints(stored.points);
-      setHistory(stored.history ?? []);
-    }
-    setActiveRedemption(storedRedemption);
-    setHydrated(true);
+    const id = window.setTimeout(() => {
+      if (cancelled) return;
+      const stored = getStorage<LoyaltyAccount | null>(STORAGE_KEYS.loyalty, null);
+      const storedRedemption = getStorage<ActiveRedemption | null>(
+        STORAGE_KEYS.activeRedemption,
+        null,
+      );
+
+      if (stored) {
+        setPhoneState(stored.phone);
+        setNameState(stored.name ?? "");
+        setPoints(stored.points);
+        setHistory(stored.history ?? []);
+      }
+      setActiveRedemption(storedRedemption);
+      setHydrated(true);
+    }, 0);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(id);
+    };
   }, []);
 
   useEffect(() => {
