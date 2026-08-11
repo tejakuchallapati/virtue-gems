@@ -17,21 +17,13 @@ const rings = [
   { size: 320, opacity: 0.07, duration: 30 },
 ];
 
+/**
+ * Same DOM always (SSR + client) — only animation is gated by reduced motion
+ * to avoid hydration mismatches.
+ */
 export function HeroBackground() {
   const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) {
-    return (
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 42%, rgba(212,175,55,0.16) 0%, transparent 58%)",
-        }}
-        aria-hidden
-      />
-    );
-  }
+  const animate = !reduceMotion;
 
   return (
     <>
@@ -55,12 +47,16 @@ export function HeroBackground() {
             marginTop: -ring.size / 2,
             opacity: ring.opacity,
           }}
-          animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-          transition={{
-            duration: ring.duration,
-            repeat: Infinity,
-            ease: "linear",
-          }}
+          animate={animate ? { rotate: i % 2 === 0 ? 360 : -360 } : undefined}
+          transition={
+            animate
+              ? {
+                  duration: ring.duration,
+                  repeat: Infinity,
+                  ease: "linear",
+                }
+              : undefined
+          }
         />
       ))}
 
@@ -73,17 +69,26 @@ export function HeroBackground() {
             top: s.top,
             width: s.size,
             height: s.size,
+            opacity: animate ? undefined : 0.35,
           }}
-          animate={{
-            opacity: [0.25, 0.9, 0.25],
-            scale: [0.85, 1.25, 0.85],
-          }}
-          transition={{
-            duration: s.duration,
-            repeat: Infinity,
-            delay: s.delay,
-            ease: "easeInOut",
-          }}
+          animate={
+            animate
+              ? {
+                  opacity: [0.25, 0.9, 0.25],
+                  scale: [0.85, 1.25, 0.85],
+                }
+              : undefined
+          }
+          transition={
+            animate
+              ? {
+                  duration: s.duration,
+                  repeat: Infinity,
+                  delay: s.delay,
+                  ease: "easeInOut",
+                }
+              : undefined
+          }
         />
       ))}
     </>
