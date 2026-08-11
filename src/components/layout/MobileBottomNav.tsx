@@ -34,7 +34,8 @@ export function MobileBottomNav() {
 
   return (
     <nav
-      className="safe-bottom safe-x fixed inset-x-0 bottom-0 z-[60] w-full overflow-hidden md:hidden"
+      data-mobile-bottom-nav
+      className="safe-bottom safe-x fixed inset-x-0 bottom-0 z-[60] w-full md:hidden"
       aria-label="Mobile primary"
     >
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />

@@ -25,7 +25,7 @@ export function MobileHeader() {
         >
           <Heart className="h-[18px] w-[18px]" />
           {hydrated && wishlistCount > 0 && (
-            <span className="absolute right-1.5 top-1.5 text-[9px] font-bold text-gold">
+            <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark">
               {wishlistCount}
             </span>
           )}
@@ -56,7 +56,7 @@ export function MobileHeader() {
         >
           <ShoppingCart className="h-[18px] w-[18px]" />
           {hydrated && cartCount > 0 && (
-            <span className="absolute right-1.5 top-1.5 text-[9px] font-bold text-gold">
+            <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark">
               {cartCount}
             </span>
           )}
