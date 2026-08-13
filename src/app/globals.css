@@ -161,12 +161,12 @@ body.scroll-locked [data-mobile-bottom-nav] {
 
 .product-image-fit {
   object-fit: contain;
-  padding: 0.5rem;
+  padding: 0.375rem;
 }
 
 @media (min-width: 640px) {
   .product-image-fit {
-    padding: 0.75rem;
+    padding: 0.625rem;
   }
 }
 

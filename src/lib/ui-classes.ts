@@ -28,14 +28,14 @@ export const PRODUCT_IMAGE_BG = "bg-[#1a0a2e]";
 export const PRODUCT_IMAGE_FRAME = `relative overflow-hidden ${PRODUCT_IMAGE_BG} ring-1 ring-inset ring-white/10`;
 
 export const PRODUCT_IMAGE_FIT =
-  "object-contain p-2 transition duration-500 sm:p-3";
+  "object-contain p-1.5 transition duration-500 sm:p-2.5";
 
 /** Edge-to-edge cover fit for Instagram / lifestyle tiles (no product padding). */
 export const PRODUCT_IMAGE_COVER =
   "object-cover transition duration-500";
 
 export const PRODUCT_GRID =
-  "grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4";
+  "grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4";
 
 export const SECTION_DIVIDER =
   "pointer-events-none h-px w-full bg-gradient-to-r from-transparent via-gold/35 to-transparent";
