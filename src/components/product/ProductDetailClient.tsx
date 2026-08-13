@@ -20,6 +20,10 @@ import { SectionDivider } from "@/components/ui/PageSection";
 import { formatPrice } from "@/lib/utils";
 import { TAG_LABELS } from "@/lib/product-constants";
 import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL, PRODUCT_GRID } from "@/lib/ui-classes";
+import {
+  PRODUCT_DETAIL_SIZES,
+  PRODUCT_IMAGE_QUALITY,
+} from "@/lib/product-images";
 import { buildProductShareMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import { VIRTUAL_TRY_ON_ENABLED } from "@/lib/features";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
@@ -101,8 +105,9 @@ export function ProductDetailClient({
               src={product.images[activeImage]}
               alt={product.name}
               fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className={`${PRODUCT_IMAGE_FIT} sm:p-4`}
+              quality={PRODUCT_IMAGE_QUALITY}
+              sizes={PRODUCT_DETAIL_SIZES}
+              className={PRODUCT_IMAGE_FIT}
               priority
             />
             <div className="pointer-events-none absolute right-3 top-3 rounded-full bg-white/80 p-2">
@@ -119,7 +124,14 @@ export function ProductDetailClient({
                   i === activeImage ? "ring-gold" : "ring-transparent"
                 }`}
               >
-                <Image src={img} alt="" fill sizes="80px" className={PRODUCT_IMAGE_FIT} />
+                <Image
+                  src={img}
+                  alt=""
+                  fill
+                  quality={85}
+                  sizes="80px"
+                  className={PRODUCT_IMAGE_FIT}
+                />
               </button>
             ))}
           </div>
@@ -362,6 +374,7 @@ export function ProductDetailClient({
                 src={product.images[activeImage]}
                 alt={product.name}
                 fill
+                quality={PRODUCT_IMAGE_QUALITY}
                 className="object-contain"
                 sizes="100vw"
               />
