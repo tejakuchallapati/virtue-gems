@@ -11,6 +11,10 @@ import {
   PRODUCT_IMAGE_FRAME,
   SECTION_DIVIDER,
 } from "@/lib/ui-classes";
+import {
+  PRODUCT_HIGHLIGHT_SIZES,
+  PRODUCT_IMAGE_QUALITY,
+} from "@/lib/product-images";
 import type { Product } from "@/types";
 
 function HighlightCard({ product }: { product: Product }) {
@@ -34,8 +38,9 @@ function HighlightCard({ product }: { product: Product }) {
           src={product.images[0]}
           alt={product.name}
           fill
-          sizes="(max-width: 768px) 50vw, 224px"
-          className={cn(PRODUCT_IMAGE_FIT, "group-hover:scale-[1.04]")}
+          quality={PRODUCT_IMAGE_QUALITY}
+          sizes={PRODUCT_HIGHLIGHT_SIZES}
+          className={cn(PRODUCT_IMAGE_FIT, "group-hover:scale-[1.02]")}
         />
       </div>
       <div className="flex flex-1 flex-col justify-center p-4 md:p-6">
