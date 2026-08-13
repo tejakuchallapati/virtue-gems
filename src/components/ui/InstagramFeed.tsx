@@ -2,6 +2,7 @@ import Image from "next/image";
 import instagramData from "@/data/instagram.json";
 import { cn } from "@/lib/utils";
 import { PRODUCT_IMAGE_COVER, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
+import { PRODUCT_IMAGE_QUALITY } from "@/lib/product-images";
 
 const PROFILE_URL = instagramData.profileUrl;
 
@@ -53,6 +54,7 @@ export function InstagramFeed() {
               src={post.image}
               alt={post.alt}
               fill
+              quality={PRODUCT_IMAGE_QUALITY}
               sizes="(max-width: 640px) 33vw, 16vw"
               className={cn(PRODUCT_IMAGE_COVER, "group-hover:scale-[1.03]")}
             />

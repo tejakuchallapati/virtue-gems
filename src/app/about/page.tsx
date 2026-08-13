@@ -117,10 +117,12 @@ export default function AboutPage() {
         {/* Hero — brand story */}
         <div className="relative mb-8 overflow-hidden rounded-3xl bg-dark ring-1 ring-gold/20 sm:mb-12">
           <Image
-            src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&q=80"
+            src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1600&q=90"
             alt="Virtue Gems jewellery craftsmanship"
-            width={1200}
-            height={500}
+            width={1600}
+            height={700}
+            quality={90}
+            sizes="(max-width: 768px) 100vw, 1200px"
             className="h-52 w-full object-cover opacity-50 sm:h-72"
             priority
           />

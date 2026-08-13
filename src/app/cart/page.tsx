@@ -16,6 +16,10 @@ import {
   PRODUCT_IMAGE_FIT,
   PRODUCT_IMAGE_FRAME,
 } from "@/lib/ui-classes";
+import {
+  PRODUCT_IMAGE_QUALITY,
+  PRODUCT_THUMB_SIZES,
+} from "@/lib/product-images";
 import { DELIVERY_SHORT } from "@/lib/delivery";
 
 export default function CartPage() {
@@ -67,7 +71,8 @@ export default function CartPage() {
                       src={item.product.images[0]}
                       alt={item.product.name}
                       fill
-                      sizes="(max-width: 640px) 96px, 112px"
+                      quality={PRODUCT_IMAGE_QUALITY}
+                      sizes={PRODUCT_THUMB_SIZES}
                       className={PRODUCT_IMAGE_FIT}
                     />
                   </Link>
