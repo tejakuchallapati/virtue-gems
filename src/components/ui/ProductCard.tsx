@@ -8,6 +8,10 @@ import { useStore } from "@/context/StoreProvider";
 import { TAG_LABELS } from "@/lib/product-constants";
 import { formatPrice, cn } from "@/lib/utils";
 import { PRODUCT_IMAGE_FIT, PRODUCT_IMAGE_FRAME } from "@/lib/ui-classes";
+import {
+  PRODUCT_CARD_SIZES,
+  PRODUCT_IMAGE_QUALITY,
+} from "@/lib/product-images";
 import { trackEvent } from "@/lib/analytics";
 import type { Product, ProductTag } from "@/types";
 
@@ -49,8 +53,9 @@ export function ProductCard({ product }: { product: Product }) {
             src={product.images[0]}
             alt={product.name}
             fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className={cn(PRODUCT_IMAGE_FIT, "group-hover:scale-[1.03]")}
+            quality={PRODUCT_IMAGE_QUALITY}
+            sizes={PRODUCT_CARD_SIZES}
+            className={cn(PRODUCT_IMAGE_FIT, "group-hover:scale-[1.02]")}
           />
         </Link>
         <div className="pointer-events-none absolute left-2 top-2 flex flex-wrap gap-1">
@@ -68,9 +73,9 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
       </div>
 
-      <div className="border-t border-light-muted/50 p-3 sm:p-4">
+      <div className="border-t border-light-muted/50 p-2.5 sm:p-4">
         <Link href={`/product/${product.slug}`}>
-          <h3 className="line-clamp-1 text-sm font-medium text-dark sm:text-base">
+          <h3 className="line-clamp-2 text-[13px] font-medium leading-snug text-dark sm:line-clamp-1 sm:text-base">
             {product.name}
           </h3>
           <p className="mt-1 hidden line-clamp-2 text-xs text-dark/60 sm:block sm:text-sm">
@@ -88,7 +93,7 @@ export function ProductCard({ product }: { product: Product }) {
               </p>
             )}
           </div>
-          <div className="flex shrink-0 gap-1.5 self-stretch sm:self-auto">
+          <div className="flex min-w-0 shrink-0 gap-1.5 self-stretch sm:self-auto">
             <button
               type="button"
               aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
@@ -98,7 +103,7 @@ export function ProductCard({ product }: { product: Product }) {
                   : addToWishlist(product)
               }
               className={cn(
-                "flex h-10 w-10 items-center justify-center rounded-full transition sm:h-11 sm:w-11",
+                "flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition sm:h-11 sm:w-11",
                 wished
                   ? "bg-gold/20 text-gold-dark"
                   : "bg-light text-dark/60 hover:bg-gold/10 hover:text-gold-dark",
@@ -112,7 +117,7 @@ export function ProductCard({ product }: { product: Product }) {
               disabled={product.stock < 1}
               onClick={handleAddToCart}
               className={cn(
-                "flex h-10 min-h-10 flex-1 items-center justify-center gap-1.5 rounded-full px-3 text-xs font-semibold transition sm:h-11 sm:min-w-11 sm:flex-none sm:px-4 sm:text-sm disabled:cursor-not-allowed disabled:opacity-50",
+                "flex h-10 min-h-10 min-w-0 flex-1 items-center justify-center gap-1 rounded-full px-2.5 text-xs font-semibold transition sm:h-11 sm:min-w-11 sm:flex-none sm:gap-1.5 sm:px-4 sm:text-sm disabled:cursor-not-allowed disabled:opacity-50",
                 added
                   ? "bg-green-600 text-white"
                   : "bg-dark text-gold hover:bg-gold hover:text-dark",
