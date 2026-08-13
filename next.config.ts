@@ -6,8 +6,11 @@ const nextConfig: NextConfig = {
   compress: true,
   serverExternalPackages: ["better-sqlite3"],
   images: {
-    qualities: [75, 90, 100],
-    formats: ["image/avif", "image/webp"],
+    qualities: [75, 85, 90, 100],
+    // Extra mid sizes so 2-col mobile cards pick sharper retina widths
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 450, 540],
+    formats: ["image/webp"],
     remotePatterns: [
       {
         protocol: "https",
