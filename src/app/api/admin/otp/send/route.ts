@@ -11,6 +11,7 @@ import {
   createOtpPayload,
   generateOtp,
   getAdminEmail,
+  isOtpSecretConfigured,
   OTP_COOKIE,
   OTP_TTL_MS,
 } from "@/lib/otp";
@@ -31,15 +32,26 @@ export async function POST(request: Request) {
     }
 
     if (!isEmailConfigured()) {
-      return apiFail("Email service is not configured.", 503);
+      return apiFail(
+        "Email service is not configured. Set SMTP_USER and SMTP_PASS, then redeploy.",
+        503,
+      );
+    }
+
+    if (!isOtpSecretConfigured()) {
+      return apiFail(
+        "Login secret is not configured. Set OTP_SECRET, then redeploy.",
+        503,
+      );
     }
 
     const otp = generateOtp();
     const payload = createOtpPayload(email, otp);
 
-    await sendNotificationEmail({
-      subject: "[Virtue Gems Admin] Your login OTP",
-      html: `
+    try {
+      await sendNotificationEmail({
+        subject: "[Virtue Gems Admin] Your login OTP",
+        html: `
         <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1a1a;">
           <h2 style="color: #8b6914;">Admin Login OTP</h2>
           <p>Your one-time password for Virtue Gems Admin:</p>
@@ -49,8 +61,15 @@ export async function POST(request: Request) {
           <p style="color: #888; font-size: 13px;">Valid for 10 minutes. Do not share this code.</p>
         </div>
       `,
-      text: `Virtue Gems Admin OTP: ${otp}\nValid for 10 minutes.`,
-    });
+        text: `Virtue Gems Admin OTP: ${otp}\nValid for 10 minutes.`,
+      });
+    } catch (mailError) {
+      console.error("OTP email send failed:", mailError);
+      return apiFail(
+        "Could not send the OTP email. Check the SMTP app password on the server.",
+        502,
+      );
+    }
 
     const response = apiOk({});
     response.cookies.set(OTP_COOKIE, payload, {

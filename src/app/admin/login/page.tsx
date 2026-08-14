@@ -3,232 +3,188 @@
 import Image from "next/image";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { Mail, ShieldCheck, ArrowRight, KeyRound } from "lucide-react";
+import { LockKeyhole, Mail, ShieldCheck } from "lucide-react";
 import { apiFetch } from "@/lib/api-client";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { ADMIN_SHELL_BG } from "@/lib/ui-classes";
-
-type Step = "email" | "otp";
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [step, setStep] = useState<Step>("email");
+  const useSupabase = isSupabaseConfigured();
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [resending, setResending] = useState(false);
-  const [sent, setSent] = useState(false);
 
-  async function sendOtp(): Promise<boolean> {
-    const res = await apiFetch("/api/admin/otp/send", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email.trim() }),
-    });
-
-    if (res.ok) {
-      setStep("otp");
-      setSent(true);
-      setError("");
-      return true;
-    }
-
-    setError(res.error);
-    return false;
-  }
-
-  async function handleSendOtp(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError("");
     try {
-      await sendOtp();
-    } finally {
-      setLoading(false);
-    }
-  }
+      if (useSupabase) {
+        const supabase = createSupabaseBrowserClient();
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email: email.trim(),
+          password,
+        });
+        if (signInError) {
+          setError(signInError.message);
+          return;
+        }
+        router.replace("/admin");
+        router.refresh();
+        return;
+      }
 
-  async function handleResendOtp() {
-    setResending(true);
-    setError("");
-    setOtp("");
-    try {
-      await sendOtp();
-    } finally {
-      setResending(false);
-    }
-  }
+      if (!otpSent) {
+        const res = await apiFetch("/api/admin/otp/send", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email.trim() }),
+        });
+        if (!res.ok) {
+          setError(res.error);
+          return;
+        }
+        setOtpSent(true);
+        return;
+      }
 
-  async function handleVerifyOtp(e: FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
       const res = await apiFetch("/api/admin/otp/verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp }),
+        body: JSON.stringify({ email: email.trim(), otp }),
       });
-
-      if (res.ok) {
-        router.push("/admin");
-      } else {
+      if (!res.ok) {
         setError(res.error);
+        return;
       }
+      router.replace("/admin");
+      router.refresh();
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className={`relative flex min-h-screen items-center justify-center overflow-hidden ${ADMIN_SHELL_BG} px-4`}>
-      {/* Background accents */}
+    <div
+      className={`relative flex min-h-dvh items-center justify-center overflow-hidden px-4 ${ADMIN_SHELL_BG}`}
+    >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.12),transparent_50%)]" />
-      <motion.div
-        className="pointer-events-none absolute -left-32 top-20 h-64 w-64 rounded-full border border-gold/20"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-      />
-
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="relative w-full max-w-md"
-      >
-        {/* Admin brand header */}
-        <div className="mb-8 text-center">
-          <div className="relative mx-auto mb-4 h-16 w-16">
+      <div className="relative w-full max-w-md">
+        <div className="mb-7 text-center">
+          <div className="relative mx-auto mb-3 h-16 w-16">
             <Image
               src="/logo.png"
               alt="Virtue Gems"
               fill
               sizes="64px"
               className="object-contain"
+              priority
             />
           </div>
-          <p className="text-xs tracking-[0.35em] text-gold/80 uppercase">
+          <p className="text-xs uppercase tracking-[0.35em] text-gold/80">
             Admin Portal
           </p>
           <h1 className="mt-2 text-2xl font-semibold text-white">
-            Secure <span className="text-gold">Access</span>
+            Secure <span className="text-gold">CRM Access</span>
           </h1>
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-gold/20 bg-[#12101a]/90 shadow-[0_0_40px_rgba(212,175,55,0.08)]">
-          <div className="border-b border-gold/10 bg-gradient-to-r from-gold/10 via-transparent to-gold/10 px-6 py-3">
-            <div className="flex items-center justify-center gap-2 text-xs text-gold/90">
-              <ShieldCheck className="h-4 w-4" />
-              OTP-based authentication
+        <div className="overflow-hidden rounded-2xl border border-gold/20 bg-[#12101a]/95 shadow-[0_0_40px_rgba(212,175,55,0.08)]">
+          <div className="flex items-center justify-center gap-2 border-b border-gold/10 bg-gold/5 px-6 py-3 text-xs text-gold">
+            <ShieldCheck className="h-4 w-4" />
+            {useSupabase
+              ? "Persistent Supabase account"
+              : "Local email OTP fallback"}
+          </div>
+          <form onSubmit={handleSubmit} className="space-y-5 p-6 sm:p-8">
+            <div>
+              <label
+                htmlFor="email"
+                className="mb-1.5 flex items-center gap-2 text-sm text-white/70"
+              >
+                <Mail className="h-4 w-4 text-gold" />
+                Admin email
+              </label>
+              <input
+                id="email"
+                type="email"
+                autoComplete="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-base text-white outline-none focus:border-gold"
+              />
             </div>
-          </div>
 
-          <div className="p-6 sm:p-8">
-            <AnimatePresence mode="wait">
-              {step === "email" ? (
-                <motion.form
-                  key="email"
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 16 }}
-                  onSubmit={handleSendOtp}
-                  className="space-y-5"
+            {useSupabase ? (
+              <div>
+                <label
+                  htmlFor="password"
+                  className="mb-1.5 flex items-center gap-2 text-sm text-white/70"
                 >
-                  <p className="text-sm text-white/50">
-                    Enter your authorized admin email. We&apos;ll send a 6-digit OTP.
-                  </p>
-                  <div>
-                    <label htmlFor="email" className="mb-1.5 flex items-center gap-2 text-sm text-white/70">
-                      <Mail className="h-4 w-4 text-gold" />
-                      Admin Email
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="admin@example.com"
-                      className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-white outline-none transition focus:border-gold focus:ring-1 focus:ring-gold/30"
-                    />
-                  </div>
-                  {error && <p className="text-sm text-red-400">{error}</p>}
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-gold to-gold-light py-3.5 text-sm font-semibold text-dark transition hover:opacity-90 disabled:opacity-60"
-                  >
-                    {loading ? "Sending OTP..." : "Send OTP"}
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
-                </motion.form>
-              ) : (
-                <motion.form
-                  key="otp"
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 16 }}
-                  onSubmit={handleVerifyOtp}
-                  className="space-y-5"
+                  <LockKeyhole className="h-4 w-4 text-gold" />
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  minLength={8}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-base text-white outline-none focus:border-gold"
+                />
+              </div>
+            ) : otpSent ? (
+              <div>
+                <label
+                  htmlFor="otp"
+                  className="mb-1.5 block text-sm text-white/70"
                 >
-                  {sent && (
-                    <p className="rounded-lg bg-gold/10 px-3 py-2 text-center text-sm text-gold">
-                      OTP sent to {email}
-                    </p>
-                  )}
-                  <div>
-                    <label htmlFor="otp" className="mb-1.5 flex items-center gap-2 text-sm text-white/70">
-                      <KeyRound className="h-4 w-4 text-gold" />
-                      6-Digit OTP
-                    </label>
-                    <input
-                      id="otp"
-                      type="text"
-                      inputMode="numeric"
-                      pattern="[0-9]{6}"
-                      maxLength={6}
-                      required
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                      placeholder="000000"
-                      className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-center text-2xl tracking-[0.5em] text-white outline-none transition focus:border-gold focus:ring-1 focus:ring-gold/30"
-                    />
-                  </div>
-                  {error && <p className="text-sm text-red-400">{error}</p>}
-                  <button
-                    type="submit"
-                    disabled={loading || otp.length !== 6}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-gold to-gold-light py-3.5 text-sm font-semibold text-dark transition hover:opacity-90 disabled:opacity-60"
-                  >
-                    {loading ? "Verifying..." : "Verify & Sign In"}
-                  </button>
-                  <button
-                    type="button"
-                    disabled={resending || loading}
-                    onClick={() => void handleResendOtp()}
-                    className="w-full text-sm text-gold/80 transition hover:text-gold disabled:opacity-50"
-                  >
-                    {resending ? "Resending OTP…" : "Resend OTP"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setStep("email");
-                      setOtp("");
-                      setError("");
-                      setSent(false);
-                    }}
-                    className="w-full text-sm text-white/40 transition hover:text-gold"
-                  >
-                    ← Use a different email
-                  </button>
-                </motion.form>
-              )}
-            </AnimatePresence>
-          </div>
+                  6-digit OTP
+                </label>
+                <input
+                  id="otp"
+                  inputMode="numeric"
+                  pattern="[0-9]{6}"
+                  maxLength={6}
+                  required
+                  value={otp}
+                  onChange={(e) =>
+                    setOtp(e.target.value.replace(/\D/g, ""))
+                  }
+                  className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-center text-2xl tracking-[0.45em] text-white outline-none focus:border-gold"
+                />
+              </div>
+            ) : null}
+
+            {error && (
+              <p role="alert" className="text-sm text-red-400">
+                {error}
+              </p>
+            )}
+            <button
+              type="submit"
+              disabled={loading}
+              className="min-h-12 w-full rounded-xl bg-gradient-to-r from-gold to-gold-light px-4 font-semibold text-dark disabled:opacity-60"
+            >
+              {loading
+                ? "Signing in…"
+                : useSupabase
+                  ? "Sign in"
+                  : otpSent
+                    ? "Verify and sign in"
+                    : "Send OTP"}
+            </button>
+          </form>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

@@ -17,6 +17,12 @@ function getSecret(): string {
   return secret;
 }
 
+/** True when the signing secret is available (or dev fallback applies). */
+export function isOtpSecretConfigured(): boolean {
+  if (process.env.NODE_ENV !== "production") return true;
+  return Boolean(process.env.OTP_SECRET ?? process.env.ADMIN_PASSWORD);
+}
+
 export function getAdminEmail(): string {
   return (
     process.env.ADMIN_EMAIL ??
