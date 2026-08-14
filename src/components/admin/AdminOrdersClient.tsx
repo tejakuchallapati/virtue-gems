@@ -39,7 +39,24 @@ export function AdminOrdersClient({
 
   function handleStatusChange(orderId: string, status: OrderStatus) {
     setOrders((prev) =>
-      prev.map((o) => (o.id === orderId ? { ...o, status } : o)),
+      prev.map((o) =>
+        o.id === orderId
+          ? {
+              ...o,
+              status,
+              statusHistory: [
+                ...(o.statusHistory ?? []),
+                {
+                  id: `local-${Date.now()}`,
+                  orderId,
+                  fromStatus: o.status,
+                  toStatus: status,
+                  createdAt: new Date().toISOString(),
+                },
+              ],
+            }
+          : o,
+      ),
     );
   }
 
@@ -129,6 +146,28 @@ function OrderTable({
                   </li>
                 ))}
               </ul>
+              {o.statusHistory && o.statusHistory.length > 0 && (
+                <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+                  {o.statusHistory.map((event, index) => (
+                    <div
+                      key={event.id}
+                      className="flex shrink-0 items-center gap-2"
+                    >
+                      {index > 0 && (
+                        <span className="h-px w-4 bg-gold/25" aria-hidden />
+                      )}
+                      <div className="rounded-lg border border-gold/15 bg-gold/5 px-2.5 py-1.5">
+                        <p className="text-[10px] font-medium text-gold">
+                          {ORDER_STATUS_LABELS[event.toStatus]}
+                        </p>
+                        <p className="text-[9px] text-light/35">
+                          {formatDate(event.createdAt)}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
               <OrderStatusButtons
                 orderId={o.id}
                 customerName={o.customerName}
