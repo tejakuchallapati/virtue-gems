@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { getOrders } from "@/lib/orders";
+import { getOrdersSafe } from "@/lib/orders";
 import {
   getDailyWeeklyMonthlyRevenue,
   getMonthlyTrendData,
@@ -12,14 +12,19 @@ import { formatPrice } from "@/lib/utils";
 export default async function AnalyticsPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
-  const orders = getOrders();
-  const revenue = getDailyWeeklyMonthlyRevenue(orders);
-  const monthlyTrend = getMonthlyTrendData(orders);
+  const orders = await getOrdersSafe();
+  const revenueOrders = orders.filter((order) =>
+    ["paid", "shipped", "delivered"].includes(order.status),
+  );
+  const revenue = getDailyWeeklyMonthlyRevenue(revenueOrders);
+  const monthlyTrend = getMonthlyTrendData(revenueOrders);
 
   return (
     <div>
       <h1 className="text-2xl font-semibold text-light">Sales Analytics</h1>
-      <p className="mt-1 text-sm text-light/50">Based on saved WhatsApp orders</p>
+      <p className="mt-1 text-sm text-light/50">
+        Revenue counts paid, shipped and delivered WhatsApp orders.
+      </p>
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         <StatCard label="Daily Sales" value={formatPrice(revenue.daily)} sub="Today" />
         <StatCard label="Weekly Sales" value={formatPrice(revenue.weekly)} sub="Last 7 days" />

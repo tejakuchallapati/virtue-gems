@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getOrderById } from "@/lib/orders";
+import { getOrderByIdSafe } from "@/lib/orders";
 import { OrderInvoice } from "@/components/invoice/OrderInvoice";
 import { InvoiceActions } from "@/components/invoice/InvoiceActions";
 import { InvoicePointsNotice } from "@/components/loyalty/InvoicePointsNotice";
@@ -18,7 +18,7 @@ type Props = {
 
 export default async function InvoicePage({ params }: Props) {
   const { id } = await params;
-  const order = getOrderById(id);
+  const order = await getOrderByIdSafe(id);
 
   if (!order) notFound();
 

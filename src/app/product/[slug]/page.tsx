@@ -3,18 +3,25 @@ import { ProductDetailClient } from "@/components/product/ProductDetailClient";
 import { ProductJsonLd } from "@/components/product/ProductJsonLd";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { absoluteAssetUrl, buildPageMetadata } from "@/lib/seo";
-import { getAllProducts, getProductBySlug, getSimilarProducts } from "@/lib/products";
+import {
+  getAllProductsSafe,
+  getProductBySlugSafe,
+} from "@/lib/products-server";
 import { notFound } from "next/navigation";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return getAllProducts().map((product) => ({ slug: product.slug }));
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  return (await getAllProductsSafe()).map((product) => ({
+    slug: product.slug,
+  }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlugSafe(slug);
   if (!product) return { title: "Product Not Found", robots: { index: false } };
 
   const categoryLabel = product.category.replace(/-/g, " ");
@@ -51,10 +58,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlugSafe(slug);
   if (!product) notFound();
 
-  const similar = getSimilarProducts(product);
+  const similar = (await getAllProductsSafe())
+    .filter(
+      (candidate) =>
+        candidate.category === product.category &&
+        candidate.id !== product.id,
+    )
+    .slice(0, 4);
   return (
     <>
       <ProductJsonLd product={product} />

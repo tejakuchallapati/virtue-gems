@@ -1,17 +1,17 @@
 import { NextResponse } from "next/server";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { getOrders, updateOrderStatusSafe } from "@/lib/orders";
+import { getCurrentAdmin } from "@/lib/admin-auth";
+import { getOrdersSafe, updateOrderStatusSafe } from "@/lib/orders";
 import { isValidOrderStatus } from "@/lib/order-status";
 import type { OrderStatus } from "@/types";
 import { apiFail, apiOk, parseJsonBody } from "@/lib/api-server";
 
 export async function GET() {
-  if (!(await isAdminAuthenticated())) {
+  if (!(await getCurrentAdmin())) {
     return apiFail("Unauthorized.", 401);
   }
 
   try {
-    return NextResponse.json(getOrders());
+    return NextResponse.json(await getOrdersSafe());
   } catch (error) {
     console.error("Admin orders GET error:", error);
     return apiFail("Failed to load orders.", 500);
@@ -19,7 +19,8 @@ export async function GET() {
 }
 
 export async function PATCH(request: Request) {
-  if (!(await isAdminAuthenticated())) {
+  const admin = await getCurrentAdmin();
+  if (!admin) {
     return apiFail("Unauthorized.", 401);
   }
 
@@ -35,7 +36,11 @@ export async function PATCH(request: Request) {
   }
 
   try {
-    const order = await updateOrderStatusSafe(id, status as OrderStatus);
+    const order = await updateOrderStatusSafe(
+      id,
+      status as OrderStatus,
+      admin.id === "legacy-owner" ? undefined : admin.id,
+    );
     if (!order) return apiFail("Order not found.", 404);
     return apiOk({ order });
   } catch (error) {

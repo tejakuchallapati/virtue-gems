@@ -2,7 +2,8 @@ import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getLoyaltyAccount } from "@/lib/loyalty-store";
 import { calculatePointsEarned } from "@/lib/loyalty";
-import { getOrders } from "@/lib/orders";
+import { getOrdersSafe } from "@/lib/orders";
+import { LOYALTY_ENABLED } from "@/lib/features";
 import {
   AdminOrdersClient,
   type AdminOrderRow,
@@ -11,10 +12,11 @@ import {
 export default async function OrdersPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
-  const orders: AdminOrderRow[] = getOrders().map((o) => ({
+  const orders: AdminOrderRow[] = (await getOrdersSafe()).map((o) => ({
     ...o,
     pointsBalance:
-      getLoyaltyAccount(o.phone)?.points ?? calculatePointsEarned(o.total),
+      (LOYALTY_ENABLED ? getLoyaltyAccount(o.phone)?.points : undefined) ??
+      calculatePointsEarned(o.total),
   }));
 
   return <AdminOrdersClient initialOrders={orders} />;

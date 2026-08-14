@@ -1,8 +1,6 @@
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import {
-  createProduct,
-  validateProductInput,
-} from "@/lib/product-store";
+import { createProductSafe } from "@/lib/product-store-server";
+import { validateProductInput } from "@/lib/product-store";
 import { apiFail, apiOk, parseJsonBody } from "@/lib/api-server";
 
 const MAX_BULK = 50;
@@ -46,7 +44,7 @@ export async function POST(request: Request) {
     }
 
     try {
-      created.push(createProduct(input));
+      created.push(await createProductSafe(input));
     } catch (error) {
       console.error("Bulk product create error:", error);
       errors.push({

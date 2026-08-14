@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
-import { getAllProducts } from "@/lib/products";
+import { getAllProductsSafe } from "@/lib/products-server";
 import { VIRTUAL_TRY_ON_ENABLED, LOYALTY_ENABLED } from "@/lib/features";
 import { getSiteUrl } from "@/lib/site";
 import { absoluteAssetUrl } from "@/lib/seo";
+
+export const revalidate = 300;
 
 const STATIC_ROUTES: {
   path: string;
@@ -25,7 +27,7 @@ const STATIC_ROUTES: {
   { path: "/refunds", changeFrequency: "yearly", priority: 0.4 },
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = getSiteUrl();
   const now = new Date();
 
@@ -36,7 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route.priority,
   }));
 
-  const productEntries: MetadataRoute.Sitemap = getAllProducts().map((product) => ({
+  const productEntries: MetadataRoute.Sitemap = (await getAllProductsSafe()).map((product) => ({
     url: `${baseUrl}/product/${product.slug}`,
     lastModified: now,
     changeFrequency: "weekly",

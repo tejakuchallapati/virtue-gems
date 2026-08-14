@@ -1,4 +1,4 @@
-import { saveOrderSafe, validateOrderInput } from "@/lib/orders";
+import { saveOrderSafe, validateOrderInputSafe } from "@/lib/orders";
 import { apiFail, apiOk, checkRateLimit, clientIp, parseJsonBody } from "@/lib/api-server";
 
 export async function POST(request: Request) {
@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   const parsed = await parseJsonBody<Record<string, unknown>>(request);
   if ("error" in parsed) return parsed.error;
 
-  const validated = validateOrderInput(parsed.data);
+  const validated = await validateOrderInputSafe(parsed.data);
   if (typeof validated === "string") return apiFail(validated, 400);
 
   try {

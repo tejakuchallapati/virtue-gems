@@ -6,7 +6,7 @@ import { SectionDivider } from "@/components/ui/PageSection";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { TryOnSection } from "@/components/try-on/TryOnSection";
 import { VIRTUAL_TRY_ON_ENABLED } from "@/lib/features";
-import { getAllProducts, getProductBySlug } from "@/lib/products";
+import { getAllProductsSafe } from "@/lib/products-server";
 import { PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
 import { buildPageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
@@ -31,8 +31,10 @@ export default async function TryOnPage({ searchParams }: Props) {
   if (!VIRTUAL_TRY_ON_ENABLED) redirect("/shop");
 
   const { product: slug } = await searchParams;
-  const products = getAllProducts();
-  const selected = slug ? getProductBySlug(slug) : products[0];
+  const products = await getAllProductsSafe();
+  const selected = slug
+    ? products.find((product) => product.slug === slug)
+    : products[0];
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>

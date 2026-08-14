@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { getOrders } from "@/lib/orders";
-import { getAllProducts } from "@/lib/products";
+import { getOrdersSafe } from "@/lib/orders";
+import { getAllProductsSafe } from "@/lib/products-server";
 import { getWeeklyChartData } from "@/lib/admin-analytics";
 import { StatCard } from "@/components/admin/StatCard";
 import { RevenueChart } from "@/components/admin/RevenueChart";
@@ -11,11 +11,16 @@ import { ORDER_STATUS_LABELS } from "@/lib/order-status";
 export default async function AdminOverviewPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
-  const orders = getOrders();
-  const products = getAllProducts();
-  const totalRevenue = orders.reduce((s, o) => s + o.total, 0);
+  const [orders, products] = await Promise.all([
+    getOrdersSafe(),
+    getAllProductsSafe(),
+  ]);
+  const revenueOrders = orders.filter((order) =>
+    ["paid", "shipped", "delivered"].includes(order.status),
+  );
+  const totalRevenue = revenueOrders.reduce((s, o) => s + o.total, 0);
   const customers = new Set(orders.map((o) => o.phone)).size;
-  const weeklyChart = getWeeklyChartData(orders);
+  const weeklyChart = getWeeklyChartData(revenueOrders);
 
   return (
     <div>

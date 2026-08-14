@@ -4,7 +4,9 @@ import { ShopClient } from "@/components/shop/ShopClient";
 import { ShopLoadingSkeleton } from "@/components/ui/ShopLoadingSkeleton";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { buildPageMetadata } from "@/lib/seo";
-import { getAllProducts } from "@/lib/products";
+import { getAllProductsSafe } from "@/lib/products-server";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Shop Jewellery Collections Online",
@@ -19,8 +21,8 @@ export const metadata: Metadata = buildPageMetadata({
   ],
 });
 
-export default function ShopPage() {
-  const products = getAllProducts();
+export default async function ShopPage() {
+  const products = await getAllProductsSafe();
   return (
     <>
       <BreadcrumbJsonLd

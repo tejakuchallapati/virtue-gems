@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { listProducts } from "@/lib/product-store";
+import { listProductsSafe } from "@/lib/product-store-server";
 import { apiFail } from "@/lib/api-server";
 
 /** Public catalog for cart hydrate / client lookups. */
 export async function GET() {
   try {
-    const products = listProducts();
+    const products = await listProductsSafe();
     return NextResponse.json({ products });
   } catch (error) {
     console.error("Catalog GET error:", error);

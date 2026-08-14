@@ -14,7 +14,9 @@ import { WebsiteJsonLd } from "@/components/seo/WebsiteJsonLd";
 import { PRODUCT_GRID } from "@/lib/ui-classes";
 import { LOYALTY_ENABLED } from "@/lib/features";
 import { buildPageMetadata, DEFAULT_DESCRIPTION, SITE_NAME } from "@/lib/seo";
-import { getAllProducts } from "@/lib/products";
+import { getAllProductsSafe } from "@/lib/products-server";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = buildPageMetadata({
   title: `${SITE_NAME} | Premium Handcrafted Jewellery Hyderabad`,
@@ -27,8 +29,8 @@ export const metadata: Metadata = buildPageMetadata({
   ],
 });
 
-export default function HomePage() {
-  const products = getAllProducts();
+export default async function HomePage() {
+  const products = await getAllProductsSafe();
   const featured = products.filter((p) => p.tags.includes("bestseller")).slice(0, 4);
   const newArrivals = products.filter((p) => p.tags.includes("new")).slice(0, 4);
   const trending = products.find((p) => p.tags.includes("trending"));

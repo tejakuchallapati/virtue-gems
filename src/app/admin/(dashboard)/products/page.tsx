@@ -1,14 +1,34 @@
 import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { getAllProducts } from "@/lib/products";
+import { getAllProductsSafe } from "@/lib/products-server";
+import { getOrdersSafe } from "@/lib/orders";
 import { formatPrice } from "@/lib/utils";
 
 export default async function TopProductsPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
-  const products = getAllProducts();
-  const bestSelling = [...products].sort((a, b) => b.reviewCount - a.reviewCount);
+  const [products, orders] = await Promise.all([
+    getAllProductsSafe(),
+    getOrdersSafe(),
+  ]);
+  const sales = new Map<string, { quantity: number; revenue: number }>();
+  for (const order of orders) {
+    for (const item of order.items) {
+      const current = sales.get(item.productId) ?? { quantity: 0, revenue: 0 };
+      current.quantity += item.quantity;
+      current.revenue += item.price * item.quantity;
+      sales.set(item.productId, current);
+    }
+  }
+  const bestSelling = [...products].sort(
+    (a, b) =>
+      (sales.get(b.id)?.quantity ?? 0) - (sales.get(a.id)?.quantity ?? 0),
+  );
   const mostViewed = [...products].sort((a, b) => b.rating - a.rating);
+  const revenueLeaders = [...products].sort(
+    (a, b) =>
+      (sales.get(b.id)?.revenue ?? 0) - (sales.get(a.id)?.revenue ?? 0),
+  );
 
   return (
     <div>
@@ -24,7 +44,9 @@ export default async function TopProductsPage() {
                 <span className="text-light/70">
                   {i + 1}. {p.name}
                 </span>
-                <span className="text-light/50">{p.reviewCount} reviews</span>
+                <span className="text-light/50">
+                  {sales.get(p.id)?.quantity ?? 0} sold
+                </span>
               </li>
             ))}
           </ul>
@@ -49,10 +71,12 @@ export default async function TopProductsPage() {
             Revenue Leaders
           </h2>
           <ul className="space-y-3">
-            {products.slice(0, 5).map((p) => (
+            {revenueLeaders.slice(0, 5).map((p) => (
               <li key={p.id} className="flex items-center justify-between text-sm">
                 <span className="text-light/70">{p.name}</span>
-                <span className="text-gold">{formatPrice(p.price)}</span>
+                <span className="text-gold">
+                  {formatPrice(sales.get(p.id)?.revenue ?? 0)}
+                </span>
               </li>
             ))}
           </ul>

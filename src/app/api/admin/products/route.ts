@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import {
-  createProduct,
-  listProducts,
-  validateProductInput,
-} from "@/lib/product-store";
+  createProductSafe,
+  listProductsSafe,
+} from "@/lib/product-store-server";
+import { validateProductInput } from "@/lib/product-store";
 import { apiFail, apiOk, parseJsonBody } from "@/lib/api-server";
 
 export async function GET() {
@@ -13,7 +13,9 @@ export async function GET() {
   }
 
   try {
-    return NextResponse.json({ products: listProducts({ includeInactive: true }) });
+    return NextResponse.json({
+      products: await listProductsSafe({ includeInactive: true }),
+    });
   } catch (error) {
     console.error("Admin products GET error:", error);
     return apiFail("Failed to load products.", 500);
@@ -32,7 +34,7 @@ export async function POST(request: Request) {
   if (typeof input === "string") return apiFail(input, 400);
 
   try {
-    const product = createProduct(input);
+    const product = await createProductSafe(input);
     return apiOk({ product }, 201);
   } catch (error) {
     console.error("Admin products POST error:", error);
