@@ -472,3 +472,4 @@ export function restoreProduct(id: string): (Product & { active: boolean }) | nu
   backupProductsJson(getDb());
   return getStoredProductByIdAdmin(id) ?? null;
 }
+
