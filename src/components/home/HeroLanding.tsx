@@ -29,7 +29,7 @@ export function HeroLanding() {
         Mobile hero: always render the same DOM on server + client.
         Animate with introReady — never conditionally mount (that caused hydration errors).
       */}
-      <div className="relative z-10 flex min-h-[100dvh] w-full flex-col items-center justify-center px-4 pb-36 pt-20 md:hidden">
+      <div className="relative z-10 flex min-h-[100dvh] w-full flex-col items-center justify-center px-4 pb-28 pt-16 max-[390px]:pb-24 max-[390px]:pt-12 md:hidden">
         <motion.p
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: -12 }}
@@ -43,7 +43,7 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 16, scale: 0.94 }}
           transition={{ delay: introReady ? 0.15 : 0, duration: 0.65, ease }}
-          className="relative aspect-square w-full max-w-[280px]"
+          className="relative aspect-square w-full max-w-[220px] max-[390px]:max-w-[168px] sm:max-w-[280px]"
         >
           <Image
             src="/logo-with-text.png"
@@ -69,7 +69,7 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           transition={{ delay: introReady ? 0.5 : 0, duration: 0.5, ease }}
-          className="mt-10"
+          className="mt-6 max-[390px]:mt-4"
         >
           <Link
             href="/shop"
@@ -113,8 +113,7 @@ export function HeroLanding() {
               alt="Virtue Gems — Wear Your Virtue, Shine With Grace"
               fill
               priority
-              quality={100}
-              unoptimized
+              quality={90}
               sizes="100vw"
               className="object-cover object-center"
             />

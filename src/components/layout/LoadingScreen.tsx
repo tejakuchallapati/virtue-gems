@@ -14,6 +14,9 @@ const BRAND = "VIRTUE GEMS";
 
 function shouldShowSplash(): boolean {
   if (typeof window === "undefined") return false;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return false;
+  }
   try {
     return sessionStorage.getItem(BRAND_INTRO_KEY) !== "1";
   } catch {

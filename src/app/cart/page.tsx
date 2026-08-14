@@ -59,12 +59,12 @@ export default function CartPage() {
           <div className="space-y-4 lg:col-span-2">
             {cart.map((item, i) => (
               <ScrollReveal key={item.product.id} delay={i * 0.05}>
-                <div className={cn("flex gap-4 p-4", CARD_SURFACE)}>
+                <div className={cn("flex min-w-0 flex-col gap-3 p-4 min-[380px]:flex-row min-[380px]:gap-4", CARD_SURFACE)}>
                   <Link
                     href={`/product/${item.product.slug}`}
                     className={cn(
                       PRODUCT_IMAGE_FRAME,
-                      "h-24 w-24 shrink-0 rounded-xl sm:h-28 sm:w-28",
+                      "h-20 w-20 shrink-0 self-start rounded-xl min-[380px]:h-24 min-[380px]:w-24 sm:h-28 sm:w-28",
                     )}
                   >
                     <Image
@@ -76,11 +76,11 @@ export default function CartPage() {
                       className={PRODUCT_IMAGE_FIT}
                     />
                   </Link>
-                  <div className="flex flex-1 flex-col justify-between">
-                    <div>
+                  <div className="flex min-w-0 flex-1 flex-col justify-between gap-3">
+                    <div className="min-w-0">
                       <Link
                         href={`/product/${item.product.slug}`}
-                        className="line-clamp-2 font-medium text-dark hover:text-gold"
+                        className="line-clamp-2 break-words font-medium text-dark hover:text-gold"
                       >
                         {item.product.name}
                       </Link>
@@ -96,7 +96,7 @@ export default function CartPage() {
                             updateQuantity(item.product.id, item.quantity - 1)
                           }
                           className="flex h-11 w-11 items-center justify-center"
-                          aria-label="Decrease quantity"
+                          aria-label={`Decrease ${item.product.name} quantity`}
                         >
                           <Minus className="h-4 w-4" />
                         </button>
@@ -110,7 +110,7 @@ export default function CartPage() {
                             updateQuantity(item.product.id, item.quantity + 1)
                           }
                           className="flex h-11 w-11 items-center justify-center disabled:opacity-40"
-                          aria-label="Increase quantity"
+                          aria-label={`Increase ${item.product.name} quantity`}
                         >
                           <Plus className="h-4 w-4" />
                         </button>
@@ -118,8 +118,8 @@ export default function CartPage() {
                       <button
                         type="button"
                         onClick={() => removeFromCart(item.product.id)}
-                        className="flex h-11 w-11 items-center justify-center rounded-xl text-dark/40 hover:bg-red-50 hover:text-red-500"
-                        aria-label="Remove"
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-dark/50 hover:bg-red-50 hover:text-red-500"
+                        aria-label={`Remove ${item.product.name} from cart`}
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>

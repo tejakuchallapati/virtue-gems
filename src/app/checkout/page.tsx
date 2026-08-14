@@ -89,6 +89,8 @@ export default function CheckoutPage() {
       pincode: (formData.get("pincode") as string).trim(),
     };
 
+    const whatsappWindow = window.open("about:blank", "_blank");
+
     try {
       if (LOYALTY_ENABLED) {
         await loadAccount(form.phone);
@@ -110,6 +112,7 @@ export default function CheckoutPage() {
       });
 
       if (!orderRes.ok || !orderRes.data.order?.id) {
+        whatsappWindow?.close();
         setError(orderRes.ok ? "Could not save your order. Please try again." : orderRes.error);
         return;
       }
@@ -123,7 +126,7 @@ export default function CheckoutPage() {
         items_count: cart.length,
         transaction_id: orderId,
       });
-      trackEvent("purchase", {
+      trackEvent("order_request_created", {
         currency: "INR",
         value: finalTotalSnapshot,
         transaction_id: orderId,
@@ -169,7 +172,12 @@ export default function CheckoutPage() {
 
       const waUrl = getWhatsAppUrl(message);
       setWhatsappFallback(waUrl);
-      window.open(waUrl, "_blank");
+      if (whatsappWindow && !whatsappWindow.closed) {
+        whatsappWindow.location.href = waUrl;
+      } else {
+        window.location.assign(waUrl);
+        return;
+      }
       clearCart();
       router.push(
         LOYALTY_ENABLED
@@ -177,6 +185,7 @@ export default function CheckoutPage() {
           : `/invoice/${orderId}`,
       );
     } catch (err) {
+      whatsappWindow?.close();
       setError(
         err instanceof Error ? err.message : "Something went wrong. Please try again.",
       );
@@ -263,8 +272,8 @@ export default function CheckoutPage() {
               required
               inputMode="tel"
               autoComplete="tel"
-              pattern="[0-9+\s-]{10,15}"
-              title="Enter a valid 10-digit mobile number"
+              pattern="[0-9]{10,15}"
+              title="Enter a 10 to 15 digit mobile number"
               placeholder="10-digit mobile (e.g. 7396178039)"
               className={inputClass}
             />
@@ -325,7 +334,7 @@ export default function CheckoutPage() {
           <UnboxingVideoNotice />
 
           {error && (
-            <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
               {error}
             </p>
           )}

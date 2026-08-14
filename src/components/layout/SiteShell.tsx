@@ -40,7 +40,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <Suspense fallback={null}>
         <AnalyticsPageViews />
       </Suspense>
-      <LoadingScreen />
+      {isHome && <LoadingScreen />}
       {isHome && <LandingNavbar />}
       {!isHome && <DesktopNavbar />}
       {!isHome && <MobileHeader />}

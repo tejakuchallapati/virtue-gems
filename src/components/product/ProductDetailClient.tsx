@@ -41,6 +41,7 @@ export function ProductDetailClient({
   const [activeImage, setActiveImage] = useState(0);
   const [qty, setQty] = useState(1);
   const [zoom, setZoom] = useState(false);
+  const [addedMessage, setAddedMessage] = useState("");
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist, addRecentlyViewed } =
     useStore();
   const wished = isInWishlist(product.id);
@@ -72,6 +73,29 @@ export function ProductDetailClient({
     });
   }
 
+  function handleAddToCart() {
+    const quantity = Math.min(qty, product.stock);
+    if (quantity < 1) return;
+    addToCart(product, quantity);
+    trackAddToCart(quantity);
+    setAddedMessage(`Added ${quantity} ${product.name} to cart`);
+  }
+
+  useEffect(() => {
+    if (!addedMessage) return;
+    const timer = window.setTimeout(() => setAddedMessage(""), 2500);
+    return () => window.clearTimeout(timer);
+  }, [addedMessage]);
+
+  useEffect(() => {
+    if (!zoom) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setZoom(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [zoom]);
+
   function handleShare() {
     const msg = buildProductShareMessage(product.name, product.slug);
     if (navigator.share) {
@@ -83,7 +107,7 @@ export function ProductDetailClient({
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
-      <div className={`${PAGE_CONTENT_SHELL} pb-24 md:pb-10`}>
+      <div className={`${PAGE_CONTENT_SHELL} pb-[calc(var(--mobile-nav-offset)+5.5rem)] lg:pb-10`}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -120,6 +144,8 @@ export function ProductDetailClient({
                 key={i}
                 type="button"
                 onClick={() => setActiveImage(i)}
+                aria-label={`View image ${i + 1} of ${product.images.length}`}
+                aria-pressed={i === activeImage}
                 className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20 ${PRODUCT_IMAGE_FRAME} ring-2 transition ${
                   i === activeImage ? "ring-gold" : "ring-transparent"
                 }`}
@@ -214,11 +240,7 @@ export function ProductDetailClient({
             <button
               type="button"
               disabled={product.stock < 1}
-              onClick={() => {
-                const quantity = Math.min(qty, product.stock);
-                addToCart(product, quantity);
-                trackAddToCart(quantity);
-              }}
+              onClick={handleAddToCart}
               className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-dark py-3.5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark disabled:cursor-not-allowed disabled:opacity-50"
             >
               <ShoppingCart className="h-4 w-4" />
@@ -247,6 +269,10 @@ export function ProductDetailClient({
               <Share2 className="h-4 w-4" />
             </button>
           </div>
+
+          <p aria-live="polite" className="min-h-5 text-sm text-green-700">
+            {addedMessage}
+          </p>
 
           {VIRTUAL_TRY_ON_ENABLED && <ProductTryOnExtras product={product} />}
 
@@ -306,7 +332,7 @@ export function ProductDetailClient({
       )}
 
       {/* Mobile sticky add-to-cart bar — sits above bottom nav; nav already has safe-area */}
-      <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-4 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md md:hidden">
+      <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-4 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md lg:hidden">
         <div className="mx-auto flex max-w-lg items-center gap-3">
           <div className="min-w-0 shrink-0">
             <p className="text-base font-bold text-gold-dark">
@@ -321,11 +347,7 @@ export function ProductDetailClient({
           <button
             type="button"
             disabled={product.stock < 1}
-            onClick={() => {
-                const quantity = Math.min(qty, product.stock);
-                addToCart(product, quantity);
-                trackAddToCart(quantity);
-              }}
+            onClick={handleAddToCart}
             className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-dark text-sm font-semibold text-gold disabled:cursor-not-allowed disabled:opacity-50"
           >
             <ShoppingCart className="h-4 w-4" />

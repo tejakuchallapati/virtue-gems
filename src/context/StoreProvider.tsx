@@ -58,29 +58,18 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let cancelled = false;
+    const storedCart = getStorage<StoredCart | unknown>(STORAGE_KEYS.cart, []);
+    const cartRows = Array.isArray(storedCart) ? storedCart : [];
+    const wishlistIds = normalizeStoredIds(
+      getStorage<unknown>(STORAGE_KEYS.wishlist, []),
+    );
+    const recentIds = normalizeStoredIds(
+      getStorage<unknown>(STORAGE_KEYS.recentlyViewed, []),
+    );
 
-    async function hydrate() {
-      const lookup = new Map<string, Product>();
-
-      try {
-        const res = await fetch("/api/products");
-        if (res.ok) {
-          const data = (await res.json()) as { products?: Product[] };
-          for (const p of data.products ?? []) {
-            lookup.set(p.id, p);
-          }
-        }
-      } catch {
-        /* fall back to seed below */
-      }
-
-      const resolve = (id: string) => lookup.get(id) ?? getProductById(id);
-
-      const storedCart = getStorage<StoredCart | unknown>(STORAGE_KEYS.cart, []);
-      const cartRows = Array.isArray(storedCart) ? storedCart : [];
-
+    function applyLookup(lookup: Map<string, Product>) {
       if (cancelled) return;
-
+      const resolve = (id: string) => lookup.get(id) ?? getProductById(id);
       setCart(
         cartRows
           .map((item) => {
@@ -92,14 +81,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           })
           .filter(Boolean) as CartItem[],
       );
-
-      const wishlistIds = normalizeStoredIds(
-        getStorage<unknown>(STORAGE_KEYS.wishlist, []),
-      );
-      const recentIds = normalizeStoredIds(
-        getStorage<unknown>(STORAGE_KEYS.recentlyViewed, []),
-      );
-
       setWishlist(
         wishlistIds
           .map((id) => resolve(id))
@@ -114,9 +95,28 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       setHydrated(true);
     }
 
-    void hydrate();
+    applyLookup(new Map());
+
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 4000);
+
+    fetch("/api/products", { signal: controller.signal })
+      .then(async (res) => {
+        if (!res.ok) return;
+        const data = (await res.json()) as { products?: Product[] };
+        const lookup = new Map<string, Product>();
+        for (const product of data.products ?? []) lookup.set(product.id, product);
+        applyLookup(lookup);
+      })
+      .catch(() => {
+        /* seed/localStorage already applied */
+      })
+      .finally(() => window.clearTimeout(timeout));
+
     return () => {
       cancelled = true;
+      controller.abort();
+      window.clearTimeout(timeout);
     };
   }, []);
   useEffect(() => {
