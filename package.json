@@ -10,9 +10,12 @@
     "lint": "eslint",
     "notify:startup": "node --env-file=.env.local scripts/send-startup-email.mjs",
     "process:images": "node scripts/process-product-images.mjs",
-    "process:logo": "node scripts/process-logo.mjs"
+    "process:logo": "node scripts/process-logo.mjs",
+    "migrate:supabase": "node scripts/migrate-sqlite-to-supabase.mjs"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.4",
+    "@supabase/supabase-js": "^2.112.3",
     "@vladmandic/face-api": "^1.7.15",
     "better-sqlite3": "^12.11.1",
     "clsx": "^2.1.1",
