@@ -1,6 +1,7 @@
 # Virtue Gems
 
-A super phone-responsive jewellery e-commerce website.
+A responsive jewellery storefront with WhatsApp checkout, permanent Supabase
+data, cloud product images and a role-based admin CRM.
 
 **Repository:** https://github.com/tejakuchallapati/virtue-gems
 
@@ -13,6 +14,11 @@ The project sends automated emails to `virtuegems777@gmail.com` for:
 3. **GitHub** — every push to `main` and every pull request event
 
 ## Setup
+
+For production database/auth/storage setup, follow
+[`docs/supabase-production-setup.md`](docs/supabase-production-setup.md).
+For the complete client operating guide, see
+[`docs/client-handoff.md`](docs/client-handoff.md).
 
 ### 1. Install dependencies
 
