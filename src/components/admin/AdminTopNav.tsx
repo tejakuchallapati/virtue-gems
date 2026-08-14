@@ -14,6 +14,8 @@ import {
   Menu,
   X,
   ExternalLink,
+  ShieldCheck,
+  DatabaseBackup,
 } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,6 +30,7 @@ const links = [
   { href: "/admin/products", label: "Top Products", icon: TrendingUp },
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/orders", label: "Orders", icon: ClipboardList },
+  { href: "/admin/team", label: "Team", icon: ShieldCheck },
 ];
 
 export function AdminTopNav() {
@@ -101,6 +104,13 @@ export function AdminTopNav() {
             <ExternalLink className="h-3.5 w-3.5" />
             View Site
           </Link>
+          <a
+            href="/api/admin/export?type=backup"
+            className="hidden items-center gap-1 rounded-lg border border-light/10 px-3 py-1.5 text-xs text-light/55 transition hover:border-gold/30 hover:text-gold xl:flex"
+          >
+            <DatabaseBackup className="h-3.5 w-3.5" />
+            Backup
+          </a>
           <button
             type="button"
             onClick={logout}
