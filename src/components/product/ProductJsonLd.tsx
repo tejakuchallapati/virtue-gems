@@ -13,6 +13,8 @@ export function ProductJsonLd({ product }: Props) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
+    "@id": `${url}#product`,
+    url,
     name: product.name,
     description: product.description,
     image: images,
@@ -72,6 +74,25 @@ export function ProductJsonLd({ product }: Props) {
             bestRating: 5,
             worstRating: 1,
           }
+        : undefined,
+    review:
+      product.reviews.length > 0
+        ? product.reviews.map((review) => ({
+            "@type": "Review",
+            "@id": `${url}#review-${review.id}`,
+            author: {
+              "@type": "Person",
+              name: review.author,
+            },
+            datePublished: review.date,
+            reviewBody: review.comment,
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: review.rating,
+              bestRating: 5,
+              worstRating: 1,
+            },
+          }))
         : undefined,
   };
 

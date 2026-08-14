@@ -63,6 +63,26 @@ NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-code-from-search-console
 
 Redeploy after saving env vars.
 
+## Google customer reviews
+
+1. Create or verify the Virtue Gems
+   [Google Business Profile](https://www.google.com/business/).
+2. In the profile, choose **Ask for reviews** and copy the official review URL.
+3. Set it in local/Vercel Production:
+
+```
+NEXT_PUBLIC_GOOGLE_REVIEW_URL=https://g.page/r/your-business-id/review
+```
+
+After redeploying, the home-page customer review section displays a
+**Review Virtue Gems on Google** button. Only request honest reviews from real
+customers. Do not purchase or fabricate reviews; Google can remove them and
+lower trust in the business profile.
+
+Product pages also publish genuine saved product reviews in Product JSON-LD,
+making them eligible for Google product review enhancements when Google’s
+content and quality requirements are met.
+
 ## Tips to rank higher (beyond code)
 
 - Post weekly on Instagram (`@virtue_gems`) and link to product pages

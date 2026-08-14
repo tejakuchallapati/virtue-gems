@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { Star, Quote, Play, X } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { ExternalLink, Star, Quote, Play, X } from "lucide-react";
 import customerMedia from "@/data/customer-media.json";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { cn } from "@/lib/utils";
@@ -118,14 +118,20 @@ function MediaModal({
 export function CustomerReviews() {
   const [index, setIndex] = useState(0);
   const [activeMedia, setActiveMedia] = useState<MediaItem | null>(null);
+  const reduceMotion = useReducedMotion();
+  const googleReviewUrl =
+    process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL?.startsWith("https://")
+      ? process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL
+      : undefined;
 
   useEffect(() => {
+    if (reduceMotion) return;
     const id = setInterval(
       () => setIndex((i) => (i + 1) % textReviews.length),
       5000,
     );
     return () => clearInterval(id);
-  }, []);
+  }, [reduceMotion]);
 
   const review = textReviews[index];
 
@@ -209,6 +215,23 @@ export function CustomerReviews() {
           ))}
         </div>
       </div>
+
+      {googleReviewUrl && (
+        <div className="text-center">
+          <a
+            href={googleReviewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-gold/35 bg-white px-6 py-3 text-sm font-semibold text-gold-dark shadow-sm transition hover:border-gold hover:bg-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+          >
+            Review Virtue Gems on Google
+            <ExternalLink className="h-4 w-4" />
+          </a>
+          <p className="mt-2 text-xs text-dark/55">
+            Purchased from us? Your honest feedback helps other customers.
+          </p>
+        </div>
+      )}
 
       <AnimatePresence>
         {activeMedia && (
