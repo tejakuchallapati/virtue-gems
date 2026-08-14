@@ -4,6 +4,7 @@ import { useMemo, useRef, useState, type InputHTMLAttributes } from "react";
 import Image from "next/image";
 import { FolderUp, Trash2, X } from "lucide-react";
 import { apiFetch } from "@/lib/api-client";
+import { uploadProductImages } from "@/lib/product-upload";
 import { PRODUCT_CATEGORIES, CATEGORY_LABELS } from "@/lib/product-constants";
 import type { ProductCategory } from "@/types";
 import { ADMIN_INPUT } from "@/lib/ui-classes";
@@ -46,15 +47,23 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
   const [defaultCategory, setDefaultCategory] =
     useState<ProductCategory>("necklaces");
   const [defaultStock, setDefaultStock] = useState("10");
+  const [groupAsOne, setGroupAsOne] = useState(false);
+  const [groupName, setGroupName] = useState("");
   const [busy, setBusy] = useState(false);
   const [progress, setProgress] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [csvHint, setCsvHint] = useState("");
 
   const readyCount = useMemo(
-    () =>
-      rows.filter((r) => r.name.trim() && Number(r.price) > 0).length,
-    [rows],
+    () => {
+      if (groupAsOne) {
+        return rows.length > 0 && groupName.trim() && Number(defaultPrice) > 0
+          ? 1
+          : 0;
+      }
+      return rows.filter((r) => r.name.trim() && Number(r.price) > 0).length;
+    },
+    [rows, groupAsOne, groupName, defaultPrice],
   );
 
   if (!open) return null;
@@ -69,6 +78,8 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
     setError(null);
     setProgress("");
     setCsvHint("");
+    setGroupAsOne(false);
+    setGroupName("");
     onClose();
   }
 
@@ -90,8 +101,7 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
     }
 
     clearRows();
-    setRows(
-      images.map((file, i) => ({
+    const nextRows = images.map((file, i) => ({
         id: `${file.name}-${i}-${file.size}`,
         file,
         previewUrl: URL.createObjectURL(file),
@@ -99,8 +109,11 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
         price: defaultPrice,
         category: defaultCategory,
         stock: defaultStock,
-      })),
-    );
+      }));
+    setRows(nextRows);
+    if (!groupName) {
+      setGroupName(nextRows.find((row) => row.name)?.name ?? "");
+    }
   }
 
   function applyDefaultsToEmpty() {
@@ -197,24 +210,12 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
     const chunkSize = 5;
     for (let i = 0; i < files.length; i += chunkSize) {
       const chunk = files.slice(i, i + chunkSize);
-      setProgress(
-        `Uploading photos ${i + 1}–${Math.min(i + chunkSize, files.length)} of ${files.length}…`,
+      const uploaded = await uploadProductImages(chunk, (message) =>
+        setProgress(
+          `${message} (batch ${i + 1}–${Math.min(i + chunkSize, files.length)} of ${files.length})`,
+        ),
       );
-      const body = new FormData();
-      chunk.forEach((f) => body.append("files", f));
-      const res = await fetch("/api/admin/products/upload", {
-        method: "POST",
-        body,
-      });
-      const data = (await res.json()) as {
-        success?: boolean;
-        error?: string;
-        urls?: string[];
-      };
-      if (!res.ok || !data.success || !data.urls?.length) {
-        throw new Error(data.error || "Photo upload failed.");
-      }
-      urls.push(...data.urls);
+      urls.push(...uploaded);
     }
     return urls;
   }
@@ -224,26 +225,57 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
     setError(null);
     setProgress("");
 
-    const valid = rows.filter((r) => r.name.trim() && Number(r.price) > 0);
+    const valid = groupAsOne
+      ? rows
+      : rows.filter((r) => r.name.trim() && Number(r.price) > 0);
     if (valid.length === 0) {
       setError("Fill name and price for at least one product.");
+      setBusy(false);
+      return;
+    }
+    if (groupAsOne && (!groupName.trim() || Number(defaultPrice) <= 0)) {
+      setError("Enter the grouped product name and a valid price.");
+      setBusy(false);
+      return;
+    }
+    if (groupAsOne && rows.length > 8) {
+      setError("One product can have up to 8 photos. Remove the extras first.");
       setBusy(false);
       return;
     }
 
     try {
       const imageUrls = await uploadFiles(valid.map((r) => r.file));
-      setProgress(`Creating ${valid.length} products…`);
+      setProgress(
+        groupAsOne
+          ? "Creating one product with all photos…"
+          : `Creating ${valid.length} products…`,
+      );
 
-      const payload = valid.map((r, i) => ({
-        name: r.name.trim(),
-        description: r.name.trim(),
-        price: Number(r.price),
-        images: [imageUrls[i]],
-        category: r.category,
-        tags: ["new"],
-        stock: Math.max(0, Math.floor(Number(r.stock) || 0)),
-      }));
+      const payload = groupAsOne
+        ? [
+            {
+              name: groupName.trim(),
+              description: groupName.trim(),
+              price: Number(defaultPrice),
+              images: imageUrls,
+              category: defaultCategory,
+              tags: ["new"],
+              stock: Math.max(
+                0,
+                Math.floor(Number(defaultStock) || 0),
+              ),
+            },
+          ]
+        : valid.map((r, i) => ({
+            name: r.name.trim(),
+            description: r.name.trim(),
+            price: Number(r.price),
+            images: [imageUrls[i]],
+            category: r.category,
+            tags: ["new"],
+            stock: Math.max(0, Math.floor(Number(r.stock) || 0)),
+          }));
 
       const res = await apiFetch<{
         createdCount?: number;
@@ -278,8 +310,8 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center overflow-hidden overscroll-none bg-black/60 p-3 sm:items-center sm:p-4">
-      <div className="flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden overscroll-contain rounded-2xl bg-dark ring-1 ring-light/15">
+    <div className="safe-bottom fixed inset-0 z-[70] flex items-end justify-center overflow-hidden overscroll-none bg-black/60 p-3 sm:items-center sm:p-4">
+      <div className="flex max-h-[92dvh] w-full max-w-3xl flex-col overflow-hidden overscroll-contain rounded-2xl bg-dark ring-1 ring-light/15">
         <div className="flex items-center justify-between border-b border-light/10 px-4 py-3 sm:px-5">
           <div>
             <h2 className="text-lg font-semibold text-light">Bulk upload</h2>
@@ -363,9 +395,40 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
             </code>
           </p>
 
+          <div className="rounded-xl border border-gold/20 bg-gold/5 p-3">
+            <label className="flex cursor-pointer items-start gap-3">
+              <input
+                type="checkbox"
+                checked={groupAsOne}
+                onChange={(e) => setGroupAsOne(e.target.checked)}
+                className="mt-1 h-4 w-4 accent-gold"
+              />
+              <span>
+                <span className="block text-sm font-medium text-gold">
+                  These photos belong to one product
+                </span>
+                <span className="mt-0.5 block text-xs text-light/50">
+                  Creates one catalog item and uses every selected photo in its
+                  product gallery.
+                </span>
+              </span>
+            </label>
+            {groupAsOne && (
+              <label className="mt-3 block text-xs text-light/60">
+                Product name
+                <input
+                  value={groupName}
+                  onChange={(e) => setGroupName(e.target.value)}
+                  placeholder="e.g. Royal Antique Bridal Necklace"
+                  className={`${inputClass} mt-1`}
+                />
+              </label>
+            )}
+          </div>
+
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
             <label className="text-xs text-light/50">
-              Default price
+              {groupAsOne ? "Product price" : "Default price"}
               <input
                 value={defaultPrice}
                 onChange={(e) => setDefaultPrice(e.target.value)}
@@ -373,7 +436,7 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
               />
             </label>
             <label className="text-xs text-light/50">
-              Default stock
+              {groupAsOne ? "Product stock" : "Default stock"}
               <input
                 value={defaultStock}
                 onChange={(e) => setDefaultStock(e.target.value)}
@@ -381,7 +444,7 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
               />
             </label>
             <label className="text-xs text-light/50 sm:col-span-2">
-              Default category
+              {groupAsOne ? "Product category" : "Default category"}
               <select
                 value={defaultCategory}
                 onChange={(e) =>
@@ -417,14 +480,16 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
             </div>
           ) : (
             <div className="overflow-x-auto rounded-xl ring-1 ring-light/10">
-              <table className="w-full min-w-[640px] text-left text-sm">
+              <table
+                className={`w-full text-left text-sm ${groupAsOne ? "" : "min-w-[640px]"}`}
+              >
                 <thead>
                   <tr className="border-b border-light/10 text-xs text-light/45">
                     <th className="p-2">Photo</th>
-                    <th className="p-2">Name</th>
-                    <th className="p-2">Price ₹</th>
-                    <th className="p-2">Category</th>
-                    <th className="p-2">Stock</th>
+                    {!groupAsOne && <th className="p-2">Name</th>}
+                    {!groupAsOne && <th className="p-2">Price ₹</th>}
+                    {!groupAsOne && <th className="p-2">Category</th>}
+                    {!groupAsOne && <th className="p-2">Stock</th>}
                     <th className="p-2" />
                   </tr>
                 </thead>
@@ -446,7 +511,7 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
                           {r.file.name}
                         </p>
                       </td>
-                      <td className="p-2">
+                      {!groupAsOne && <td className="p-2">
                         <input
                           value={r.name}
                           onChange={(e) =>
@@ -455,8 +520,8 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
                           placeholder="Product name"
                           className={inputClass}
                         />
-                      </td>
-                      <td className="p-2">
+                      </td>}
+                      {!groupAsOne && <td className="p-2">
                         <input
                           type="number"
                           min={0}
@@ -466,8 +531,8 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
                           }
                           className={inputClass}
                         />
-                      </td>
-                      <td className="p-2">
+                      </td>}
+                      {!groupAsOne && <td className="p-2">
                         <select
                           value={r.category}
                           onChange={(e) =>
@@ -483,8 +548,8 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
                             </option>
                           ))}
                         </select>
-                      </td>
-                      <td className="p-2">
+                      </td>}
+                      {!groupAsOne && <td className="p-2">
                         <input
                           type="number"
                           min={0}
@@ -494,7 +559,7 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
                           }
                           className={inputClass}
                         />
-                      </td>
+                      </td>}
                       <td className="p-2">
                         <button
                           type="button"
@@ -520,7 +585,12 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
 
         <div className="flex flex-wrap items-center justify-between gap-2 border-t border-light/10 px-4 py-3 sm:px-5">
           <p className="text-xs text-light/45">
-            {rows.length} photo(s) · {readyCount} ready (name + price)
+            {rows.length} photo(s) ·{" "}
+            {groupAsOne
+              ? readyCount
+                ? "ready to create 1 product gallery"
+                : "add a product name and price"
+              : `${readyCount} ready (name + price)`}
           </p>
           <div className="flex gap-2">
             <button
@@ -536,7 +606,9 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
               onClick={() => void createAll()}
               className="rounded-xl bg-gold px-4 py-2 text-sm font-semibold text-dark disabled:opacity-50"
             >
-              {busy ? "Working…" : `Create ${readyCount} products`}
+              {busy
+                ? "Working…"
+                : `Create ${readyCount} ${readyCount === 1 ? "product" : "products"}`}
             </button>
           </div>
         </div>

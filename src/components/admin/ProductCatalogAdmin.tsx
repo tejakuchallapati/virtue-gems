@@ -20,6 +20,7 @@ import {
   PRODUCT_TAGS,
 } from "@/lib/product-constants";
 import { formatPrice } from "@/lib/utils";
+import { uploadProductImages } from "@/lib/product-upload";
 import {
   ADMIN_INPUT,
   ADMIN_SEARCH,
@@ -175,36 +176,24 @@ export function AdminCatalogManager({
     setUploading(true);
     setError(null);
 
-    const body = new FormData();
-    Array.from(files)
-      .slice(0, 6)
-      .forEach((file) => body.append("files", file));
-
     try {
-      const res = await fetch("/api/admin/products/upload", {
-        method: "POST",
-        body,
-      });
-      const data = (await res.json()) as {
-        success?: boolean;
-        error?: string;
-        urls?: string[];
-      };
-
-      if (!res.ok || !data.success || !data.urls?.length) {
-        setError(data.error || "Photo upload failed.");
-        setUploading(false);
-        return;
-      }
+      const availableSlots = Math.max(0, 8 - form.imageUrls.length);
+      const urls = await uploadProductImages(
+        Array.from(files).slice(0, availableSlots),
+      );
 
       setForm((prev) => ({
         ...prev,
         // New uploads become the main cover photo (first in list)
-        imageUrls: [...data.urls!, ...prev.imageUrls].slice(0, 8),
+        imageUrls: [...urls, ...prev.imageUrls].slice(0, 8),
       }));
       setPreviewIndex(0);
-    } catch {
-      setError("Photo upload failed. Check your connection.");
+    } catch (uploadError) {
+      setError(
+        uploadError instanceof Error
+          ? uploadError.message
+          : "Photo upload failed. Check your connection.",
+      );
     }
 
     setUploading(false);
@@ -373,7 +362,7 @@ export function AdminCatalogManager({
         <p className="mt-3 text-sm text-red-400">{error}</p>
       )}
 
-      <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      <div className="mt-6 grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:gap-4 lg:grid-cols-4">
         {liveProducts.map((p) => (
           <div
             key={p.id}
@@ -462,7 +451,7 @@ export function AdminCatalogManager({
         {deletedProducts.length === 0 ? (
           <p className="text-sm text-light/35">No hidden products.</p>
         ) : (
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:gap-4 lg:grid-cols-4">
             {deletedProducts.map((p) => (
               <div
                 key={p.id}
@@ -531,8 +520,8 @@ export function AdminCatalogManager({
       </section>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center overflow-hidden overscroll-none bg-black/60 p-4 sm:items-center">
-          <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto overscroll-contain rounded-2xl bg-dark p-5 ring-1 ring-light/15">
+        <div className="safe-bottom fixed inset-0 z-[70] flex items-end justify-center overflow-hidden overscroll-none bg-black/60 p-3 sm:items-center sm:p-4">
+          <div className="max-h-[90dvh] w-full max-w-lg overflow-y-auto overscroll-contain rounded-2xl bg-dark p-4 ring-1 ring-light/15 sm:p-5">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-light">
                 {editingId ? "Edit product" : "Add product"}
@@ -747,7 +736,7 @@ export function AdminCatalogManager({
       )}
       {preview && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overscroll-none bg-black/90 p-3 sm:p-6"
+          className="safe-x safe-top safe-bottom fixed inset-0 z-[70] flex items-center justify-center overflow-y-auto overscroll-none bg-black/90 p-3 sm:p-6"
           onClick={() => setPreview(null)}
           role="dialog"
           aria-modal="true"
