@@ -43,7 +43,8 @@ export type OrderStatus =
   | "confirmed"
   | "paid"
   | "shipped"
-  | "delivered";
+  | "delivered"
+  | "cancelled";
 
 export type Order = {
   id: string;
@@ -56,6 +57,62 @@ export type Order = {
   items: { productId: string; name: string; quantity: number; price: number }[];
   total: number;
   status: OrderStatus;
+  createdAt: string;
+  statusHistory?: OrderStatusEvent[];
+};
+
+export type AdminRole = "owner" | "admin" | "staff";
+
+export type AdminProfile = {
+  id: string;
+  email: string;
+  displayName?: string;
+  role: AdminRole;
+  active: boolean;
+};
+
+export type Customer = {
+  id: string;
+  phone: string;
+  name: string;
+  email?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  pincode?: string;
+  totalOrders: number;
+  totalSpent: number;
+  lastOrderAt?: string;
+  createdAt: string;
+};
+
+export type CustomerNote = {
+  id: string;
+  customerId: string;
+  note: string;
+  createdBy?: string;
+  createdAt: string;
+};
+
+export type FollowUpReminder = {
+  id: string;
+  customerId?: string;
+  orderId?: string;
+  title: string;
+  details?: string;
+  dueAt: string;
+  completedAt?: string;
+  assignedTo?: string;
+  createdAt: string;
+};
+
+export type OrderStatusEvent = {
+  id: string;
+  orderId: string;
+  fromStatus?: OrderStatus;
+  toStatus: OrderStatus;
+  note?: string;
+  changedBy?: string;
   createdAt: string;
 };
 

@@ -6,6 +6,7 @@ export const ORDER_STATUSES: OrderStatus[] = [
   "paid",
   "shipped",
   "delivered",
+  "cancelled",
 ];
 
 export const ORDER_STATUS_LABELS: Record<OrderStatus, string> = {
@@ -14,6 +15,7 @@ export const ORDER_STATUS_LABELS: Record<OrderStatus, string> = {
   paid: "Paid",
   shipped: "Shipped",
   delivered: "Delivered",
+  cancelled: "Cancelled",
 };
 
 const LEGACY_STATUS_MAP: Record<string, OrderStatus> = {
