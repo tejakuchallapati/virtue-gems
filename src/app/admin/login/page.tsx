@@ -17,12 +17,14 @@ export default function AdminLoginPage() {
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setNotice("");
     try {
       if (useSupabase) {
         const supabase = createSupabaseBrowserClient();
@@ -50,6 +52,7 @@ export default function AdminLoginPage() {
           return;
         }
         setOtpSent(true);
+        setNotice(`OTP sent to ${email.trim()}. It expires in 10 minutes.`);
         return;
       }
 
@@ -64,6 +67,31 @@ export default function AdminLoginPage() {
       }
       router.replace("/admin");
       router.refresh();
+    } catch {
+      setError("Could not reach the login service. Check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function resendOtp() {
+    setLoading(true);
+    setError("");
+    setNotice("");
+    setOtp("");
+    try {
+      const res = await apiFetch("/api/admin/otp/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      if (!res.ok) {
+        setError(res.error);
+        return;
+      }
+      setNotice("A new OTP was sent. The previous code is no longer valid.");
+    } catch {
+      setError("Could not resend the OTP. Check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -115,9 +143,10 @@ export default function AdminLoginPage() {
                 type="email"
                 autoComplete="email"
                 required
+                disabled={!useSupabase && otpSent}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-base text-white outline-none focus:border-gold"
+                className="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-base text-white outline-none focus:border-gold disabled:cursor-not-allowed disabled:opacity-60"
               />
             </div>
 
@@ -152,9 +181,11 @@ export default function AdminLoginPage() {
                 <input
                   id="otp"
                   inputMode="numeric"
+                  autoComplete="one-time-code"
                   pattern="[0-9]{6}"
                   maxLength={6}
                   required
+                  autoFocus
                   value={otp}
                   onChange={(e) =>
                     setOtp(e.target.value.replace(/\D/g, ""))
@@ -169,19 +200,53 @@ export default function AdminLoginPage() {
                 {error}
               </p>
             )}
+            {notice && (
+              <p role="status" className="rounded-lg bg-gold/10 px-3 py-2 text-sm text-gold">
+                {notice}
+              </p>
+            )}
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || (!useSupabase && otpSent && otp.length !== 6)}
               className="min-h-12 w-full rounded-xl bg-gradient-to-r from-gold to-gold-light px-4 font-semibold text-dark disabled:opacity-60"
             >
               {loading
-                ? "Signing in…"
+                ? useSupabase
+                  ? "Signing in…"
+                  : otpSent
+                    ? "Verifying…"
+                    : "Sending OTP…"
                 : useSupabase
                   ? "Sign in"
                   : otpSent
                     ? "Verify and sign in"
                     : "Send OTP"}
             </button>
+            {!useSupabase && otpSent && (
+              <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
+                <button
+                  type="button"
+                  disabled={loading}
+                  onClick={() => void resendOtp()}
+                  className="text-gold/85 underline-offset-4 hover:text-gold hover:underline disabled:opacity-50"
+                >
+                  Resend OTP
+                </button>
+                <button
+                  type="button"
+                  disabled={loading}
+                  onClick={() => {
+                    setOtpSent(false);
+                    setOtp("");
+                    setError("");
+                    setNotice("");
+                  }}
+                  className="text-white/55 underline-offset-4 hover:text-white hover:underline disabled:opacity-50"
+                >
+                  Use another email
+                </button>
+              </div>
+            )}
           </form>
         </div>
       </div>
