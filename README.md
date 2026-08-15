@@ -96,15 +96,21 @@ Before going live (or after connecting a custom domain on Vercel), set these in 
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp checkout number |
 | `NEXT_PUBLIC_UPI_ID` | UPI ID for payment replies |
 | `SMTP_*` / `NOTIFY_EMAIL` | Contact form & order emails |
-| `OTP_SECRET` / `ADMIN_EMAIL` | Admin login |
+| `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Production data and admin sessions |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only database administration |
+| `OTP_SECRET` / `ADMIN_EMAIL` | Local fallback login before Supabase setup |
 
-Run `npm run build` locally to verify before deploy. Orders and loyalty data live in `data/virtue-gems.db` (SQLite).
+Run `npm run build` locally to verify before deploy. Supabase is the production
+source of truth; `data/virtue-gems.db` is retained only for local fallback and
+the one-time migration.
 
 **Custom domain tip:** Apex (`virtuegems.com`) redirects to **www**. Set `NEXT_PUBLIC_SITE_URL=https://www.virtuegems.com` in Vercel so invoices, sitemap, and WhatsApp links never use a `*.vercel.app` preview host.
 
-## Phase 2 roadmap
+## Future roadmap
 
-See [docs/phase-2/README.md](./docs/phase-2/README.md) for the post-launch plan (Razorpay, auth, admin CRUD, PostgreSQL).
+Supabase auth, admin CRUD and PostgreSQL are implemented. Remaining optional
+work includes Razorpay and other enhancements in
+[`docs/phase-2/README.md`](./docs/phase-2/README.md).
 
 ## SEO & Google ranking
 
@@ -115,4 +121,5 @@ See [docs/seo.md](./docs/seo.md) for Search Console setup, sitemap checks, and r
 - Next.js (App Router)
 - TypeScript
 - Tailwind CSS
+- Supabase Postgres, Auth and Storage
 - Nodemailer (Gmail SMTP)

@@ -5,6 +5,14 @@
 Virtue Gems is a responsive jewellery storefront with a WhatsApp-first checkout
 and an authenticated CRM/admin portal.
 
+### Current local mode (before Supabase setup)
+
+- Products and orders use the local SQLite database.
+- Admin login sends an OTP only to `ADMIN_EMAIL`.
+- Uploaded product photos are saved locally.
+- This mode is suitable for local testing, not permanent Vercel production
+  storage. Do not hand over multi-admin credentials until Supabase is enabled.
+
 ### Customer storefront
 
 1. Customer browses Home or Shop.

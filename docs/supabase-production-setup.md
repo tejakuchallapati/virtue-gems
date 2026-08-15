@@ -23,6 +23,9 @@ NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET=product-images
 ```
 
 Never commit `.env.local` or expose `SUPABASE_SERVICE_ROLE_KEY` in browser code.
+Use the project URL, the public/anon (or publishable) key, and the secret
+service-role key from the same project. Placeholder values are intentionally
+ignored so local OTP mode continues to work.
 
 ## 3. Migrate existing SQLite data and create the owner
 
@@ -52,6 +55,14 @@ The migration is safe to rerun. It:
 After a successful migration, remove `INITIAL_ADMIN_PASSWORD` from
 `.env.local`. Sign in at `/admin/login` and change/manage team access from
 **Admin → Team**.
+
+Create the requested team from **Admin → Team**:
+
+1. Keep the migrated account as **Owner**.
+2. Create the second account with role **Admin**.
+3. Create the third account with role **Admin**.
+4. Give each person a unique temporary password through a private channel.
+5. Never put admin passwords in source code, documentation, or chat history.
 
 ## 4. Configure Vercel
 

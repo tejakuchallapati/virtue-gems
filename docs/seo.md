@@ -97,3 +97,5 @@ content and quality requirements are met.
 - [ ] https://www.virtuegems.com/sitemap.xml shows `www.virtuegems.com` URLs (not `*.vercel.app`)
 - [ ] https://www.virtuegems.com/robots.txt Sitemap line uses `www.virtuegems.com`
 - [ ] Search Console sitemap status becomes **Success**
+- [ ] Home-page Google review button opens the official Virtue Gems review form
+- [ ] Product pages pass Google Rich Results Test without review-schema errors

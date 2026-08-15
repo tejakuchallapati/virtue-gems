@@ -1,26 +1,21 @@
-# Phase 2 — PostgreSQL Migration
+# PostgreSQL migration status
 
 ## Current
 
-- SQLite at `data/virtue-gems.db`
-- JSON backup sync for orders/loyalty
+- Supabase Postgres is implemented for production products, orders, customers,
+  CRM notes, reminders, status history and admin profiles.
+- Supabase Storage is implemented for product photos.
+- SQLite at `data/virtue-gems.db` remains a local fallback and migration source.
 
-## When to migrate
+## Production setup
 
-- Deploying to Vercel serverless with multiple instances (SQLite file locking)
-- Need concurrent writes at scale
-- Client wants hosted DB backups (Supabase, Neon, RDS)
+Follow [`../supabase-production-setup.md`](../supabase-production-setup.md).
 
-## Steps
+The one-time migration command is:
 
-1. Choose provider (Neon serverless Postgres recommended for Next.js)
-2. Mirror schema from `src/lib/db/schema.ts`
-3. Dual-write period or one-time migration script
-4. Swap `getDb()` for `pg` / Drizzle / Prisma client
-5. Keep JSON export as disaster backup
-
-## Env
-
+```bash
+npm run migrate:supabase
 ```
-DATABASE_URL=postgresql://...
-```
+
+Do not configure `DATABASE_URL`; this project uses Supabase URL and API keys
+documented in `.env.example`.
