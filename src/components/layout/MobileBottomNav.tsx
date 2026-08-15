@@ -54,7 +54,7 @@ export function MobileBottomNav() {
 
             const className = cn(
               "relative flex min-h-12 flex-1 flex-col items-center justify-center gap-0.5 py-1.5 active:scale-95",
-              active ? "text-gold" : item.external ? "text-[#25D366]" : "text-light/55",
+              active ? "text-gold" : item.external ? "text-[#25D366]" : "text-light/75",
             );
 
             const inner = (
