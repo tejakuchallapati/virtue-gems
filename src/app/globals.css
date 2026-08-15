@@ -54,6 +54,12 @@ body {
   overscroll-behavior-x: none;
 }
 
+/* Consistent keyboard focus without adding rings to pointer interactions. */
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
 /* Modal / filter overlay lock — body class only */
 body.scroll-locked {
   overflow: hidden;
