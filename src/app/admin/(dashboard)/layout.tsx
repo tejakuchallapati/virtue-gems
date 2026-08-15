@@ -3,6 +3,7 @@ import { ADMIN_SHELL_BG } from "@/lib/ui-classes";
 
 export const metadata = {
   title: "Admin Dashboard",
+  robots: { index: false, follow: false },
 };
 
 export default function AdminDashboardLayout({
@@ -12,8 +13,20 @@ export default function AdminDashboardLayout({
 }) {
   return (
     <div className={`min-h-screen ${ADMIN_SHELL_BG} text-light`}>
+      <a
+        href="#admin-main"
+        className="fixed left-3 top-3 z-[120] -translate-y-20 rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-dark shadow-lg transition-transform focus:translate-y-0"
+      >
+        Skip to dashboard
+      </a>
       <AdminTopNav />
-      <main className="mx-auto max-w-7xl p-4 lg:p-8">{children}</main>
+      <main
+        id="admin-main"
+        tabIndex={-1}
+        className="mx-auto max-w-7xl p-4 lg:p-8"
+      >
+        {children}
+      </main>
     </div>
   );
 }
