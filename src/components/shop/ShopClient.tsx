@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
@@ -75,6 +75,7 @@ function CategoryFilters({
       <button
         type="button"
         onClick={() => onSelect("")}
+        aria-pressed={!category}
         className={`shrink-0 min-h-11 rounded-full px-4 py-2.5 text-sm font-medium transition ${
           !category
             ? isHero
@@ -92,6 +93,7 @@ function CategoryFilters({
           key={c.value}
           type="button"
           onClick={() => onSelect(c.value)}
+          aria-pressed={category === c.value}
           className={`shrink-0 min-h-11 rounded-full px-4 py-2.5 text-sm font-medium transition ${
             category === c.value
               ? isHero
@@ -117,16 +119,22 @@ export function ShopClient({ products }: { products: Product[] }) {
   const [search, setSearch] = useState("");
   const [priceIdx, setPriceIdx] = useState(0);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const closeFilterRef = useRef<HTMLButtonElement>(null);
 
   useBodyScrollLock(filtersOpen);
 
   useEffect(() => {
     if (!filtersOpen) return;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    closeFilterRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setFiltersOpen(false);
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      previousFocus?.focus();
+    };
   }, [filtersOpen]);
 
   const category = (searchParams.get("category") ?? "") as ProductCategory | "";
@@ -215,7 +223,11 @@ export function ShopClient({ products }: { products: Product[] }) {
           <div className="mt-6 flex gap-2">
             <div className="relative flex-1">
               <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-dark/40" />
+              <label htmlFor="shop-search" className="sr-only">
+                Search jewellery
+              </label>
               <input
+                id="shop-search"
                 type="search"
                 placeholder="Search necklaces, rings, earrings..."
                 value={search}
@@ -226,6 +238,8 @@ export function ShopClient({ products }: { products: Product[] }) {
             <button
               type="button"
               onClick={() => setFiltersOpen(!filtersOpen)}
+              aria-expanded={filtersOpen}
+              aria-controls="shop-filters"
               className="flex items-center gap-2 rounded-2xl border border-gold/30 bg-gold/10 px-4 py-3.5 text-sm font-medium text-gold backdrop-blur-sm lg:hidden"
             >
               <SlidersHorizontal className="h-4 w-4" />
@@ -302,6 +316,10 @@ export function ShopClient({ products }: { products: Product[] }) {
         <div className="flex gap-8">
           {/* Sidebar */}
           <aside
+            id="shop-filters"
+            role={filtersOpen ? "dialog" : undefined}
+            aria-modal={filtersOpen ? true : undefined}
+            aria-label={filtersOpen ? "Shop filters" : undefined}
             className={`${
               filtersOpen
                 ? "safe-top safe-bottom fixed inset-0 z-[70] flex flex-col overflow-hidden bg-white p-4 pt-14 pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
@@ -310,6 +328,7 @@ export function ShopClient({ products }: { products: Product[] }) {
           >
             {filtersOpen && (
               <button
+                ref={closeFilterRef}
                 type="button"
                 onClick={() => setFiltersOpen(false)}
                 className="absolute right-3 top-[calc(0.75rem+env(safe-area-inset-top))] z-10 flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark lg:hidden"
@@ -362,6 +381,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                       key={t.value}
                       type="button"
                       onClick={() => updateQuery("tag", t.value)}
+                      aria-pressed={tag === t.value}
                       className={`rounded-xl px-3 py-2 text-left text-sm transition ${
                         tag === t.value
                           ? "bg-gold/15 font-medium text-gold-dark"
@@ -384,6 +404,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                       key={r.label}
                       type="button"
                       onClick={() => setPriceIdx(i)}
+                      aria-pressed={priceIdx === i}
                       className={`rounded-xl px-3 py-2 text-left text-sm transition ${
                         priceIdx === i
                           ? "bg-gold/15 font-medium text-gold-dark"
@@ -411,7 +432,7 @@ export function ShopClient({ products }: { products: Product[] }) {
           {/* Product grid */}
           <div className="min-w-0 flex-1">
             <div className="mb-5 flex items-center justify-between">
-              <p className="text-sm text-dark/55">
+              <p className="text-sm text-dark/55" role="status" aria-live="polite">
                 Showing{" "}
                 <span className="font-semibold text-dark">{filtered.length}</span>{" "}
                 {filtered.length === 1 ? "piece" : "pieces"}
