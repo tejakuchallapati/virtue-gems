@@ -113,7 +113,11 @@ export function ProductCard({ product }: { product: Product }) {
             </button>
             <button
               type="button"
-              aria-label={product.stock < 1 ? "Out of stock" : "Add to cart"}
+              aria-label={
+                product.stock < 1
+                  ? `${product.name} is out of stock`
+                  : `Add ${product.name} to cart`
+              }
               disabled={product.stock < 1}
               onClick={handleAddToCart}
               className={cn(
@@ -129,6 +133,9 @@ export function ProductCard({ product }: { product: Product }) {
               </span>
             </button>
           </div>
+          <span className="sr-only" role="status" aria-live="polite">
+            {added ? `${product.name} added to cart` : ""}
+          </span>
         </div>
       </div>
     </article>
