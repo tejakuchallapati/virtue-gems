@@ -36,6 +36,12 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative w-full max-w-full">
+      <a
+        href="#main-content"
+        className="fixed left-3 top-3 z-[120] -translate-y-20 rounded-lg bg-dark px-4 py-2 text-sm font-semibold text-gold shadow-lg transition-transform focus:translate-y-0"
+      >
+        Skip to main content
+      </a>
       <GoogleAnalytics />
       <Suspense fallback={null}>
         <AnalyticsPageViews />
@@ -45,6 +51,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       {!isHome && <DesktopNavbar />}
       {!isHome && <MobileHeader />}
       <main
+        id="main-content"
+        tabIndex={-1}
         className={
           isHome
             ? "min-h-dvh w-full"
