@@ -64,7 +64,7 @@ export function OrderInvoice({ order, className = "" }: OrderInvoiceProps) {
       </div>
 
       {/* Items table */}
-      <div className="px-4">
+      <div className="overflow-x-auto px-4">
         <table className="w-full border-collapse text-[11px]">
           <thead>
             <tr className="bg-[#1a0a2e] text-left text-white">
@@ -80,11 +80,11 @@ export function OrderInvoice({ order, className = "" }: OrderInvoiceProps) {
               <tr key={`${item.productId}-${i}`} className="border-b border-gray-100">
                 <td className="px-2 py-2 text-dark/60">{i + 1}</td>
                 <td className="px-2 py-2 font-medium text-dark">{item.name}</td>
-                <td className="px-2 py-2 text-right text-dark/80">
+                <td className="whitespace-nowrap px-2 py-2 text-right text-dark/80">
                   {formatPrice(item.price)}
                 </td>
                 <td className="px-2 py-2 text-center text-dark/80">{item.quantity}</td>
-                <td className="px-2 py-2 text-right font-medium text-dark">
+                <td className="whitespace-nowrap px-2 py-2 text-right font-medium text-dark">
                   {formatPrice(item.price * item.quantity)}
                 </td>
               </tr>
