@@ -142,7 +142,7 @@ export function CustomerCrm({
             Order history, notes, WhatsApp follow-ups and reminders.
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <a
             href="/api/admin/export?type=customers"
             className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-gold/25 px-3 text-xs text-gold"
@@ -216,7 +216,7 @@ export function CustomerCrm({
             <div className="space-y-5">
               <div className="rounded-2xl bg-dark-soft p-5 ring-1 ring-light/10">
                 <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
+                  <div className="min-w-0">
                     <h2 className="text-xl font-semibold text-light">
                       {selected.name}
                     </h2>
