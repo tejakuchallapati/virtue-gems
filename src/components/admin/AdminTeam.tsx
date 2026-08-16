@@ -125,7 +125,7 @@ export function AdminTeam({ initialAdmins }: { initialAdmins: AdminProfile[] }) 
                   {admin.email}
                 </p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2 sm:shrink-0">
                 <select
                   value={admin.role}
                   onChange={(e) =>
