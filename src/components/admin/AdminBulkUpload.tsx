@@ -385,7 +385,7 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
             />
           </div>
 
-          <p className="text-[11px] text-light/40">
+          <p className="text-[11px] break-all text-light/40">
             CSV format (optional):{" "}
             <code className="text-gold/70">filename,name,price,category</code>
             <br />
@@ -426,7 +426,7 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <div className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-2 sm:grid-cols-4">
             <label className="text-xs text-light/50">
               {groupAsOne ? "Product price" : "Default price"}
               <input

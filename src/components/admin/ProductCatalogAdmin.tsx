@@ -564,7 +564,7 @@ export function AdminCatalogManager({
                   className={inputClass}
                 />
               </Field>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2">
                 <Field label="Price (₹)">
                   <input
                     type="number"
@@ -586,7 +586,7 @@ export function AdminCatalogManager({
                   />
                 </Field>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2">
                 <Field label="Stock">
                   <input
                     type="number"
@@ -714,7 +714,7 @@ export function AdminCatalogManager({
 
             {error && <p className="mt-3 text-sm text-red-400">{error}</p>}
 
-            <div className="mt-5 flex justify-end gap-2">
+            <div className="mt-5 flex flex-wrap justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setOpen(false)}
