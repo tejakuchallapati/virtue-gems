@@ -33,6 +33,13 @@
   box-sizing: border-box;
 }
 
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 4.5rem;
@@ -52,6 +59,8 @@ body {
   /* Only clip horizontal bleed — never set overflow-y on html/body (breaks mobile scroll) */
   overflow-x: clip;
   overscroll-behavior-x: none;
+  /* Order ids, pasted addresses and product names arrive without spaces */
+  overflow-wrap: break-word;
 }
 
 /* Consistent keyboard focus without adding rings to pointer interactions. */
