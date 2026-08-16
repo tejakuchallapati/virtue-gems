@@ -221,7 +221,7 @@ export function ShopClient({ products }: { products: Product[] }) {
 
           {/* Search */}
           <div className="mt-6 flex gap-2">
-            <div className="relative flex-1">
+            <div className="relative min-w-0 flex-1">
               <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-dark/40" />
               <label htmlFor="shop-search" className="sr-only">
                 Search jewellery
@@ -240,7 +240,7 @@ export function ShopClient({ products }: { products: Product[] }) {
               onClick={() => setFiltersOpen(!filtersOpen)}
               aria-expanded={filtersOpen}
               aria-controls="shop-filters"
-              className="flex items-center gap-2 rounded-2xl border border-gold/30 bg-gold/10 px-4 py-3.5 text-sm font-medium text-gold backdrop-blur-sm lg:hidden"
+              className="flex shrink-0 items-center gap-2 rounded-2xl border border-gold/30 bg-gold/10 px-4 py-3.5 text-sm font-medium text-gold backdrop-blur-sm lg:hidden"
             >
               <SlidersHorizontal className="h-4 w-4" />
               Filters
@@ -299,7 +299,7 @@ export function ShopClient({ products }: { products: Product[] }) {
               </span>
             )}
             {search && (
-              <span className="rounded-full bg-gold/15 px-3 py-1 text-xs font-medium text-gold-dark">
+              <span className="max-w-full truncate rounded-full bg-gold/15 px-3 py-1 text-xs font-medium text-gold-dark">
                 &ldquo;{search}&rdquo;
               </span>
             )}
