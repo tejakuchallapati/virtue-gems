@@ -209,9 +209,9 @@ export function ProductDetailClient({
             {product.longDescription}
           </p>
 
-          <div className="mt-6 flex items-center gap-3">
+          <div className="mt-6 flex flex-wrap items-center gap-3">
             <span className="text-sm text-dark/60">Qty</span>
-            <div className="flex items-center rounded-xl border border-light-muted">
+            <div className="flex shrink-0 items-center rounded-xl border border-light-muted">
               <button
                 type="button"
                 onClick={() => setQty(Math.max(1, qty - 1))}
