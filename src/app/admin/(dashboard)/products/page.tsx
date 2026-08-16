@@ -34,47 +34,47 @@ export default async function TopProductsPage() {
     <div>
       <h1 className="text-2xl font-semibold text-light">Top Products</h1>
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl bg-dark-soft p-5 ring-1 ring-light/10">
+        <div className="min-w-0 rounded-2xl bg-dark-soft p-5 ring-1 ring-light/10">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">
             Best Selling
           </h2>
           <ul className="space-y-3">
             {bestSelling.slice(0, 5).map((p, i) => (
-              <li key={p.id} className="flex items-center justify-between text-sm">
-                <span className="text-light/70">
+              <li key={p.id} className="flex items-center justify-between gap-3 text-sm">
+                <span className="min-w-0 truncate text-light/70">
                   {i + 1}. {p.name}
                 </span>
-                <span className="text-light/50">
+                <span className="shrink-0 text-light/50">
                   {sales.get(p.id)?.quantity ?? 0} sold
                 </span>
               </li>
             ))}
           </ul>
         </div>
-        <div className="rounded-2xl bg-dark-soft p-5 ring-1 ring-light/10">
+        <div className="min-w-0 rounded-2xl bg-dark-soft p-5 ring-1 ring-light/10">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">
             Highest Rated
           </h2>
           <ul className="space-y-3">
             {mostViewed.slice(0, 5).map((p, i) => (
-              <li key={p.id} className="flex items-center justify-between text-sm">
-                <span className="text-light/70">
+              <li key={p.id} className="flex items-center justify-between gap-3 text-sm">
+                <span className="min-w-0 truncate text-light/70">
                   {i + 1}. {p.name}
                 </span>
-                <span className="text-gold">{p.rating} ★</span>
+                <span className="shrink-0 text-gold">{p.rating} ★</span>
               </li>
             ))}
           </ul>
         </div>
-        <div className="rounded-2xl bg-dark-soft p-5 ring-1 ring-light/10 lg:col-span-2">
+        <div className="min-w-0 rounded-2xl bg-dark-soft p-5 ring-1 ring-light/10 lg:col-span-2">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">
             Revenue Leaders
           </h2>
           <ul className="space-y-3">
             {revenueLeaders.slice(0, 5).map((p) => (
-              <li key={p.id} className="flex items-center justify-between text-sm">
-                <span className="text-light/70">{p.name}</span>
-                <span className="text-gold">
+              <li key={p.id} className="flex items-center justify-between gap-3 text-sm">
+                <span className="min-w-0 truncate text-light/70">{p.name}</span>
+                <span className="shrink-0 text-gold">
                   {formatPrice(sales.get(p.id)?.revenue ?? 0)}
                 </span>
               </li>
