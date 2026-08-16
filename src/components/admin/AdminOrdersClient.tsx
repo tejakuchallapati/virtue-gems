@@ -125,7 +125,7 @@ function OrderTable({
           {items.map((o) => (
             <div key={o.id} className="rounded-xl bg-dark p-4">
               <div className="flex flex-wrap items-start justify-between gap-2">
-                <div>
+                <div className="min-w-0">
                   <p className="font-medium text-gold">{o.id}</p>
                   <p className="text-sm text-light/70">
                     {o.customerName} · {o.phone}
@@ -135,7 +135,7 @@ function OrderTable({
                   </p>
                   <p className="text-xs text-light/40">{formatDate(o.createdAt)}</p>
                 </div>
-                <p className="text-lg font-semibold text-light">
+                <p className="shrink-0 text-lg font-semibold text-light">
                   {formatPrice(o.total)}
                 </p>
               </div>
