@@ -387,9 +387,11 @@ export default function CheckoutPage() {
               </div>
             )}
             {LOYALTY_ENABLED && redemption?.type === "free_item" && (
-              <div className="flex justify-between text-gold-dark">
-                <span>Free reward</span>
-                <span>{redemption.freeItemLabel}</span>
+              <div className="flex justify-between gap-3 text-gold-dark">
+                <span className="shrink-0">Free reward</span>
+                <span className="min-w-0 break-words text-right">
+                  {redemption.freeItemLabel}
+                </span>
               </div>
             )}
             <div className="flex justify-between text-lg font-semibold">
