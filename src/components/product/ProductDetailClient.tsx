@@ -99,10 +99,17 @@ export function ProductDetailClient({
   function handleShare() {
     const msg = buildProductShareMessage(product.name, product.slug);
     if (navigator.share) {
-      navigator.share({ title: product.name, text: msg, url: window.location.href });
-    } else {
-      window.open(getWhatsAppUrl(msg), "_blank");
+      void navigator.share({
+        title: product.name,
+        text: msg,
+        url: window.location.href,
+      }).catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        window.open(getWhatsAppUrl(msg), "_blank");
+      });
+      return;
     }
+    window.open(getWhatsAppUrl(msg), "_blank");
   }
 
   return (
