@@ -14,7 +14,7 @@ export function MobileHeader() {
   if (pathname.startsWith("/admin") || pathname === "/") return null;
 
   return (
-    <header className="safe-top safe-x sticky top-0 z-[60] w-full overflow-hidden border-b border-gold/20 bg-gradient-to-r from-[#1a0a2e] via-[#12061f] to-[#1a0a2e] md:hidden">
+    <header className="safe-top safe-x sticky top-0 z-[60] w-full border-b border-gold/20 bg-gradient-to-r from-[#1a0a2e] via-[#12061f] to-[#1a0a2e] md:hidden">
       <div className="h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
       <div className="relative flex h-12 w-full items-center justify-between px-2">

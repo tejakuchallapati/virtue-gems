@@ -76,7 +76,7 @@ export function LandingNavbar() {
       */}
       <header
         className={cn(
-          "safe-top safe-x fixed inset-x-0 top-0 z-[60] w-full overflow-hidden md:hidden",
+          "safe-top safe-x fixed inset-x-0 top-0 z-[60] w-full md:hidden",
           scrolled
             ? "border-b border-gold/20 bg-[#1a0a2e]/95 backdrop-blur-lg"
             : "bg-gradient-to-b from-[#1a0a2e]/90 to-transparent",
