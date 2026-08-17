@@ -355,7 +355,7 @@ export function VirtualTryOn({ product, compact = false }: VirtualTryOnProps) {
                   key={p.id}
                   type="button"
                   onClick={() => setActiveOverlay(p.id)}
-                  className={`min-h-9 rounded-full px-3 py-1.5 text-xs font-medium transition ${
+                  className={`min-h-11 rounded-full px-3 py-2 text-xs font-medium transition ${
                     p.id === activeOverlay
                       ? "bg-gold text-dark"
                       : "bg-light text-dark/60 hover:bg-gold/15"

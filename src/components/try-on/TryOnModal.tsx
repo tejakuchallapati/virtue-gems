@@ -43,7 +43,7 @@ export function TryOnModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-dark/60 ring-1 ring-light-muted transition active:bg-light"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-dark/60 ring-1 ring-light-muted transition active:bg-light"
                 aria-label="Close try-on"
               >
                 <X className="h-5 w-5" />
