@@ -322,7 +322,7 @@ export function AdminCatalogManager({
           <button
             type="button"
             onClick={() => setCategoryFilter("all")}
-            className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
+            className={`min-h-11 rounded-full px-3 py-2 text-xs font-medium transition ${
               categoryFilter === "all"
                 ? "bg-gold text-dark"
                 : "bg-light/10 text-light/70 hover:bg-light/15 hover:text-light"
@@ -335,7 +335,7 @@ export function AdminCatalogManager({
               key={cat}
               type="button"
               onClick={() => setCategoryFilter(cat)}
-              className={`rounded-full px-3 py-1.5 text-xs font-medium capitalize transition ${
+              className={`min-h-11 rounded-full px-3 py-2 text-xs font-medium capitalize transition ${
                 categoryFilter === cat
                   ? "bg-gold text-dark"
                   : "bg-light/10 text-light/70 hover:bg-light/15 hover:text-light"
@@ -347,7 +347,7 @@ export function AdminCatalogManager({
           <button
             type="button"
             onClick={() => setLowStockOnly((v) => !v)}
-            className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
+            className={`min-h-11 rounded-full px-3 py-2 text-xs font-medium transition ${
               lowStockOnly
                 ? "bg-red-500/90 text-white"
                 : "bg-light/10 text-light/70 hover:bg-light/15 hover:text-light"
@@ -413,7 +413,7 @@ export function AdminCatalogManager({
                 <button
                   type="button"
                   onClick={() => openEdit(p)}
-                  className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-light/10 px-2 py-1.5 text-xs font-medium text-light/80 hover:bg-light/15 hover:text-gold"
+                  className="inline-flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-xl bg-light/10 px-2 py-2 text-xs font-medium text-light/80 hover:bg-light/15 hover:text-gold"
                 >
                   <Pencil className="h-3.5 w-3.5" />
                   Edit
@@ -421,7 +421,7 @@ export function AdminCatalogManager({
                 <button
                   type="button"
                   onClick={() => void removeProduct(p.id, p.name)}
-                  className="inline-flex items-center justify-center rounded-xl bg-light/10 px-2 py-1.5 text-light/70 hover:bg-red-500/20 hover:text-red-400"
+                  className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-light/10 text-light/70 hover:bg-red-500/20 hover:text-red-400"
                   aria-label={`Hide ${p.name} from shop`}
                 >
                   <Trash2 className="h-3.5 w-3.5" />
@@ -498,7 +498,7 @@ export function AdminCatalogManager({
                     <button
                       type="button"
                       onClick={() => void restoreProduct(p.id)}
-                      className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-green-500/15 px-2 py-1.5 text-xs font-medium text-green-400 hover:bg-green-500/25"
+                      className="inline-flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-xl bg-green-500/15 px-2 py-2 text-xs font-medium text-green-400 hover:bg-green-500/25"
                     >
                       <RotateCcw className="h-3.5 w-3.5" />
                       Restore
@@ -506,7 +506,7 @@ export function AdminCatalogManager({
                     <button
                       type="button"
                       onClick={() => openEdit(p)}
-                      className="inline-flex items-center justify-center rounded-xl bg-light/10 px-2 py-1.5 text-light/70 hover:bg-light/15 hover:text-gold"
+                      className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-light/10 text-light/70 hover:bg-light/15 hover:text-gold"
                       aria-label={`Edit ${p.name}`}
                     >
                       <Pencil className="h-3.5 w-3.5" />
@@ -529,7 +529,7 @@ export function AdminCatalogManager({
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="rounded-lg p-1 text-light/50 hover:text-light"
+                className="flex h-11 w-11 items-center justify-center rounded-lg text-light/50 hover:text-light"
                 aria-label="Close"
               >
                 <X className="h-5 w-5" />
@@ -756,7 +756,7 @@ export function AdminCatalogManager({
               <button
                 type="button"
                 onClick={() => setPreview(null)}
-                className="rounded-lg p-1 text-light/50 hover:text-light"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-light/50 hover:text-light"
                 aria-label="Close"
               >
                 <X className="h-6 w-6" />

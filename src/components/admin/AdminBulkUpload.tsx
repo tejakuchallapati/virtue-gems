@@ -322,7 +322,7 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
           <button
             type="button"
             onClick={close}
-            className="rounded-lg p-1 text-light/50 hover:text-light"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-light/50 hover:text-light"
             aria-label="Close"
           >
             <X className="h-5 w-5" />
