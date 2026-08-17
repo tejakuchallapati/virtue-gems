@@ -30,7 +30,7 @@ export function SalesLineChart({ data }: { data: ChartPoint[] }) {
         <LineChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
           <XAxis dataKey="day" stroke="#94a3b8" fontSize={12} />
-          <YAxis stroke="#94a3b8" fontSize={12} />
+          <YAxis width={36} stroke="#94a3b8" fontSize={11} />
           <Tooltip contentStyle={{ background: "#1e293b", border: "none", borderRadius: 8 }} />
           <Line
             type="monotone"

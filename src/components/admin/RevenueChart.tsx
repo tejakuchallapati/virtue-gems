@@ -29,7 +29,12 @@ export function RevenueChart({ data }: { data: ChartPoint[] }) {
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
           <XAxis dataKey="name" stroke="#94a3b8" fontSize={12} />
-          <YAxis stroke="#94a3b8" fontSize={12} tickFormatter={(v) => `₹${v / 1000}k`} />
+          <YAxis
+            width={36}
+            stroke="#94a3b8"
+            fontSize={11}
+            tickFormatter={(v) => `₹${v / 1000}k`}
+          />
           <Tooltip
             contentStyle={{ background: "#1e293b", border: "none", borderRadius: 8 }}
             labelStyle={{ color: "#d4af37" }}
