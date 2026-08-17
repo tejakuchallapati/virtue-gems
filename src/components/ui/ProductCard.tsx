@@ -103,7 +103,7 @@ export function ProductCard({ product }: { product: Product }) {
                   : addToWishlist(product)
               }
               className={cn(
-                "flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition sm:h-11 sm:w-11",
+                "flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition",
                 wished
                   ? "bg-gold/20 text-gold-dark"
                   : "bg-light text-dark/60 hover:bg-gold/10 hover:text-gold-dark",
@@ -121,7 +121,7 @@ export function ProductCard({ product }: { product: Product }) {
               disabled={product.stock < 1}
               onClick={handleAddToCart}
               className={cn(
-                "flex h-10 min-h-10 min-w-0 flex-1 items-center justify-center gap-1 rounded-full px-2.5 text-xs font-semibold transition sm:h-11 sm:min-w-11 sm:flex-none sm:gap-1.5 sm:px-4 sm:text-sm disabled:cursor-not-allowed disabled:opacity-50",
+                "flex h-11 min-w-0 flex-1 items-center justify-center gap-1 rounded-full px-2.5 text-xs font-semibold transition sm:min-w-11 sm:flex-none sm:gap-1.5 sm:px-4 sm:text-sm disabled:cursor-not-allowed disabled:opacity-50",
                 added
                   ? "bg-green-600 text-white"
                   : "bg-dark text-gold hover:bg-gold hover:text-dark",
