@@ -30,7 +30,7 @@ export function FaqAccordion() {
         <button
           type="button"
           onClick={() => setActiveCategory("all")}
-          className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+          className={`min-h-11 shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
             activeCategory === "all"
               ? "bg-gold text-dark"
               : "bg-white text-dark/70 ring-1 ring-light-muted hover:ring-gold/40"
@@ -43,7 +43,7 @@ export function FaqAccordion() {
             key={cat}
             type="button"
             onClick={() => setActiveCategory(cat)}
-            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+            className={`min-h-11 shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
               activeCategory === cat
                 ? "bg-gold text-dark"
                 : "bg-white text-dark/70 ring-1 ring-light-muted hover:ring-gold/40"

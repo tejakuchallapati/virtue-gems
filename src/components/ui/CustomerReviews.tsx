@@ -73,7 +73,7 @@ function MediaModal({
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-3 top-3 z-10 rounded-full bg-dark/70 p-2 text-light backdrop-blur-sm"
+          className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-dark/70 text-light backdrop-blur-sm"
           aria-label="Close"
         >
           <X className="h-4 w-4" />
