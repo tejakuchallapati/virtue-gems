@@ -45,7 +45,7 @@ export function AdminTopNav() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-gold/15 shadow-[0_4px_24px_rgba(0,0,0,0.4)]",
+        "safe-top sticky top-0 z-50 border-b border-gold/15 shadow-[0_4px_24px_rgba(0,0,0,0.4)]",
         ADMIN_NAV_BG,
       )}
     >
@@ -122,7 +122,7 @@ export function AdminTopNav() {
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-lg p-2 text-white/70 lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-lg text-white/70 lg:hidden"
             aria-label="Menu"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
