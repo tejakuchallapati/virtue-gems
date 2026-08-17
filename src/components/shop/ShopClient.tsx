@@ -240,10 +240,11 @@ export function ShopClient({ products }: { products: Product[] }) {
               onClick={() => setFiltersOpen(!filtersOpen)}
               aria-expanded={filtersOpen}
               aria-controls="shop-filters"
-              className="flex shrink-0 items-center gap-2 rounded-2xl border border-gold/30 bg-gold/10 px-4 py-3.5 text-sm font-medium text-gold backdrop-blur-sm lg:hidden"
+              aria-label="Filters"
+              className="flex h-[3.25rem] w-[3.25rem] shrink-0 items-center justify-center rounded-2xl border border-gold/30 bg-gold/10 text-gold backdrop-blur-sm sm:w-auto sm:gap-2 sm:px-4 lg:hidden"
             >
               <SlidersHorizontal className="h-4 w-4" />
-              Filters
+              <span className="hidden sm:inline">Filters</span>
             </button>
           </div>
 
@@ -306,7 +307,7 @@ export function ShopClient({ products }: { products: Product[] }) {
             <button
               type="button"
               onClick={clearAllFilters}
-              className="text-xs font-medium text-gold-dark underline-offset-2 hover:underline"
+              className="inline-flex min-h-11 items-center rounded-full px-3 text-xs font-medium text-gold-dark underline-offset-2 hover:underline"
             >
               Clear all
             </button>
@@ -382,7 +383,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                       type="button"
                       onClick={() => updateQuery("tag", t.value)}
                       aria-pressed={tag === t.value}
-                      className={`rounded-xl px-3 py-2 text-left text-sm transition ${
+                      className={`min-h-11 rounded-xl px-3 py-2 text-left text-sm transition ${
                         tag === t.value
                           ? "bg-gold/15 font-medium text-gold-dark"
                           : "text-dark/70 hover:bg-light"
@@ -405,7 +406,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                       type="button"
                       onClick={() => setPriceIdx(i)}
                       aria-pressed={priceIdx === i}
-                      className={`rounded-xl px-3 py-2 text-left text-sm transition ${
+                      className={`min-h-11 rounded-xl px-3 py-2 text-left text-sm transition ${
                         priceIdx === i
                           ? "bg-gold/15 font-medium text-gold-dark"
                           : "text-dark/70 hover:bg-light"
