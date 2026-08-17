@@ -57,30 +57,46 @@ export default async function AdminOverviewPage() {
         {orders.length === 0 ? (
           <p className="text-sm text-light/40">No orders yet. Orders appear after WhatsApp checkout.</p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-light/10 text-light/50">
-                  <th className="pb-2 pr-4">ID</th>
-                  <th className="pb-2 pr-4">Customer</th>
-                  <th className="pb-2 pr-4">Total</th>
-                  <th className="pb-2">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.slice(0, 5).map((o) => (
-                  <tr key={o.id} className="border-b border-light/5">
-                    <td className="py-3 pr-4 text-gold">{o.id}</td>
-                    <td className="py-3 pr-4">{o.customerName}</td>
-                    <td className="py-3 pr-4">{formatPrice(o.total)}</td>
-                    <td className="py-3 text-light/70">
-                      {ORDER_STATUS_LABELS[o.status]}
-                    </td>
+          <>
+            <ul className="space-y-3 md:hidden">
+              {orders.slice(0, 5).map((o) => (
+                <li key={o.id} className="rounded-xl bg-dark p-3">
+                  <p className="break-all text-sm font-medium text-gold">{o.id}</p>
+                  <p className="mt-1 text-sm text-light/70">{o.customerName}</p>
+                  <div className="mt-2 flex items-center justify-between gap-3 text-sm">
+                    <span className="text-light/50">{ORDER_STATUS_LABELS[o.status]}</span>
+                    <span className="shrink-0 font-medium text-light">
+                      {formatPrice(o.total)}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="hidden overflow-x-auto md:block">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="border-b border-light/10 text-light/50">
+                    <th className="pb-2 pr-4">ID</th>
+                    <th className="pb-2 pr-4">Customer</th>
+                    <th className="pb-2 pr-4">Total</th>
+                    <th className="pb-2">Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {orders.slice(0, 5).map((o) => (
+                    <tr key={o.id} className="border-b border-light/5">
+                      <td className="py-3 pr-4 text-gold">{o.id}</td>
+                      <td className="py-3 pr-4">{o.customerName}</td>
+                      <td className="py-3 pr-4">{formatPrice(o.total)}</td>
+                      <td className="py-3 text-light/70">
+                        {ORDER_STATUS_LABELS[o.status]}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
     </div>
