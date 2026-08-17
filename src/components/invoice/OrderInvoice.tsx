@@ -79,12 +79,14 @@ export function OrderInvoice({ order, className = "" }: OrderInvoiceProps) {
             {order.items.map((item, i) => (
               <tr key={`${item.productId}-${i}`} className="border-b border-gray-100">
                 <td className="px-2 py-2 text-dark/60">{i + 1}</td>
-                <td className="px-2 py-2 font-medium text-dark">{item.name}</td>
-                <td className="whitespace-nowrap px-2 py-2 text-right text-dark/80">
+                <td className="min-w-0 max-w-[8rem] break-words px-2 py-2 font-medium text-dark sm:max-w-none">
+                  {item.name}
+                </td>
+                <td className="px-2 py-2 text-right text-dark/80">
                   {formatPrice(item.price)}
                 </td>
                 <td className="px-2 py-2 text-center text-dark/80">{item.quantity}</td>
-                <td className="whitespace-nowrap px-2 py-2 text-right font-medium text-dark">
+                <td className="px-2 py-2 text-right font-medium text-dark">
                   {formatPrice(item.price * item.quantity)}
                 </td>
               </tr>
