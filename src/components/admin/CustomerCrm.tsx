@@ -145,13 +145,13 @@ export function CustomerCrm({
         <div className="flex flex-wrap gap-2">
           <a
             href="/api/admin/export?type=customers"
-            className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-gold/25 px-3 text-xs text-gold"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-gold/25 px-3 text-xs text-gold"
           >
             <Download className="h-4 w-4" /> Customers CSV
           </a>
           <a
             href="/api/admin/export?type=orders"
-            className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-gold/25 px-3 text-xs text-gold"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-gold/25 px-3 text-xs text-gold"
           >
             <Download className="h-4 w-4" /> Orders CSV
           </a>
@@ -258,7 +258,7 @@ export function CustomerCrm({
                     />
                     <button
                       disabled={busy || !noteText.trim()}
-                      className="mt-2 min-h-10 rounded-xl bg-gold px-4 text-sm font-medium text-dark disabled:opacity-50"
+                      className="mt-2 min-h-11 rounded-xl bg-gold px-4 text-sm font-medium text-dark disabled:opacity-50"
                     >
                       Save note
                     </button>
@@ -294,7 +294,7 @@ export function CustomerCrm({
                     />
                     <button
                       disabled={busy || !reminderTitle || !dueAt}
-                      className="min-h-10 rounded-xl bg-gold px-4 text-sm font-medium text-dark disabled:opacity-50"
+                      className="min-h-11 rounded-xl bg-gold px-4 text-sm font-medium text-dark disabled:opacity-50"
                     >
                       Add reminder
                     </button>

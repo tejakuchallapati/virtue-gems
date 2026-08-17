@@ -133,7 +133,7 @@ export function AdminTeam({ initialAdmins }: { initialAdmins: AdminProfile[] }) 
                       role: e.target.value as AdminRole,
                     })
                   }
-                  className="rounded-lg border border-light/10 bg-dark px-3 py-2 text-sm text-light"
+                  className="min-h-11 rounded-lg border border-light/10 bg-dark px-3 py-2 text-sm text-light"
                 >
                   {roles.map((value) => (
                     <option key={value} value={value}>
@@ -146,7 +146,7 @@ export function AdminTeam({ initialAdmins }: { initialAdmins: AdminProfile[] }) 
                   onClick={() =>
                     void updateAdmin(admin.id, { active: !admin.active })
                   }
-                  className={`rounded-lg px-3 py-2 text-xs ${
+                  className={`min-h-11 rounded-lg px-3 py-2 text-sm ${
                     admin.active
                       ? "bg-green-500/15 text-green-400"
                       : "bg-red-500/15 text-red-400"

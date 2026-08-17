@@ -109,7 +109,7 @@ export function OrderStatusButtons({
             type="button"
             disabled={updating !== null}
             onClick={() => void updateStatus(s)}
-            className={`rounded-lg px-3 py-1.5 text-xs font-medium transition disabled:opacity-50 ${
+            className={`min-h-11 rounded-lg px-3 py-2 text-xs font-medium transition disabled:opacity-50 ${
               displayStatus === s
                 ? "bg-gold text-dark"
                 : "bg-light/10 text-light/60 hover:bg-light/20"
@@ -124,7 +124,7 @@ export function OrderStatusButtons({
         <button
           type="button"
           onClick={() => void copyPaymentReply()}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-[#25D366]/15 px-3 py-1.5 text-xs font-medium text-[#25D366] transition hover:bg-[#25D366]/25"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-lg bg-[#25D366]/15 px-3 py-2 text-xs font-medium text-[#25D366] transition hover:bg-[#25D366]/25"
         >
           {copied ? (
             <>
@@ -144,7 +144,7 @@ export function OrderStatusButtons({
             href={thankYouUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-lg bg-gold/15 px-3 py-1.5 text-xs font-medium text-gold transition hover:bg-gold/25"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-lg bg-gold/15 px-3 py-2 text-xs font-medium text-gold transition hover:bg-gold/25"
           >
             <MessageCircle className="h-3.5 w-3.5" />
             Send thank-you + review WhatsApp
