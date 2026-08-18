@@ -43,7 +43,7 @@ export function ProductCard({ product }: { product: Product }) {
   }
 
   return (
-    <article className="group relative overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-light-muted/60 transition hover:shadow-md hover:ring-gold/35">
+    <article className="group relative min-w-0 w-full overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-light-muted/60 transition hover:shadow-md hover:ring-gold/35">
       <div className={cn(PRODUCT_IMAGE_FRAME, "aspect-square")}>
         <Link
           href={`/product/${product.slug}`}
@@ -93,7 +93,7 @@ export function ProductCard({ product }: { product: Product }) {
               </p>
             )}
           </div>
-          <div className="flex min-w-0 shrink-0 gap-1.5 self-stretch sm:self-auto">
+          <div className="flex min-w-0 w-full gap-1.5 self-stretch sm:w-auto sm:self-auto">
             <button
               type="button"
               aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
