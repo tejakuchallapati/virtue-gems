@@ -181,14 +181,14 @@ export function CustomerReviews() {
         <p className="mb-4 text-center text-sm tracking-[0.15em] text-gold uppercase">
           Real Moments from Our Customers
         </p>
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 no-scrollbar sm:justify-center sm:px-0">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 sm:gap-3">
           {customerMedia.map((item) => (
             <button
               key={item.id}
               type="button"
               onClick={() => setActiveMedia(item)}
               className={cn(
-                "group relative h-48 w-36 shrink-0 snap-center overflow-hidden rounded-xl ring-1 ring-gold/20 transition active:scale-[0.98] hover:ring-gold/50 sm:h-52 sm:w-36",
+                "group relative aspect-[3/4] w-full min-w-0 overflow-hidden rounded-xl ring-1 ring-gold/20 transition active:scale-[0.98] hover:ring-gold/50",
                 PRODUCT_IMAGE_BG,
               )}
             >
@@ -196,7 +196,7 @@ export function CustomerReviews() {
                 src={item.poster}
                 alt={item.caption}
                 fill
-                sizes="144px"
+                sizes="(max-width: 640px) 50vw, 25vw"
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
               {item.type === "video" && (
