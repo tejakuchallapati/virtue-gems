@@ -2,6 +2,7 @@
 
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
+import { cn } from "@/lib/utils";
 
 type ScrollRevealProps = {
   children: React.ReactNode;
@@ -28,9 +29,11 @@ export function ScrollReveal({
   const inView = useInView(ref, { once: true, margin: "0px 0px -6% 0px", amount: 0.12 });
   const offset = offsets[direction];
 
+  const classes = cn("min-w-0", className);
+
   if (reduceMotion) {
     return (
-      <div ref={ref} className={className}>
+      <div ref={ref} className={classes}>
         {children}
       </div>
     );
@@ -39,7 +42,7 @@ export function ScrollReveal({
   return (
     <motion.div
       ref={ref}
-      className={className}
+      className={classes}
       initial={{ opacity: 0, ...offset }}
       animate={inView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, ...offset }}
       transition={{
