@@ -142,7 +142,7 @@ export default function AboutPage() {
         {/* Jump links — useful on mobile for long page */}
         <nav
           aria-label="About page sections"
-          className="mb-10 -mx-4 flex gap-2 overflow-x-auto overscroll-x-contain px-4 pb-1 no-scrollbar sm:mx-0 sm:justify-center sm:px-0"
+          className="mb-10 flex flex-wrap justify-center gap-2"
         >
           {infoNav.map((item) => (
             <a
