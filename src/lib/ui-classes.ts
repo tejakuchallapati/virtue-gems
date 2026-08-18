@@ -1,7 +1,7 @@
 /** Shared Tailwind class groups for consistent layout and product imagery. */
 
 export const PAGE_CONTAINER =
-  "mx-auto w-full max-w-7xl min-w-0 px-4 sm:px-6 lg:px-8";
+  "mx-auto w-full max-w-7xl min-w-0 px-5 sm:px-6 lg:px-8";
 
 /** Cream gradient page backdrop (footer owns mobile bottom-nav clearance). */
 export const PAGE_GRADIENT_SHELL =
@@ -9,7 +9,7 @@ export const PAGE_GRADIENT_SHELL =
 
 /** Inner content width and vertical rhythm (pair with PAGE_GRADIENT_SHELL). */
 export const PAGE_CONTENT_SHELL =
-  "mx-auto w-full max-w-7xl min-w-0 px-4 py-5 sm:px-6 sm:py-10 lg:px-8";
+  "mx-auto w-full max-w-7xl min-w-0 px-5 py-5 sm:px-6 sm:py-10 lg:px-8";
 
 /** Narrow centered layout for empty cart, wishlist, and similar states. */
 export const EMPTY_STATE_SHELL =
@@ -35,7 +35,7 @@ export const PRODUCT_IMAGE_COVER =
   "object-cover transition duration-500";
 
 export const PRODUCT_GRID =
-  "grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4";
+  "grid min-w-0 grid-cols-2 gap-3 [&>*]:min-w-0 sm:gap-4 lg:grid-cols-4";
 
 export const SECTION_DIVIDER =
   "pointer-events-none h-px w-full bg-gradient-to-r from-transparent via-gold/35 to-transparent";
