@@ -29,7 +29,7 @@ export function HeroLanding() {
         Mobile hero: always render the same DOM on server + client.
         Animate with introReady — never conditionally mount (that caused hydration errors).
       */}
-      <div className="relative z-10 flex min-h-[100dvh] w-full flex-col items-center justify-center px-4 pb-28 pt-16 max-[390px]:pb-24 max-[390px]:pt-12 md:hidden">
+      <div className="relative z-10 flex min-h-[100dvh] w-full min-w-0 flex-col items-center justify-center px-5 pb-28 pt-16 max-[390px]:pb-24 max-[390px]:pt-12 md:hidden">
         <motion.p
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: -12 }}
@@ -60,9 +60,10 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
           transition={{ delay: introReady ? 0.35 : 0, duration: 0.5, ease }}
-          className="mt-5 text-center text-[11px] tracking-[0.28em] text-gold/80 uppercase"
+          className="mt-5 text-center text-[11px] leading-relaxed tracking-[0.16em] text-gold/80 uppercase"
         >
-          Wear Your Virtue · Shine With Grace
+          Wear Your Virtue
+          <span className="mt-1 block tracking-[0.16em]">Shine With Grace</span>
         </motion.p>
 
         <motion.div
