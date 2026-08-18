@@ -68,7 +68,7 @@ function CategoryFilters({
     <div
       className={
         isHero
-          ? "flex max-w-full gap-2 overflow-x-auto overscroll-x-contain pb-1 no-scrollbar"
+          ? "flex max-w-full flex-wrap gap-2"
           : "flex flex-wrap gap-2"
       }
     >
@@ -183,7 +183,7 @@ export function ShopClient({ products }: { products: Product[] }) {
   return (
     <div className={PAGE_GRADIENT_SHELL}>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-4 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-8 lg:px-8">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-5 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-8 lg:px-8">
         <div
           className="pointer-events-none absolute -right-20 top-0 h-56 w-56 rounded-full bg-gold/10 blur-3xl"
           aria-hidden
@@ -198,8 +198,8 @@ export function ShopClient({ products }: { products: Product[] }) {
               ]}
             />
 
-          <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
-            <div>
+          <div className="mt-4 flex min-w-0 flex-col gap-4 min-[420px]:flex-row min-[420px]:items-end min-[420px]:justify-between">
+            <div className="min-w-0">
               <p className="text-xs tracking-[0.25em] text-gold uppercase">
                 Virtue Gems
               </p>
@@ -211,7 +211,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                 and festive gifting in {DELIVERY_REGION_LABEL}.
               </p>
             </div>
-            <div className="rounded-2xl border border-gold/25 bg-white/5 px-4 py-3 text-right backdrop-blur-sm">
+            <div className="w-fit rounded-2xl border border-gold/25 bg-white/5 px-4 py-3 text-left backdrop-blur-sm min-[420px]:text-right">
               <p className="text-2xl font-bold text-gold">{filtered.length}</p>
               <p className="text-[10px] tracking-wider text-light/50 uppercase">
                 Pieces available
@@ -229,7 +229,7 @@ export function ShopClient({ products }: { products: Product[] }) {
               <input
                 id="shop-search"
                 type="search"
-                placeholder="Search necklaces, rings, earrings..."
+                placeholder="Search jewellery..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full rounded-2xl border border-white/10 bg-white py-3.5 pl-11 pr-4 text-base text-dark shadow-lg outline-none focus:border-gold focus:ring-2 focus:ring-gold/25 sm:text-sm"
@@ -264,11 +264,11 @@ export function ShopClient({ products }: { products: Product[] }) {
 
       {/* Trust strip */}
       <div className="border-b border-gold/15 bg-white/90 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-7xl gap-4 overflow-x-auto overscroll-x-contain px-4 py-3 no-scrollbar sm:justify-center sm:gap-8 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl min-w-0 flex-wrap items-center justify-center gap-x-5 gap-y-2 px-5 py-3 sm:gap-8 sm:px-6 lg:px-8">
           {trustItems.map(({ icon: Icon, text }) => (
             <div
               key={text}
-              className="flex shrink-0 items-center gap-2 text-xs text-dark/65 sm:text-sm"
+              className="flex min-w-0 items-center gap-2 text-xs text-dark/65 sm:text-sm"
             >
               <Icon className="h-4 w-4 text-gold" />
               {text}
@@ -277,7 +277,7 @@ export function ShopClient({ products }: { products: Product[] }) {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+      <div className="mx-auto max-w-7xl px-5 py-8 sm:px-6 lg:px-8 lg:py-10">
         {/* Active filters */}
         {hasActiveFilters && (
           <div className="mb-6 flex flex-wrap items-center gap-2">
