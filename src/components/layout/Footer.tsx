@@ -35,7 +35,7 @@ export function Footer() {
     <>
       <SectionDivider />
       <footer className="border-t border-gold/20 bg-dark text-light/80 pb-[var(--mobile-nav-offset)] md:pb-0">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-5 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <p className="text-lg font-bold tracking-widest text-light">

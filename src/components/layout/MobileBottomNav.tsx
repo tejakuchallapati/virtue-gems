@@ -41,7 +41,7 @@ export function MobileBottomNav() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
 
       <div className="border-t border-gold/20 bg-[#0f172a]/96 shadow-[0_-8px_32px_rgba(0,0,0,0.25)] backdrop-blur-md">
-        <div className="flex w-full min-w-0 items-stretch justify-around px-0.5 py-1">
+        <div className="flex w-full min-w-0 items-stretch justify-between gap-0.5 px-1.5 py-1">
           {items.map((item) => {
             const Icon = item.icon;
             const active = !item.external && isActivePath(pathname, item.href);
@@ -53,7 +53,7 @@ export function MobileBottomNav() {
                   : 0;
 
             const className = cn(
-              "relative flex min-h-12 flex-1 flex-col items-center justify-center gap-0.5 py-1.5 active:scale-95",
+              "relative flex min-h-12 min-w-0 flex-1 flex-col items-center justify-center gap-0.5 px-0.5 py-1.5 active:scale-95",
               active ? "text-gold" : item.external ? "text-[#25D366]" : "text-light/75",
             );
 
@@ -73,7 +73,9 @@ export function MobileBottomNav() {
                     </span>
                   )}
                 </span>
-                <span className="relative text-[10px] font-medium">{item.label}</span>
+                <span className="relative max-w-full truncate text-[9px] font-medium leading-none">
+                  {item.label}
+                </span>
               </>
             );
 
