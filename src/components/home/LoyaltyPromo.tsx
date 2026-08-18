@@ -112,7 +112,7 @@ export function LoyaltyPromo() {
           <p className="mb-4 text-center text-xs tracking-[0.2em] text-gold uppercase">
             Unlock These Rewards
           </p>
-          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+          <div className="grid min-w-0 grid-cols-2 gap-3 [&>*]:min-w-0 lg:grid-cols-4 lg:gap-4">
             {LOYALTY_REWARDS.map((reward) => {
               const unlocked = hydrated && points >= reward.pointsCost;
               return (
@@ -124,13 +124,13 @@ export function LoyaltyPromo() {
                       : "border-gold/20 bg-white/5 hover:border-gold/35"
                   }`}
                 >
-                  <div className="flex items-start justify-between gap-2">
+                  <div className="flex min-w-0 items-start justify-between gap-2">
                     <Gift className="h-5 w-5 shrink-0 text-gold" />
-                    <span className="rounded-full bg-gold/15 px-2 py-0.5 text-[10px] font-bold text-gold">
+                    <span className="shrink-0 rounded-full bg-gold/15 px-2 py-0.5 text-[10px] font-bold text-gold">
                       {reward.pointsCost} pts
                     </span>
                   </div>
-                  <h3 className="mt-3 text-sm font-semibold text-light">{reward.title}</h3>
+                  <h3 className="mt-3 text-sm font-semibold break-words text-light">{reward.title}</h3>
                   <p className="mt-1 hidden text-xs text-light/55 sm:block">
                     {reward.description}
                   </p>
