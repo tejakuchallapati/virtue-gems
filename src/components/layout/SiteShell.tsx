@@ -35,7 +35,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   const isHome = pathname === "/";
 
   return (
-    <div className="relative w-full max-w-full">
+    <div className="relative w-full min-w-0 max-w-full overflow-x-clip">
       <a
         href="#main-content"
         className="fixed left-3 top-3 z-[120] -translate-y-20 rounded-lg bg-dark px-4 py-2 text-sm font-semibold text-gold shadow-lg transition-transform focus:translate-y-0"
@@ -55,8 +55,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         tabIndex={-1}
         className={
           isHome
-            ? "min-h-dvh w-full"
-            : "min-h-[calc(100dvh-3rem)] w-full md:min-h-[calc(100vh-4rem)]"
+            ? "min-h-dvh w-full min-w-0 max-w-full"
+            : "min-h-[calc(100dvh-3rem)] w-full min-w-0 max-w-full md:min-h-[calc(100vh-4rem)]"
         }
       >
         {children}
