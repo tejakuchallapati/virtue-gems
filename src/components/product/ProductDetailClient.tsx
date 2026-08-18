@@ -114,7 +114,7 @@ export function ProductDetailClient({
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
-      <div className={`${PAGE_CONTENT_SHELL} pb-[calc(var(--mobile-nav-offset)+5.5rem)] lg:pb-10`}>
+      <div className={`${PAGE_CONTENT_SHELL} pb-[calc(var(--mobile-nav-offset)+7rem)] lg:pb-10`}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -339,9 +339,9 @@ export function ProductDetailClient({
       )}
 
       {/* Mobile sticky add-to-cart bar — sits above bottom nav; nav already has safe-area */}
-      <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-4 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md lg:hidden">
-        <div className="mx-auto flex max-w-lg items-center gap-3">
-          <div className="min-w-0 shrink-0">
+      <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-3 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md sm:px-4 lg:hidden">
+        <div className="mx-auto flex min-w-0 max-w-lg items-center gap-2 sm:gap-3">
+          <div className="min-w-0">
             <p className="text-base font-bold text-gold-dark">
               {formatPrice(product.price)}
             </p>
