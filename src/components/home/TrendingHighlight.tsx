@@ -81,7 +81,7 @@ export function TrendingHighlight({
       <div className={cn(SECTION_DIVIDER, "absolute inset-x-0 top-0")} aria-hidden />
       <div className={PAGE_CONTAINER}>
         <ScrollReveal className="text-center">
-          <p className="text-sm tracking-[0.2em] text-gold-dark uppercase">Limited Stock</p>
+          <p className="text-sm tracking-[0.14em] text-gold-dark uppercase sm:tracking-[0.2em]">Limited Stock</p>
           <h2 className="mt-2 text-2xl font-semibold text-dark sm:text-3xl">
             Trending &amp; Best Sellers
           </h2>
@@ -100,7 +100,7 @@ export function TrendingHighlight({
           </div>
         </ScrollReveal>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2 md:gap-6">
+        <div className="mt-8 grid gap-4 min-[380px]:gap-5 md:grid-cols-2 md:gap-6">
           {picks.map((product, i) => (
             <ScrollReveal key={product.id} delay={i * 0.1}>
               <HighlightCard product={product} />
