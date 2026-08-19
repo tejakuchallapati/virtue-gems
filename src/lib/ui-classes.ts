@@ -35,7 +35,7 @@ export const PRODUCT_IMAGE_COVER =
   "object-cover transition duration-500";
 
 export const PRODUCT_GRID =
-  "grid min-w-0 grid-cols-2 gap-3 [&>*]:min-w-0 sm:gap-4 lg:grid-cols-4";
+  "grid min-w-0 grid-cols-1 gap-3 [&>*]:min-w-0 min-[400px]:grid-cols-2 sm:gap-4 lg:grid-cols-4";
 
 export const SECTION_DIVIDER =
   "pointer-events-none h-px w-full bg-gradient-to-r from-transparent via-gold/35 to-transparent";
