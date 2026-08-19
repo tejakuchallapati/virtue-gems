@@ -200,7 +200,7 @@ export function ShopClient({ products }: { products: Product[] }) {
 
           <div className="mt-4 flex min-w-0 flex-col gap-4 min-[420px]:flex-row min-[420px]:items-end min-[420px]:justify-between">
             <div className="min-w-0">
-              <p className="text-xs tracking-[0.25em] text-gold uppercase">
+              <p className="text-xs tracking-[0.16em] text-gold uppercase sm:tracking-[0.25em]">
                 Virtue Gems
               </p>
               <h1 className="mt-1 text-2xl font-semibold text-light sm:text-4xl">
@@ -220,7 +220,7 @@ export function ShopClient({ products }: { products: Product[] }) {
           </div>
 
           {/* Search */}
-          <div className="mt-6 flex gap-2">
+          <div className="mt-6 flex flex-col gap-2 min-[420px]:flex-row">
             <div className="relative min-w-0 flex-1">
               <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-dark/40" />
               <label htmlFor="shop-search" className="sr-only">
@@ -241,10 +241,10 @@ export function ShopClient({ products }: { products: Product[] }) {
               aria-expanded={filtersOpen}
               aria-controls="shop-filters"
               aria-label="Filters"
-              className="flex h-[3.25rem] w-[3.25rem] shrink-0 items-center justify-center rounded-2xl border border-gold/30 bg-gold/10 text-gold backdrop-blur-sm sm:w-auto sm:gap-2 sm:px-4 lg:hidden"
+              className="flex h-[3.25rem] w-full shrink-0 items-center justify-center rounded-2xl border border-gold/30 bg-gold/10 text-gold backdrop-blur-sm min-[420px]:w-[3.25rem] sm:w-auto sm:gap-2 sm:px-4 lg:hidden"
             >
               <SlidersHorizontal className="h-4 w-4" />
-              <span className="hidden sm:inline">Filters</span>
+              <span className="min-[420px]:hidden sm:inline">Filters</span>
             </button>
           </div>
 
@@ -277,7 +277,7 @@ export function ShopClient({ products }: { products: Product[] }) {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-5 py-8 sm:px-6 lg:px-8 lg:py-10">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         {/* Active filters */}
         {hasActiveFilters && (
           <div className="mb-6 flex flex-wrap items-center gap-2">
@@ -441,7 +441,7 @@ export function ShopClient({ products }: { products: Product[] }) {
             </div>
 
             {filtered.length === 0 ? (
-              <div className="rounded-3xl border border-dashed border-gold/30 bg-white/80 px-6 py-16 text-center">
+              <div className="rounded-3xl border border-dashed border-gold/30 bg-white/80 px-5 py-14 text-center sm:px-6 sm:py-16">
                 <Sparkles className="mx-auto h-10 w-10 text-gold/50" />
                 <p className="mt-4 text-lg font-medium text-dark">
                   No pieces match your filters
