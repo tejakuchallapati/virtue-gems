@@ -45,7 +45,7 @@ export default async function TryOnPage({ searchParams }: Props) {
           { name: "Virtual Try-On" },
         ]}
       />
-      <section className="bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-4 py-8 pb-24 sm:px-6 md:pb-8 lg:px-8">
+      <section className="bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-5 py-8 pb-24 sm:px-6 md:pb-8 lg:px-8">
         <div className="mx-auto max-w-3xl">
           <div className="[&_a]:text-light/60 [&_a:hover]:text-gold [&_span]:text-light/80">
             <Breadcrumb
@@ -67,7 +67,7 @@ export default async function TryOnPage({ searchParams }: Props) {
         </div>
       </section>
 
-      <div className={cn("mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8")}>
+      <div className={cn("mx-auto max-w-3xl px-5 py-8 sm:px-6 sm:py-10 lg:px-8")}>
         <div className="mb-6">
           <label htmlFor="try-on-product" className="mb-2 block text-sm font-medium text-dark">
             Choose a piece to try
@@ -77,7 +77,7 @@ export default async function TryOnPage({ searchParams }: Props) {
               <Link
                 key={p.id}
                 href={`/try-on?product=${p.slug}`}
-                className={`rounded-full px-3 py-1.5 text-xs font-medium transition sm:text-sm ${
+                className={`min-h-11 rounded-full px-3 py-2 text-xs font-medium transition sm:text-sm ${
                   selected?.id === p.id
                     ? "bg-dark text-gold"
                     : "bg-white text-dark/70 ring-1 ring-light-muted hover:ring-gold/40"
@@ -88,7 +88,7 @@ export default async function TryOnPage({ searchParams }: Props) {
             ))}
             <Link
               href="/shop"
-              className="rounded-full px-3 py-1.5 text-xs font-medium text-gold-dark underline sm:text-sm"
+              className="inline-flex min-h-11 items-center rounded-full px-3 py-2 text-xs font-medium text-gold-dark underline sm:text-sm"
             >
               View all →
             </Link>
