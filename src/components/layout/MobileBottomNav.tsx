@@ -14,11 +14,17 @@ import { whatsAppContactUrl } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
 
 const items = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/shop", label: "Shop", icon: Store },
-  { href: "/wishlist", label: "Wishlist", icon: Heart, badge: "wishlist" as const },
-  { href: "/cart", label: "Cart", icon: ShoppingCart, badge: "cart" as const },
-  { href: whatsAppContactUrl, label: "WhatsApp", icon: MessageCircle, external: true },
+  { href: "/", label: "Home", mobileLabel: "Home", icon: Home },
+  { href: "/shop", label: "Shop", mobileLabel: "Shop", icon: Store },
+  {
+    href: "/wishlist",
+    label: "Wishlist",
+    mobileLabel: "Saved",
+    icon: Heart,
+    badge: "wishlist" as const,
+  },
+  { href: "/cart", label: "Cart", mobileLabel: "Cart", icon: ShoppingCart, badge: "cart" as const },
+  { href: whatsAppContactUrl, label: "WhatsApp", mobileLabel: "Chat", icon: MessageCircle, external: true },
 ];
 
 function isActivePath(pathname: string, href: string) {
@@ -74,7 +80,8 @@ export function MobileBottomNav() {
                   )}
                 </span>
                 <span className="relative max-w-full truncate text-[9px] font-medium leading-none">
-                  {item.label}
+                  <span className="min-[380px]:hidden">{item.mobileLabel}</span>
+                  <span className="hidden min-[380px]:inline">{item.label}</span>
                 </span>
               </>
             );
