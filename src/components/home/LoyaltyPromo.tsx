@@ -44,9 +44,9 @@ export function LoyaltyPromo() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <ScrollReveal className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-[10px] tracking-[0.25em] text-gold uppercase sm:text-xs">
+          <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-[10px] tracking-[0.16em] text-gold uppercase sm:text-xs sm:tracking-[0.25em]">
             <Sparkles className="h-3.5 w-3.5" />
             Virtue Gems Rewards
           </div>
@@ -60,7 +60,7 @@ export function LoyaltyPromo() {
           </p>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.08} className="mt-10 grid gap-4 sm:grid-cols-3">
+        <ScrollReveal delay={0.08} className="mt-10 grid gap-4 min-[400px]:grid-cols-2 sm:grid-cols-3">
           {STEPS.map(({ icon: Icon, title, text }) => (
             <div
               key={title}
@@ -109,10 +109,10 @@ export function LoyaltyPromo() {
         )}
 
         <ScrollReveal delay={0.12} className="mt-10">
-          <p className="mb-4 text-center text-xs tracking-[0.2em] text-gold uppercase">
+          <p className="mb-4 text-center text-xs tracking-[0.14em] text-gold uppercase sm:tracking-[0.2em]">
             Unlock These Rewards
           </p>
-          <div className="grid min-w-0 grid-cols-2 gap-3 [&>*]:min-w-0 lg:grid-cols-4 lg:gap-4">
+          <div className="grid min-w-0 grid-cols-1 gap-3 [&>*]:min-w-0 min-[400px]:grid-cols-2 lg:grid-cols-4 lg:gap-4">
             {LOYALTY_REWARDS.map((reward) => {
               const unlocked = hydrated && points >= reward.pointsCost;
               return (
