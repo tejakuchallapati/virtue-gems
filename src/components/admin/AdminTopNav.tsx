@@ -62,7 +62,7 @@ export function AdminTopNav() {
             />
           </div>
           <div className="hidden sm:block">
-            <p className="text-[10px] tracking-[0.3em] text-gold/70 uppercase">
+            <p className="text-[10px] tracking-[0.2em] text-gold/70 uppercase">
               Admin
             </p>
             <p className="text-sm font-semibold text-white">
