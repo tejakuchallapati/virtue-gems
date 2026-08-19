@@ -117,7 +117,7 @@ export function RewardsClient() {
       )}
 
       {/* How it works */}
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 min-[420px]:grid-cols-2 sm:grid-cols-3">
         {[
           { icon: Star, title: "Shop & Earn", text: "Get 1 point for every ₹100 spent (min. 5 pts per order)" },
           { icon: Gift, title: "Collect Points", text: "Points add up automatically after each WhatsApp order" },
@@ -134,7 +134,7 @@ export function RewardsClient() {
       {/* Rewards grid */}
       <div>
         <h2 className="text-xl font-semibold text-dark sm:text-2xl">Redeem Your Points</h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <div className="mt-4 grid gap-4 min-[420px]:grid-cols-2">
           {LOYALTY_REWARDS.map((reward) => {
             const canRedeem = points >= reward.pointsCost && !activeRedemption;
             return (
@@ -147,10 +147,10 @@ export function RewardsClient() {
                     : "border-light-muted bg-light/50 opacity-90",
                 )}
               >
-                <div className="flex items-start justify-between gap-2">
-                  <div>
+                <div className="flex min-w-0 items-start justify-between gap-2">
+                  <div className="min-w-0">
                     <h3 className="font-semibold text-dark">{reward.title}</h3>
-                    <p className="mt-1 text-sm text-dark/60">{reward.description}</p>
+                    <p className="mt-1 break-words text-sm text-dark/60">{reward.description}</p>
                   </div>
                   <span className="shrink-0 rounded-full bg-gold/15 px-2 py-0.5 text-[10px] font-bold text-gold-dark">
                     {reward.pointsCost} pts
@@ -180,7 +180,7 @@ export function RewardsClient() {
                 key={`${entry.date}-${i}`}
                 className="flex items-center justify-between rounded-xl bg-white px-4 py-3 text-sm ring-1 ring-light-muted/60"
               >
-                <span className="text-dark/80">{entry.label}</span>
+                <span className="min-w-0 flex-1 break-words pr-2 text-dark/80">{entry.label}</span>
                 <span
                   className={cn(
                     "font-semibold",

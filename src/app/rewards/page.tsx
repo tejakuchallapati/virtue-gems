@@ -28,7 +28,7 @@ export default function RewardsPage() {
           { name: "Rewards" },
         ]}
       />
-      <div className={cn("mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10")}>
+      <div className={cn("mx-auto max-w-4xl px-5 py-6 sm:px-6 sm:py-10")}>
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Rewards" }]} />
         <h1 className="mb-2 text-2xl font-semibold text-dark sm:text-3xl">
           Virtue Gems Rewards
