@@ -33,10 +33,10 @@ export function NavBrand({
       />
       {showText && (
         <div className={cn("flex flex-col leading-none", textClassName)}>
-          <span className="text-[11px] font-bold tracking-[0.28em] text-gold transition group-hover:tracking-[0.32em] md:text-xs">
+          <span className="text-[11px] font-bold tracking-[0.2em] text-gold transition group-hover:tracking-[0.24em] md:text-xs">
             VIRTUE
           </span>
-          <span className="mt-0.5 text-[8px] font-light tracking-[0.52em] text-light/75 md:text-[9px]">
+          <span className="mt-0.5 text-[8px] font-light tracking-[0.34em] text-light/75 md:text-[9px]">
             GEMS
           </span>
         </div>
