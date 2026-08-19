@@ -70,7 +70,7 @@ export function SectionHeader({
       )}
     >
       <div className={centered ? undefined : "min-w-0 flex-1"}>
-        <p className="text-sm tracking-[0.2em] text-gold uppercase">{eyebrow}</p>
+        <p className="text-sm tracking-[0.14em] text-gold uppercase sm:tracking-[0.2em]">{eyebrow}</p>
         <h2 className="mt-1 text-2xl font-semibold text-dark sm:text-3xl">{title}</h2>
         {description && (
           <p className="mt-2 max-w-2xl text-sm text-dark/60 sm:text-base">{description}</p>
