@@ -114,7 +114,7 @@ export function ProductDetailClient({
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
-      <div className={`${PAGE_CONTENT_SHELL} pb-[calc(var(--mobile-nav-offset)+7rem)] lg:pb-10`}>
+      <div className={`${PAGE_CONTENT_SHELL} pb-[calc(var(--mobile-nav-offset)+8rem)] lg:pb-10`}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -340,7 +340,7 @@ export function ProductDetailClient({
 
       {/* Mobile sticky add-to-cart bar — sits above bottom nav; nav already has safe-area */}
       <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-3 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md sm:px-4 lg:hidden">
-        <div className="mx-auto flex min-w-0 max-w-lg items-center gap-2 sm:gap-3">
+        <div className="mx-auto grid min-w-0 max-w-lg grid-cols-[minmax(0,1fr)_auto] gap-2 sm:flex sm:items-center sm:gap-3">
           <div className="min-w-0">
             <p className="text-base font-bold text-gold-dark">
               {formatPrice(product.price)}
@@ -355,7 +355,7 @@ export function ProductDetailClient({
             type="button"
             disabled={product.stock < 1}
             onClick={handleAddToCart}
-            className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-dark text-sm font-semibold text-gold disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-dark px-4 text-sm font-semibold text-gold disabled:cursor-not-allowed disabled:opacity-50 sm:flex-1"
           >
             <ShoppingCart className="h-4 w-4" />
             {product.stock < 1 ? "Out of Stock" : "Add to Cart"}
