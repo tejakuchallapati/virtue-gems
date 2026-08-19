@@ -111,7 +111,7 @@ export function DesktopNavbar() {
 
           <Link
             href="/shop"
-            className="border border-gold/35 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-gold transition hover:border-gold/60 hover:bg-gold/10"
+            className="border border-gold/35 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-gold transition hover:border-gold/60 hover:bg-gold/10"
           >
             Shop
           </Link>
