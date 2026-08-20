@@ -243,7 +243,8 @@ export function ProductDetailClient({
             </span>
           </div>
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          {/* Desktop ATC — mobile uses the sticky bar below */}
+          <div className="mt-6 hidden flex-col gap-3 sm:flex sm:flex-row">
             <button
               type="button"
               disabled={product.stock < 1}
@@ -340,9 +341,9 @@ export function ProductDetailClient({
 
       {/* Mobile sticky add-to-cart bar — sits above bottom nav; nav already has safe-area */}
       <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-3 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md sm:px-4 lg:hidden">
-        <div className="mx-auto grid min-w-0 max-w-lg grid-cols-[minmax(0,1fr)_auto] gap-2 sm:flex sm:items-center sm:gap-3">
-          <div className="min-w-0">
-            <p className="text-base font-bold text-gold-dark">
+        <div className="mx-auto flex min-w-0 max-w-lg items-center gap-2">
+          <div className="min-w-0 shrink">
+            <p className="truncate text-base font-bold text-gold-dark">
               {formatPrice(product.price)}
             </p>
             {product.originalPrice && (
@@ -355,10 +356,12 @@ export function ProductDetailClient({
             type="button"
             disabled={product.stock < 1}
             onClick={handleAddToCart}
-            className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-dark px-4 text-sm font-semibold text-gold disabled:cursor-not-allowed disabled:opacity-50 sm:flex-1"
+            className="flex min-h-11 min-w-0 flex-1 items-center justify-center gap-2 rounded-xl bg-dark px-3 text-sm font-semibold text-gold disabled:cursor-not-allowed disabled:opacity-50"
           >
-            <ShoppingCart className="h-4 w-4" />
-            {product.stock < 1 ? "Out of Stock" : "Add to Cart"}
+            <ShoppingCart className="h-4 w-4 shrink-0" />
+            <span className="truncate">
+              {product.stock < 1 ? "Out of Stock" : "Add to Cart"}
+            </span>
           </button>
           <button
             type="button"
@@ -373,6 +376,14 @@ export function ProductDetailClient({
             }`}
           >
             <Heart className={`h-4 w-4 ${wished ? "fill-current" : ""}`} />
+          </button>
+          <button
+            type="button"
+            aria-label="Share product"
+            onClick={handleShare}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-light-muted text-dark"
+          >
+            <Share2 className="h-4 w-4" />
           </button>
         </div>
       </div>
