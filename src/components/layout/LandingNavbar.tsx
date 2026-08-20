@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, ShoppingCart, ArrowRight } from "lucide-react";
+import { ShoppingCart, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useStore } from "@/context/StoreProvider";
 import { cn } from "@/lib/utils";
@@ -56,7 +56,7 @@ function DesktopNavLink({
 
 export function LandingNavbar() {
   const pathname = usePathname();
-  const { cartCount, wishlistCount, hydrated } = useStore();
+  const { cartCount, hydrated } = useStore();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -71,8 +71,8 @@ export function LandingNavbar() {
   return (
     <>
       {/*
-        Mobile top bar — logo + actions only.
-        Primary destinations live in the bottom nav so this row never overflows.
+        Mobile top bar — logo only.
+        Cart / wishlist live in the bottom nav to avoid duplicate chrome.
       */}
       <header
         className={cn(
@@ -82,10 +82,10 @@ export function LandingNavbar() {
             : "bg-gradient-to-b from-[#1a0a2e]/90 to-transparent",
         )}
       >
-        <div className="flex h-12 w-full items-center justify-between px-2">
+        <div className="flex h-12 w-full items-center justify-center px-3">
           <Link
             href="/"
-            className="flex min-w-0 shrink items-center px-1 opacity-95 active:scale-95"
+            className="min-w-0 opacity-95 active:scale-95"
             aria-label="Virtue Gems home"
           >
             <Image
@@ -93,36 +93,10 @@ export function LandingNavbar() {
               alt="Virtue Gems"
               width={100}
               height={40}
-              className="h-6 w-auto max-w-[7.5rem] object-contain"
+              className="h-7 w-auto max-w-[7.5rem] object-contain"
               priority
             />
           </Link>
-          <div className="flex shrink-0 items-center">
-            <Link
-              href="/wishlist"
-              className="relative flex h-11 w-11 items-center justify-center text-light/80 active:scale-95"
-              aria-label="Wishlist"
-            >
-              <Heart className="h-[18px] w-[18px]" />
-              {hydrated && wishlistCount > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark">
-                  {wishlistCount}
-                </span>
-              )}
-            </Link>
-            <Link
-              href="/cart"
-              className="relative flex h-11 w-11 items-center justify-center text-light/80 active:scale-95"
-              aria-label="Cart"
-            >
-              <ShoppingCart className="h-[18px] w-[18px]" />
-              {hydrated && cartCount > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
-          </div>
         </div>
       </header>
 
