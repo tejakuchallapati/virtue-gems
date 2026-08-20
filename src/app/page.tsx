@@ -45,7 +45,10 @@ export default async function HomePage() {
       <WebsiteJsonLd />
       <HeroLanding />
 
-      <TrendingHighlight trending={trending} bestseller={bestseller} />
+      {/* Highlight strip only on larger screens — Best Sellers covers this on mobile */}
+      <div className="hidden md:block">
+        <TrendingHighlight trending={trending} bestseller={bestseller} />
+      </div>
 
       {LOYALTY_ENABLED && (
         <>
@@ -112,9 +115,15 @@ export default async function HomePage() {
         </ScrollReveal>
       </PageSection>
 
-      <RecentlyViewed />
+      {/* Recently viewed is optional continue-browsing — keep off the first mobile scroll */}
+      <div className="hidden sm:block">
+        <RecentlyViewed />
+      </div>
 
-      <OrderJourney />
+      {/* Order journey is verbose on small screens — checkout already explains the steps */}
+      <div className="hidden md:block">
+        <OrderJourney />
+      </div>
 
       <PageSection tone="cream" dividerTop>
         <ScrollReveal>
