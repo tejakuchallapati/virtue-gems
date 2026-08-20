@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, ShoppingCart } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useStore } from "@/context/StoreProvider";
-import { cn } from "@/lib/utils";
 
+/**
+ * Mobile top bar — logo only.
+ * Cart / wishlist live in the bottom nav so we avoid duplicate chrome.
+ */
 export function MobileHeader() {
   const pathname = usePathname();
-  const { cartCount, wishlistCount, hydrated } = useStore();
 
   if (pathname.startsWith("/admin") || pathname === "/") return null;
 
@@ -17,23 +17,10 @@ export function MobileHeader() {
     <header className="safe-top safe-x sticky top-0 z-[60] w-full border-b border-gold/20 bg-gradient-to-r from-[#1a0a2e] via-[#12061f] to-[#1a0a2e] md:hidden">
       <div className="h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
-      <div className="relative flex h-12 w-full items-center justify-between px-2">
-        <Link
-          href="/wishlist"
-          className="relative flex h-11 w-11 shrink-0 items-center justify-center text-light/75 active:scale-95"
-          aria-label="Wishlist"
-        >
-          <Heart className="h-[18px] w-[18px]" />
-          {hydrated && wishlistCount > 0 && (
-            <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark">
-              {wishlistCount}
-            </span>
-          )}
-        </Link>
-
+      <div className="relative flex h-12 w-full items-center justify-center px-3">
         <Link
           href="/"
-          className="mx-1 min-w-0 shrink transition active:scale-95"
+          className="min-w-0 transition active:scale-95"
           aria-label="Virtue Gems home"
         >
           <Image
@@ -44,22 +31,6 @@ export function MobileHeader() {
             className="mx-auto h-8 w-auto max-w-[7.5rem] object-contain"
             priority
           />
-        </Link>
-
-        <Link
-          href="/cart"
-          className={cn(
-            "relative flex h-11 w-11 shrink-0 items-center justify-center active:scale-95",
-            pathname === "/cart" ? "text-gold" : "text-light/75",
-          )}
-          aria-label="Cart"
-        >
-          <ShoppingCart className="h-[18px] w-[18px]" />
-          {hydrated && cartCount > 0 && (
-            <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark">
-              {cartCount}
-            </span>
-          )}
         </Link>
       </div>
     </header>
