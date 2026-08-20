@@ -68,7 +68,7 @@ function CategoryFilters({
     <div
       className={
         isHero
-          ? "flex max-w-full flex-wrap gap-2"
+          ? "-mx-1 flex max-w-full gap-2 overflow-x-auto px-1 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:pb-0"
           : "flex flex-wrap gap-2"
       }
     >
@@ -105,7 +105,7 @@ function CategoryFilters({
           }`}
         >
           {c.label}
-          <span className="ml-1.5 text-[11px] opacity-70">({c.count})</span>
+          <span className="ml-1.5 hidden text-[11px] opacity-70 sm:inline">({c.count})</span>
         </button>
       ))}
     </div>
@@ -206,12 +206,12 @@ export function ShopClient({ products }: { products: Product[] }) {
               <h1 className="mt-1 text-2xl font-semibold text-light sm:text-4xl">
                 {activeCategory ? activeCategory.label : "Shop Collections"}
               </h1>
-              <p className="mt-2 max-w-xl text-sm text-light/65">
+              <p className="mt-2 max-w-xl text-sm text-light/65 line-clamp-2 sm:line-clamp-none">
                 Handpicked jewellery under ₹2,000 — crafted for everyday elegance
                 and festive gifting in {DELIVERY_REGION_LABEL}.
               </p>
             </div>
-            <div className="w-fit rounded-2xl border border-gold/25 bg-white/5 px-4 py-3 text-left backdrop-blur-sm min-[420px]:text-right">
+            <div className="hidden w-fit rounded-2xl border border-gold/25 bg-white/5 px-4 py-3 text-left backdrop-blur-sm min-[420px]:block min-[420px]:text-right">
               <p className="text-2xl font-bold text-gold">{filtered.length}</p>
               <p className="text-[10px] tracking-wider text-light/50 uppercase">
                 Pieces available
@@ -262,15 +262,15 @@ export function ShopClient({ products }: { products: Product[] }) {
         </div>
       </section>
 
-      {/* Trust strip */}
+      {/* Trust strip — single line scroll on narrow phones */}
       <div className="border-b border-gold/15 bg-white/90 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-7xl min-w-0 flex-wrap items-center justify-center gap-x-5 gap-y-2 px-5 py-3 sm:gap-8 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl min-w-0 items-center gap-4 overflow-x-auto px-5 py-2.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:justify-center sm:gap-8 sm:overflow-visible sm:px-6 sm:py-3 lg:px-8">
           {trustItems.map(({ icon: Icon, text }) => (
             <div
               key={text}
-              className="flex min-w-0 items-center gap-2 text-xs text-dark/65 sm:text-sm"
+              className="flex shrink-0 items-center gap-2 whitespace-nowrap text-xs text-dark/65 sm:text-sm"
             >
-              <Icon className="h-4 w-4 text-gold" />
+              <Icon className="h-3.5 w-3.5 shrink-0 text-gold sm:h-4 sm:w-4" />
               {text}
             </div>
           ))}
