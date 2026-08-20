@@ -213,7 +213,25 @@ export default function CheckoutPage() {
         <form onSubmit={handleSubmit} className="order-2 space-y-4 lg:order-1">
           <p className="text-sm text-dark/60">{CHECKOUT_PAYMENT_NOTICE}</p>
 
-          <div className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 p-4 text-xs text-dark/80">
+          {/* Compact on mobile — full journey steps on larger screens */}
+          <details className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 text-xs text-dark/80 sm:hidden">
+            <summary className="cursor-pointer list-none p-3 font-medium text-dark marker:content-none [&::-webkit-details-marker]:hidden">
+              How ordering works (tap)
+            </summary>
+            <div className="border-t border-[#25D366]/20 px-3 pb-3 pt-2">
+              <ol className="list-decimal space-y-1 pl-4">
+                <li>Place order — WhatsApp opens with your bill</li>
+                <li>We confirm availability (usually within 2–4 hours)</li>
+                <li>Pay via {PAYMENT_METHODS_SUMMARY.toLowerCase()}</li>
+                <li>Send payment screenshot on WhatsApp</li>
+                <li>We ship, share tracking, then ask for your review & feedback</li>
+              </ol>
+              <p className="mt-2 text-dark/70">{COD_POLICY}</p>
+              <p className="mt-1 text-dark/55">{ONLINE_PAYMENT_COMING_SOON}</p>
+            </div>
+          </details>
+
+          <div className="hidden rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 p-4 text-xs text-dark/80 sm:block">
             <p className="font-medium text-dark">Your order journey</p>
             <ol className="mt-2 list-decimal space-y-1 pl-4">
               <li>Place order — WhatsApp opens with your bill</li>
@@ -228,7 +246,7 @@ export default function CheckoutPage() {
 
           <div className="rounded-xl border border-gold/30 bg-gold/10 p-3 text-xs text-dark/80">
             <p className="font-medium text-dark">Delivery: {DELIVERY_REGION_LABEL}</p>
-            <p className="mt-1">{DELIVERY_NOTICE}</p>
+            <p className="mt-1 line-clamp-2 sm:line-clamp-none">{DELIVERY_NOTICE}</p>
           </div>
 
           {LOYALTY_ENABLED && (
@@ -331,7 +349,7 @@ export default function CheckoutPage() {
             />
           </div>
 
-          <UnboxingVideoNotice />
+          <UnboxingVideoNotice compact />
 
           {error && (
             <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
