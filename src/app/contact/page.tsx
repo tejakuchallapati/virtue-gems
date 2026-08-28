@@ -191,7 +191,7 @@ export default function ContactPage() {
       </ScrollReveal>
 
       {/* Contact channels */}
-      <div className="mb-12 grid gap-4 sm:grid-cols-3">
+      <div className="mb-12 grid min-w-0 gap-4 sm:grid-cols-3">
         {contactChannels.map((channel, i) => {
           const Icon = channel.icon;
           return (
@@ -200,7 +200,7 @@ export default function ContactPage() {
                 href={channel.href}
                 target={channel.external ? "_blank" : undefined}
                 rel={channel.external ? "noopener noreferrer" : undefined}
-                className={`block h-full rounded-2xl p-5 transition hover:shadow-md ${
+                className={`block h-full min-w-0 rounded-2xl p-5 transition hover:shadow-md ${
                   channel.primary
                     ? "bg-gradient-to-br from-[#1a0a2e] to-[#2d1450] text-light ring-1 ring-gold/30"
                     : "bg-white text-dark ring-1 ring-light-muted/60 hover:ring-gold/30"
@@ -215,7 +215,7 @@ export default function ContactPage() {
                 </div>
                 <h2 className="mt-4 font-semibold">{channel.title}</h2>
                 <p
-                  className={`mt-1 text-sm font-medium ${
+                  className={`mt-1 break-words text-sm font-medium ${
                     channel.primary ? "text-gold" : "text-gold-dark"
                   }`}
                 >
@@ -235,7 +235,7 @@ export default function ContactPage() {
       </div>
 
       {/* Instagram + business info */}
-      <div className="mb-12 grid gap-6 lg:grid-cols-2">
+      <div className="mb-12 grid min-w-0 gap-6 lg:grid-cols-2">
         <ScrollReveal>
           <div className={`h-full p-6 sm:p-8 ${CARD_SURFACE}`}>
             <div className="flex items-center gap-3">
