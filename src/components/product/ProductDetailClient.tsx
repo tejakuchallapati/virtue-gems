@@ -114,7 +114,7 @@ export function ProductDetailClient({
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
-      <div className={`${PAGE_CONTENT_SHELL} pb-[calc(var(--mobile-nav-offset)+8rem)] lg:pb-10`}>
+      <div className={`${PAGE_CONTENT_SHELL} pb-20 lg:pb-10`}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -340,9 +340,9 @@ export function ProductDetailClient({
       )}
 
       {/* Mobile sticky add-to-cart bar — sits above bottom nav; nav already has safe-area */}
-      <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-3 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md sm:px-4 lg:hidden">
-        <div className="mx-auto flex min-w-0 max-w-lg items-center gap-2">
-          <div className="min-w-0 shrink">
+      <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-2 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md sm:px-4 lg:hidden">
+        <div className="mx-auto flex min-w-0 max-w-lg items-center gap-1.5 sm:gap-2">
+          <div className="hidden min-w-0 shrink min-[380px]:block">
             <p className="truncate text-base font-bold text-gold-dark">
               {formatPrice(product.price)}
             </p>
@@ -356,11 +356,14 @@ export function ProductDetailClient({
             type="button"
             disabled={product.stock < 1}
             onClick={handleAddToCart}
-            className="flex min-h-11 min-w-0 flex-1 items-center justify-center gap-2 rounded-xl bg-dark px-3 text-sm font-semibold text-gold disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl bg-dark px-2.5 text-sm font-semibold text-gold disabled:cursor-not-allowed disabled:opacity-50 sm:gap-2 sm:px-3"
           >
             <ShoppingCart className="h-4 w-4 shrink-0" />
-            <span className="truncate">
+            <span className="truncate max-[379px]:hidden">
               {product.stock < 1 ? "Out of Stock" : "Add to Cart"}
+            </span>
+            <span className="hidden truncate max-[379px]:inline">
+              {product.stock < 1 ? "Out" : "Add"}
             </span>
           </button>
           <button
@@ -381,7 +384,7 @@ export function ProductDetailClient({
             type="button"
             aria-label="Share product"
             onClick={handleShare}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-light-muted text-dark"
+            className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-light-muted text-dark min-[380px]:flex"
           >
             <Share2 className="h-4 w-4" />
           </button>
