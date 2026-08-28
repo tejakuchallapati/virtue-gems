@@ -29,7 +29,7 @@ export function HeroLanding() {
         Mobile hero: always render the same DOM on server + client.
         Animate with introReady — never conditionally mount (that caused hydration errors).
       */}
-      <div className="relative z-10 flex min-h-[100dvh] w-full min-w-0 flex-col items-center justify-center px-5 pb-28 pt-16 max-[390px]:pb-24 max-[390px]:pt-12 md:hidden">
+      <div className="relative z-10 flex min-h-[100dvh] w-full min-w-0 flex-col items-center justify-center px-5 pb-[calc(7rem+env(safe-area-inset-bottom,0px))] pt-16 max-[390px]:pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))] max-[390px]:pt-12 md:hidden">
         <motion.p
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: -12 }}
