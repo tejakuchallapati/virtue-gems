@@ -210,7 +210,7 @@ export default function CheckoutPage() {
       <h1 className="mb-6 text-2xl font-semibold text-dark sm:text-3xl">Checkout</h1>
 
       <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
-        <form onSubmit={handleSubmit} className="order-2 space-y-4 lg:order-1">
+        <form onSubmit={handleSubmit} className="order-2 space-y-4 pb-2 lg:order-1 lg:pb-0">
           <p className="text-sm text-dark/60">{CHECKOUT_PAYMENT_NOTICE}</p>
 
           {/* Compact on mobile — full journey steps on larger screens */}
@@ -372,7 +372,7 @@ export default function CheckoutPage() {
           <button
             type="submit"
             disabled={loading || cart.length === 0}
-            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] py-3.5 text-sm font-semibold text-white transition hover:bg-[#1fb855] disabled:opacity-60"
+            className="flex min-h-12 w-full scroll-mb-[calc(var(--mobile-nav-offset)+0.5rem)] items-center justify-center gap-2 rounded-xl bg-[#25D366] py-3.5 text-sm font-semibold text-white transition hover:bg-[#1fb855] disabled:opacity-60"
           >
             <MessageCircle className="h-5 w-5" />
             {loading ? "Placing order…" : "Place Order via WhatsApp"}
