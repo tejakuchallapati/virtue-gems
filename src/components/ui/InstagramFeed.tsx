@@ -33,13 +33,13 @@ export function InstagramFeed() {
             @{instagramData.handle}
           </h2>
         </div>
-        <p className="mx-auto mt-2 max-w-md text-sm text-dark/60">
+        <p className="mx-auto mt-2 hidden max-w-md text-sm text-dark/60 sm:block">
           See our latest designs, styling tips, and behind-the-scenes moments.
         </p>
       </a>
 
-      <div className="mt-6 grid grid-cols-3 gap-1 sm:grid-cols-6 sm:gap-2">
-        {instagramData.posts.map((post) => (
+      <div className="mt-5 grid grid-cols-3 gap-1 sm:mt-6 sm:grid-cols-6 sm:gap-2">
+        {instagramData.posts.slice(0, 6).map((post) => (
           <a
             key={post.id}
             href={post.url}
@@ -65,7 +65,7 @@ export function InstagramFeed() {
         ))}
       </div>
 
-      <div className="mt-8 flex justify-center">
+      <div className="mt-6 flex justify-center sm:mt-8">
         <a
           href={PROFILE_URL}
           target="_blank"
