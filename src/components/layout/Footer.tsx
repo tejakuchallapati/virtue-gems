@@ -44,7 +44,7 @@ export function Footer() {
     <>
       <SectionDivider />
       <footer className="border-t border-gold/20 bg-dark text-light/80 pb-[var(--mobile-nav-offset)] md:pb-0">
-        <div className="mx-auto max-w-7xl px-5 py-8 sm:px-6 sm:py-12 lg:px-8">
+        <div className="mx-auto max-w-7xl px-5 py-6 sm:px-6 sm:py-12 lg:px-8">
           {/* Mobile compact */}
           <div className="md:hidden">
             <p className="text-base font-bold tracking-widest text-light">
@@ -57,13 +57,17 @@ export function Footer() {
               href={whatsAppContactUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-block text-sm text-gold"
+              className="mt-3 inline-flex min-h-11 items-center text-sm text-gold"
             >
               WhatsApp us →
             </a>
-            <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2.5 text-sm">
               {mobileQuickLinks.map((l) => (
-                <Link key={l.href} href={l.href} className="text-light/70 hover:text-gold">
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="min-h-11 inline-flex items-center text-light/70 hover:text-gold"
+                >
                   {l.label}
                 </Link>
               ))}
