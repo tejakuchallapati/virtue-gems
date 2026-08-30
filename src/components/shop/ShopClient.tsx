@@ -183,7 +183,7 @@ export function ShopClient({ products }: { products: Product[] }) {
   return (
     <div className={PAGE_GRADIENT_SHELL}>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-5 pb-8 pt-6 sm:px-6 sm:pb-10 sm:pt-8 lg:px-8">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-4 pb-5 pt-4 sm:px-6 sm:pb-10 sm:pt-8 lg:px-8">
         <div
           className="pointer-events-none absolute -right-20 top-0 h-56 w-56 rounded-full bg-gold/10 blur-3xl"
           aria-hidden
@@ -198,15 +198,15 @@ export function ShopClient({ products }: { products: Product[] }) {
               ]}
             />
 
-          <div className="mt-4 flex min-w-0 flex-col gap-4 min-[420px]:flex-row min-[420px]:items-end min-[420px]:justify-between">
+          <div className="mt-3 flex min-w-0 flex-col gap-3 min-[420px]:mt-4 min-[420px]:flex-row min-[420px]:items-end min-[420px]:justify-between min-[420px]:gap-4">
             <div className="min-w-0">
-              <p className="text-xs tracking-[0.16em] text-gold uppercase sm:tracking-[0.25em]">
+              <p className="text-[10px] tracking-[0.16em] text-gold uppercase sm:text-xs sm:tracking-[0.25em]">
                 Virtue Gems
               </p>
-              <h1 className="mt-1 text-2xl font-semibold text-light sm:text-4xl">
+              <h1 className="mt-1 text-xl font-semibold text-light sm:text-4xl">
                 {activeCategory ? activeCategory.label : "Shop Collections"}
               </h1>
-              <p className="mt-2 max-w-xl text-sm text-light/65 line-clamp-2 sm:line-clamp-none">
+              <p className="mt-1.5 max-w-xl text-sm text-light/65 line-clamp-2 sm:mt-2 sm:line-clamp-none">
                 Handpicked jewellery under ₹2,000 — crafted for everyday elegance
                 and festive gifting in {DELIVERY_REGION_LABEL}.
               </p>
@@ -220,7 +220,7 @@ export function ShopClient({ products }: { products: Product[] }) {
           </div>
 
           {/* Search */}
-          <div className="mt-6 flex flex-col gap-2 min-[420px]:flex-row">
+          <div className="mt-4 flex flex-col gap-2 min-[420px]:mt-6 min-[420px]:flex-row">
             <div className="relative min-w-0 flex-1">
               <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-dark/40" />
               <label htmlFor="shop-search" className="sr-only">
@@ -249,8 +249,8 @@ export function ShopClient({ products }: { products: Product[] }) {
           </div>
 
           {/* Category — top only */}
-          <div className="mt-5">
-            <p className="mb-2 text-[10px] font-medium tracking-[0.2em] text-gold/80 uppercase">
+          <div className="mt-4 sm:mt-5">
+            <p className="mb-2 hidden text-[10px] font-medium tracking-[0.2em] text-gold/80 uppercase sm:block">
               Browse by category
             </p>
             <CategoryFilters
@@ -277,7 +277,7 @@ export function ShopClient({ products }: { products: Product[] }) {
         </div>
       </div>
 
-      <div className="mx-auto min-w-0 max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+      <div className="mx-auto min-w-0 max-w-7xl px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
         {/* Active filters */}
         {hasActiveFilters && (
           <div className="mb-6 flex flex-wrap items-center gap-2">
