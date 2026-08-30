@@ -9,7 +9,7 @@ export const PAGE_GRADIENT_SHELL =
 
 /** Inner content width and vertical rhythm (pair with PAGE_GRADIENT_SHELL). */
 export const PAGE_CONTENT_SHELL =
-  "mx-auto w-full max-w-7xl min-w-0 px-5 py-5 sm:px-6 sm:py-10 lg:px-8";
+  "mx-auto w-full max-w-7xl min-w-0 px-4 py-4 sm:px-6 sm:py-10 lg:px-8";
 
 /** Narrow centered layout for empty cart, wishlist, and similar states. */
 export const EMPTY_STATE_SHELL =
