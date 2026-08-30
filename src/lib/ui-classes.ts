@@ -1,7 +1,7 @@
 /** Shared Tailwind class groups for consistent layout and product imagery. */
 
 export const PAGE_CONTAINER =
-  "mx-auto w-full max-w-7xl min-w-0 px-5 sm:px-6 lg:px-8";
+  "mx-auto w-full max-w-7xl min-w-0 px-4 sm:px-6 lg:px-8";
 
 /** Cream gradient page backdrop (footer owns mobile bottom-nav clearance). */
 export const PAGE_GRADIENT_SHELL =
