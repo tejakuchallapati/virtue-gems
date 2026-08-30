@@ -64,16 +64,20 @@ export function SectionHeader({
   return (
     <div
       className={cn(
-        "mb-8",
-        centered ? "text-center" : "flex flex-wrap items-end justify-between gap-4",
+        "mb-5 sm:mb-8",
+        centered ? "text-center" : "flex flex-wrap items-end justify-between gap-3 sm:gap-4",
         className,
       )}
     >
       <div className={centered ? undefined : "min-w-0 flex-1"}>
-        <p className="text-sm tracking-[0.14em] text-gold uppercase sm:tracking-[0.2em]">{eyebrow}</p>
-        <h2 className="mt-1 text-2xl font-semibold text-dark sm:text-3xl">{title}</h2>
+        <p className="text-[11px] tracking-[0.14em] text-gold uppercase sm:text-sm sm:tracking-[0.2em]">
+          {eyebrow}
+        </p>
+        <h2 className="mt-1 text-xl font-semibold text-dark sm:text-2xl md:text-3xl">{title}</h2>
         {description && (
-          <p className="mt-2 max-w-2xl text-sm text-dark/60 sm:text-base">{description}</p>
+          <p className="mt-1.5 max-w-2xl text-sm text-dark/60 sm:mt-2 sm:text-base">
+            {description}
+          </p>
         )}
       </div>
       {action && <div className={centered ? "mt-4" : "shrink-0"}>{action}</div>}
