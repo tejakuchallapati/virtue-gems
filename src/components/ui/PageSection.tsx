@@ -33,7 +33,7 @@ export function PageSection({
   return (
     <section
       id={id}
-      className={cn("relative py-12 sm:py-16", toneClasses[tone], className)}
+      className={cn("relative py-8 sm:py-12 md:py-16", toneClasses[tone], className)}
     >
       {dividerTop && <SectionDivider className="absolute inset-x-0 top-0" />}
       <div className={cn(PAGE_CONTAINER, containerClassName)}>{children}</div>
