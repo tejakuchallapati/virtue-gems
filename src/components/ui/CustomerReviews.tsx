@@ -136,10 +136,10 @@ export function CustomerReviews() {
   const review = textReviews[index];
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8 sm:space-y-10">
       {/* Text reviews carousel */}
-      <div className="relative mx-auto max-w-2xl px-4 text-center">
-        <Quote className="mx-auto mb-4 h-8 w-8 text-gold/40" />
+      <div className="relative mx-auto max-w-2xl px-2 text-center sm:px-4">
+        <Quote className="mx-auto mb-3 h-7 w-7 text-gold/40 sm:mb-4 sm:h-8 sm:w-8" />
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
@@ -153,15 +153,15 @@ export function CustomerReviews() {
                 <Star key={i} className="h-4 w-4 fill-gold text-gold" />
               ))}
             </div>
-            <p className="text-base leading-relaxed text-dark/80 sm:text-lg">
+            <p className="text-sm leading-relaxed text-dark/80 sm:text-base md:text-lg">
               &ldquo;{review.text}&rdquo;
             </p>
-            <p className="mt-4 text-sm font-medium text-gold-dark">
+            <p className="mt-3 text-sm font-medium text-gold-dark sm:mt-4">
               — {review.author}
             </p>
           </motion.div>
         </AnimatePresence>
-        <div className="mt-6 flex justify-center gap-2">
+        <div className="mt-5 flex justify-center gap-2 sm:mt-6">
           {textReviews.map((_, i) => (
             <button
               key={i}
@@ -176,19 +176,20 @@ export function CustomerReviews() {
         </div>
       </div>
 
-      {/* Customer photos & videos */}
+      {/* Customer photos & videos — fewer tiles on small phones */}
       <div>
-        <p className="mb-4 text-center text-sm tracking-[0.15em] text-gold uppercase">
+        <p className="mb-3 text-center text-[11px] tracking-[0.15em] text-gold uppercase sm:mb-4 sm:text-sm">
           Real Moments from Our Customers
         </p>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 sm:gap-3">
-          {customerMedia.map((item) => (
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 md:grid-cols-4">
+          {customerMedia.map((item, i) => (
             <button
               key={item.id}
               type="button"
               onClick={() => setActiveMedia(item)}
               className={cn(
                 "group relative aspect-[3/4] w-full min-w-0 overflow-hidden rounded-xl ring-1 ring-gold/20 transition active:scale-[0.98] hover:ring-gold/50",
+                i >= 4 && "hidden sm:block",
                 PRODUCT_IMAGE_BG,
               )}
             >
