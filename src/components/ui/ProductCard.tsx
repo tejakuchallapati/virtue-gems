@@ -58,8 +58,8 @@ export function ProductCard({ product }: { product: Product }) {
             className={cn(PRODUCT_IMAGE_FIT, "group-hover:scale-[1.02]")}
           />
         </Link>
-        <div className="pointer-events-none absolute left-2 top-2 flex flex-wrap gap-1">
-          {product.tags.slice(0, 2).map((tag) => (
+        <div className="pointer-events-none absolute left-2 top-2 flex max-w-[70%] flex-wrap gap-1">
+          {product.tags.slice(0, 1).map((tag) => (
             <span
               key={tag}
               className={cn(
@@ -71,6 +71,21 @@ export function ProductCard({ product }: { product: Product }) {
             </span>
           ))}
         </div>
+        <button
+          type="button"
+          aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
+          onClick={() =>
+            wished ? removeFromWishlist(product.id) : addToWishlist(product)
+          }
+          className={cn(
+            "absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-sm transition",
+            wished
+              ? "bg-gold/90 text-dark"
+              : "bg-white/90 text-dark/60 hover:bg-gold/15 hover:text-gold-dark",
+          )}
+        >
+          <Heart className={cn("h-4 w-4", wished && "fill-current")} />
+        </button>
       </div>
 
       <div className="border-t border-light-muted/50 p-2.5 sm:p-4">
@@ -78,13 +93,10 @@ export function ProductCard({ product }: { product: Product }) {
           <h3 className="line-clamp-2 text-[13px] font-medium leading-snug text-dark sm:line-clamp-1 sm:text-base">
             {product.name}
           </h3>
-          <p className="mt-1 hidden line-clamp-2 text-xs text-dark/60 sm:block sm:text-sm">
-            {product.description}
-          </p>
         </Link>
-        <div className="mt-2 flex flex-col gap-2 sm:mt-3 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
-          <div className="min-w-0">
-            <p className="text-sm font-semibold text-gold-dark sm:text-base">
+        <div className="mt-2 flex items-center gap-2">
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-semibold text-gold-dark sm:text-base">
               {formatPrice(product.price)}
             </p>
             {product.originalPrice && (
@@ -93,50 +105,31 @@ export function ProductCard({ product }: { product: Product }) {
               </p>
             )}
           </div>
-          <div className="flex min-w-0 w-full gap-1.5 self-stretch sm:w-auto sm:self-auto">
-            <button
-              type="button"
-              aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
-              onClick={() =>
-                wished
-                  ? removeFromWishlist(product.id)
-                  : addToWishlist(product)
-              }
-              className={cn(
-                "flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition",
-                wished
-                  ? "bg-gold/20 text-gold-dark"
-                  : "bg-light text-dark/60 hover:bg-gold/10 hover:text-gold-dark",
-              )}
-            >
-              <Heart className={cn("h-4 w-4", wished && "fill-current")} />
-            </button>
-            <button
-              type="button"
-              aria-label={
-                product.stock < 1
-                  ? `${product.name} is out of stock`
-                  : `Add ${product.name} to cart`
-              }
-              disabled={product.stock < 1}
-              onClick={handleAddToCart}
-              className={cn(
-                "flex h-11 min-w-0 flex-1 items-center justify-center gap-1 rounded-full px-2.5 text-xs font-semibold transition sm:min-w-11 sm:flex-none sm:gap-1.5 sm:px-4 sm:text-sm disabled:cursor-not-allowed disabled:opacity-50",
-                added
-                  ? "bg-green-600 text-white"
-                  : "bg-dark text-gold hover:bg-gold hover:text-dark",
-              )}
-            >
-              <ShoppingCart className="h-4 w-4 shrink-0" />
-              <span className="truncate">
-                {product.stock < 1 ? "Sold out" : added ? "Added!" : "Add"}
-              </span>
-            </button>
-          </div>
-          <span className="sr-only" role="status" aria-live="polite">
-            {added ? `${product.name} added to cart` : ""}
-          </span>
+          <button
+            type="button"
+            aria-label={
+              product.stock < 1
+                ? `${product.name} is out of stock`
+                : `Add ${product.name} to cart`
+            }
+            disabled={product.stock < 1}
+            onClick={handleAddToCart}
+            className={cn(
+              "flex h-10 min-w-0 shrink-0 items-center justify-center gap-1 rounded-full px-3 text-xs font-semibold transition sm:h-11 sm:gap-1.5 sm:px-4 sm:text-sm disabled:cursor-not-allowed disabled:opacity-50",
+              added
+                ? "bg-green-600 text-white"
+                : "bg-dark text-gold hover:bg-gold hover:text-dark",
+            )}
+          >
+            <ShoppingCart className="h-4 w-4 shrink-0" />
+            <span className="truncate max-[360px]:hidden">
+              {product.stock < 1 ? "Sold" : added ? "Added" : "Add"}
+            </span>
+          </button>
         </div>
+        <span className="sr-only" role="status" aria-live="polite">
+          {added ? `${product.name} added to cart` : ""}
+        </span>
       </div>
     </article>
   );
