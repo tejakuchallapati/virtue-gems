@@ -244,15 +244,18 @@ export default function AboutPage() {
             </div>
           </ScrollReveal>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
             {orderSteps.map((item, i) => (
               <ScrollReveal key={item.step} delay={i * 0.05}>
-                <div className={`${CARD_SURFACE} h-full p-5 sm:p-6`}>
-                  <p className="text-xs font-semibold tracking-[0.2em] text-gold-dark uppercase">
-                    Step {item.step}
-                  </p>
-                  <h3 className="mt-2 text-lg font-semibold text-dark">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-dark/65">{item.text}</p>
+                <div className={`${CARD_SURFACE} flex h-full gap-3 p-4 sm:block sm:p-6`}>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold/15 text-sm font-bold text-gold-dark sm:mb-3 sm:h-auto sm:w-auto sm:justify-start sm:rounded-none sm:bg-transparent sm:p-0 sm:text-xs sm:font-semibold sm:tracking-[0.2em] sm:uppercase">
+                    <span className="sm:hidden">{item.step}</span>
+                    <span className="hidden sm:inline">Step {item.step}</span>
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-base font-semibold text-dark sm:text-lg">{item.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-dark/65 sm:mt-2">{item.text}</p>
+                  </div>
                 </div>
               </ScrollReveal>
             ))}
@@ -265,9 +268,11 @@ export default function AboutPage() {
                   <MessageCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#25D366]" />
                   <div>
                     <p className="font-semibold text-dark">Payment after confirmation</p>
-                    <p className="mt-1 text-sm text-dark/65">{CHECKOUT_PAYMENT_NOTICE}</p>
-                    <p className="mt-2 text-sm text-dark/65">{PAYMENT_METHODS_SUMMARY}</p>
-                    <p className="mt-1 text-sm text-dark/55">{COD_POLICY}</p>
+                    <p className="mt-1 text-sm text-dark/65 line-clamp-2 sm:line-clamp-none">
+                      {CHECKOUT_PAYMENT_NOTICE}
+                    </p>
+                    <p className="mt-2 hidden text-sm text-dark/65 sm:block">{PAYMENT_METHODS_SUMMARY}</p>
+                    <p className="mt-1 hidden text-sm text-dark/55 sm:block">{COD_POLICY}</p>
                   </div>
                 </div>
                 <a
