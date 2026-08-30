@@ -55,8 +55,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         tabIndex={-1}
         className={
           isHome
-            ? "page-mobile-safe min-h-dvh w-full min-w-0 max-w-full"
-            : "page-mobile-safe min-h-[calc(100dvh-3rem)] w-full min-w-0 max-w-full md:min-h-[calc(100vh-4rem)]"
+            ? "min-h-dvh w-full min-w-0 max-w-full"
+            : "min-h-[calc(100dvh-3rem)] w-full min-w-0 max-w-full md:min-h-[calc(100vh-4rem)]"
         }
       >
         {children}
