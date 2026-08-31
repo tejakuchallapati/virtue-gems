@@ -79,7 +79,7 @@ export default function FaqPage() {
             href={whatsAppContactUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#1fb855]"
+            className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-3 text-sm font-semibold text-white transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#1fb855] active:scale-[0.98] sm:w-auto"
           >
             <MessageCircle className="h-5 w-5" />
             Chat on WhatsApp
