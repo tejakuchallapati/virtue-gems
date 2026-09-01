@@ -396,7 +396,7 @@ export default function AboutPage() {
                 href={whatsAppContactUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1ebe5a]"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-semibold text-white shadow-sm transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#1ebe5a] active:scale-[0.98]"
               >
                 <MessageCircle className="h-4 w-4" />
                 Chat on WhatsApp
@@ -448,13 +448,13 @@ export default function AboutPage() {
             <div className="relative mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
               <Link
                 href="/shop"
-                className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-gold px-8 text-sm font-semibold text-dark shadow-lg shadow-gold/25 transition hover:-translate-y-0.5 hover:bg-gold-light sm:w-auto"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-gold px-8 text-sm font-semibold text-dark shadow-lg shadow-gold/25 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:bg-gold-light active:scale-[0.98] sm:w-auto"
               >
                 Shop collections
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-gold/40 px-8 text-sm font-semibold text-gold transition hover:bg-gold/10 sm:w-auto"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-gold/40 px-8 text-sm font-semibold text-gold transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-gold/10 active:scale-[0.98] sm:w-auto"
               >
                 Contact us
               </Link>
