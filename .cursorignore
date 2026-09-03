@@ -1,0 +1,7 @@
+# SQLite is binary — do not open or index as text
+data/*.db
+data/*.db-shm
+data/*.db-wal
+*.db
+*.db-wal
+*.db-shm
