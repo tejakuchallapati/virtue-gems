@@ -37,7 +37,7 @@ function NavLink({
     >
       <span
         className={cn(
-          "text-sm font-semibold uppercase tracking-[0.12em] transition-colors duration-200 lg:text-[15px]",
+          "text-xs font-semibold uppercase tracking-[0.08em] transition-colors duration-200 lg:text-[15px] lg:tracking-[0.12em]",
           active ? "text-gold" : "text-light/90 group-hover:text-gold",
         )}
       >
@@ -76,10 +76,10 @@ export function DesktopNavbar() {
           : "border-gold/10 bg-[#1a0a2e]/90 backdrop-blur-md",
       )}
     >
-      <div className="relative mx-auto flex h-16 max-w-[1400px] items-center px-6 lg:px-10">
-        <NavBrand className="relative z-10" logoClassName="h-9 w-9" />
+      <div className="relative mx-auto flex h-14 max-w-[1400px] items-center gap-2 px-4 lg:h-16 lg:px-10">
+        <NavBrand className="relative z-10 min-w-0" logoClassName="h-8 w-8 lg:h-9 lg:w-9" />
 
-        <nav className="absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 items-center">
+        <nav className="relative z-20 ml-2 hidden min-w-0 flex-1 items-center justify-center overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] md:flex lg:absolute lg:left-1/2 lg:top-1/2 lg:ml-0 lg:flex-none lg:-translate-x-1/2 lg:-translate-y-1/2 lg:overflow-visible [&::-webkit-scrollbar]:hidden">
           {links.map((link) => (
             <NavLink
               key={link.href}
@@ -90,7 +90,7 @@ export function DesktopNavbar() {
           ))}
         </nav>
 
-        <div className="relative z-10 ml-auto flex items-center gap-3">
+        <div className="relative z-10 ml-auto flex shrink-0 items-center gap-2 lg:gap-3">
           <Link
             href="/cart"
             className={cn(
