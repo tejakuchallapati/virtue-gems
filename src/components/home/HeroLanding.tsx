@@ -82,8 +82,59 @@ export function HeroLanding() {
         </motion.div>
       </div>
 
-      {/* Desktop — same rule: stable DOM, animate only */}
-      <div className="relative z-10 hidden h-screen w-full overflow-hidden md:block">
+      {/* Tablet / laptop — contained logo, no 3D split (that looked broken in mid-width browsers) */}
+      <div className="relative z-10 hidden min-h-[100dvh] w-full flex-col items-center justify-center px-8 pb-24 pt-24 lg:hidden md:flex">
+        <motion.p
+          initial={false}
+          animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: -12 }}
+          transition={{ delay: introReady ? 0.05 : 0, duration: 0.5, ease }}
+          className="mb-6 text-center text-[10px] tracking-[0.28em] text-gold uppercase"
+        >
+          Shop · WhatsApp checkout · Free delivery
+        </motion.p>
+        <motion.div
+          initial={false}
+          animate={introReady ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 16, scale: 0.94 }}
+          transition={{ delay: introReady ? 0.15 : 0, duration: 0.65, ease }}
+          className="relative aspect-square w-full max-w-[280px]"
+        >
+          <Image
+            src="/logo-with-text.png"
+            alt="Virtue Gems"
+            fill
+            priority
+            quality={100}
+            sizes="280px"
+            className="object-contain drop-shadow-[0_20px_40px_rgba(212,175,55,0.25)]"
+          />
+        </motion.div>
+        <motion.p
+          initial={false}
+          animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+          transition={{ delay: introReady ? 0.35 : 0, duration: 0.5, ease }}
+          className="mt-6 text-center text-xs tracking-[0.2em] text-gold/80 uppercase"
+        >
+          Wear Your Virtue
+          <span className="mt-1 block">Shine With Grace</span>
+        </motion.p>
+        <motion.div
+          initial={false}
+          animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+          transition={{ delay: introReady ? 0.5 : 0, duration: 0.5, ease }}
+          className="mt-8"
+        >
+          <Link
+            href="/shop"
+            className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gold px-10 py-3.5 text-sm font-semibold text-dark shadow-[0_12px_32px_rgba(212,175,55,0.45)]"
+          >
+            Explore Collection
+            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+          </Link>
+        </motion.div>
+      </div>
+
+      {/* Large desktop — cinematic intro */}
+      <div className="relative z-10 hidden h-screen w-full overflow-hidden lg:block">
         <div
           className="absolute inset-0"
           style={{ perspective: 1600, transformStyle: "preserve-3d" }}
@@ -116,7 +167,7 @@ export function HeroLanding() {
               priority
               quality={90}
               sizes="100vw"
-              className="object-cover object-center"
+              className="object-contain object-center p-[6vmin]"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#1a0a2e]/25 via-transparent to-[#1a0a2e]/88" />
           </motion.div>
