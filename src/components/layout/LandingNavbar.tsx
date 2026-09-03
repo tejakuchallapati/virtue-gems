@@ -38,7 +38,7 @@ function DesktopNavLink({
     >
       <span
         className={cn(
-          "text-sm font-semibold uppercase tracking-[0.12em] transition-colors duration-200 lg:text-[15px]",
+          "text-xs font-semibold uppercase tracking-[0.08em] transition-colors duration-200 lg:text-[15px] lg:tracking-[0.12em]",
           active ? "text-gold" : "text-light/90 group-hover:text-gold",
         )}
       >
@@ -109,12 +109,12 @@ export function LandingNavbar() {
             : "border-b border-transparent bg-gradient-to-b from-[#1a0a2e]/75 via-[#1a0a2e]/30 to-transparent",
         )}
       >
-        <div className="relative mx-auto flex h-16 max-w-[1400px] items-center px-6 lg:px-10">
-          <div className="relative z-10 shrink-0">
-            <NavBrand logoClassName="h-9 w-9" />
+        <div className="relative mx-auto flex h-14 max-w-[1400px] items-center gap-2 px-4 lg:h-16 lg:px-10">
+          <div className="relative z-10 min-w-0 shrink-0">
+            <NavBrand logoClassName="h-8 w-8 lg:h-9 lg:w-9" />
           </div>
 
-          <nav className="absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 items-center">
+          <nav className="relative z-20 ml-2 hidden min-w-0 flex-1 items-center justify-center overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] md:flex lg:absolute lg:left-1/2 lg:top-1/2 lg:ml-0 lg:flex-none lg:-translate-x-1/2 lg:-translate-y-1/2 lg:overflow-visible [&::-webkit-scrollbar]:hidden">
             {desktopLinks.map((link) => (
               <DesktopNavLink
                 key={link.href}
@@ -125,7 +125,7 @@ export function LandingNavbar() {
             ))}
           </nav>
 
-          <div className="relative z-10 ml-auto flex items-center gap-3">
+          <div className="relative z-10 ml-auto flex shrink-0 items-center gap-2 lg:gap-3">
             <Link
               href="/cart"
               className="relative flex h-10 w-10 items-center justify-center text-light/70 transition hover:text-gold"
