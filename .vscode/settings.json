@@ -1,0 +1,12 @@
+{
+  "files.exclude": {
+    "**/virtue-gems.db": true,
+    "**/*.db-shm": true,
+    "**/*.db-wal": true
+  },
+  "search.exclude": {
+    "**/*.db": true,
+    "**/*.db-shm": true,
+    "**/*.db-wal": true
+  }
+}
