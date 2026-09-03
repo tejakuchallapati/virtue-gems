@@ -81,7 +81,7 @@ export function LoadingScreen() {
             </motion.div>
 
             <motion.h1
-              className="mt-7 text-center text-2xl font-semibold tracking-[0.28em] text-gold sm:text-3xl"
+              className="mt-7 max-w-full px-2 text-center text-xl font-semibold tracking-[0.18em] text-gold sm:text-3xl sm:tracking-[0.28em]"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.4 }}
@@ -93,7 +93,7 @@ export function LoadingScreen() {
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.35 }}
-              className="mt-4 text-[10px] tracking-[0.38em] text-gold/75 uppercase sm:text-xs"
+              className="mt-4 max-w-[18rem] text-center text-[10px] leading-relaxed tracking-[0.2em] text-gold/75 uppercase sm:max-w-none sm:text-xs sm:tracking-[0.38em]"
             >
               Wear Your Virtue · Shine With Grace
             </motion.p>
