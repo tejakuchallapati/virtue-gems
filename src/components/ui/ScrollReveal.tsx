@@ -12,10 +12,10 @@ type ScrollRevealProps = {
 };
 
 const offsets = {
-  up: { y: 12, x: 0 },
-  down: { y: -12, x: 0 },
-  left: { x: 12, y: 0 },
-  right: { x: -12, y: 0 },
+  up: { y: 18, x: 0 },
+  down: { y: -18, x: 0 },
+  left: { x: 18, y: 0 },
+  right: { x: -18, y: 0 },
 };
 
 export function ScrollReveal({
@@ -26,7 +26,7 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   const ref = useRef(null);
   const reduceMotion = useReducedMotion();
-  const inView = useInView(ref, { once: true, margin: "0px 0px -6% 0px", amount: 0.12 });
+  const inView = useInView(ref, { once: true, margin: "0px 0px -8% 0px", amount: 0.1 });
   const offset = offsets[direction];
 
   const classes = cn("min-w-0", className);
@@ -46,9 +46,9 @@ export function ScrollReveal({
       initial={{ opacity: 0, ...offset }}
       animate={inView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, ...offset }}
       transition={{
-        duration: 0.35,
-        delay: Math.min(delay, 0.12),
-        ease: [0.22, 1, 0.36, 1],
+        duration: 0.55,
+        delay: Math.min(delay, 0.18),
+        ease: [0.16, 1, 0.3, 1],
       }}
     >
       {children}
