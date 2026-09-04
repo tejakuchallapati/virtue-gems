@@ -28,7 +28,7 @@ export const PRODUCT_IMAGE_BG = "bg-[#1a0a2e]";
 export const PRODUCT_IMAGE_FRAME = `relative overflow-hidden ${PRODUCT_IMAGE_BG} ring-1 ring-inset ring-white/10`;
 
 export const PRODUCT_IMAGE_FIT =
-  "object-contain p-1.5 transition duration-500 sm:p-2.5";
+  "object-contain p-1.5 transition duration-700 ease-out sm:p-2.5";
 
 /** Edge-to-edge cover fit for Instagram / lifestyle tiles (no product padding). */
 export const PRODUCT_IMAGE_COVER =
