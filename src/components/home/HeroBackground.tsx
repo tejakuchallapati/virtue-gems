@@ -2,19 +2,19 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 
-const sparkles = Array.from({ length: 10 }, (_, i) => ({
+const sparkles = Array.from({ length: 12 }, (_, i) => ({
   id: i,
-  left: `${(i * 19 + 9) % 100}%`,
-  top: `${(i * 27 + 13) % 100}%`,
-  size: 2 + (i % 2),
-  delay: (i % 5) * 0.45,
-  duration: 3.5 + (i % 3),
+  left: `${(i * 17 + 7) % 100}%`,
+  top: `${(i * 23 + 11) % 100}%`,
+  size: 2 + (i % 3),
+  delay: (i % 6) * 0.4,
+  duration: 4.2 + (i % 4) * 0.6,
 }));
 
 /* Keep rings within typical phone widths so they never force horizontal scroll. */
 const rings = [
-  { size: 220, opacity: 0.12, duration: 22 },
-  { size: 320, opacity: 0.07, duration: 30 },
+  { size: 220, opacity: 0.12, duration: 28 },
+  { size: 320, opacity: 0.07, duration: 38 },
 ];
 
 /**
