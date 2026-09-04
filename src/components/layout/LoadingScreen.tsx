@@ -50,23 +50,25 @@ export function LoadingScreen() {
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           // Disable hit-testing as soon as exit starts so nav/buttons work again
-          exit={{ opacity: 0, pointerEvents: "none" }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0, scale: 1.02, pointerEvents: "none" }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           aria-hidden
         >
-          <div
+          <motion.div
             className="pointer-events-none absolute h-[min(70vw,480px)] w-[min(70vw,480px)] rounded-full"
             style={{
               background:
                 "radial-gradient(circle, rgba(212,175,55,0.28) 0%, rgba(212,175,55,0.08) 42%, transparent 70%)",
             }}
+            animate={{ scale: [0.92, 1.06, 1], opacity: [0.7, 1, 0.85] }}
+            transition={{ duration: 2.4, ease: [0.22, 1, 0.36, 1] }}
           />
 
           <div className="relative z-10 flex flex-col items-center px-6">
             <motion.div
-              initial={{ opacity: 0, scale: 0.88, y: 10 }}
+              initial={{ opacity: 0, scale: 0.86, y: 14 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
               className="relative h-36 w-36 sm:h-44 sm:w-44"
             >
               <Image
@@ -84,15 +86,15 @@ export function LoadingScreen() {
               className="mt-7 max-w-full px-2 text-center text-xl font-semibold tracking-[0.18em] text-gold sm:text-3xl sm:tracking-[0.28em]"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.4 }}
+              transition={{ delay: 0.25, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             >
               {BRAND}
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 6 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.35 }}
+              transition={{ delay: 0.42, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="mt-4 max-w-[18rem] text-center text-[10px] leading-relaxed tracking-[0.2em] text-gold/75 uppercase sm:max-w-none sm:text-xs sm:tracking-[0.38em]"
             >
               Wear Your Virtue · Shine With Grace
