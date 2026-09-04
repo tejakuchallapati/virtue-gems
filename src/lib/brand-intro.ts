@@ -1,6 +1,7 @@
 /** Shared splash / brand-intro timing for home landing. */
 export const BRAND_INTRO_KEY = "vg-splash-seen";
-export const BRAND_INTRO_MS = 2600;
+/** Long enough for logo settle + soft fade into the full-bleed hero. */
+export const BRAND_INTRO_MS = 3000;
 export const BRAND_INTRO_READY_EVENT = "vg-intro-ready";
 
 export function hasSeenBrandIntro(): boolean {
