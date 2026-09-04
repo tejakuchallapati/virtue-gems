@@ -1,4 +1,8 @@
-export const HERO_INTRO_EASE = [0.22, 1, 0.36, 1] as const;
+/** Shared motion curves for the home brand intro. */
+export const HERO_INTRO_EASE = [0.16, 1, 0.3, 1] as const;
+
+/** Slightly softer secondary curve for overlays and copy. */
+export const HERO_SOFT_EASE = [0.22, 1, 0.36, 1] as const;
 
 /** Floating gems / sparkles that fly in one-by-one in 3D space */
 export const HERO_DEPTH_ORBS = [
