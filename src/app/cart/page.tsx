@@ -59,12 +59,12 @@ export default function CartPage() {
           <div className="space-y-4 lg:col-span-2">
             {cart.map((item, i) => (
               <ScrollReveal key={item.product.id} delay={i * 0.05}>
-                <div className={cn("flex min-w-0 flex-col gap-3 p-4 min-[380px]:flex-row min-[380px]:gap-4", CARD_SURFACE)}>
+                <div className={cn("flex min-w-0 flex-row gap-3 p-3.5 min-[380px]:gap-4 min-[380px]:p-4", CARD_SURFACE)}>
                   <Link
                     href={`/product/${item.product.slug}`}
                     className={cn(
                       PRODUCT_IMAGE_FRAME,
-                      "h-20 w-20 shrink-0 self-start rounded-xl min-[380px]:h-24 min-[380px]:w-24 sm:h-28 sm:w-28",
+                      "h-20 w-20 shrink-0 rounded-lg min-[380px]:h-24 min-[380px]:w-24 min-[380px]:rounded-xl sm:h-28 sm:w-28",
                     )}
                   >
                     <Image
