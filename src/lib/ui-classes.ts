@@ -25,17 +25,23 @@ export const DARK_PANEL =
 export const PRODUCT_IMAGE_BG = "bg-[#1a0a2e]";
 
 /** Dark square frame for product photos — always includes `relative` for next/image `fill`. */
-export const PRODUCT_IMAGE_FRAME = `relative overflow-hidden ${PRODUCT_IMAGE_BG} ring-1 ring-inset ring-white/10`;
+export const PRODUCT_IMAGE_FRAME =
+  `relative min-w-0 overflow-hidden ${PRODUCT_IMAGE_BG} ring-1 ring-inset ring-white/10`;
 
+/** Contain jewellery with room to breathe — tighter padding in compact 2-col cards. */
 export const PRODUCT_IMAGE_FIT =
-  "object-contain p-1.5 transition duration-700 ease-out sm:p-2.5";
+  "object-contain p-1 transition duration-700 ease-out min-[380px]:p-1.5 sm:p-2.5";
 
 /** Edge-to-edge cover fit for Instagram / lifestyle tiles (no product padding). */
 export const PRODUCT_IMAGE_COVER =
-  "object-cover transition duration-500";
+  "object-cover transition duration-500 ease-out";
 
 export const PRODUCT_GRID =
-  "grid min-w-0 grid-cols-1 gap-3 [&>*]:min-w-0 min-[380px]:grid-cols-2 min-[380px]:gap-2.5 sm:gap-4 lg:grid-cols-4";
+  "grid min-w-0 grid-cols-1 gap-3 [&>*]:min-w-0 min-[360px]:grid-cols-2 min-[360px]:gap-2.5 sm:gap-4 lg:grid-cols-4";
+
+/** Shop grid beside filters — tops out at 3 columns. */
+export const SHOP_PRODUCT_GRID =
+  "grid min-w-0 grid-cols-1 gap-3 [&>*]:min-w-0 min-[360px]:grid-cols-2 min-[360px]:gap-2.5 sm:gap-4 md:grid-cols-3";
 
 export const SECTION_DIVIDER =
   "pointer-events-none h-px w-full bg-gradient-to-r from-transparent via-gold/35 to-transparent";
