@@ -185,6 +185,7 @@ body.scroll-locked [data-mobile-bottom-nav] {
 /* Consistent product photo presentation */
 .product-image-frame {
   position: relative;
+  min-width: 0;
   overflow: hidden;
   background: #1a0a2e;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
@@ -192,7 +193,14 @@ body.scroll-locked [data-mobile-bottom-nav] {
 
 .product-image-fit {
   object-fit: contain;
-  padding: 0.375rem;
+  padding: 0.25rem;
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 380px) {
+  .product-image-fit {
+    padding: 0.375rem;
+  }
 }
 
 @media (min-width: 640px) {

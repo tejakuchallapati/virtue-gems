@@ -25,7 +25,7 @@ import {
   CARD_SURFACE,
   DARK_PANEL,
   PAGE_GRADIENT_SHELL,
-  PRODUCT_GRID,
+  SHOP_PRODUCT_GRID,
 } from "@/lib/ui-classes";
 import type { Product, ProductCategory } from "@/types";
 
@@ -459,7 +459,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                 </button>
               </div>
             ) : (
-              <div className={`${PRODUCT_GRID} md:grid-cols-3`}>
+              <div className={SHOP_PRODUCT_GRID}>
                 {filtered.map((p, i) => (
                   <ScrollReveal key={p.id} delay={Math.min(i * 0.04, 0.4)}>
                     <ProductCard product={p} />
