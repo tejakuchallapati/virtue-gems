@@ -188,7 +188,7 @@ export function CustomerReviews() {
               type="button"
               onClick={() => setActiveMedia(item)}
               className={cn(
-                "group relative aspect-[3/4] w-full min-w-0 overflow-hidden rounded-xl ring-1 ring-gold/20 transition active:scale-[0.98] hover:ring-gold/50",
+                "group relative aspect-[3/4] w-full min-w-0 overflow-hidden rounded-lg ring-1 ring-gold/20 transition active:scale-[0.98] hover:ring-gold/50 sm:rounded-xl",
                 i >= 4 && "hidden sm:block",
                 PRODUCT_IMAGE_BG,
               )}

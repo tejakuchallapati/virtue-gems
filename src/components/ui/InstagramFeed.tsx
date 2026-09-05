@@ -38,7 +38,7 @@ export function InstagramFeed() {
         </p>
       </a>
 
-      <div className="mt-5 grid grid-cols-3 gap-1 sm:mt-6 sm:grid-cols-6 sm:gap-2">
+      <div className="mt-5 grid grid-cols-3 gap-1.5 sm:mt-6 sm:grid-cols-6 sm:gap-2">
         {instagramData.posts.slice(0, 6).map((post) => (
           <a
             key={post.id}
@@ -47,7 +47,7 @@ export function InstagramFeed() {
             rel="noopener noreferrer"
             className={cn(
               PRODUCT_IMAGE_FRAME,
-              "group aspect-square rounded-lg sm:rounded-xl",
+              "group aspect-square rounded-md sm:rounded-xl",
             )}
           >
             <Image
