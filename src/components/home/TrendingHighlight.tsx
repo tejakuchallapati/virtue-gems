@@ -24,14 +24,14 @@ function HighlightCard({ product }: { product: Product }) {
     <Link
       href={`/product/${product.slug}`}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-2xl ring-1 ring-gold/25 transition hover:ring-gold/50 md:flex-row",
+        "group relative flex min-w-0 flex-col overflow-hidden rounded-xl ring-1 ring-gold/25 transition hover:ring-gold/50 sm:rounded-2xl md:flex-row",
         PRODUCT_IMAGE_BG,
       )}
     >
       <div
         className={cn(
           PRODUCT_IMAGE_FRAME,
-          "aspect-square w-full shrink-0 md:aspect-auto md:h-56 md:w-56",
+          "aspect-square w-full shrink-0 md:aspect-square md:h-52 md:w-52 lg:h-56 lg:w-56",
         )}
       >
         <Image
@@ -40,16 +40,18 @@ function HighlightCard({ product }: { product: Product }) {
           fill
           quality={PRODUCT_IMAGE_QUALITY}
           sizes={PRODUCT_HIGHLIGHT_SIZES}
-          className={cn(PRODUCT_IMAGE_FIT, "group-hover:scale-[1.02]")}
+          className={cn(PRODUCT_IMAGE_FIT, "group-hover:scale-[1.03]")}
         />
       </div>
-      <div className="flex flex-1 flex-col justify-center p-4 md:p-6">
+      <div className="flex min-w-0 flex-1 flex-col justify-center p-3.5 sm:p-4 md:p-6">
         {primaryTag && (
-          <span className="mb-2 w-fit rounded-full bg-gold/15 px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gold md:text-xs">
+          <span className="mb-2 w-fit rounded-full bg-gold/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gold md:text-xs">
             {TAG_LABELS[primaryTag] ?? primaryTag}
           </span>
         )}
-        <h3 className="text-sm font-semibold text-light md:text-lg">{product.name}</h3>
+        <h3 className="line-clamp-2 text-sm font-semibold text-light md:text-lg">
+          {product.name}
+        </h3>
         <p className="mt-1 line-clamp-2 text-xs text-light/55 md:text-sm">
           {product.description}
         </p>
