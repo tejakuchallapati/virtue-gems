@@ -123,13 +123,13 @@ export function ProductDetailClient({
         ]}
       />
 
-      <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+      <div className="grid min-w-0 gap-6 lg:grid-cols-2 lg:gap-12">
         {/* Images */}
-        <div>
+        <div className="min-w-0">
           <button
             type="button"
             aria-label="Zoom product image"
-            className={`relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-2xl text-left ${PRODUCT_IMAGE_FRAME}`}
+            className={`relative aspect-square w-full max-w-full cursor-zoom-in overflow-hidden rounded-xl text-left sm:rounded-2xl ${PRODUCT_IMAGE_FRAME}`}
             onClick={() => setZoom(true)}
           >
             <Image
@@ -141,11 +141,11 @@ export function ProductDetailClient({
               className={PRODUCT_IMAGE_FIT}
               priority
             />
-            <div className="pointer-events-none absolute right-3 top-3 rounded-full bg-white/80 p-2">
+            <div className="pointer-events-none absolute right-2.5 top-2.5 rounded-full bg-white/85 p-2 shadow-sm sm:right-3 sm:top-3">
               <ZoomIn className="h-4 w-4 text-dark" />
             </div>
           </button>
-          <div className="mt-3 flex gap-2 overflow-x-auto no-scrollbar">
+          <div className="mt-3 -mx-0.5 flex gap-2 overflow-x-auto px-0.5 pb-1 no-scrollbar">
             {product.images.map((img, i) => (
               <button
                 key={i}
@@ -153,7 +153,7 @@ export function ProductDetailClient({
                 onClick={() => setActiveImage(i)}
                 aria-label={`View image ${i + 1} of ${product.images.length}`}
                 aria-pressed={i === activeImage}
-                className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20 ${PRODUCT_IMAGE_FRAME} ring-2 transition ${
+                className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20 sm:rounded-xl ${PRODUCT_IMAGE_FRAME} ring-2 transition ${
                   i === activeImage ? "ring-gold" : "ring-transparent"
                 }`}
               >
@@ -171,18 +171,18 @@ export function ProductDetailClient({
         </div>
 
         {/* Info */}
-        <div>
+        <div className="min-w-0">
           <div className="flex flex-wrap gap-2">
             {product.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-gold/15 px-3 py-0.5 text-xs font-semibold uppercase text-gold-dark"
+                className="rounded-full bg-gold/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase text-gold-dark sm:px-3 sm:text-xs"
               >
                 {TAG_LABELS[tag] ?? tag}
               </span>
             ))}
           </div>
-          <h1 className="mt-3 text-2xl font-semibold text-dark sm:text-3xl">
+          <h1 className="mt-3 text-xl font-semibold break-words text-dark sm:text-2xl md:text-3xl">
             {product.name}
           </h1>
           <div className="mt-2 flex items-center gap-2">
@@ -340,7 +340,7 @@ export function ProductDetailClient({
       )}
 
       {/* Mobile sticky add-to-cart bar — sits above bottom nav; nav already has safe-area */}
-      <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-2 py-3 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md sm:px-4 lg:hidden">
+      <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-2 py-2.5 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md sm:px-4 sm:py-3 lg:hidden">
         <div className="mx-auto flex min-w-0 max-w-lg items-center gap-1.5 sm:gap-2">
           <div className="hidden min-w-0 shrink min-[380px]:block">
             <p className="truncate text-base font-bold text-gold-dark">
