@@ -59,8 +59,8 @@ After a successful migration, remove `INITIAL_ADMIN_PASSWORD` from
 Create the requested team from **Admin → Team**:
 
 1. Keep the migrated account as **Owner**.
-2. Create the second account with role **Admin**.
-3. Create the third account with role **Admin**.
+2. Create an **Admin** account for catalog / product uploads.
+3. Create a **Manager** account for order handling.
 4. Give each person a unique temporary password through a private channel.
 5. Never put admin passwords in source code, documentation, or chat history.
 
@@ -97,7 +97,18 @@ is enabled.
 
 ## Roles
 
-- **Owner**: team management, backups and all CRM/catalog access.
-- **Admin**: catalog, orders, customers, CRM and exports; no team management.
-- **Staff**: daily order/customer/catalog operations; sensitive backup and team
-  actions are restricted.
+Everyone signs in at the same URL: `/admin/login` (Supabase email + password).
+
+| Role (UI) | Stored as | Access |
+|-----------|-----------|--------|
+| **Owner** | `owner` | Team management, backups, products, orders, CRM |
+| **Admin** | `admin` | Products (add/edit), analytics, orders, customers, backups |
+| **Manager** | `staff` | Orders and customers only — no product catalog edits |
+
+Create the two daily logins from **Admin → Team** (owner only):
+
+1. Keep the migrated account as **Owner**.
+2. Create an **Admin** account for catalog / product uploads.
+3. Create a **Manager** account for order handling.
+
+OTP login (no Supabase) is single-owner only and cannot support Admin + Manager.
