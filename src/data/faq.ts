@@ -73,9 +73,9 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: "shipping-cost",
     category: "delivery",
-    question: "Is delivery free?",
+    question: "How are delivery charges calculated?",
     answer:
-      "Yes, we offer free delivery across Andhra Pradesh and Telangana on all orders.",
+      "Delivery is not free. After you select items and enter your address at checkout, we show the delivery charge for that address. Charges depend on your delivery location — there are no random fees.",
   },
   {
     id: "product-quality",
