@@ -20,7 +20,7 @@ import {
   PRODUCT_IMAGE_QUALITY,
   PRODUCT_THUMB_SIZES,
 } from "@/lib/product-images";
-import { DELIVERY_SHORT } from "@/lib/delivery";
+import { DELIVERY_CHARGES_NOTICE, DELIVERY_SHORT } from "@/lib/delivery";
 
 export default function CartPage() {
   const { cart, cartTotal, updateQuantity, removeFromCart, hydrated } = useStore();
@@ -138,11 +138,15 @@ export default function CartPage() {
                   <span>Subtotal</span>
                   <span>{formatPrice(cartTotal)}</span>
                 </div>
-                <div className="flex justify-between text-dark/70">
-                  <span>Shipping</span>
-                  <span className="text-green-600">Free</span>
+                <div className="flex justify-between gap-3 text-dark/70">
+                  <span className="shrink-0">Delivery</span>
+                  <span className="min-w-0 text-right text-dark/55">
+                    Based on address
+                  </span>
                 </div>
-                <p className="text-[11px] text-dark/45">{DELIVERY_SHORT}</p>
+                <p className="text-[11px] leading-relaxed text-dark/45">
+                  {DELIVERY_SHORT}. {DELIVERY_CHARGES_NOTICE}
+                </p>
                 <div className="border-t border-light-muted pt-2">
                   <div className="flex justify-between text-base font-semibold text-dark">
                     <span>Total</span>
