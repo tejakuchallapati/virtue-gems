@@ -18,7 +18,12 @@ import { getAbsoluteUrl } from "@/lib/site";
 import { buildOrderMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import { calculateDiscount, calculatePointsEarned } from "@/lib/loyalty";
 import { UnboxingVideoNotice } from "@/components/ui/UnboxingVideoNotice";
-import { DELIVERY_NOTICE, DELIVERY_REGION_LABEL, DELIVERY_STATES } from "@/lib/delivery";
+import {
+  DELIVERY_CHARGES_NOTICE,
+  DELIVERY_NOTICE,
+  DELIVERY_REGION_LABEL,
+  DELIVERY_STATES,
+} from "@/lib/delivery";
 import { CHECKOUT_PAYMENT_NOTICE, COD_POLICY, ONLINE_PAYMENT_COMING_SOON, PAYMENT_METHODS_SUMMARY } from "@/lib/payments";
 import type { CheckoutForm } from "@/types";
 
@@ -246,7 +251,8 @@ export default function CheckoutPage() {
 
           <div className="rounded-xl border border-gold/30 bg-gold/10 p-3 text-xs text-dark/80">
             <p className="font-medium text-dark">Delivery: {DELIVERY_REGION_LABEL}</p>
-            <p className="mt-1 line-clamp-2 sm:line-clamp-none">{DELIVERY_NOTICE}</p>
+            <p className="mt-1">{DELIVERY_NOTICE}</p>
+            <p className="mt-1.5 text-dark/70">{DELIVERY_CHARGES_NOTICE}</p>
           </div>
 
           {LOYALTY_ENABLED && (
@@ -412,8 +418,17 @@ export default function CheckoutPage() {
                 </span>
               </div>
             )}
+            <div className="flex justify-between gap-3 text-dark/70">
+              <span className="shrink-0">Delivery</span>
+              <span className="min-w-0 text-right text-dark/55">
+                Calculated for your address
+              </span>
+            </div>
+            <p className="text-[11px] leading-relaxed text-dark/45">
+              {DELIVERY_CHARGES_NOTICE}
+            </p>
             <div className="flex justify-between text-lg font-semibold">
-              <span>Total</span>
+              <span>Items total</span>
               <span className="text-gold-dark">{formatPrice(finalTotal)}</span>
             </div>
             {LOYALTY_ENABLED && (
