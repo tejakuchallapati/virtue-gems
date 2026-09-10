@@ -17,7 +17,7 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { filterProducts, getCategories } from "@/lib/products";
-import { DELIVERY_REGION_LABEL, DELIVERY_SHORT } from "@/lib/delivery";
+import { DELIVERY_REGION_LABEL, DELIVERY_TRUST_LINE } from "@/lib/delivery";
 import { LOYALTY_ENABLED } from "@/lib/features";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
@@ -44,7 +44,7 @@ const priceRanges = [
 ];
 
 const trustItems = [
-  { icon: Truck, text: `Free delivery · ${DELIVERY_SHORT}` },
+  { icon: Truck, text: DELIVERY_TRUST_LINE },
   { icon: MessageCircle, text: "Order easily via WhatsApp" },
   ...(LOYALTY_ENABLED
     ? [{ icon: Gift, text: "Earn rewards on every purchase" }]
