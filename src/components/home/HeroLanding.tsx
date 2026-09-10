@@ -12,6 +12,7 @@ import {
   HERO_INTRO_EASE,
   HERO_SOFT_EASE,
 } from "@/lib/hero-intro-motion";
+import { DELIVERY_HERO_LINE } from "@/lib/delivery";
 
 const ease = HERO_INTRO_EASE;
 const softEase = HERO_SOFT_EASE;
@@ -39,7 +40,7 @@ export function HeroLanding() {
           transition={{ delay: introReady ? 0.08 : 0, duration: 0.7, ease }}
           className="mb-6 max-w-[min(100%,20rem)] rounded-full border border-gold/30 bg-gold/10 px-3 py-1.5 text-center text-[9px] leading-snug tracking-[0.14em] text-gold uppercase backdrop-blur-sm sm:px-5 sm:text-[10px] sm:tracking-[0.28em]"
         >
-          Shop · WhatsApp checkout · Free delivery
+          {DELIVERY_HERO_LINE}
         </motion.p>
 
         <motion.div
