@@ -2,6 +2,14 @@ import { cookies } from "next/headers";
 import { SESSION_COOKIE, verifySessionToken } from "@/lib/otp";
 import type { AdminProfile } from "@/types";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { canManageCatalogRole } from "@/lib/admin-roles";
+
+export {
+  CATALOG_ROLES,
+  BACKUP_ROLES,
+  adminRoleLabel,
+  canManageCatalogRole,
+} from "@/lib/admin-roles";
 
 export async function isAdminAuthenticated(): Promise<boolean> {
   return Boolean(await getCurrentAdmin());
@@ -47,6 +55,30 @@ export async function getCurrentAdmin(): Promise<AdminProfile | null> {
     role: "owner",
     active: true,
   };
+}
+
+/** Catalog Admin / Owner — product CRUD, bulk upload, inventory. */
+export function canManageCatalog(admin: AdminProfile | null | undefined) {
+  return canManageCatalogRole(admin?.role);
+}
+
+/** Manager (staff) — orders & customers; no catalog edits. */
+export function isManagerRole(admin: AdminProfile | null | undefined) {
+  return admin?.role === "staff";
+}
+
+export async function requireAdmin(): Promise<AdminProfile | null> {
+  return getCurrentAdmin();
+}
+
+export async function requireCatalogAdmin(): Promise<AdminProfile | null> {
+  const admin = await getCurrentAdmin();
+  return canManageCatalog(admin) ? admin : null;
+}
+
+export async function requireOwner(): Promise<AdminProfile | null> {
+  const admin = await getCurrentAdmin();
+  return admin?.role === "owner" ? admin : null;
 }
 
 export { SESSION_COOKIE as COOKIE_NAME };
