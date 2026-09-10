@@ -7,7 +7,6 @@ import {
   Gem,
   Heart,
   MessageCircle,
-  Package,
   Shield,
   ShoppingBag,
   Truck,
@@ -17,13 +16,10 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
-import {
-  CARD_SURFACE,
-  PAGE_CONTENT_SHELL,
-  PAGE_GRADIENT_SHELL,
-} from "@/lib/ui-classes";
+import { PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
 import { buildPageMetadata } from "@/lib/seo";
 import {
+  DELIVERY_CHARGES_NOTICE,
   DELIVERY_NOTICE,
   DELIVERY_REGION_LABEL,
   DELIVERY_TIMELINE,
@@ -34,12 +30,11 @@ import {
   PAYMENT_METHODS_SUMMARY,
 } from "@/lib/payments";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
-import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "About Virtue Gems — Vision, Orders, Delivery & Returns",
   description:
-    "Learn about Virtue Gems: our vision, WhatsApp order flow, AP & Telangana delivery, payment options, and refund policy with mandatory unboxing video.",
+    "Learn about Virtue Gems: our vision, WhatsApp order flow, AP & Telangana delivery charges by location, payment options, and refund policy with mandatory unboxing video.",
   path: "/about",
   keywords: [
     "about Virtue Gems",
@@ -86,7 +81,7 @@ const orderSteps = [
   {
     step: "3",
     title: "We confirm availability",
-    text: "We reply on WhatsApp (usually within 2–4 hours) to confirm stock and delivery details.",
+    text: "We reply on WhatsApp (usually within 2–4 hours) to confirm stock, delivery location, and charges.",
   },
   {
     step: "4",
@@ -102,6 +97,23 @@ const infoNav = [
   { href: "#refunds", label: "Refunds" },
 ];
 
+function SectionLabel({
+  icon: Icon,
+  label,
+}: {
+  icon: typeof Eye;
+  label: string;
+}) {
+  return (
+    <div className="mb-3 flex items-center gap-2">
+      <Icon className="h-4 w-4 text-gold-dark" />
+      <p className="text-[10px] font-semibold tracking-[0.22em] text-gold-dark uppercase">
+        {label}
+      </p>
+    </div>
+  );
+}
+
 export default function AboutPage() {
   return (
     <div className={PAGE_GRADIENT_SHELL}>
@@ -114,8 +126,7 @@ export default function AboutPage() {
       <div className={PAGE_CONTENT_SHELL}>
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "About Us" }]} />
 
-        {/* Hero — brand story */}
-        <div className="relative mb-8 overflow-hidden rounded-3xl bg-dark ring-1 ring-gold/20 sm:mb-12">
+        <div className="relative mb-8 overflow-hidden sm:mb-10">
           <Image
             src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1600&q=90"
             alt="Virtue Gems jewellery craftsmanship"
@@ -123,32 +134,32 @@ export default function AboutPage() {
             height={700}
             quality={90}
             sizes="(max-width: 768px) 100vw, 1200px"
-            className="h-52 w-full object-cover opacity-50 sm:h-72"
+            className="h-48 w-full object-cover opacity-90 sm:h-64"
             priority
           />
-          <div className="absolute inset-0 flex items-center justify-center px-4">
-            <ScrollReveal className="text-center">
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a2e]/85 via-[#1a0a2e]/35 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 px-1 pb-6 sm:pb-8">
+            <ScrollReveal>
               <p className="text-[10px] tracking-[0.28em] text-gold uppercase sm:text-xs">
                 Virtue Gems
               </p>
               <h1 className="mt-2 text-3xl font-bold text-light sm:text-4xl">Our Story</h1>
-              <p className="mt-2 text-sm text-light/70 sm:text-base">
+              <p className="mt-2 text-sm text-light/75 sm:text-base">
                 Where tradition meets timeless elegance
               </p>
             </ScrollReveal>
           </div>
         </div>
 
-        {/* Jump links — useful on mobile for long page */}
         <nav
           aria-label="About page sections"
-          className="mb-10 flex flex-wrap justify-center gap-2"
+          className="mb-10 flex flex-wrap gap-x-5 gap-y-2 border-b border-gold/20 pb-4 text-sm"
         >
           {infoNav.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="shrink-0 rounded-full border border-gold/30 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-gold-dark transition hover:bg-gold hover:text-dark"
+              className="font-semibold text-gold-dark transition hover:text-dark"
             >
               {item.label}
             </a>
@@ -156,276 +167,224 @@ export default function AboutPage() {
         </nav>
 
         <ScrollReveal>
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-base leading-relaxed text-dark/70 sm:text-lg">
-              Founded with a passion for exquisite jewellery, <strong>Virtue Gems</strong> brings
-              together craftsmanship and contemporary design. Each piece is made for festive
-              moments, everyday elegance, and gifting across Andhra Pradesh &amp; Telangana.
-            </p>
-          </div>
+          <p className="max-w-3xl text-base leading-relaxed text-dark/70 sm:text-lg">
+            Founded with a passion for exquisite jewellery, <strong>Virtue Gems</strong> brings
+            together craftsmanship and contemporary design. Each piece is made for festive moments,
+            everyday elegance, and gifting across Andhra Pradesh &amp; Telangana.
+          </p>
         </ScrollReveal>
 
-        {/* Values */}
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6">
+        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           {values.map((v, i) => {
             const Icon = v.icon;
             return (
-              <ScrollReveal key={v.title} delay={i * 0.06}>
-                <div className={`${CARD_SURFACE} h-full p-5 text-center sm:p-6`}>
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gold/15">
-                    <Icon className="h-6 w-6 text-gold-dark" />
-                  </div>
-                  <h2 className="mt-4 text-base font-semibold text-dark">{v.title}</h2>
-                  <p className="mt-2 text-sm text-dark/60">{v.desc}</p>
+              <ScrollReveal key={v.title} delay={i * 0.05}>
+                <div className="min-w-0">
+                  <Icon className="h-5 w-5 text-gold-dark" />
+                  <h2 className="mt-3 text-base font-bold text-dark">{v.title}</h2>
+                  <p className="mt-1.5 text-sm leading-relaxed text-dark/65">{v.desc}</p>
                 </div>
               </ScrollReveal>
             );
           })}
         </div>
 
-        {/* Vision */}
-        <section id="vision" className="scroll-mt-24 mt-14 sm:mt-16">
+        <section id="vision" className="scroll-mt-24 mt-14 border-t border-gold/15 pt-12 sm:mt-16">
           <ScrollReveal>
-            <div className={cn(CARD_SURFACE, "overflow-hidden")}>
-              <div className="grid gap-0 lg:grid-cols-5">
-                <div className="bg-gradient-to-br from-[#1a0a2e] to-[#2d1450] px-6 py-8 text-light sm:px-8 lg:col-span-2 lg:py-10">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gold/15 text-gold">
-                    <Eye className="h-5 w-5" />
-                  </div>
-                  <p className="mt-4 text-[10px] tracking-[0.25em] text-gold uppercase">Vision</p>
-                  <h2 className="mt-2 text-2xl font-semibold sm:text-3xl">
-                    Jewellery that feels personal
-                  </h2>
-                </div>
-                <div className="px-6 py-8 sm:px-8 lg:col-span-3 lg:py-10">
-                  <p className="text-sm leading-relaxed text-dark/70 sm:text-base">
-                    Our vision is to make beautiful, gift-ready jewellery easy to discover and order
-                    — without complicated website payments. We sell through a WhatsApp-first
-                    experience so you can ask questions, confirm sizing, and feel confident before
-                    you pay.
-                  </p>
-                  <ul className="mt-5 space-y-2.5 text-sm text-dark/70">
-                    <li className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
-                      Designs suited to AP &amp; Telangana festive and daily wear
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
-                      Clear pricing, careful packing, and letter-packed gifting
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
-                      Honest support on WhatsApp from order to delivery feedback
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            <SectionLabel icon={Eye} label="Vision" />
+            <h2 className="text-2xl font-bold text-dark sm:text-3xl">
+              Jewellery that feels personal
+            </h2>
+            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-dark/70 sm:text-base">
+              Our vision is to make beautiful, gift-ready jewellery easy to discover and order —
+              without complicated website payments. We sell through a WhatsApp-first experience so
+              you can ask questions, confirm sizing, and feel confident before you pay.
+            </p>
+            <ul className="mt-5 max-w-3xl space-y-2.5 text-sm text-dark/70 sm:text-base">
+              <li>
+                <strong className="text-dark">Designs</strong> suited to AP &amp; Telangana festive
+                and daily wear
+              </li>
+              <li>
+                <strong className="text-dark">Clear pricing</strong>, careful packing, and
+                letter-packed gifting
+              </li>
+              <li>
+                <strong className="text-dark">Honest support</strong> on WhatsApp from order to
+                delivery feedback
+              </li>
+            </ul>
           </ScrollReveal>
         </section>
 
-        {/* Orders */}
-        <section id="orders" className="scroll-mt-24 mt-14 sm:mt-16">
+        <section id="orders" className="scroll-mt-24 mt-14 border-t border-gold/15 pt-12 sm:mt-16">
           <ScrollReveal>
-            <div className="mb-6 flex items-start gap-3 sm:mb-8">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold-dark">
-                <ShoppingBag className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-[10px] tracking-[0.25em] text-gold-dark uppercase">Orders</p>
-                <h2 className="mt-1 text-2xl font-semibold text-dark sm:text-3xl">
-                  How ordering works
-                </h2>
-                <p className="mt-2 max-w-2xl text-sm text-dark/60 sm:text-base">
-                  No card payment on the website yet. Your order is saved on Virtue Gems, then
-                  confirmed and paid on WhatsApp.
-                </p>
-              </div>
-            </div>
+            <SectionLabel icon={ShoppingBag} label="Orders" />
+            <h2 className="text-2xl font-bold text-dark sm:text-3xl">How ordering works</h2>
+            <p className="mt-3 max-w-2xl text-sm text-dark/65 sm:text-base">
+              No card payment on the website yet. Your order is saved on Virtue Gems, then confirmed
+              and paid on WhatsApp.
+            </p>
           </ScrollReveal>
 
-          <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+          <ol className="mt-8 max-w-3xl space-y-6">
             {orderSteps.map((item, i) => (
-              <ScrollReveal key={item.step} delay={i * 0.05}>
-                <div className={`${CARD_SURFACE} flex h-full gap-3 p-4 sm:block sm:p-6`}>
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold/15 text-sm font-bold text-gold-dark sm:mb-3 sm:h-auto sm:w-auto sm:justify-start sm:rounded-none sm:bg-transparent sm:p-0 sm:text-xs sm:font-semibold sm:tracking-[0.2em] sm:uppercase">
-                    <span className="sm:hidden">{item.step}</span>
-                    <span className="hidden sm:inline">Step {item.step}</span>
+              <ScrollReveal key={item.step} delay={i * 0.04}>
+                <li className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
+                  <span className="pt-0.5 text-sm font-bold tracking-wider text-gold-dark">
+                    {item.step}.
                   </span>
                   <div className="min-w-0">
-                    <h3 className="text-base font-semibold text-dark sm:text-lg">{item.title}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-dark/65 sm:mt-2">{item.text}</p>
+                    <h3 className="text-base font-bold text-dark sm:text-lg">{item.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-dark/65">{item.text}</p>
                   </div>
-                </div>
+                </li>
               </ScrollReveal>
             ))}
-          </div>
+          </ol>
 
-          <ScrollReveal delay={0.1}>
-            <div className="mt-4 rounded-2xl border border-[#25D366]/25 bg-[#25D366]/5 p-5 sm:p-6">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex gap-3">
-                  <MessageCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#25D366]" />
-                  <div>
-                    <p className="font-semibold text-dark">Payment after confirmation</p>
-                    <p className="mt-1 text-sm text-dark/65 line-clamp-2 sm:line-clamp-none">
-                      {CHECKOUT_PAYMENT_NOTICE}
-                    </p>
-                    <p className="mt-2 hidden text-sm text-dark/65 sm:block">{PAYMENT_METHODS_SUMMARY}</p>
-                    <p className="mt-1 hidden text-sm text-dark/55 sm:block">{COD_POLICY}</p>
-                  </div>
-                </div>
-                <a
-                  href={whatsAppContactUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 text-sm font-semibold text-white transition hover:bg-[#1fb855]"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  Chat on WhatsApp
-                </a>
-              </div>
+          <ScrollReveal delay={0.08}>
+            <div className="mt-8 max-w-3xl border-l-2 border-[#25D366]/50 pl-4 sm:pl-5">
+              <p className="font-bold text-dark">Payment after confirmation</p>
+              <p className="mt-2 text-sm leading-relaxed text-dark/70">{CHECKOUT_PAYMENT_NOTICE}</p>
+              <p className="mt-2 text-sm text-dark/65">{PAYMENT_METHODS_SUMMARY}</p>
+              <p className="mt-1 text-sm text-dark/55">{COD_POLICY}</p>
+              <a
+                href={whatsAppContactUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-[#128C7E] hover:underline"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Chat on WhatsApp
+              </a>
             </div>
           </ScrollReveal>
         </section>
 
-        {/* Delivery */}
-        <section id="delivery" className="scroll-mt-24 mt-14 sm:mt-16">
+        <section id="delivery" className="scroll-mt-24 mt-14 border-t border-gold/15 pt-12 sm:mt-16">
           <ScrollReveal>
-            <div className="mb-6 flex items-start gap-3 sm:mb-8">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold-dark">
-                <Truck className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-[10px] tracking-[0.25em] text-gold-dark uppercase">Delivery</p>
-                <h2 className="mt-1 text-2xl font-semibold text-dark sm:text-3xl">
-                  Shipping across {DELIVERY_REGION_LABEL}
-                </h2>
-              </div>
-            </div>
+            <SectionLabel icon={Truck} label="Delivery" />
+            <h2 className="text-2xl font-bold text-dark sm:text-3xl">
+              Shipping across {DELIVERY_REGION_LABEL}
+            </h2>
           </ScrollReveal>
 
-          <div className="grid gap-4 lg:grid-cols-3">
+          <dl className="mt-8 max-w-3xl space-y-6">
             <ScrollReveal>
-              <div className={`${CARD_SURFACE} h-full p-5 sm:p-6`}>
-                <Package className="h-5 w-5 text-gold-dark" />
-                <h3 className="mt-3 font-semibold text-dark">Service area</h3>
-                <p className="mt-2 text-sm leading-relaxed text-dark/65">{DELIVERY_NOTICE}</p>
+              <div>
+                <dt className="font-bold text-dark">Service area</dt>
+                <dd className="mt-1.5 text-sm leading-relaxed text-dark/65 sm:text-base">
+                  {DELIVERY_NOTICE}
+                </dd>
               </div>
             </ScrollReveal>
-            <ScrollReveal delay={0.05}>
-              <div className={`${CARD_SURFACE} h-full p-5 sm:p-6`}>
-                <Truck className="h-5 w-5 text-gold-dark" />
-                <h3 className="mt-3 font-semibold text-dark">Timeline</h3>
-                <p className="mt-2 text-sm leading-relaxed text-dark/65">
+            <ScrollReveal delay={0.04}>
+              <div>
+                <dt className="font-bold text-dark">Delivery charges</dt>
+                <dd className="mt-1.5 text-sm leading-relaxed text-dark/65 sm:text-base">
+                  {DELIVERY_CHARGES_NOTICE}
+                </dd>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={0.08}>
+              <div>
+                <dt className="font-bold text-dark">Timeline</dt>
+                <dd className="mt-1.5 text-sm leading-relaxed text-dark/65 sm:text-base">
                   Typical delivery: <strong className="text-dark">{DELIVERY_TIMELINE}</strong>. We
                   share tracking on WhatsApp after dispatch.
-                </p>
+                </dd>
               </div>
             </ScrollReveal>
-            <ScrollReveal delay={0.1}>
-              <div className={`${CARD_SURFACE} h-full p-5 sm:p-6`}>
-                <Heart className="h-5 w-5 text-gold-dark" />
-                <h3 className="mt-3 font-semibold text-dark">Packaging</h3>
-                <p className="mt-2 text-sm leading-relaxed text-dark/65">
+            <ScrollReveal delay={0.12}>
+              <div>
+                <dt className="font-bold text-dark">Packaging</dt>
+                <dd className="mt-1.5 text-sm leading-relaxed text-dark/65 sm:text-base">
                   Orders are packed carefully and letter-packed for gifting — ready to open and
                   share special moments.
-                </p>
+                </dd>
               </div>
             </ScrollReveal>
-          </div>
+          </dl>
         </section>
 
-        {/* Refunds */}
-        <section id="refunds" className="scroll-mt-24 mt-14 sm:mt-16">
+        <section id="refunds" className="scroll-mt-24 mt-14 border-t border-gold/15 pt-12 sm:mt-16">
           <ScrollReveal>
-            <div className="mb-6 flex items-start gap-3 sm:mb-8">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold-dark">
-                <Shield className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-[10px] tracking-[0.25em] text-gold-dark uppercase">
-                  Refunds &amp; returns
-                </p>
-                <h2 className="mt-1 text-2xl font-semibold text-dark sm:text-3xl">
-                  Our return policy at a glance
-                </h2>
-                <p className="mt-2 max-w-2xl text-sm text-dark/60 sm:text-base">
-                  We want you to love your jewellery. Returns are possible with clear rules —
-                  especially the mandatory unboxing video.
-                </p>
-              </div>
-            </div>
+            <SectionLabel icon={Shield} label="Refunds & returns" />
+            <h2 className="text-2xl font-bold text-dark sm:text-3xl">
+              Our return policy at a glance
+            </h2>
+            <p className="mt-3 max-w-2xl text-sm text-dark/65 sm:text-base">
+              We want you to love your jewellery. Returns are possible with clear rules — especially
+              the mandatory unboxing video.
+            </p>
           </ScrollReveal>
 
           <ScrollReveal>
-            <div className="rounded-2xl border-2 border-gold/35 bg-gold/10 p-5 sm:p-6">
-              <div className="flex gap-3">
-                <Video className="mt-0.5 h-5 w-5 shrink-0 text-gold-dark" />
-                <div>
-                  <p className="font-semibold text-dark">Mandatory unboxing video</p>
-                  <p className="mt-2 text-sm leading-relaxed text-dark/75">
-                    Record a continuous video while opening your parcel. Start before the outer seal
-                    is broken, show the label, and keep recording through the full unboxing.{" "}
-                    <strong>Without this video, no return or refund is accepted</strong> — including
-                    for damaged items.
-                  </p>
-                </div>
-              </div>
+            <div className="mt-8 max-w-3xl border-l-2 border-gold/50 pl-4 sm:pl-5">
+              <p className="flex items-center gap-2 font-bold text-dark">
+                <Video className="h-4 w-4 text-gold-dark" />
+                Mandatory unboxing video
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-dark/70 sm:text-base">
+                Record a continuous video while opening your parcel. Start before the outer seal is
+                broken, show the label, and keep recording through the full unboxing.{" "}
+                <strong>Without this video, no return or refund is accepted</strong> — including for
+                damaged items.
+              </p>
             </div>
           </ScrollReveal>
 
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <ScrollReveal delay={0.05}>
-              <div className={`${CARD_SURFACE} h-full p-5 sm:p-6`}>
-                <h3 className="font-semibold text-dark">Eligibility</h3>
-                <ul className="mt-3 space-y-2 text-sm text-dark/65">
-                  <li>· Returns within 7 days of delivery</li>
-                  <li>· Unused items in original packaging with invoice</li>
-                  <li>· Custom or engraved pieces are non-returnable</li>
-                  <li>· Size exchanges on rings/bracelets within 15 days (stock permitting)</li>
-                </ul>
-              </div>
+          <div className="mt-10 grid max-w-4xl gap-10 sm:grid-cols-2">
+            <ScrollReveal delay={0.04}>
+              <h3 className="font-bold text-dark">Eligibility</h3>
+              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-dark/65">
+                <li>Returns within 7 days of delivery</li>
+                <li>Unused items in original packaging with invoice</li>
+                <li>Custom or engraved pieces are non-returnable</li>
+                <li>Size exchanges on rings/bracelets within 15 days (stock permitting)</li>
+              </ul>
             </ScrollReveal>
-            <ScrollReveal delay={0.1}>
-              <div className={`${CARD_SURFACE} h-full p-5 sm:p-6`}>
-                <h3 className="font-semibold text-dark">Damaged items &amp; refunds</h3>
-                <ul className="mt-3 space-y-2 text-sm text-dark/65">
-                  <li>· Report damage within 48 hours on WhatsApp</li>
-                  <li>· Share order ID, photos, and the unboxing video</li>
-                  <li>· Approved refunds: 7–10 business days via UPI/bank</li>
-                  <li>· Full policy details are on our Refunds page</li>
-                </ul>
-              </div>
+            <ScrollReveal delay={0.08}>
+              <h3 className="font-bold text-dark">Damaged items &amp; refunds</h3>
+              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-dark/65">
+                <li>Report damage within 48 hours on WhatsApp</li>
+                <li>Share order ID, photos, and the unboxing video</li>
+                <li>Approved refunds: 7–10 business days via UPI/bank</li>
+                <li>
+                  Full policy details are on our{" "}
+                  <Link href="/refunds" className="font-semibold text-gold-dark hover:underline">
+                    Refunds page
+                  </Link>
+                </li>
+              </ul>
             </ScrollReveal>
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
             <Link
               href="/refunds"
-              className="inline-flex min-h-11 items-center justify-center rounded-full bg-dark px-5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark"
+              className="inline-flex min-h-11 items-center text-sm font-bold text-dark underline-offset-4 hover:underline"
             >
               Read full refund policy
             </Link>
             <Link
               href="/faq"
-              className="inline-flex min-h-11 items-center justify-center rounded-full border border-gold/40 bg-white/80 px-5 text-sm font-medium text-gold-dark transition hover:bg-gold hover:text-dark"
+              className="inline-flex min-h-11 items-center text-sm font-semibold text-gold-dark underline-offset-4 hover:underline"
             >
               View FAQ
             </Link>
           </div>
         </section>
 
-        {/* CTA */}
         <ScrollReveal>
-          <div className="mt-14 rounded-3xl bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-6 py-10 text-center sm:mt-16 sm:px-10 sm:py-12">
-            <p className="text-[10px] tracking-[0.28em] text-gold uppercase">Ready to shine</p>
-            <h2 className="mt-3 text-2xl font-semibold text-light sm:text-3xl">
+          <div className="mt-14 border-t border-gold/15 pt-12 text-center sm:mt-16">
+            <p className="text-[10px] tracking-[0.28em] text-gold-dark uppercase">Ready to shine</p>
+            <h2 className="mt-3 text-2xl font-bold text-dark sm:text-3xl">
               Explore the collection
             </h2>
-            <p className="mx-auto mt-3 max-w-lg text-sm text-light/65">
-              Browse jewellery under ₹2,000, order on WhatsApp, and get free delivery in{" "}
-              {DELIVERY_REGION_LABEL}.
+            <p className="mx-auto mt-3 max-w-lg text-sm text-dark/65">
+              Browse jewellery under ₹2,000, order on WhatsApp. {DELIVERY_CHARGES_NOTICE}
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
@@ -436,7 +395,7 @@ export default function AboutPage() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-gold/40 px-6 text-sm font-medium text-gold transition hover:bg-gold/10 sm:w-auto"
+                className="inline-flex min-h-12 w-full items-center justify-center text-sm font-bold text-gold-dark underline-offset-4 hover:underline sm:w-auto"
               >
                 Contact us
               </Link>
