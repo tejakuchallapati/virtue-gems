@@ -1,10 +1,12 @@
 import { redirect } from "next/navigation";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { getCurrentAdmin, canManageCatalog } from "@/lib/admin-auth";
 import { listProductsSafe } from "@/lib/product-store-server";
 import { AdminCatalogManager } from "@/components/admin/ProductCatalogAdmin";
 
 export default async function InventoryPage() {
-  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+  const admin = await getCurrentAdmin();
+  if (!admin) redirect("/admin/login");
+  if (!canManageCatalog(admin)) redirect("/admin/orders");
 
   const products = await listProductsSafe({ includeInactive: true });
 

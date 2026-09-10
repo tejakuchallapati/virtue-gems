@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { Shield, UserPlus } from "lucide-react";
 import { apiFetch } from "@/lib/api-client";
+import { adminRoleLabel } from "@/lib/admin-roles";
 import type { AdminProfile, AdminRole } from "@/types";
 
 const roles: AdminRole[] = ["owner", "admin", "staff"];
@@ -57,7 +58,10 @@ export function AdminTeam({ initialAdmins }: { initialAdmins: AdminProfile[] }) 
     <div>
       <h1 className="text-2xl font-semibold text-light">Admin team</h1>
       <p className="mt-1 text-sm text-light/50">
-        Owner controls access; admins manage the CRM; staff handle daily orders.
+        Same login page for everyone.{" "}
+        <span className="text-light/70">Admin</span> manages products;{" "}
+        <span className="text-light/70">Manager</span> handles daily orders and
+        customers. Owner manages team access.
       </p>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[22rem_minmax(0,1fr)]">
@@ -96,7 +100,7 @@ export function AdminTeam({ initialAdmins }: { initialAdmins: AdminProfile[] }) 
             onChange={(e) => setRole(e.target.value as AdminRole)}
             className="w-full rounded-xl border border-light/10 bg-dark p-3 text-base text-light outline-none focus:border-gold/40"
           >
-            <option value="staff">Staff</option>
+            <option value="staff">Manager</option>
             <option value="admin">Admin</option>
             <option value="owner">Owner</option>
           </select>
@@ -122,7 +126,7 @@ export function AdminTeam({ initialAdmins }: { initialAdmins: AdminProfile[] }) 
                   </span>
                 </p>
                 <p className="mt-1 truncate text-xs text-light/45">
-                  {admin.email}
+                  {admin.email} · {adminRoleLabel(admin.role)}
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2 sm:shrink-0">
@@ -137,7 +141,7 @@ export function AdminTeam({ initialAdmins }: { initialAdmins: AdminProfile[] }) 
                 >
                   {roles.map((value) => (
                     <option key={value} value={value}>
-                      {value}
+                      {adminRoleLabel(value)}
                     </option>
                   ))}
                 </select>

@@ -1,4 +1,4 @@
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { requireCatalogAdmin } from "@/lib/admin-auth";
 import {
   setProductActiveSafe,
   updateProductSafe,
@@ -9,8 +9,8 @@ import { apiFail, apiOk, parseJsonBody } from "@/lib/api-server";
 type RouteContext = { params: Promise<{ id: string }> };
 
 export async function PATCH(request: Request, context: RouteContext) {
-  if (!(await isAdminAuthenticated())) {
-    return apiFail("Unauthorized.", 401);
+  if (!(await requireCatalogAdmin())) {
+    return apiFail("Admin access required to manage products.", 403);
   }
 
   const { id } = await context.params;
@@ -45,8 +45,8 @@ export async function PATCH(request: Request, context: RouteContext) {
 }
 
 export async function DELETE(_request: Request, context: RouteContext) {
-  if (!(await isAdminAuthenticated())) {
-    return apiFail("Unauthorized.", 401);
+  if (!(await requireCatalogAdmin())) {
+    return apiFail("Admin access required to manage products.", 403);
   }
 
   const { id } = await context.params;

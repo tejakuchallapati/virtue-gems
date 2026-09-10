@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { isAdminAuthenticated, requireCatalogAdmin } from "@/lib/admin-auth";
 import {
   createProductSafe,
   listProductsSafe,
@@ -23,8 +23,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  if (!(await isAdminAuthenticated())) {
-    return apiFail("Unauthorized.", 401);
+  if (!(await requireCatalogAdmin())) {
+    return apiFail("Admin access required to manage products.", 403);
   }
 
   const parsed = await parseJsonBody<Record<string, unknown>>(request);

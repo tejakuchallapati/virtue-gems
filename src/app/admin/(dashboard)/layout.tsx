@@ -1,4 +1,5 @@
 import { AdminTopNav } from "@/components/admin/AdminTopNav";
+import { getCurrentAdmin } from "@/lib/admin-auth";
 import { ADMIN_SHELL_BG } from "@/lib/ui-classes";
 
 export const metadata = {
@@ -6,11 +7,13 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function AdminDashboardLayout({
+export default async function AdminDashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const admin = await getCurrentAdmin();
+
   return (
     <div className={`min-h-screen min-w-0 overflow-x-clip ${ADMIN_SHELL_BG} text-light`}>
       <a
@@ -19,7 +22,7 @@ export default function AdminDashboardLayout({
       >
         Skip to dashboard
       </a>
-      <AdminTopNav />
+      <AdminTopNav role={admin?.role ?? "staff"} />
       <main
         id="admin-main"
         tabIndex={-1}

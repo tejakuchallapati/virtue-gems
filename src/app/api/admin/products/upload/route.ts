@@ -1,7 +1,7 @@
 import { mkdirSync } from "fs";
 import path from "path";
 import sharp from "sharp";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { requireCatalogAdmin } from "@/lib/admin-auth";
 import { apiFail, apiOk } from "@/lib/api-server";
 
 export const runtime = "nodejs";
@@ -19,8 +19,8 @@ const ALLOWED = new Set([
 ]);
 
 export async function POST(request: Request) {
-  if (!(await isAdminAuthenticated())) {
-    return apiFail("Unauthorized.", 401);
+  if (!(await requireCatalogAdmin())) {
+    return apiFail("Admin access required to upload product photos.", 403);
   }
 
   let form: FormData;

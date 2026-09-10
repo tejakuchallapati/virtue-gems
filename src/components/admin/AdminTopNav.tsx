@@ -22,20 +22,56 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ADMIN_NAV_BG } from "@/lib/ui-classes";
 import { apiFetch } from "@/lib/api-client";
+import { adminRoleLabel } from "@/lib/admin-roles";
+import type { AdminRole } from "@/types";
 
-const links = [
+type NavLink = {
+  href: string;
+  label: string;
+  icon: typeof LayoutDashboard;
+  /** If set, only these roles see the link. */
+  roles?: AdminRole[];
+};
+
+const links: NavLink[] = [
   { href: "/admin", label: "Overview", icon: LayoutDashboard },
-  { href: "/admin/inventory", label: "Products", icon: Package },
-  { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
-  { href: "/admin/products", label: "Top Products", icon: TrendingUp },
+  {
+    href: "/admin/inventory",
+    label: "Products",
+    icon: Package,
+    roles: ["owner", "admin"],
+  },
+  {
+    href: "/admin/analytics",
+    label: "Analytics",
+    icon: BarChart3,
+    roles: ["owner", "admin"],
+  },
+  {
+    href: "/admin/products",
+    label: "Top Products",
+    icon: TrendingUp,
+    roles: ["owner", "admin"],
+  },
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/orders", label: "Orders", icon: ClipboardList },
-  { href: "/admin/team", label: "Team", icon: ShieldCheck },
+  {
+    href: "/admin/team",
+    label: "Team",
+    icon: ShieldCheck,
+    roles: ["owner"],
+  },
 ];
 
-export function AdminTopNav() {
+function visibleLinks(role: AdminRole) {
+  return links.filter((link) => !link.roles || link.roles.includes(role));
+}
+
+export function AdminTopNav({ role }: { role: AdminRole }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navLinks = visibleLinks(role);
+  const canBackup = role === "owner" || role === "admin";
 
   async function logout() {
     await apiFetch("/api/admin/login", { method: "DELETE" });
@@ -50,7 +86,6 @@ export function AdminTopNav() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 lg:px-6">
-        {/* Brand */}
         <Link href="/admin" className="flex shrink-0 items-center gap-3">
           <div className="relative h-9 w-9">
             <Image
@@ -63,7 +98,7 @@ export function AdminTopNav() {
           </div>
           <div className="hidden sm:block">
             <p className="text-[10px] tracking-[0.2em] text-gold/70 uppercase">
-              Admin
+              {adminRoleLabel(role)}
             </p>
             <p className="text-sm font-semibold text-white">
               Virtue <span className="text-gold">Gems</span>
@@ -71,9 +106,8 @@ export function AdminTopNav() {
           </div>
         </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden items-center gap-1 lg:flex">
-          {links.map((link) => {
+          {navLinks.map((link) => {
             const Icon = link.icon;
             const active = pathname === link.href;
             return (
@@ -94,7 +128,6 @@ export function AdminTopNav() {
           })}
         </nav>
 
-        {/* Actions */}
         <div className="flex items-center gap-2">
           <Link
             href="/"
@@ -104,13 +137,15 @@ export function AdminTopNav() {
             <ExternalLink className="h-3.5 w-3.5" />
             View Site
           </Link>
-          <a
-            href="/api/admin/export?type=backup"
-            className="hidden items-center gap-1 rounded-lg border border-light/10 px-3 py-1.5 text-xs text-light/55 transition hover:border-gold/30 hover:text-gold xl:flex"
-          >
-            <DatabaseBackup className="h-3.5 w-3.5" />
-            Backup
-          </a>
+          {canBackup && (
+            <a
+              href="/api/admin/export?type=backup"
+              className="hidden items-center gap-1 rounded-lg border border-light/10 px-3 py-1.5 text-xs text-light/55 transition hover:border-gold/30 hover:text-gold xl:flex"
+            >
+              <DatabaseBackup className="h-3.5 w-3.5" />
+              Backup
+            </a>
+          )}
           <button
             type="button"
             onClick={logout}
@@ -130,10 +165,8 @@ export function AdminTopNav() {
         </div>
       </div>
 
-      {/* Gold accent line */}
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.nav
@@ -143,7 +176,7 @@ export function AdminTopNav() {
             className="overflow-hidden border-t border-gold/10 lg:hidden"
           >
             <div className="space-y-1 p-3">
-              {links.map((link) => {
+              {navLinks.map((link) => {
                 const Icon = link.icon;
                 const active = pathname === link.href;
                 return (

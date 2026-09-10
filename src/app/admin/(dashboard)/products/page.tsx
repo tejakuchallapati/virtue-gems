@@ -1,11 +1,13 @@
 import { redirect } from "next/navigation";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { canManageCatalog, getCurrentAdmin } from "@/lib/admin-auth";
 import { getAllProductsSafe } from "@/lib/products-server";
 import { getOrdersSafe } from "@/lib/orders";
 import { formatPrice } from "@/lib/utils";
 
 export default async function TopProductsPage() {
-  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+  const admin = await getCurrentAdmin();
+  if (!admin) redirect("/admin/login");
+  if (!canManageCatalog(admin)) redirect("/admin/orders");
 
   const [products, orders] = await Promise.all([
     getAllProductsSafe(),

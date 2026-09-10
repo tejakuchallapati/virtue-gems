@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { canManageCatalog, getCurrentAdmin } from "@/lib/admin-auth";
 import { getOrdersSafe } from "@/lib/orders";
 import {
   getDailyWeeklyMonthlyRevenue,
@@ -10,7 +10,9 @@ import { SalesLineChart } from "@/components/admin/SalesLineChart";
 import { formatPrice } from "@/lib/utils";
 
 export default async function AnalyticsPage() {
-  if (!(await isAdminAuthenticated())) redirect("/admin/login");
+  const admin = await getCurrentAdmin();
+  if (!admin) redirect("/admin/login");
+  if (!canManageCatalog(admin)) redirect("/admin/orders");
 
   const orders = await getOrdersSafe();
   const revenueOrders = orders.filter((order) =>

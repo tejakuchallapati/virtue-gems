@@ -1,4 +1,4 @@
-import { getCurrentAdmin } from "@/lib/admin-auth";
+import { requireOwner } from "@/lib/admin-auth";
 import { apiFail, apiOk, parseJsonBody } from "@/lib/api-server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { isSupabaseAdminConfigured } from "@/lib/supabase/config";
@@ -6,11 +6,6 @@ import { listAdminProfiles } from "@/lib/supabase/store";
 import type { AdminRole } from "@/types";
 
 const ROLES: AdminRole[] = ["owner", "admin", "staff"];
-
-async function requireOwner() {
-  const admin = await getCurrentAdmin();
-  return admin?.role === "owner" ? admin : null;
-}
 
 export async function GET() {
   const owner = await requireOwner();

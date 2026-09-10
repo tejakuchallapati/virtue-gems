@@ -1,4 +1,4 @@
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { requireCatalogAdmin } from "@/lib/admin-auth";
 import { createProductSafe } from "@/lib/product-store-server";
 import { validateProductInput } from "@/lib/product-store";
 import { apiFail, apiOk, parseJsonBody } from "@/lib/api-server";
@@ -6,8 +6,8 @@ import { apiFail, apiOk, parseJsonBody } from "@/lib/api-server";
 const MAX_BULK = 50;
 
 export async function POST(request: Request) {
-  if (!(await isAdminAuthenticated())) {
-    return apiFail("Unauthorized.", 401);
+  if (!(await requireCatalogAdmin())) {
+    return apiFail("Admin access required to manage products.", 403);
   }
 
   const parsed = await parseJsonBody<Record<string, unknown>>(request);

@@ -115,11 +115,15 @@ export default function AdminLoginPage() {
             />
           </div>
           <p className="text-xs uppercase tracking-[0.35em] text-gold/80">
-            Admin Portal
+            Admin &amp; Manager Portal
           </p>
           <h1 className="mt-2 text-2xl font-semibold text-white">
             Secure <span className="text-gold">CRM Access</span>
           </h1>
+          <p className="mt-2 text-xs text-white/45">
+            One login page — your role (Admin or Manager) controls what you can
+            access.
+          </p>
         </div>
 
         <div className="overflow-hidden rounded-2xl border border-gold/20 bg-[#12101a]/95 shadow-[0_0_40px_rgba(212,175,55,0.08)]">
@@ -136,7 +140,7 @@ export default function AdminLoginPage() {
                 className="mb-1.5 flex items-center gap-2 text-sm text-white/70"
               >
                 <Mail className="h-4 w-4 text-gold" />
-                Admin email
+                Work email
               </label>
               <input
                 id="email"
