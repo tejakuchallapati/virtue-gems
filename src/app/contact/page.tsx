@@ -5,6 +5,7 @@ import { FormEvent, useState } from "react";
 import {
   Clock,
   Gift,
+  IndianRupee,
   Mail,
   MapPin,
   MessageCircle,
@@ -19,9 +20,10 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { apiFetch } from "@/lib/api-client";
-import { CARD_SURFACE, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
+import { PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 import {
+  DELIVERY_CHARGES_NOTICE,
   DELIVERY_NOTICE,
   DELIVERY_REGION_LABEL,
   DELIVERY_TIMELINE,
@@ -43,7 +45,6 @@ const contactChannels = [
     note: "For any enquiries — orders, sizing, or custom requests",
     href: whatsAppContactUrl,
     external: true,
-    primary: true,
   },
   {
     icon: Mail,
@@ -52,7 +53,6 @@ const contactChannels = [
     note: "For detailed enquiries & invoices",
     href: `mailto:${CONTACT_EMAIL}`,
     external: false,
-    primary: false,
   },
   {
     icon: Phone,
@@ -61,7 +61,6 @@ const contactChannels = [
     note: "Mon–Sat, 10 AM – 8 PM IST",
     href: `tel:+917396178039`,
     external: false,
-    primary: false,
   },
 ];
 
@@ -100,13 +99,22 @@ const helpTopics = [
   {
     icon: Truck,
     title: "Regional Delivery",
-    text: `${DELIVERY_NOTICE} Secure, gift-ready packaging on every order.`,
+    text: `${DELIVERY_NOTICE} ${DELIVERY_CHARGES_NOTICE}`,
   },
 ];
 
 const businessInfo = [
   { icon: Clock, label: "Response time", value: "Within 2–4 hours on WhatsApp" },
-  { icon: Truck, label: "Delivery", value: `${DELIVERY_REGION_LABEL} · ${DELIVERY_TIMELINE}` },
+  {
+    icon: Truck,
+    label: "Delivery",
+    value: `${DELIVERY_REGION_LABEL} · ${DELIVERY_TIMELINE}`,
+  },
+  {
+    icon: IndianRupee,
+    label: "Delivery charges",
+    value: DELIVERY_CHARGES_NOTICE,
+  },
   {
     icon: MapPin,
     label: "Service area",
@@ -160,279 +168,267 @@ export default function ContactPage() {
   }
 
   const inputClass =
-    "w-full rounded-xl border border-light-muted bg-white px-4 py-3 text-base outline-none focus:border-gold focus:ring-2 focus:ring-gold/20";
+    "w-full border-b border-light-muted bg-transparent px-0 py-3 text-base outline-none transition focus:border-gold";
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
       <div className={PAGE_CONTENT_SHELL}>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
+        <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
 
-      {/* Hero */}
-      <ScrollReveal className="relative mb-10 overflow-hidden rounded-3xl bg-gradient-to-br from-[#1a0a2e] via-[#2d1450] to-[#1a0a2e] px-6 py-10 text-center sm:px-10 sm:py-14">
-        <p className="text-xs tracking-[0.25em] text-gold uppercase">Get in Touch</p>
-        <h1 className="mt-3 text-2xl font-semibold text-light sm:text-4xl">
-          We&apos;re Here to Help You Shine
-        </h1>
-        <p className="mx-auto mt-3 max-w-2xl text-sm text-light/70 sm:text-base">
-          Questions about an order, sizing, or custom gifting?{" "}
-          <span className="text-gold">For any enquiries, message us on WhatsApp</span> for the
-          quickest reply — or send a message below. We currently deliver to{" "}
-          <span className="text-gold">{DELIVERY_REGION_LABEL}</span>.
-        </p>
-        <a
-          href={whatsAppContactUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-dark transition hover:bg-gold-light"
-        >
-          <MessageCircle className="h-4 w-4" />
-          Chat on WhatsApp
-        </a>
-      </ScrollReveal>
+        <ScrollReveal className="mb-12 max-w-3xl">
+          <p className="text-[10px] tracking-[0.28em] text-gold-dark uppercase sm:text-xs">
+            Get in touch
+          </p>
+          <h1 className="mt-3 text-3xl font-bold text-dark sm:text-4xl">
+            We&apos;re here to help you shine
+          </h1>
+          <p className="mt-4 text-sm leading-relaxed text-dark/70 sm:text-base">
+            Questions about an order, sizing, or custom gifting?{" "}
+            <strong className="text-dark">For any enquiries, message us on WhatsApp</strong> for
+            the quickest reply — or send a message below. We currently deliver to{" "}
+            <strong className="text-dark">{DELIVERY_REGION_LABEL}</strong>.
+          </p>
+          <a
+            href={whatsAppContactUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-[#128C7E] hover:underline"
+          >
+            <MessageCircle className="h-4 w-4" />
+            Chat on WhatsApp
+          </a>
+        </ScrollReveal>
 
-      {/* Contact channels */}
-      <div className="mb-12 grid min-w-0 gap-4 sm:grid-cols-3">
-        {contactChannels.map((channel, i) => {
-          const Icon = channel.icon;
-          return (
-            <ScrollReveal key={channel.title} delay={i * 0.06}>
-              <a
-                href={channel.href}
-                target={channel.external ? "_blank" : undefined}
-                rel={channel.external ? "noopener noreferrer" : undefined}
-                className={`block h-full min-w-0 rounded-2xl p-5 transition hover:shadow-md ${
-                  channel.primary
-                    ? "bg-gradient-to-br from-[#1a0a2e] to-[#2d1450] text-light ring-1 ring-gold/30"
-                    : "bg-white text-dark ring-1 ring-light-muted/60 hover:ring-gold/30"
-                }`}
-              >
-                <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-full ${
-                    channel.primary ? "bg-gold/15 text-gold" : "bg-gold/10 text-gold-dark"
-                  }`}
-                >
-                  <Icon className="h-5 w-5" />
-                </div>
-                <h2 className="mt-4 font-semibold">{channel.title}</h2>
-                <p
-                  className={`mt-1 break-words text-sm font-medium ${
-                    channel.primary ? "text-gold" : "text-gold-dark"
-                  }`}
-                >
-                  {channel.detail}
-                </p>
-                <p
-                  className={`mt-2 text-xs ${
-                    channel.primary ? "text-light/60" : "text-dark/55"
-                  }`}
-                >
-                  {channel.note}
-                </p>
-              </a>
-            </ScrollReveal>
-          );
-        })}
-      </div>
+        <section className="mb-14 border-t border-gold/15 pt-10">
+          <h2 className="text-xl font-bold text-dark sm:text-2xl">Reach us</h2>
+          <ul className="mt-8 max-w-3xl space-y-8">
+            {contactChannels.map((channel, i) => {
+              const Icon = channel.icon;
+              return (
+                <ScrollReveal key={channel.title} delay={i * 0.04}>
+                  <li className="grid grid-cols-[auto_1fr] gap-x-4">
+                    <Icon className="mt-0.5 h-5 w-5 text-gold-dark" />
+                    <div className="min-w-0">
+                      <p className="font-bold text-dark">{channel.title}</p>
+                      <a
+                        href={channel.href}
+                        target={channel.external ? "_blank" : undefined}
+                        rel={channel.external ? "noopener noreferrer" : undefined}
+                        className="mt-1 inline-block break-words text-sm font-semibold text-gold-dark hover:underline sm:text-base"
+                      >
+                        {channel.detail}
+                      </a>
+                      <p className="mt-1 text-sm text-dark/60">{channel.note}</p>
+                    </div>
+                  </li>
+                </ScrollReveal>
+              );
+            })}
+          </ul>
+        </section>
 
-      {/* Instagram + business info */}
-      <div className="mb-12 grid min-w-0 gap-6 lg:grid-cols-2">
-        <ScrollReveal>
-          <div className={`h-full p-6 sm:p-8 ${CARD_SURFACE}`}>
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gold/10 text-gold-dark">
-                <InstagramIcon className="h-5 w-5" />
-              </div>
-              <div>
-                <h2 className="font-semibold text-dark">Follow Us</h2>
-                <p className="text-sm text-dark/60">Latest designs & new arrivals</p>
-              </div>
+        <section className="mb-14 grid gap-12 border-t border-gold/15 pt-10 lg:grid-cols-2 lg:gap-16">
+          <ScrollReveal>
+            <div className="flex items-center gap-2">
+              <InstagramIcon className="h-5 w-5 text-gold-dark" />
+              <h2 className="text-xl font-bold text-dark">Follow us</h2>
             </div>
-            <p className="mt-4 text-sm text-dark/70">
+            <p className="mt-2 text-sm font-semibold text-dark/55">
+              Latest designs &amp; new arrivals
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-dark/65">
               See our newest collections, customer favourites, and festive drops on Instagram.
             </p>
             <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gold-dark hover:underline"
+              className="mt-4 inline-flex text-sm font-bold text-gold-dark hover:underline"
             >
               {INSTAGRAM_HANDLE} →
             </a>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
 
-        <ScrollReveal delay={0.08}>
-          <div className="h-full rounded-2xl bg-light p-6 ring-1 ring-light-muted/60 shadow-sm sm:p-8">
-            <h2 className="font-semibold text-dark">Good to Know</h2>
-            <ul className="mt-4 space-y-4">
+          <ScrollReveal delay={0.06}>
+            <h2 className="text-xl font-bold text-dark">Good to know</h2>
+            <dl className="mt-6 space-y-5">
               {businessInfo.map(({ icon: Icon, label, value }) => (
-                <li key={label} className="flex gap-3">
-                  <Icon className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+                <div key={label} className="grid grid-cols-[auto_1fr] gap-x-3">
+                  <Icon className="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" />
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-dark/45">
-                      {label}
-                    </p>
-                    <p className="text-sm text-dark/75">{value}</p>
+                    <dt className="font-bold text-dark">{label}</dt>
+                    <dd className="mt-1 text-sm leading-relaxed text-dark/65">{value}</dd>
                   </div>
-                </li>
+                </div>
               ))}
-            </ul>
-          </div>
-        </ScrollReveal>
-      </div>
+            </dl>
+          </ScrollReveal>
+        </section>
 
-      {/* How we can help */}
-      <ScrollReveal className="mb-10">
-        <h2 className="text-center text-xl font-semibold text-dark sm:text-2xl">
-          How Can We Help?
-        </h2>
-        <p className="mx-auto mt-2 max-w-xl text-center text-sm text-dark/60">
-          Common topics our customers ask about — tap a link or message us directly.
-        </p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {helpTopics.map((topic, i) => {
-            const Icon = topic.icon;
-            const content = (
-              <>
-                <Icon className="h-5 w-5 text-gold" />
-                <h3 className="mt-3 font-semibold text-dark">{topic.title}</h3>
-                <p className="mt-1 text-sm text-dark/60">{topic.text}</p>
-              </>
-            );
+        <section className="mb-14 border-t border-gold/15 pt-10">
+          <ScrollReveal>
+            <h2 className="text-xl font-bold text-dark sm:text-2xl">How can we help?</h2>
+            <p className="mt-2 max-w-2xl text-sm text-dark/60">
+              Common topics our customers ask about — tap a link or message us directly.
+            </p>
+          </ScrollReveal>
 
-            return (
-              <ScrollReveal key={topic.title} delay={i * 0.05}>
-                {topic.href ? (
-                  <Link
-                    href={topic.href}
-                    className={`block h-full p-5 transition hover:ring-gold/30 ${CARD_SURFACE}`}
-                  >
-                    {content}
-                  </Link>
-                ) : (
-                  <div className={`h-full p-5 ${CARD_SURFACE}`}>
-                    {content}
+          <ul className="mt-8 max-w-3xl space-y-6">
+            {helpTopics.map((topic, i) => {
+              const Icon = topic.icon;
+              const body = (
+                <div className="grid grid-cols-[auto_1fr] gap-x-4">
+                  <Icon className="mt-0.5 h-5 w-5 text-gold-dark" />
+                  <div className="min-w-0">
+                    <p className="font-bold text-dark">{topic.title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-dark/65">{topic.text}</p>
                   </div>
-                )}
-              </ScrollReveal>
-            );
-          })}
-        </div>
-      </ScrollReveal>
+                </div>
+              );
 
-      {/* Form */}
-      <div className="grid gap-10 lg:grid-cols-5">
-        <ScrollReveal className="lg:col-span-2">
-          <h2 className="text-xl font-semibold text-dark sm:text-2xl">Send a Message</h2>
-          <p className="mt-2 text-sm text-dark/60">
-            Prefer email? Fill in the form and we&apos;ll get back to you within 1–2 business days.
-          </p>
-          <ul className="mt-6 space-y-3 text-sm text-dark/65">
-            <li>· Include your order ID if you already placed an order</li>
-            <li>· For urgent orders, WhatsApp is recommended</li>
-            <li>· Attach product names or links when asking about availability</li>
+              return (
+                <ScrollReveal key={topic.title} delay={i * 0.03}>
+                  <li>
+                    {topic.href ? (
+                      <Link
+                        href={topic.href}
+                        className="block transition hover:opacity-80"
+                      >
+                        {body}
+                      </Link>
+                    ) : (
+                      body
+                    )}
+                  </li>
+                </ScrollReveal>
+              );
+            })}
           </ul>
-          <div className="mt-6 flex flex-wrap gap-3 text-sm">
-            <Link href="/shop" className="font-medium text-gold-dark hover:underline">
-              Browse Shop →
-            </Link>
-            {LOYALTY_ENABLED && (
-              <Link href="/rewards" className="font-medium text-gold-dark hover:underline">
-                Rewards & Points →
-              </Link>
-            )}
-          </div>
-        </ScrollReveal>
+        </section>
 
-        <ScrollReveal delay={0.1} className="lg:col-span-3">
-          {status === "success" ? (
-            <div className={`p-8 text-center ring-gold/30 ${CARD_SURFACE}`}>
-              <p className="text-lg font-medium text-gold-dark">Message sent!</p>
-              <p className="mt-2 text-sm text-dark/60">
-                Thank you for reaching out. We&apos;ll reply to your email soon.
-              </p>
-              <button
-                type="button"
-                onClick={() => setStatus("idle")}
-                className="mt-4 text-sm text-gold underline"
-              >
-                Send another message
-              </button>
+        <section className="grid gap-10 border-t border-gold/15 pt-10 lg:grid-cols-5 lg:gap-14">
+          <ScrollReveal className="lg:col-span-2">
+            <h2 className="text-xl font-bold text-dark sm:text-2xl">Send a message</h2>
+            <p className="mt-2 text-sm leading-relaxed text-dark/60">
+              Prefer email? Fill in the form and we&apos;ll get back to you within 1–2 business
+              days.
+            </p>
+            <ul className="mt-6 space-y-2.5 text-sm text-dark/65">
+              <li>
+                Include your <strong className="text-dark">order ID</strong> if you already placed
+                an order
+              </li>
+              <li>
+                For urgent orders, <strong className="text-dark">WhatsApp</strong> is recommended
+              </li>
+              <li>
+                Attach product names or links when asking about availability
+              </li>
+            </ul>
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              <Link href="/shop" className="font-bold text-gold-dark hover:underline">
+                Browse Shop →
+              </Link>
+              {LOYALTY_ENABLED && (
+                <Link href="/rewards" className="font-bold text-gold-dark hover:underline">
+                  Rewards &amp; Points →
+                </Link>
+              )}
             </div>
-          ) : (
-            <form
-              onSubmit={handleSubmit}
-              className={`space-y-4 p-6 sm:p-8 ${CARD_SURFACE}`}
-            >
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="name" className="mb-1 block text-sm font-medium">
-                    Name *
-                  </label>
-                  <input id="name" name="name" required className={inputClass} />
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.08} className="lg:col-span-3">
+            {status === "success" ? (
+              <div className="border-l-2 border-gold/50 pl-5">
+                <p className="text-lg font-bold text-dark">Message sent!</p>
+                <p className="mt-2 text-sm text-dark/60">
+                  Thank you for reaching out. We&apos;ll reply to your email soon.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setStatus("idle")}
+                  className="mt-4 text-sm font-semibold text-gold-dark underline"
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="name" className="mb-1 block text-sm font-bold text-dark">
+                      Name *
+                    </label>
+                    <input id="name" name="name" required className={inputClass} />
+                  </div>
+                  <div>
+                    <label htmlFor="phone" className="mb-1 block text-sm font-bold text-dark">
+                      Phone
+                    </label>
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="+91 98765 43210"
+                      className={inputClass}
+                    />
+                  </div>
                 </div>
                 <div>
-                  <label htmlFor="phone" className="mb-1 block text-sm font-medium">
-                    Phone
+                  <label htmlFor="email" className="mb-1 block text-sm font-bold text-dark">
+                    Email *
                   </label>
                   <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="+91 98765 43210"
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
                     className={inputClass}
                   />
                 </div>
-              </div>
-              <div>
-                <label htmlFor="email" className="mb-1 block text-sm font-medium">
-                  Email *
-                </label>
-                <input id="email" name="email" type="email" required className={inputClass} />
-              </div>
-              <div>
-                <label htmlFor="subject" className="mb-1 block text-sm font-medium">
-                  Subject
-                </label>
-                <select id="subject" name="subject" className={inputClass} defaultValue="">
-                  <option value="">Select a topic</option>
-                  <option value="Order enquiry">Order enquiry</option>
-                  <option value="Product & sizing">Product & sizing</option>
-                  <option value="Custom / bulk order">Custom / bulk order</option>
-                  {LOYALTY_ENABLED && (
-                    <option value="Rewards & points">Rewards & points</option>
-                  )}
-                  <option value="Return or refund">Return or refund</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="message" className="mb-1 block text-sm font-medium">
-                  Message *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={5}
-                  placeholder="Tell us how we can help..."
-                  className={`${inputClass} resize-none`}
-                />
-              </div>
-              {status === "error" && (
-                <p className="text-sm text-red-600">{errorMessage}</p>
-              )}
-              <button
-                type="submit"
-                disabled={status === "loading"}
-                className="w-full rounded-xl bg-dark py-3.5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark disabled:opacity-60"
-              >
-                {status === "loading" ? "Sending..." : "Send Message"}
-              </button>
-            </form>
-          )}
-        </ScrollReveal>
-      </div>
+                <div>
+                  <label htmlFor="subject" className="mb-1 block text-sm font-bold text-dark">
+                    Subject
+                  </label>
+                  <select id="subject" name="subject" className={inputClass} defaultValue="">
+                    <option value="">Select a topic</option>
+                    <option value="Order enquiry">Order enquiry</option>
+                    <option value="Product & sizing">Product & sizing</option>
+                    <option value="Custom / bulk order">Custom / bulk order</option>
+                    {LOYALTY_ENABLED && (
+                      <option value="Rewards & points">Rewards & points</option>
+                    )}
+                    <option value="Return or refund">Return or refund</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="message" className="mb-1 block text-sm font-bold text-dark">
+                    Message *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={5}
+                    placeholder="Tell us how we can help..."
+                    className={`${inputClass} resize-none`}
+                  />
+                </div>
+                {status === "error" && (
+                  <p className="text-sm text-red-600">{errorMessage}</p>
+                )}
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-dark px-6 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark disabled:opacity-60 sm:w-auto"
+                >
+                  {status === "loading" ? "Sending..." : "Send Message"}
+                </button>
+              </form>
+            )}
+          </ScrollReveal>
+        </section>
       </div>
       <SectionDivider />
     </div>
