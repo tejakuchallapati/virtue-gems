@@ -14,7 +14,15 @@ function InstagramIcon({ className }: { className?: string }) {
   );
 }
 
-export function InstagramFeed() {
+type InstagramFeedProps = {
+  compact?: boolean;
+  /** Light text / gold accents for purple sections */
+  onDark?: boolean;
+};
+
+export function InstagramFeed({ compact = false, onDark = false }: InstagramFeedProps) {
+  const posts = instagramData.posts.slice(0, 6);
+
   return (
     <section>
       <a
@@ -24,22 +32,52 @@ export function InstagramFeed() {
         className="group mb-2 block text-center transition hover:opacity-90"
         aria-label={`Follow Virtue Gems on Instagram @${instagramData.handle}`}
       >
-        <p className="text-sm tracking-[0.2em] text-gold uppercase transition group-hover:text-gold-dark">
+        <p
+          className={cn(
+            "text-sm font-semibold tracking-[0.2em] uppercase transition",
+            onDark ? "text-gold group-hover:text-gold-light" : "text-gold group-hover:text-gold-dark",
+          )}
+        >
           Follow Us
         </p>
         <div className="mt-2 flex items-center justify-center gap-2">
-          <InstagramIcon className="h-5 w-5 text-gold transition group-hover:scale-110" />
-          <h2 className="text-xl font-semibold text-dark transition group-hover:text-gold-dark sm:text-2xl">
+          <InstagramIcon
+            className={cn(
+              "h-5 w-5 transition group-hover:scale-110",
+              onDark ? "text-gold" : "text-gold",
+            )}
+          />
+          <h2
+            className={cn(
+              "font-bold transition",
+              compact ? "text-lg sm:text-xl" : "text-xl sm:text-2xl",
+              onDark
+                ? "text-light group-hover:text-gold"
+                : "text-dark group-hover:text-gold-dark",
+            )}
+          >
             @{instagramData.handle}
           </h2>
         </div>
-        <p className="mx-auto mt-2 hidden max-w-md text-sm text-dark/60 sm:block">
-          See our latest designs, styling tips, and behind-the-scenes moments.
-        </p>
+        {!compact && (
+          <p
+            className={cn(
+              "mx-auto mt-2 hidden max-w-md text-sm sm:block",
+              onDark ? "text-light/55" : "text-dark/60",
+            )}
+          >
+            See our latest designs, styling tips, and behind-the-scenes moments.
+          </p>
+        )}
       </a>
 
-      <div className="mt-5 grid grid-cols-3 gap-1.5 sm:mt-6 sm:grid-cols-6 sm:gap-2">
-        {instagramData.posts.slice(0, 6).map((post) => (
+      <div
+        className={cn(
+          "grid grid-cols-3 gap-1.5 sm:grid-cols-6 sm:gap-2",
+          compact ? "mt-4" : "mt-5 sm:mt-6",
+        )}
+      >
+        {posts.map((post) => (
           <a
             key={post.id}
             href={post.url}
@@ -65,12 +103,17 @@ export function InstagramFeed() {
         ))}
       </div>
 
-      <div className="mt-6 flex justify-center sm:mt-8">
+      <div className={cn("flex justify-center", compact ? "mt-5" : "mt-6 sm:mt-8")}>
         <a
           href={PROFILE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-11 w-full max-w-xs items-center justify-center gap-2 rounded-full border border-gold/40 bg-dark px-6 py-3 text-sm font-medium text-gold transition hover:border-gold hover:bg-gold hover:text-dark sm:w-auto sm:py-2.5"
+          className={cn(
+            "inline-flex min-h-11 w-full max-w-xs items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition sm:w-auto sm:py-2.5",
+            onDark
+              ? "border-gold/45 bg-gold/10 text-gold hover:bg-gold hover:text-dark"
+              : "border-gold/40 bg-dark text-gold hover:border-gold hover:bg-gold hover:text-dark",
+          )}
         >
           <InstagramIcon className="h-4 w-4" />
           Follow on Instagram
