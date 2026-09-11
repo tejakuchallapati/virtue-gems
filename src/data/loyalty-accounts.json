@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "phone": "9701010599",
+    "name": "akhi",
+    "points": 13,
+    "lifetimePoints": 13,
+    "history": [
+      {
+        "type": "earn",
+        "points": 13,
+        "label": "Order — earned 13 points",
+        "date": "2026-09-11T15:02:34.566Z"
+      }
+    ]
+  }
+]
