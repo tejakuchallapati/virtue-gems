@@ -70,7 +70,7 @@ export function FaqAccordion() {
                 onClick={() => setOpenId(isOpen ? null : item.id)}
                 className="flex min-h-12 w-full items-start justify-between gap-3 px-4 py-4 text-left sm:px-5"
               >
-                <span className="text-sm font-medium text-dark sm:text-base">
+                <span className="text-sm font-bold text-dark sm:text-base">
                   {item.question}
                 </span>
                 <ChevronDown

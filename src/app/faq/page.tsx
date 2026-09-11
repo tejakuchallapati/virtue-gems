@@ -53,7 +53,7 @@ export default function FaqPage() {
       />
       <div className={cn(PAGE_CONTENT_SHELL, "max-w-3xl")}>
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "FAQ" }]} />
-        <h1 className="mt-2 text-2xl font-semibold text-dark sm:text-3xl">
+        <h1 className="mt-2 text-2xl font-extrabold tracking-tight text-dark sm:text-3xl">
           Frequently Asked Questions
         </h1>
         <p className="mt-2 text-sm text-dark/60 sm:text-base">

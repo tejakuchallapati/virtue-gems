@@ -75,7 +75,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "delivery",
     question: "How are delivery charges calculated?",
     answer:
-      "Delivery is not free. After you select items and enter your address at checkout, we show the delivery charge for that address. Charges depend on your delivery location — there are no random fees.",
+      "Delivery charges depend on your delivery address. After you select items and enter your address, we confirm the exact charge when processing your order.",
   },
   {
     id: "product-quality",
@@ -83,13 +83,6 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: "What material is your jewellery made of?",
     answer:
       "Most pieces are premium gold-plated fashion jewellery (alloy base with a lasting gold finish). Exact materials for each item are listed in the product specifications on the product page.",
-  },
-  {
-    id: "virtual-try-on",
-    category: "products",
-    question: "Can I try jewellery on before buying?",
-    answer:
-      "Virtual Try-On is coming soon. For now, browse photos on each product page and message us on WhatsApp — we can share more angles or styling tips before you order.",
   },
   {
     id: "out-of-stock",
