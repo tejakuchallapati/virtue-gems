@@ -23,11 +23,14 @@ export default async function InvoicePage({ params }: Props) {
   if (!order) notFound();
 
   return (
-    <div className="min-h-screen bg-light-muted/40 px-4 py-8 pb-[calc(6.5rem+env(safe-area-inset-bottom))] print:bg-white print:p-0 md:pb-8">
+    <div className="min-h-screen bg-[#f3eee4] px-4 py-8 pb-[calc(6.5rem+env(safe-area-inset-bottom))] print:bg-white print:p-0 md:pb-8">
       <div className="mb-6 text-center print:hidden">
         <Link href="/shop" className="text-sm text-gold-dark hover:underline">
           ← Continue shopping
         </Link>
+        <p className="mt-2 text-xs text-dark/50">
+          Professional invoice — tap Save PDF to download
+        </p>
       </div>
 
       {LOYALTY_ENABLED && (
@@ -39,7 +42,7 @@ export default async function InvoicePage({ params }: Props) {
         </Suspense>
       )}
 
-      <OrderInvoice order={order} className="print:shadow-none print:ring-0" />
+      <OrderInvoice order={order} className="print:shadow-none" />
 
       <div className="mt-6">
         <InvoiceActions order={order} />

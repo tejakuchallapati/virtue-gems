@@ -1,7 +1,8 @@
 import Image from "next/image";
 import type { Order } from "@/types";
-import { formatPrice, formatDate } from "@/lib/utils";
+import { formatPrice, formatDate, cn } from "@/lib/utils";
 import { getSiteHost } from "@/lib/site";
+import { DELIVERY_CHARGES_NOTICE, DELIVERY_REGION_LABEL } from "@/lib/delivery";
 
 type OrderInvoiceProps = {
   order: Order;
@@ -16,131 +17,169 @@ export function OrderInvoice({ order, className = "" }: OrderInvoiceProps) {
 
   return (
     <article
-      className={`mx-auto w-full max-w-[560px] overflow-hidden bg-white text-[#1a1a1a] text-xs shadow-lg ring-1 ring-black/5 ${className}`}
+      className={cn(
+        "invoice-sheet mx-auto w-full max-w-[210mm] overflow-hidden bg-white text-[#111] shadow-[0_8px_40px_rgba(26,10,46,0.12)] ring-1 ring-black/8",
+        className,
+      )}
     >
-      {/* Header bar */}
-      <div className="relative bg-gold px-4 pb-3 pt-3">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+      {/* Letterhead */}
+      <header className="border-b-2 border-[#1a0a2e] px-6 pb-5 pt-6 sm:px-8 sm:pt-8">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="flex items-center gap-3">
             <Image
               src="/logo-transparent.png"
               alt="Virtue Gems"
-              width={32}
-              height={32}
-              className="h-7 w-7 object-contain"
+              width={48}
+              height={48}
+              className="h-11 w-11 object-contain"
+              priority
             />
             <div>
-              <p className="text-[10px] font-bold tracking-[0.18em] text-dark">VIRTUE GEMS</p>
-              <p className="text-[8px] tracking-wider text-dark/70">Luxury Jewellery</p>
+              <p className="text-base font-bold tracking-[0.2em] text-[#1a0a2e]">
+                VIRTUE GEMS
+              </p>
+              <p className="mt-0.5 text-[11px] text-[#1a0a2e]/65">
+                Premium handcrafted jewellery
+              </p>
             </div>
           </div>
-          <h1 className="text-2xl font-black tracking-tight text-dark">INVOICE</h1>
+          <div className="text-right">
+            <p className="text-2xl font-bold tracking-tight text-[#1a0a2e] sm:text-3xl">
+              TAX INVOICE
+            </p>
+            <p className="mt-1 text-[11px] text-[#1a0a2e]/60">
+              Order request · Pending confirmation
+            </p>
+          </div>
         </div>
-      </div>
+      </header>
 
-      {/* Meta row */}
-      <div className="grid gap-3 px-4 py-4 sm:grid-cols-2">
+      {/* Meta */}
+      <section className="grid gap-6 border-b border-[#1a0a2e]/10 px-6 py-5 sm:grid-cols-2 sm:px-8">
         <div>
-          <p className="text-[9px] font-bold uppercase tracking-wider text-dark/50">Invoice to:</p>
-          <p className="mt-1 text-sm font-semibold text-dark">{order.customerName}</p>
-          <p className="mt-0.5 text-[11px] leading-snug text-dark/70">{order.address}</p>
-          <p className="text-[11px] text-dark/70">
-            {order.city}, {order.state} — {order.pincode}
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#c4a035]">
+            Bill to
           </p>
-          <p className="text-[11px] text-dark/70">Phone: {order.phone}</p>
+          <p className="mt-2 text-sm font-semibold text-[#1a0a2e]">
+            {order.customerName}
+          </p>
+          <p className="mt-1 text-[12px] leading-relaxed text-[#1a0a2e]/75">
+            {order.address}
+            <br />
+            {order.city}, {order.state} — {order.pincode}
+            <br />
+            Phone: {order.phone}
+          </p>
         </div>
         <div className="sm:text-right">
-          <p className="text-[11px] text-dark/70">
-            <span className="font-semibold text-dark">Invoice#</span> {order.id}
-          </p>
-          <p className="mt-0.5 text-[11px] text-dark/70">
-            <span className="font-semibold text-dark">Date</span>{" "}
-            {formatDate(order.createdAt)}
-          </p>
-          <p className="mt-0.5 text-[11px] capitalize text-dark/70">
-            <span className="font-semibold text-dark">Status</span> {order.status}
-          </p>
+          <dl className="space-y-1.5 text-[12px]">
+            <div className="flex justify-between gap-4 sm:justify-end">
+              <dt className="font-semibold text-[#1a0a2e]">Invoice No.</dt>
+              <dd className="font-mono text-[#1a0a2e]/80">{order.id}</dd>
+            </div>
+            <div className="flex justify-between gap-4 sm:justify-end">
+              <dt className="font-semibold text-[#1a0a2e]">Date</dt>
+              <dd className="text-[#1a0a2e]/80">{formatDate(order.createdAt)}</dd>
+            </div>
+            <div className="flex justify-between gap-4 sm:justify-end">
+              <dt className="font-semibold text-[#1a0a2e]">Status</dt>
+              <dd className="capitalize text-[#1a0a2e]/80">{order.status}</dd>
+            </div>
+            <div className="flex justify-between gap-4 sm:justify-end">
+              <dt className="font-semibold text-[#1a0a2e]">Payment</dt>
+              <dd className="text-[#1a0a2e]/80">UPI / Bank via WhatsApp</dd>
+            </div>
+          </dl>
         </div>
-      </div>
+      </section>
 
-      {/* Items table */}
-      <div className="overflow-x-auto px-4">
-        <table className="w-full border-collapse text-[11px]">
+      {/* Line items */}
+      <section className="px-6 py-5 sm:px-8">
+        <table className="w-full border-collapse text-[12px]">
           <thead>
             <tr className="bg-[#1a0a2e] text-left text-white">
-              <th className="px-2 py-1.5 font-semibold">SL.</th>
-              <th className="px-2 py-1.5 font-semibold">Item</th>
-              <th className="px-2 py-1.5 text-right font-semibold">Price</th>
-              <th className="px-2 py-1.5 text-center font-semibold">Qty</th>
-              <th className="px-2 py-1.5 text-right font-semibold">Total</th>
+              <th className="px-3 py-2.5 font-semibold">#</th>
+              <th className="px-3 py-2.5 font-semibold">Description</th>
+              <th className="px-3 py-2.5 text-right font-semibold">Rate</th>
+              <th className="px-3 py-2.5 text-center font-semibold">Qty</th>
+              <th className="px-3 py-2.5 text-right font-semibold">Amount</th>
             </tr>
           </thead>
           <tbody>
             {order.items.map((item, i) => (
-              <tr key={`${item.productId}-${i}`} className="border-b border-gray-100">
-                <td className="px-2 py-2 text-dark/60">{i + 1}</td>
-                <td className="min-w-0 max-w-[8rem] break-words px-2 py-2 font-medium text-dark sm:max-w-none">
+              <tr
+                key={`${item.productId}-${i}`}
+                className="border-b border-[#1a0a2e]/10"
+              >
+                <td className="px-3 py-3 text-[#1a0a2e]/55">{i + 1}</td>
+                <td className="min-w-0 px-3 py-3 font-medium text-[#1a0a2e]">
                   {item.name}
                 </td>
-                <td className="px-2 py-2 text-right text-dark/80">
+                <td className="px-3 py-3 text-right text-[#1a0a2e]/80">
                   {formatPrice(item.price)}
                 </td>
-                <td className="px-2 py-2 text-center text-dark/80">{item.quantity}</td>
-                <td className="px-2 py-2 text-right font-medium text-dark">
+                <td className="px-3 py-3 text-center text-[#1a0a2e]/80">
+                  {item.quantity}
+                </td>
+                <td className="px-3 py-3 text-right font-semibold text-[#1a0a2e]">
                   {formatPrice(item.price * item.quantity)}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
 
-      {/* Totals */}
-      <div className="flex justify-end px-4 py-4">
-        <div className="w-full max-w-[200px] space-y-1 text-[11px]">
-          <div className="flex justify-between text-dark/70">
-            <span>Sub Total:</span>
-            <span>{formatPrice(subtotal)}</span>
-          </div>
-          <div className="flex justify-between text-dark/70">
-            <span>Tax:</span>
-            <span>0.00%</span>
-          </div>
-          <div className="mt-1.5 flex items-center justify-between bg-gold px-3 py-2 font-bold text-dark">
-            <span>Total:</span>
-            <span className="text-sm">{formatPrice(order.total)}</span>
+        <div className="mt-5 flex justify-end">
+          <div className="w-full max-w-[240px] space-y-2 text-[12px]">
+            <div className="flex justify-between text-[#1a0a2e]/70">
+              <span>Subtotal</span>
+              <span>{formatPrice(subtotal)}</span>
+            </div>
+            <div className="flex justify-between text-[#1a0a2e]/70">
+              <span>Delivery</span>
+              <span className="text-right text-[11px]">
+                Confirmed for address
+              </span>
+            </div>
+            <div className="flex items-center justify-between bg-[#d4af37] px-3 py-2.5 font-bold text-[#1a0a2e]">
+              <span>Grand Total</span>
+              <span className="text-base">{formatPrice(order.total)}</span>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Footer */}
-      <div className="grid gap-4 border-t border-gray-100 px-4 py-4 sm:grid-cols-2">
+      {/* Notes */}
+      <section className="grid gap-5 border-t border-[#1a0a2e]/10 px-6 py-5 sm:grid-cols-2 sm:px-8">
         <div>
-          <p className="text-[11px] font-semibold text-dark">Thank you for your business</p>
-          <p className="mt-2 text-[9px] font-bold uppercase tracking-wider text-dark/50">
-            Terms &amp; Conditions
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#c4a035]">
+            Delivery
           </p>
-          <p className="mt-0.5 text-[9px] leading-relaxed text-dark/60">
-            Record a video while opening your parcel. No return or refund without unboxing video
-            proof — even for damaged items.
+          <p className="mt-2 text-[11px] leading-relaxed text-[#1a0a2e]/70">
+            Service area: {DELIVERY_REGION_LABEL}. {DELIVERY_CHARGES_NOTICE}
           </p>
-          <p className="mt-2 text-[9px] font-bold uppercase tracking-wider text-dark/50">
-            Payment Info
+          <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.16em] text-[#c4a035]">
+            Returns
           </p>
-          <p className="mt-0.5 text-[9px] leading-relaxed text-dark/60">
-            UPI / Bank transfer on WhatsApp · +91 73961 78039
+          <p className="mt-2 text-[11px] leading-relaxed text-[#1a0a2e]/70">
+            Record a continuous unboxing video. Without video proof, returns and
+            refunds cannot be processed.
           </p>
         </div>
         <div className="sm:text-right">
-          <p className="text-[11px] font-semibold text-dark">Authorised Sign</p>
-          <div className="mt-4 border-b border-dark/30 sm:ml-auto sm:w-32" />
-          <p className="mt-1 text-[9px] text-dark/50">Virtue Gems</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#c4a035]">
+            Authorised signatory
+          </p>
+          <div className="mt-8 border-b border-[#1a0a2e]/25 sm:ml-auto sm:w-40" />
+          <p className="mt-2 text-[11px] font-medium text-[#1a0a2e]">Virtue Gems</p>
+          <p className="mt-1 text-[11px] text-[#1a0a2e]/55">+91 73961 78039</p>
         </div>
-      </div>
+      </section>
 
-      <div className="bg-gold px-4 py-1.5 text-center text-[9px] font-medium text-dark/80">
-        +91 73961 78039 | Hyderabad | {getSiteHost()}
-      </div>
+      <footer className="bg-[#1a0a2e] px-6 py-2.5 text-center text-[10px] text-white/70 sm:px-8">
+        Thank you for shopping with Virtue Gems · {getSiteHost()} · WhatsApp +91
+        73961 78039
+      </footer>
     </article>
   );
 }

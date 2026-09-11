@@ -32,7 +32,7 @@ const sampleOrder: Order = {
 
 export default function InvoicePreviewPage() {
   return (
-    <div className="min-h-screen bg-light-muted/40 px-4 py-8 pb-[calc(6.5rem+env(safe-area-inset-bottom))] print:bg-white print:p-0 md:pb-8">
+    <div className="min-h-screen bg-[#f3eee4] px-4 py-8 pb-[calc(6.5rem+env(safe-area-inset-bottom))] print:bg-white print:p-0 md:pb-8">
       <p className="mb-6 text-center text-sm text-dark/60 print:hidden">
         Sample invoice preview —{" "}
         <Link href="/shop" className="text-gold-dark hover:underline">
@@ -40,7 +40,7 @@ export default function InvoicePreviewPage() {
         </Link>
       </p>
 
-      <OrderInvoice order={sampleOrder} className="print:shadow-none print:ring-0" />
+      <OrderInvoice order={sampleOrder} className="print:shadow-none" />
 
       <div className="mt-6">
         <InvoiceActions order={sampleOrder} />
