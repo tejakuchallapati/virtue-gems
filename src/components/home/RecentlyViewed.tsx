@@ -12,12 +12,13 @@ export function RecentlyViewed() {
   if (!hydrated || recentlyViewed.length === 0) return null;
 
   return (
-    <PageSection tone="cream" dividerTop>
+    <PageSection tone="white" dividerTop>
       <ScrollReveal>
         <SectionHeader
           eyebrow="Continue Browsing"
           title="Recently Viewed"
           description="Pick up where you left off."
+          align="center"
         />
       </ScrollReveal>
       <div className={PRODUCT_GRID}>

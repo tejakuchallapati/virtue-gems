@@ -6,7 +6,6 @@ import { HeroLanding } from "@/components/home/HeroLanding";
 import { TrendingHighlight } from "@/components/home/TrendingHighlight";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { CustomerReviews } from "@/components/ui/CustomerReviews";
-import { InstagramFeed } from "@/components/ui/InstagramFeed";
 import { RecentlyViewed } from "@/components/home/RecentlyViewed";
 import { LoyaltyPromo } from "@/components/home/LoyaltyPromo";
 import { OrderJourney } from "@/components/home/OrderJourney";
@@ -34,7 +33,6 @@ export default async function HomePage() {
   const featured = products.filter((p) => p.tags.includes("bestseller")).slice(0, 4);
   const newArrivals = products.filter((p) => p.tags.includes("new")).slice(0, 4);
   const trending = products.find((p) => p.tags.includes("trending"));
-  // Prefer a different piece than trending so the highlight row isn't duplicated
   const bestseller =
     products.find(
       (p) => p.tags.includes("bestseller") && p.id !== trending?.id,
@@ -45,7 +43,6 @@ export default async function HomePage() {
       <WebsiteJsonLd />
       <HeroLanding />
 
-      {/* Highlight strip only on larger screens — Best Sellers covers this on mobile */}
       <div className="hidden md:block">
         <TrendingHighlight trending={trending} bestseller={bestseller} />
       </div>
@@ -61,9 +58,9 @@ export default async function HomePage() {
       <PageSection tone="white">
         <ScrollReveal>
           <SectionHeader
-            eyebrow="Curated"
             title="Best Sellers"
             description="Our most-loved pieces — handcrafted and gift-ready."
+            align="center"
             action={
               <Link href="/shop?tag=bestseller" className="text-sm font-medium text-gold hover:underline">
                 View all
@@ -103,6 +100,9 @@ export default async function HomePage() {
         </div>
       </PageSection>
 
+      {/* Recently viewed sits where testimonials used to be */}
+      <RecentlyViewed />
+
       <PageSection tone="white" dividerTop>
         <ScrollReveal>
           <SectionHeader
@@ -115,21 +115,8 @@ export default async function HomePage() {
         </ScrollReveal>
       </PageSection>
 
-      {/* Recently viewed is optional continue-browsing — keep off the first mobile scroll */}
-      <div className="hidden sm:block">
-        <RecentlyViewed />
-      </div>
-
-      {/* Order journey is verbose on small screens — checkout already explains the steps */}
-      <div className="hidden md:block">
-        <OrderJourney />
-      </div>
-
-      <PageSection tone="cream" dividerTop>
-        <ScrollReveal>
-          <InstagramFeed />
-        </ScrollReveal>
-      </PageSection>
+      {/* Order steps + Instagram combined into one section */}
+      <OrderJourney />
     </>
   );
 }
