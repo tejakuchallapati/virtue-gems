@@ -284,6 +284,7 @@ export function AdminBulkUpload({ open, onClose, onDone }: Props) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ products: payload }),
+        timeoutMs: 120_000,
       });
 
       if (!res.ok) {

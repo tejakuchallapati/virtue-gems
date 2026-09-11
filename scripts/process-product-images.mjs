@@ -447,7 +447,7 @@ async function main() {
         id: `customer-${productIndex}`,
         type: "image",
         poster: `/reviews/customer-${productIndex}.jpg`,
-        caption: `Absolutely love my ${meta.name}! Quality is stunning.`,
+        caption: `Loved the ${meta.name} — quality feels premium.`,
         author: ["Priya S.", "Ananya R.", "Meera K.", "Kavya M.", "Divya P."][
           Math.floor((productIndex - 1) / 4)
         ],

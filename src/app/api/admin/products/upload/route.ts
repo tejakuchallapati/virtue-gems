@@ -3,6 +3,10 @@ import path from "path";
 import sharp from "sharp";
 import { requireCatalogAdmin } from "@/lib/admin-auth";
 import { apiFail, apiOk } from "@/lib/api-server";
+import {
+  getProductImageBucket,
+  isSupabaseAdminConfigured,
+} from "@/lib/supabase/config";
 
 export const runtime = "nodejs";
 
@@ -17,6 +21,23 @@ const ALLOWED = new Set([
   "image/heic",
   "image/heif",
 ]);
+
+async function processToJpeg(buffer: Buffer) {
+  return sharp(buffer)
+    .rotate()
+    .resize({
+      width: 3200,
+      height: 3200,
+      fit: "inside",
+      withoutEnlargement: true,
+    })
+    .jpeg({
+      quality: 95,
+      mozjpeg: true,
+      chromaSubsampling: "4:4:4",
+    })
+    .toBuffer();
+}
 
 export async function POST(request: Request) {
   if (!(await requireCatalogAdmin())) {
@@ -41,18 +62,21 @@ export async function POST(request: Request) {
     return apiFail(`Upload up to ${MAX_FILES} photos at a time.`, 400);
   }
 
+  const useCloud = isSupabaseAdminConfigured();
   const uploadDir = path.join(process.cwd(), "public", "products");
-  mkdirSync(uploadDir, { recursive: true });
+  if (!useCloud) mkdirSync(uploadDir, { recursive: true });
 
   const urls: string[] = [];
 
   try {
+    const supabase = useCloud
+      ? (await import("@/lib/supabase/admin")).createSupabaseAdminClient()
+      : null;
+    const bucket = getProductImageBucket();
+
     for (const file of files) {
       if (file.size > MAX_BYTES) {
-        return apiFail(
-          `“${file.name}” is too large (max 500MB).`,
-          400,
-        );
+        return apiFail(`“${file.name}” is too large (max 500MB).`, 400);
       }
       const type = (file.type || "").toLowerCase();
       const extOk = /\.(jpe?g|png|webp|heic|heif)$/i.test(file.name);
@@ -64,28 +88,32 @@ export async function POST(request: Request) {
       }
 
       const buffer = Buffer.from(await file.arrayBuffer());
+      const jpeg = await processToJpeg(buffer);
       const stamp = Date.now().toString(36);
       const rand = Math.random().toString(36).slice(2, 7);
       const filename = `upload-${stamp}-${rand}.jpg`;
-      const outPath = path.join(uploadDir, filename);
 
-      // High-quality web master: keep detail for zoom, limit only extreme megapixel files.
-      await sharp(buffer)
-        .rotate()
-        .resize({
-          width: 3200,
-          height: 3200,
-          fit: "inside",
-          withoutEnlargement: true,
-        })
-        .jpeg({
-          quality: 95,
-          mozjpeg: true,
-          chromaSubsampling: "4:4:4",
-        })
-        .toFile(outPath);
-
-      urls.push(`/products/${filename}`);
+      if (supabase) {
+        const storagePath = `catalog/${new Date().toISOString().slice(0, 10)}/${filename}`;
+        const { error } = await supabase.storage
+          .from(bucket)
+          .upload(storagePath, jpeg, {
+            contentType: "image/jpeg",
+            cacheControl: "31536000",
+            upsert: false,
+          });
+        if (error) {
+          console.error("Supabase image upload error:", error);
+          return apiFail(`Could not upload “${file.name}”: ${error.message}`, 500);
+        }
+        const { data } = supabase.storage.from(bucket).getPublicUrl(storagePath);
+        urls.push(data.publicUrl);
+      } else {
+        const outPath = path.join(uploadDir, filename);
+        const { writeFileSync } = await import("fs");
+        writeFileSync(outPath, jpeg);
+        urls.push(`/products/${filename}`);
+      }
     }
   } catch (error) {
     console.error("Product image upload error:", error);
