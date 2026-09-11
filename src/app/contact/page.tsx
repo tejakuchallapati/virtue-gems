@@ -9,11 +9,7 @@ import {
   Mail,
   MapPin,
   MessageCircle,
-  Package,
   Phone,
-  Ruler,
-  Shield,
-  Sparkles,
   Truck,
 } from "lucide-react";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
@@ -24,7 +20,6 @@ import { PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 import {
   DELIVERY_CHARGES_NOTICE,
-  DELIVERY_NOTICE,
   DELIVERY_REGION_LABEL,
   DELIVERY_TIMELINE,
 } from "@/lib/delivery";
@@ -64,45 +59,6 @@ const contactChannels = [
   },
 ];
 
-const helpTopics = [
-  {
-    icon: Package,
-    title: "Orders & Delivery",
-    text: "Track your order, change address, or ask about dispatch timelines.",
-  },
-  {
-    icon: Ruler,
-    title: "Sizing & Product Info",
-    text: "Ring/bracelet sizes, product photos, or help choosing the right piece.",
-  },
-  {
-    icon: Sparkles,
-    title: "Custom & Gifting",
-    text: "Festive gifting, letter-packed orders, or bulk purchases for events.",
-  },
-  ...(LOYALTY_ENABLED
-    ? [
-        {
-          icon: Gift,
-          title: "Rewards & Points",
-          text: "Check loyalty balance, redeem rewards, or points after your order.",
-          href: "/rewards",
-        },
-      ]
-    : []),
-  {
-    icon: Shield,
-    title: "Returns & Refunds",
-    text: "Exchange, return policy, and mandatory unboxing video requirements.",
-    href: "/refunds",
-  },
-  {
-    icon: Truck,
-    title: "Regional Delivery",
-    text: `${DELIVERY_NOTICE} ${DELIVERY_CHARGES_NOTICE}`,
-  },
-];
-
 const businessInfo = [
   { icon: Clock, label: "Response time", value: "Within 2–4 hours on WhatsApp" },
   {
@@ -130,6 +86,9 @@ function InstagramIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+const fieldClass =
+  "w-full rounded-xl border border-gold/25 bg-white px-3.5 py-3 text-base text-dark outline-none transition placeholder:text-dark/35 focus:border-gold focus:ring-2 focus:ring-gold/20";
 
 export default function ContactPage() {
   const [status, setStatus] = useState<FormState>("idle");
@@ -167,97 +126,99 @@ export default function ContactPage() {
     }
   }
 
-  const inputClass =
-    "w-full border-b border-light-muted bg-transparent px-0 py-3 text-base outline-none transition focus:border-gold";
-
   return (
     <div className={PAGE_GRADIENT_SHELL}>
       <div className={PAGE_CONTENT_SHELL}>
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
 
-        <ScrollReveal className="mb-12 max-w-3xl">
-          <p className="text-[10px] tracking-[0.28em] text-gold-dark uppercase sm:text-xs">
+        <ScrollReveal className="mb-10 max-w-3xl sm:mb-12">
+          <p className="text-[11px] font-semibold tracking-[0.18em] text-gold-dark uppercase sm:text-xs">
             Get in touch
           </p>
-          <h1 className="mt-3 text-3xl font-bold text-dark sm:text-4xl">
+          <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-dark sm:text-4xl">
             We&apos;re here to help you shine
           </h1>
-          <p className="mt-4 text-sm leading-relaxed text-dark/70 sm:text-base">
+          <p className="mt-4 text-sm leading-relaxed tracking-wide text-dark/70 sm:text-base">
             Questions about an order, sizing, or custom gifting?{" "}
-            <strong className="text-dark">For any enquiries, message us on WhatsApp</strong> for
-            the quickest reply — or send a message below. We currently deliver to{" "}
-            <strong className="text-dark">{DELIVERY_REGION_LABEL}</strong>.
+            <strong className="font-bold text-dark">Message us on WhatsApp</strong> for the
+            quickest reply — or send a message below. We currently deliver to{" "}
+            <strong className="font-bold text-dark">{DELIVERY_REGION_LABEL}</strong>.
           </p>
           <a
             href={whatsAppContactUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-[#128C7E] hover:underline"
+            className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-bold tracking-wide text-[#128C7E] hover:underline"
           >
             <MessageCircle className="h-4 w-4" />
             Chat on WhatsApp
           </a>
         </ScrollReveal>
 
-        <section className="mb-14 border-t border-gold/15 pt-10">
-          <h2 className="text-xl font-bold text-dark sm:text-2xl">Reach us</h2>
-          <ul className="mt-8 max-w-3xl space-y-8">
-            {contactChannels.map((channel, i) => {
-              const Icon = channel.icon;
-              return (
-                <ScrollReveal key={channel.title} delay={i * 0.04}>
-                  <li className="grid grid-cols-[auto_1fr] gap-x-4">
+        {/* Reach us + Good to know — aligned two-column */}
+        <section className="mb-12 grid items-start gap-10 border-t border-gold/15 pt-10 lg:mb-14 lg:grid-cols-2 lg:gap-14">
+          <ScrollReveal>
+            <h2 className="text-xl font-extrabold tracking-tight text-dark sm:text-2xl">
+              Reach us
+            </h2>
+            <ul className="mt-7 space-y-7">
+              {contactChannels.map((channel) => {
+                const Icon = channel.icon;
+                return (
+                  <li key={channel.title} className="grid grid-cols-[auto_1fr] gap-x-4">
                     <Icon className="mt-0.5 h-5 w-5 text-gold-dark" />
                     <div className="min-w-0">
-                      <p className="font-bold text-dark">{channel.title}</p>
+                      <p className="font-extrabold tracking-wide text-dark">{channel.title}</p>
                       <a
                         href={channel.href}
                         target={channel.external ? "_blank" : undefined}
                         rel={channel.external ? "noopener noreferrer" : undefined}
-                        className="mt-1 inline-block break-words text-sm font-semibold text-gold-dark hover:underline sm:text-base"
+                        className="mt-1.5 inline-block break-words text-sm font-semibold tracking-wide text-gold-dark hover:underline sm:text-base"
                       >
                         {channel.detail}
                       </a>
-                      <p className="mt-1 text-sm text-dark/60">{channel.note}</p>
+                      <p className="mt-1.5 text-sm tracking-wide text-dark/60">{channel.note}</p>
                     </div>
                   </li>
-                </ScrollReveal>
-              );
-            })}
-          </ul>
-        </section>
+                );
+              })}
+            </ul>
 
-        <section className="mb-14 grid gap-12 border-t border-gold/15 pt-10 lg:grid-cols-2 lg:gap-16">
-          <ScrollReveal>
-            <div className="flex items-center gap-2">
-              <InstagramIcon className="h-5 w-5 text-gold-dark" />
-              <h2 className="text-xl font-bold text-dark">Follow us</h2>
+            <div className="mt-8 border-t border-gold/15 pt-7">
+              <div className="flex items-center gap-2">
+                <InstagramIcon className="h-5 w-5 text-gold-dark" />
+                <h3 className="text-lg font-extrabold tracking-wide text-dark">Follow us</h3>
+              </div>
+              <p className="mt-2 text-sm tracking-wide text-dark/65">
+                Latest designs, customer favourites, and festive drops on Instagram.
+              </p>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex text-sm font-bold tracking-wide text-gold-dark hover:underline"
+              >
+                {INSTAGRAM_HANDLE} →
+              </a>
             </div>
-            <p className="mt-2 text-sm font-semibold text-dark/55">
-              Latest designs &amp; new arrivals
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-dark/65">
-              See our newest collections, customer favourites, and festive drops on Instagram.
-            </p>
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex text-sm font-bold text-gold-dark hover:underline"
-            >
-              {INSTAGRAM_HANDLE} →
-            </a>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.06}>
-            <h2 className="text-xl font-bold text-dark">Good to know</h2>
-            <dl className="mt-6 space-y-5">
+          <ScrollReveal delay={0.05}>
+            <h2 className="text-xl font-extrabold tracking-tight text-dark sm:text-2xl">
+              Good to know
+            </h2>
+            <dl className="mt-7 space-y-5">
               {businessInfo.map(({ icon: Icon, label, value }) => (
-                <div key={label} className="grid grid-cols-[auto_1fr] gap-x-3">
+                <div
+                  key={label}
+                  className="grid grid-cols-[auto_1fr] gap-x-3 rounded-xl border border-gold/15 bg-white/60 px-3.5 py-3"
+                >
                   <Icon className="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" />
                   <div>
-                    <dt className="font-bold text-dark">{label}</dt>
-                    <dd className="mt-1 text-sm leading-relaxed text-dark/65">{value}</dd>
+                    <dt className="font-extrabold tracking-wide text-dark">{label}</dt>
+                    <dd className="mt-1 text-sm leading-relaxed tracking-wide text-dark/65">
+                      {value}
+                    </dd>
                   </div>
                 </div>
               ))}
@@ -265,83 +226,50 @@ export default function ContactPage() {
           </ScrollReveal>
         </section>
 
-        <section className="mb-14 border-t border-gold/15 pt-10">
-          <ScrollReveal>
-            <h2 className="text-xl font-bold text-dark sm:text-2xl">How can we help?</h2>
-            <p className="mt-2 max-w-2xl text-sm text-dark/60">
-              Common topics our customers ask about — tap a link or message us directly.
-            </p>
-          </ScrollReveal>
-
-          <ul className="mt-8 max-w-3xl space-y-6">
-            {helpTopics.map((topic, i) => {
-              const Icon = topic.icon;
-              const body = (
-                <div className="grid grid-cols-[auto_1fr] gap-x-4">
-                  <Icon className="mt-0.5 h-5 w-5 text-gold-dark" />
-                  <div className="min-w-0">
-                    <p className="font-bold text-dark">{topic.title}</p>
-                    <p className="mt-1 text-sm leading-relaxed text-dark/65">{topic.text}</p>
-                  </div>
-                </div>
-              );
-
-              return (
-                <ScrollReveal key={topic.title} delay={i * 0.03}>
-                  <li>
-                    {topic.href ? (
-                      <Link
-                        href={topic.href}
-                        className="block transition hover:opacity-80"
-                      >
-                        {body}
-                      </Link>
-                    ) : (
-                      body
-                    )}
-                  </li>
-                </ScrollReveal>
-              );
-            })}
-          </ul>
-        </section>
-
-        <section className="grid gap-10 border-t border-gold/15 pt-10 lg:grid-cols-5 lg:gap-14">
+        {/* Message form */}
+        <section className="grid items-start gap-8 border-t border-gold/15 pt-10 lg:grid-cols-5 lg:gap-12">
           <ScrollReveal className="lg:col-span-2">
-            <h2 className="text-xl font-bold text-dark sm:text-2xl">Send a message</h2>
-            <p className="mt-2 text-sm leading-relaxed text-dark/60">
+            <h2 className="text-xl font-extrabold tracking-tight text-dark sm:text-2xl">
+              Send a message
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed tracking-wide text-dark/60">
               Prefer email? Fill in the form and we&apos;ll get back to you within 1–2 business
               days.
             </p>
-            <ul className="mt-6 space-y-2.5 text-sm text-dark/65">
+            <ul className="mt-6 space-y-2.5 text-sm tracking-wide text-dark/65">
               <li>
-                Include your <strong className="text-dark">order ID</strong> if you already placed
-                an order
+                Include your <strong className="font-bold text-dark">order ID</strong> if you
+                already placed an order
               </li>
               <li>
-                For urgent orders, <strong className="text-dark">WhatsApp</strong> is recommended
+                For urgent orders, <strong className="font-bold text-dark">WhatsApp</strong> is
+                recommended
               </li>
-              <li>
-                Attach product names or links when asking about availability
-              </li>
+              <li>Attach product names or links when asking about availability</li>
             </ul>
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-              <Link href="/shop" className="font-bold text-gold-dark hover:underline">
+              <Link
+                href="/shop"
+                className="font-bold tracking-wide text-gold-dark hover:underline"
+              >
                 Browse Shop →
               </Link>
               {LOYALTY_ENABLED && (
-                <Link href="/rewards" className="font-bold text-gold-dark hover:underline">
+                <Link
+                  href="/rewards"
+                  className="font-bold tracking-wide text-gold-dark hover:underline"
+                >
                   Rewards &amp; Points →
                 </Link>
               )}
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.08} className="lg:col-span-3">
+          <ScrollReveal delay={0.06} className="lg:col-span-3">
             {status === "success" ? (
-              <div className="border-l-2 border-gold/50 pl-5">
-                <p className="text-lg font-bold text-dark">Message sent!</p>
-                <p className="mt-2 text-sm text-dark/60">
+              <div className="rounded-2xl border border-gold/30 bg-white px-5 py-6">
+                <p className="text-lg font-extrabold text-dark">Message sent!</p>
+                <p className="mt-2 text-sm tracking-wide text-dark/60">
                   Thank you for reaching out. We&apos;ll reply to your email soon.
                 </p>
                 <button
@@ -353,16 +281,25 @@ export default function ContactPage() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid gap-5 sm:grid-cols-2">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-4 rounded-2xl border border-gold/20 bg-white p-5 shadow-sm sm:p-6"
+              >
+                <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="name" className="mb-1 block text-sm font-bold text-dark">
+                    <label
+                      htmlFor="name"
+                      className="mb-1.5 block text-sm font-bold tracking-wide text-dark"
+                    >
                       Name *
                     </label>
-                    <input id="name" name="name" required className={inputClass} />
+                    <input id="name" name="name" required className={fieldClass} />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="mb-1 block text-sm font-bold text-dark">
+                    <label
+                      htmlFor="phone"
+                      className="mb-1.5 block text-sm font-bold tracking-wide text-dark"
+                    >
                       Phone
                     </label>
                     <input
@@ -370,12 +307,15 @@ export default function ContactPage() {
                       name="phone"
                       type="tel"
                       placeholder="+91 98765 43210"
-                      className={inputClass}
+                      className={fieldClass}
                     />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="email" className="mb-1 block text-sm font-bold text-dark">
+                  <label
+                    htmlFor="email"
+                    className="mb-1.5 block text-sm font-bold tracking-wide text-dark"
+                  >
                     Email *
                   </label>
                   <input
@@ -383,14 +323,17 @@ export default function ContactPage() {
                     name="email"
                     type="email"
                     required
-                    className={inputClass}
+                    className={fieldClass}
                   />
                 </div>
                 <div>
-                  <label htmlFor="subject" className="mb-1 block text-sm font-bold text-dark">
+                  <label
+                    htmlFor="subject"
+                    className="mb-1.5 block text-sm font-bold tracking-wide text-dark"
+                  >
                     Subject
                   </label>
-                  <select id="subject" name="subject" className={inputClass} defaultValue="">
+                  <select id="subject" name="subject" className={fieldClass} defaultValue="">
                     <option value="">Select a topic</option>
                     <option value="Order enquiry">Order enquiry</option>
                     <option value="Product & sizing">Product & sizing</option>
@@ -403,7 +346,10 @@ export default function ContactPage() {
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="message" className="mb-1 block text-sm font-bold text-dark">
+                  <label
+                    htmlFor="message"
+                    className="mb-1.5 block text-sm font-bold tracking-wide text-dark"
+                  >
                     Message *
                   </label>
                   <textarea
@@ -412,7 +358,7 @@ export default function ContactPage() {
                     required
                     rows={5}
                     placeholder="Tell us how we can help..."
-                    className={`${inputClass} resize-none`}
+                    className={`${fieldClass} resize-none`}
                   />
                 </div>
                 {status === "error" && (
