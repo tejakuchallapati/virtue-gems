@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LegalPage } from "@/components/ui/LegalPage";
+import { LegalHeading, LegalPage, LegalPoints } from "@/components/ui/LegalPage";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -13,66 +13,81 @@ export const metadata: Metadata = buildPageMetadata({
 export default function RefundsPage() {
   return (
     <LegalPage title="Refund & Return Policy">
-      <p><strong>Last updated:</strong> June 2026</p>
       <p>
-        At Virtue Gems, customer satisfaction is our priority. Please review our return and refund
-        policy below.
+        <strong>Last updated:</strong> September 2026
       </p>
-      <div className="rounded-xl border-2 border-gold/40 bg-gold/10 p-4">
-        <p className="font-semibold text-dark">Important — mandatory unboxing video</p>
-        <p className="mt-2 text-dark/80">
-          You must record a continuous video while opening your parcel. Without this video proof,
-          <strong> no return or refund will be accepted</strong> — including for damaged products.
-        </p>
-      </div>
-      <h2 className="text-lg font-semibold text-dark">Return Eligibility</h2>
-      <ul className="list-disc pl-5 space-y-1">
-        <li>Returns accepted within 7 days of delivery for unused items in original packaging</li>
-        <li>Custom-made or engraved pieces are non-returnable</li>
-        <li>Items must be unused, in original packaging, with the invoice</li>
-      </ul>
-      <h2 className="text-lg font-semibold text-dark">Mandatory Unboxing Video</h2>
+      <p>
+        At Virtue Gems, customer satisfaction matters. Please review our return and refund policy
+        below before placing an order.
+      </p>
+
+      <LegalHeading>Mandatory Unboxing Video</LegalHeading>
+      <p>
+        Record a continuous video while opening your parcel. Start before the outer seal is broken,
+        show the shipping label, and keep recording through the full unboxing.
+      </p>
       <p>
         <strong>
-          To be eligible for any return or refund — including for damaged products — you must record a
-          continuous unboxing video while opening the parcel.
+          Without this video, no return or refund is accepted — including for damaged items.
         </strong>
       </p>
-      <ul className="list-disc pl-5 space-y-1">
-        <li>Start recording before opening the outer packaging</li>
-        <li>Show the sealed parcel, shipping label, and order details clearly</li>
-        <li>Record the full unboxing without cuts, pauses, or edits</li>
-        <li>Show the product and any damage immediately as the package is opened</li>
-      </ul>
-      <p>
-        <strong>
-          Without this unboxing video proof, return or refund requests will not be accepted — even if
-          the product is damaged.
-        </strong>
-      </p>
-      <h2 className="text-lg font-semibold text-dark">Refund Process</h2>
-      <p>
-        Once we receive and inspect the returned item, refunds are processed within 7–10 business days to the original payment method. For WhatsApp orders, refunds are arranged via bank transfer or UPI.
-      </p>
-      <h2 className="text-lg font-semibold text-dark">Exchanges</h2>
-      <p>
-        We offer free size exchanges on rings and bracelets within 15 days of purchase, subject to stock availability.
-      </p>
-      <h2 className="text-lg font-semibold text-dark">Damaged Items</h2>
-      <p>
-        If you receive a damaged product, contact us within 48 hours on WhatsApp with your order
-        details, clear photos, and the mandatory unboxing video recorded while opening the parcel.
-      </p>
-      <p>
-        We will review the video proof and, if approved, arrange a replacement or full refund at no
-        extra cost. Requests for damaged items without unboxing video proof cannot be processed for
-        return or refund.
-      </p>
-      <h2 className="text-lg font-semibold text-dark">Contact</h2>
-      <p>
-        For returns or refunds, WhatsApp us at +91 73961 78039 or email virtuegems777@gmail.com with
-        your order details and unboxing video.
-      </p>
+      <LegalPoints
+        items={[
+          "Start recording before opening the outer packaging",
+          "Show the sealed parcel, shipping label, and order details clearly",
+          "Record the full unboxing without cuts, pauses, or edits",
+          "Show the product and any damage immediately as the package is opened",
+        ]}
+      />
+
+      <LegalHeading>Return Eligibility</LegalHeading>
+      <LegalPoints
+        items={[
+          "Returns within 7 days of delivery for unused items in original packaging",
+          "Items must include the invoice",
+          "Custom-made or engraved pieces are non-returnable",
+        ]}
+      />
+
+      <LegalHeading>Exchanges</LegalHeading>
+      <LegalPoints
+        items={[
+          "Size exchanges on rings and bracelets within 15 days of purchase",
+          "Exchanges are subject to stock availability",
+          "Contact us on WhatsApp with your order ID to start an exchange",
+        ]}
+      />
+
+      <LegalHeading>Damaged Items</LegalHeading>
+      <LegalPoints
+        items={[
+          "Report damage within 48 hours on WhatsApp",
+          "Share your order ID, clear photos, and the mandatory unboxing video",
+          "If approved, we arrange a replacement or refund",
+        ]}
+      />
+
+      <LegalHeading>Refund Process</LegalHeading>
+      <LegalPoints
+        items={[
+          "Returned items are inspected after we receive them",
+          "Approved refunds are processed within 7–10 business days",
+          "Refunds are issued via UPI or bank transfer",
+        ]}
+      />
+
+      <LegalHeading>Contact</LegalHeading>
+      <LegalPoints
+        items={[
+          <>
+            WhatsApp: <strong>+91 73961 78039</strong>
+          </>,
+          <>
+            Email: <strong>virtuegems777@gmail.com</strong>
+          </>,
+          "Include your order details and unboxing video with every return request",
+        ]}
+      />
     </LegalPage>
   );
 }
