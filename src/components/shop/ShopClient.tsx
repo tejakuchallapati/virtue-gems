@@ -9,7 +9,6 @@ import {
   Search,
   SlidersHorizontal,
   Sparkles,
-  Truck,
   X,
 } from "lucide-react";
 import { ProductCard } from "@/components/ui/ProductCard";
@@ -17,7 +16,6 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { filterProducts, getCategories } from "@/lib/products";
-import { DELIVERY_REGION_LABEL, DELIVERY_TRUST_LINE } from "@/lib/delivery";
 import { LOYALTY_ENABLED } from "@/lib/features";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
@@ -43,13 +41,9 @@ const priceRanges = [
   { label: "₹1,500 – ₹2,000", min: 1500, max: 2000 },
 ];
 
-const trustItems = [
-  { icon: Truck, text: DELIVERY_TRUST_LINE },
-  { icon: MessageCircle, text: "Order easily via WhatsApp" },
-  ...(LOYALTY_ENABLED
-    ? [{ icon: Gift, text: "Earn rewards on every purchase" }]
-    : []),
-];
+const trustItems = LOYALTY_ENABLED
+  ? [{ icon: Gift, text: "Earn rewards on every purchase" }]
+  : [];
 
 function CategoryFilters({
   category,
@@ -206,10 +200,6 @@ export function ShopClient({ products }: { products: Product[] }) {
               <h1 className="mt-1 text-xl font-semibold text-light sm:text-4xl">
                 {activeCategory ? activeCategory.label : "Shop Collections"}
               </h1>
-              <p className="mt-1.5 max-w-xl text-sm text-light/65 line-clamp-2 sm:mt-2 sm:line-clamp-none">
-                Handpicked jewellery under ₹2,000 — crafted for everyday elegance
-                and festive gifting in {DELIVERY_REGION_LABEL}.
-              </p>
             </div>
             <div className="hidden w-fit rounded-2xl border border-gold/25 bg-white/5 px-4 py-3 text-left backdrop-blur-sm min-[420px]:block min-[420px]:text-right">
               <p className="text-2xl font-bold text-gold">{filtered.length}</p>
@@ -262,20 +252,22 @@ export function ShopClient({ products }: { products: Product[] }) {
         </div>
       </section>
 
-      {/* Trust strip — single line scroll on narrow phones */}
-      <div className="border-b border-gold/15 bg-white/90 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-7xl min-w-0 items-center gap-4 overflow-x-auto px-5 py-2.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:justify-center sm:gap-8 sm:overflow-visible sm:px-6 sm:py-3 lg:px-8">
-          {trustItems.map(({ icon: Icon, text }) => (
-            <div
-              key={text}
-              className="flex shrink-0 items-center gap-2 whitespace-nowrap text-xs text-dark/65 sm:text-sm"
-            >
-              <Icon className="h-3.5 w-3.5 shrink-0 text-gold sm:h-4 sm:w-4" />
-              {text}
-            </div>
-          ))}
+      {/* Trust strip — only when there is something to show */}
+      {trustItems.length > 0 && (
+        <div className="border-b border-gold/15 bg-white/90 backdrop-blur-sm">
+          <div className="mx-auto flex max-w-7xl min-w-0 items-center gap-4 overflow-x-auto px-5 py-2.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:justify-center sm:gap-8 sm:overflow-visible sm:px-6 sm:py-3 lg:px-8">
+            {trustItems.map(({ icon: Icon, text }) => (
+              <div
+                key={text}
+                className="flex shrink-0 items-center gap-2 whitespace-nowrap text-xs text-dark/65 sm:text-sm"
+              >
+                <Icon className="h-3.5 w-3.5 shrink-0 text-gold sm:h-4 sm:w-4" />
+                {text}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="mx-auto min-w-0 max-w-7xl px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
         {/* Active filters */}
