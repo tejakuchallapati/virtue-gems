@@ -10,7 +10,6 @@ import {
   Shield,
   ShoppingBag,
   Truck,
-  Video,
 } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
@@ -32,15 +31,14 @@ import {
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "About Virtue Gems — Vision, Orders, Delivery & Returns",
+  title: "About Virtue Gems — Vision, Orders & Delivery",
   description:
-    "Learn about Virtue Gems: our vision, WhatsApp order flow, AP & Telangana delivery charges by location, payment options, and refund policy with mandatory unboxing video.",
+    "Learn about Virtue Gems: our vision, WhatsApp order flow, AP & Telangana delivery charges by location, and payment options.",
   path: "/about",
   keywords: [
     "about Virtue Gems",
     "jewellery delivery AP Telangana",
     "WhatsApp jewellery orders",
-    "jewellery refund policy Hyderabad",
   ],
 });
 
@@ -94,7 +92,6 @@ const infoNav = [
   { href: "#vision", label: "Vision" },
   { href: "#orders", label: "Orders" },
   { href: "#delivery", label: "Delivery" },
-  { href: "#refunds", label: "Refunds" },
 ];
 
 function SectionLabel({
@@ -153,16 +150,18 @@ export default function AboutPage() {
 
         <nav
           aria-label="About page sections"
-          className="mb-10 flex flex-wrap gap-x-5 gap-y-2 border-b border-gold/20 pb-4 text-sm"
+          className="mb-10 flex flex-wrap items-center gap-x-2 gap-y-2 border-b border-gold/20 pb-4 text-sm"
         >
-          {infoNav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="font-semibold text-gold-dark transition hover:text-dark"
-            >
-              {item.label}
-            </a>
+          {infoNav.map((item, i) => (
+            <span key={item.href} className="inline-flex items-center gap-x-2">
+              {i > 0 && <span className="text-gold/40" aria-hidden>·</span>}
+              <a
+                href={item.href}
+                className="font-semibold tracking-wide text-gold-dark transition hover:text-dark"
+              >
+                {item.label}
+              </a>
+            </span>
           ))}
         </nav>
 
@@ -192,7 +191,7 @@ export default function AboutPage() {
         <section id="vision" className="scroll-mt-24 mt-14 border-t border-gold/15 pt-12 sm:mt-16">
           <ScrollReveal>
             <SectionLabel icon={Eye} label="Vision" />
-            <h2 className="text-2xl font-bold text-dark sm:text-3xl">
+            <h2 className="text-2xl font-extrabold tracking-tight text-dark sm:text-3xl">
               Jewellery that feels personal
             </h2>
             <p className="mt-4 max-w-3xl text-sm leading-relaxed text-dark/70 sm:text-base">
@@ -220,7 +219,7 @@ export default function AboutPage() {
         <section id="orders" className="scroll-mt-24 mt-14 border-t border-gold/15 pt-12 sm:mt-16">
           <ScrollReveal>
             <SectionLabel icon={ShoppingBag} label="Orders" />
-            <h2 className="text-2xl font-bold text-dark sm:text-3xl">How ordering works</h2>
+            <h2 className="text-2xl font-extrabold tracking-tight text-dark sm:text-3xl">How ordering works</h2>
             <p className="mt-3 max-w-2xl text-sm text-dark/65 sm:text-base">
               No card payment on the website yet. Your order is saved on Virtue Gems, then confirmed
               and paid on WhatsApp.
@@ -265,7 +264,7 @@ export default function AboutPage() {
         <section id="delivery" className="scroll-mt-24 mt-14 border-t border-gold/15 pt-12 sm:mt-16">
           <ScrollReveal>
             <SectionLabel icon={Truck} label="Delivery" />
-            <h2 className="text-2xl font-bold text-dark sm:text-3xl">
+            <h2 className="text-2xl font-extrabold tracking-tight text-dark sm:text-3xl">
               Shipping across {DELIVERY_REGION_LABEL}
             </h2>
           </ScrollReveal>
@@ -308,98 +307,38 @@ export default function AboutPage() {
           </dl>
         </section>
 
-        <section id="refunds" className="scroll-mt-24 mt-14 border-t border-gold/15 pt-12 sm:mt-16">
-          <ScrollReveal>
-            <SectionLabel icon={Shield} label="Refunds & returns" />
-            <h2 className="text-2xl font-bold text-dark sm:text-3xl">
-              Our return policy at a glance
-            </h2>
-            <p className="mt-3 max-w-2xl text-sm text-dark/65 sm:text-base">
-              We want you to love your jewellery. Returns are possible with clear rules — especially
-              the mandatory unboxing video.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal>
-            <div className="mt-8 max-w-3xl border-l-2 border-gold/50 pl-4 sm:pl-5">
-              <p className="flex items-center gap-2 font-bold text-dark">
-                <Video className="h-4 w-4 text-gold-dark" />
-                Mandatory unboxing video
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-dark/70 sm:text-base">
-                Record a continuous video while opening your parcel. Start before the outer seal is
-                broken, show the label, and keep recording through the full unboxing.{" "}
-                <strong>Without this video, no return or refund is accepted</strong> — including for
-                damaged items.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="mt-10 grid max-w-4xl gap-10 sm:grid-cols-2">
-            <ScrollReveal delay={0.04}>
-              <h3 className="font-bold text-dark">Eligibility</h3>
-              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-dark/65">
-                <li>Returns within 7 days of delivery</li>
-                <li>Unused items in original packaging with invoice</li>
-                <li>Custom or engraved pieces are non-returnable</li>
-                <li>Size exchanges on rings/bracelets within 15 days (stock permitting)</li>
-              </ul>
-            </ScrollReveal>
-            <ScrollReveal delay={0.08}>
-              <h3 className="font-bold text-dark">Damaged items &amp; refunds</h3>
-              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-dark/65">
-                <li>Report damage within 48 hours on WhatsApp</li>
-                <li>Share order ID, photos, and the unboxing video</li>
-                <li>Approved refunds: 7–10 business days via UPI/bank</li>
-                <li>
-                  Full policy details are on our{" "}
-                  <Link href="/refunds" className="font-semibold text-gold-dark hover:underline">
-                    Refunds page
-                  </Link>
-                </li>
-              </ul>
-            </ScrollReveal>
-          </div>
-
-          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
-            <Link
-              href="/refunds"
-              className="inline-flex min-h-11 items-center text-sm font-bold text-dark underline-offset-4 hover:underline"
-            >
-              Read full refund policy
-            </Link>
-            <Link
-              href="/faq"
-              className="inline-flex min-h-11 items-center text-sm font-semibold text-gold-dark underline-offset-4 hover:underline"
-            >
-              View FAQ
-            </Link>
-          </div>
-        </section>
-
         <ScrollReveal>
-          <div className="mt-14 border-t border-gold/15 pt-12 text-center sm:mt-16">
-            <p className="text-[10px] tracking-[0.28em] text-gold-dark uppercase">Ready to shine</p>
-            <h2 className="mt-3 text-2xl font-bold text-dark sm:text-3xl">
+          <div className="mt-14 border-t border-gold/15 pt-12 text-center sm:mt-16 sm:pt-14">
+            <p className="font-sans text-[11px] font-semibold tracking-[0.22em] text-gold-dark uppercase sm:text-xs">
+              Ready to shine
+            </p>
+            <h2 className="mt-3 font-sans text-[clamp(1.85rem,5vw,3rem)] font-black leading-[1.05] tracking-[-0.03em] text-dark uppercase">
               Explore the collection
             </h2>
-            <p className="mx-auto mt-3 max-w-lg text-sm text-dark/65">
-              Browse jewellery under ₹2,000, order on WhatsApp. {DELIVERY_CHARGES_NOTICE}
+            <p className="mx-auto mt-4 max-w-lg font-sans text-[15px] leading-[1.65] font-medium text-dark/60 sm:text-base">
+              Browse the collection and place your order. {DELIVERY_CHARGES_NOTICE}
             </p>
-            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
               <Link
                 href="/shop"
-                className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-gold px-6 text-sm font-semibold text-dark transition hover:bg-gold-light sm:w-auto"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-gold px-8 text-sm font-semibold tracking-[0.04em] text-dark shadow-lg shadow-gold/25 transition duration-300 hover:-translate-y-0.5 hover:bg-gold-light hover:shadow-xl hover:shadow-gold/30 sm:w-auto"
               >
                 Shop collections
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex min-h-12 w-full items-center justify-center text-sm font-bold text-gold-dark underline-offset-4 hover:underline sm:w-auto"
+                className="inline-flex min-h-12 w-full items-center justify-center font-sans text-xs font-semibold tracking-[0.16em] text-gold-dark uppercase transition hover:translate-x-0.5 hover:text-dark sm:w-auto"
               >
                 Contact us
               </Link>
             </div>
+            <p className="mt-5 text-xs font-medium text-dark/45">
+              Need returns info? See our{" "}
+              <Link href="/refunds" className="font-semibold text-gold-dark hover:underline">
+                refunds policy
+              </Link>
+              .
+            </p>
           </div>
         </ScrollReveal>
       </div>
