@@ -4,7 +4,7 @@ import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_TAGLINE } from "@/lib/seo";
 /** Organization, WebSite, and JewelryStore schema for local SEO. */
 export function WebsiteJsonLd() {
   const siteUrl = getSiteUrl();
-  const logo = `${siteUrl}/logo-with-text.png`;
+  const logo = `${siteUrl}/logo-vg.png`;
 
   const schema = {
     "@context": "https://schema.org",

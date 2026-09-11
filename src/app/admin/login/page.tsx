@@ -104,12 +104,12 @@ export default function AdminLoginPage() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.12),transparent_50%)]" />
       <div className="relative w-full max-w-md">
         <div className="mb-7 text-center">
-          <div className="relative mx-auto mb-3 h-16 w-16">
+          <div className="relative mx-auto mb-3 h-14 w-36">
             <Image
-              src="/logo.png"
+              src="/logo-vg.png"
               alt="Virtue Gems"
               fill
-              sizes="64px"
+              sizes="144px"
               className="object-contain"
               priority
             />

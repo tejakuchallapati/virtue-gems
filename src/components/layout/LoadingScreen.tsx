@@ -69,10 +69,10 @@ export function LoadingScreen() {
               initial={{ opacity: 0, scale: 0.86, y: 14 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-              className="relative h-36 w-36 sm:h-44 sm:w-44"
+              className="relative h-28 w-64 sm:h-36 sm:w-80"
             >
               <Image
-                src="/logo.png"
+                src="/logo-vg.png"
                 alt="Virtue Gems"
                 fill
                 priority

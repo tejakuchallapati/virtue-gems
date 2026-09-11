@@ -87,12 +87,12 @@ export function AdminTopNav({ role }: { role: AdminRole }) {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 lg:px-6">
         <Link href="/admin" className="flex shrink-0 items-center gap-3">
-          <div className="relative h-9 w-9">
+          <div className="relative h-9 w-[4.5rem]">
             <Image
-              src="/logo.png"
+              src="/logo-vg.png"
               alt="VG"
               fill
-              sizes="36px"
+              sizes="72px"
               className="object-contain"
             />
           </div>
