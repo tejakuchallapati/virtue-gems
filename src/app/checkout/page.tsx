@@ -117,8 +117,32 @@ export default function CheckoutPage() {
       });
 
       if (!orderRes.ok || !orderRes.data.order?.id) {
-        whatsappWindow?.close();
-        setError(orderRes.ok ? "Could not save your order. Please try again." : orderRes.error);
+        const pendingId = `PENDING-${Date.now().toString(36).toUpperCase()}`;
+        const message = buildOrderMessage(
+          form,
+          cart,
+          finalTotalSnapshot,
+          pendingId,
+          undefined,
+          LOYALTY_ENABLED
+            ? {
+                discount: discountSnapshot,
+                redemption: redemptionSnapshot,
+                pointsEarned: pointsSnapshot,
+                pointsBalance: pointsSnapshot,
+              }
+            : undefined,
+        );
+        const waUrl = getWhatsAppUrl(message);
+        setWhatsappFallback(waUrl);
+        if (whatsappWindow && !whatsappWindow.closed) {
+          whatsappWindow.location.href = waUrl;
+        }
+        setError(
+          orderRes.ok
+            ? "Could not save your order on the website. WhatsApp opened so we can confirm it manually."
+            : `${orderRes.error} WhatsApp opened with your order details.`,
+        );
         return;
       }
 

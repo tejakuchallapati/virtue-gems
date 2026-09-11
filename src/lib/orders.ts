@@ -217,8 +217,13 @@ export async function getOrdersSafe(): Promise<Order[]> {
 
 export async function getOrderByIdSafe(id: string): Promise<Order | null> {
   if (!isSupabaseAdminConfigured()) return getOrderById(id);
-  const { getSupabaseOrder } = await import("@/lib/supabase/store");
-  return getSupabaseOrder(id);
+  try {
+    const { getSupabaseOrder } = await import("@/lib/supabase/store");
+    return await getSupabaseOrder(id);
+  } catch (error) {
+    console.error("getOrderByIdSafe:", error);
+    return null;
+  }
 }
 
 /** Validates against the live Supabase catalog when production storage is enabled. */

@@ -107,7 +107,7 @@ export function buildOrderMessage(
     "Payment : *Via WhatsApp after confirmation*",
     "Status  : *Order Request — Pending*",
     `Delivery: *${DELIVERY_REGION_LABEL} only*`,
-    "Delivery charge: *Confirmed for your address after we review the order* (not free, not random)",
+    "Delivery charge: *Confirmed for your address after we review the order*",
     "",
     "📋 *WHAT HAPPENS NEXT*",
     "1. We confirm item availability and delivery charge for your address",

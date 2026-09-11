@@ -19,6 +19,18 @@ export async function POST(request: Request) {
     if (error instanceof Error && /stock|available/i.test(error.message)) {
       return apiFail(error.message, 409);
     }
-    return apiFail("Failed to save order. Please try again.", 500);
+    const detail =
+      error instanceof Error ? error.message : "Unknown database error";
+    // Surface actionable guidance — Vercel needs Supabase for durable orders.
+    if (/ENOENT|readonly|EACCES|better-sqlite|database|supabase|rpc/i.test(detail)) {
+      return apiFail(
+        "We could not save your order on the server right now. Please continue on WhatsApp and we will confirm it manually.",
+        503,
+      );
+    }
+    return apiFail(
+      "Failed to save order. Please try again, or continue on WhatsApp if the issue persists.",
+      500,
+    );
   }
 }
