@@ -19,7 +19,7 @@ export function NavBrand({
   className,
   logoClassName = "h-8 w-[5.25rem]",
   textClassName,
-  showText = true,
+  showText = false,
   tone = "light",
 }: NavBrandProps) {
   return (
