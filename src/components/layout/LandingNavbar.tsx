@@ -68,24 +68,16 @@ export function LandingNavbar() {
               : "h-14 max-w-6xl bg-transparent lg:h-16 lg:px-6",
           )}
         >
-          <Link href="/" className="flex shrink-0 items-center gap-2.5">
-            <span className="relative h-8 w-[5.25rem]">
+          <Link href="/" className="flex shrink-0 items-center" aria-label="Virtue Gems home">
+            <span className="relative h-9 w-[6rem]">
               <Image
                 src="/logo-vg.png"
-                alt=""
+                alt="Virtue Gems"
                 width={120}
                 height={48}
                 className="h-full w-full object-contain drop-shadow-[0_2px_8px_rgba(212,175,55,0.3)]"
                 priority
               />
-            </span>
-            <span className="flex flex-col leading-none">
-              <span className="text-[12px] font-bold tracking-[0.16em]" style={{ color: gold }}>
-                VIRTUE
-              </span>
-              <span className="mt-0.5 text-[9px] font-semibold tracking-[0.3em]" style={{ color: gold }}>
-                GEMS
-              </span>
             </span>
           </Link>
 
