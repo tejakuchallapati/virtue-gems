@@ -71,7 +71,7 @@ export function HeroLanding() {
             fill
             priority
             quality={100}
-            sizes="184px"
+            sizes="128px"
             className="object-contain drop-shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
           />
         </motion.div>
