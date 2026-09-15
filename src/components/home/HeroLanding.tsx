@@ -63,7 +63,7 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0.4, y: 12 }}
           transition={{ duration: 0.85, ease }}
-          className="relative h-14 w-[9rem] shrink-0 sm:h-16 sm:w-[10.5rem] md:h-[4.5rem] md:w-[11.5rem]"
+          className="relative h-10 w-[6.5rem] shrink-0 sm:h-11 sm:w-[7.25rem] md:h-12 md:w-[8rem]"
         >
           <Image
             src="/logo-vg.png"
