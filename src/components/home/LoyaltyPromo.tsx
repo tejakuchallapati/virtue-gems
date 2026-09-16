@@ -148,14 +148,14 @@ export function LoyaltyPromo() {
         <ScrollReveal delay={0.15} className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Link
             href="/shop"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-8 py-3.5 text-sm font-semibold text-dark transition hover:bg-gold-light sm:w-auto"
+            className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-gold px-8 py-3.5 text-sm font-semibold text-dark transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-gold-light active:scale-[0.98] sm:w-auto"
           >
             <ShoppingBag className="h-4 w-4" />
             Start Shopping &amp; Earn Points
           </Link>
           <Link
             href="/rewards"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-gold/40 px-8 py-3.5 text-sm font-semibold text-gold transition hover:bg-gold/10 sm:w-auto"
+            className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-gold/40 px-8 py-3.5 text-sm font-semibold text-gold transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-gold/10 active:scale-[0.98] sm:w-auto"
           >
             <Sparkles className="h-4 w-4" />
             View All Rewards
