@@ -80,7 +80,7 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ delay: introReady ? 0.25 : 0, duration: 0.65, ease: softEase }}
-          className={`${brand.className} mt-3 whitespace-nowrap text-center text-[clamp(2.85rem,9.5vw,7rem)] font-normal leading-[1.05] md:text-left`}
+          className={`${brand.className} mt-3 whitespace-nowrap text-center text-[clamp(3.35rem,11vw,8.25rem)] font-normal leading-[1.05] md:text-left`}
           style={{
             color: GOLD,
             letterSpacing: "0.02em",
