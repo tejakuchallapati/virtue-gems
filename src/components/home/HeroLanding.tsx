@@ -48,11 +48,15 @@ export function HeroLanding() {
         />
       </motion.div>
 
+      {/* Shade residual baked-in logo / title ghosts on the silk */}
       <div
         className="pointer-events-none absolute inset-0 z-[1]"
         style={{
-          background:
-            "radial-gradient(ellipse 46% 52% at 42% 46%, rgba(14,4,24,0.28) 0%, rgba(14,4,24,0.1) 55%, rgba(10,3,20,0.22) 100%)",
+          background: [
+            "radial-gradient(ellipse 42% 36% at 50% 14%, rgba(12,3,22,0.72) 0%, rgba(12,3,22,0.28) 45%, transparent 72%)",
+            "radial-gradient(ellipse 58% 48% at 38% 46%, rgba(14,4,24,0.55) 0%, rgba(14,4,24,0.18) 52%, transparent 78%)",
+            "radial-gradient(ellipse 46% 52% at 42% 46%, rgba(14,4,24,0.22) 0%, rgba(14,4,24,0.08) 55%, rgba(10,3,20,0.2) 100%)",
+          ].join(", "),
         }}
         aria-hidden
       />
