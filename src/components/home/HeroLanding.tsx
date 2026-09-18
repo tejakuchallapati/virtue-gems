@@ -37,7 +37,7 @@ export function HeroLanding() {
         transition={{ duration: 1.35, ease }}
       >
         <Image
-          src="/hero-bg-clean.jpg"
+          src="/hero-bg-silk.jpg"
           alt=""
           fill
           priority
