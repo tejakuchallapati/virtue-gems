@@ -24,7 +24,7 @@ const GOLD = "#e6d08a";
 
 /**
  * Exact hero style: silk + jewellery on right, centered brand stack (logo → title → tagline → CTA).
- * Responsive: jewellery framed toward the right on small screens.
+ * Responsive: jewellery framed toward the right on small screens; title scales without overflow.
  */
 export function HeroLanding() {
   const introReady = useBrandIntroReady();
@@ -69,12 +69,12 @@ export function HeroLanding() {
       />
 
       {/* Middle-left brand stack — matches reference */}
-      <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-6 pb-[calc(4rem+env(safe-area-inset-bottom,0px))] pt-16 md:items-start md:pl-[10%] md:pr-[40%] lg:pl-[14%]">
+      <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] pt-[calc(4.5rem+env(safe-area-inset-top,0px))] sm:px-6 md:items-start md:pb-[calc(4rem+env(safe-area-inset-bottom,0px))] md:pl-[10%] md:pr-[40%] md:pt-16 lg:pl-[14%]">
         <motion.div
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0.4, y: 12 }}
           transition={{ duration: 0.85, ease }}
-          className="relative h-8 w-[5.25rem] shrink-0 sm:h-9 sm:w-[5.75rem] md:h-10 md:w-[6.5rem]"
+          className="relative h-7 w-[4.75rem] shrink-0 sm:h-9 sm:w-[5.75rem] md:h-10 md:w-[6.5rem]"
         >
           <Image
             src="/logo-vg.png"
@@ -82,7 +82,7 @@ export function HeroLanding() {
             fill
             priority
             quality={100}
-            sizes="104px"
+            sizes="(max-width: 640px) 88px, 104px"
             className="object-contain drop-shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
           />
         </motion.div>
@@ -91,7 +91,7 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ delay: introReady ? 0.25 : 0, duration: 0.65, ease: softEase }}
-          className={`${brand.className} mt-3 whitespace-nowrap text-center text-[clamp(3.35rem,11vw,8.25rem)] font-normal leading-[1.05] md:text-left`}
+          className={`${brand.className} mt-2.5 max-w-full whitespace-nowrap text-center text-[clamp(2.15rem,9.2vw,8.25rem)] font-normal leading-[1.05] sm:mt-3 md:text-left`}
           style={{
             color: GOLD,
             letterSpacing: "0.02em",
