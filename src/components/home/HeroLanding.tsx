@@ -24,6 +24,7 @@ const GOLD = "#e6d08a";
 
 /**
  * Exact hero style: silk + jewellery on right, centered brand stack (logo → title → tagline → CTA).
+ * Responsive: jewellery framed toward the right on small screens.
  */
 export function HeroLanding() {
   const introReady = useBrandIntroReady();
@@ -43,7 +44,7 @@ export function HeroLanding() {
           priority
           quality={95}
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[72%_center] sm:object-[68%_center] md:object-center"
           aria-hidden
         />
       </motion.div>
@@ -58,6 +59,12 @@ export function HeroLanding() {
             "radial-gradient(ellipse 46% 52% at 42% 46%, rgba(14,4,24,0.22) 0%, rgba(14,4,24,0.08) 55%, rgba(10,3,20,0.2) 100%)",
           ].join(", "),
         }}
+        aria-hidden
+      />
+
+      {/* Stronger left read on narrow screens so gold type stays clear over silk */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#1a0a2e]/55 via-transparent to-[#1a0a2e]/50 md:hidden"
         aria-hidden
       />
 
