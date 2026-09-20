@@ -106,10 +106,10 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
           transition={{ delay: introReady ? 0.4 : 0, duration: 0.55, ease: softEase }}
-          className={`${caption.className} mt-4 text-center text-[clamp(0.95rem,1.9vw,1.2rem)] font-normal md:text-left`}
+          className={`${caption.className} mt-3 max-w-[18rem] text-center text-[clamp(0.82rem,2.4vw,1.2rem)] font-normal leading-snug sm:mt-4 sm:max-w-none md:text-left`}
           style={{
             color: GOLD,
-            letterSpacing: "0.18em",
+            letterSpacing: "0.14em",
             textShadow: "0 1px 12px rgba(0,0,0,0.3)",
           }}
         >
@@ -121,7 +121,7 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 0.75, scaleX: 1 } : { opacity: 0, scaleX: 0.35 }}
           transition={{ delay: introReady ? 0.5 : 0, duration: 0.5, ease: softEase }}
-          className="mt-5 h-px w-[min(42%,11rem)] origin-center md:origin-left"
+          className="mt-4 h-px w-[min(48%,9.5rem)] origin-center sm:mt-5 sm:w-[min(42%,11rem)] md:origin-left"
           style={{
             background:
               "linear-gradient(90deg, transparent 0%, rgba(230,208,138,0.2) 12%, #e6d08a 50%, rgba(230,208,138,0.2) 88%, transparent 100%)",
@@ -132,11 +132,11 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
           transition={{ delay: introReady ? 0.55 : 0, duration: 0.55, ease: softEase }}
-          className="mt-8 sm:mt-9"
+          className="mt-7 w-full max-w-[16.5rem] sm:mt-8 sm:max-w-none sm:w-auto md:mt-9"
         >
           <Link
             href="/shop"
-            className="inline-flex items-center justify-center border border-[#e6d08a]/90 px-10 py-3.5 text-[11px] font-normal tracking-[0.28em] uppercase transition hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:text-xs"
+            className="inline-flex min-h-11 w-full items-center justify-center border border-[#e6d08a]/90 px-8 py-3 text-[10px] font-normal tracking-[0.22em] uppercase transition hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:min-h-0 sm:w-auto sm:px-10 sm:py-3.5 sm:text-xs sm:tracking-[0.28em]"
             style={{ color: GOLD }}
           >
             Explore Collection
