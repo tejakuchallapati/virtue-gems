@@ -45,14 +45,14 @@ export function LandingNavbar() {
           scrolled ? "border-b border-[#d4af37]/30 bg-[#1a0a2e]" : "bg-transparent",
         )}
       >
-        <div className="flex h-14 items-center px-4">
-          <Link href="/" aria-label="Virtue Gems home">
+        <div className="flex h-12 items-center px-3 sm:h-14 sm:px-4">
+          <Link href="/" aria-label="Virtue Gems home" className="shrink-0">
             <Image
               src="/logo-vg.png"
               alt="Virtue Gems"
               width={120}
               height={48}
-              className="h-9 w-auto object-contain"
+              className="h-8 w-auto object-contain sm:h-9"
               priority
             />
           </Link>
