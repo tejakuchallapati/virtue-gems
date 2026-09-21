@@ -23,7 +23,7 @@ const softEase = HERO_SOFT_EASE;
 const GOLD = "#e6d08a";
 
 /**
- * Cinematic hero with enlarged, lowered Virtue Gems title.
+ * Cinematic hero: larger lowered title; Explore CTA sits low beside the ring.
  */
 export function HeroLanding() {
   const introReady = useBrandIntroReady();
@@ -58,7 +58,7 @@ export function HeroLanding() {
       />
 
       {/* Brand stack — pushed lower, larger title */}
-      <div className="relative z-10 flex h-full w-full flex-col items-center px-5 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] pt-[min(28vh,12rem)] sm:pt-[min(30vh,13rem)] md:pt-[min(32vh,15rem)]">
+      <div className="relative z-10 flex h-full w-full flex-col items-center px-5 pb-[calc(11rem+env(safe-area-inset-bottom,0px))] pt-[min(28vh,12rem)] sm:pt-[min(30vh,13rem)] md:pb-40 md:pt-[min(32vh,15rem)]">
         <motion.div
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0.4, y: 12 }}
@@ -116,22 +116,23 @@ export function HeroLanding() {
               "linear-gradient(90deg, transparent 0%, rgba(230,208,138,0.2) 12%, #e6d08a 50%, rgba(230,208,138,0.2) 88%, transparent 100%)",
           }}
         />
-
-        <motion.div
-          initial={false}
-          animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-          transition={{ delay: introReady ? 0.55 : 0, duration: 0.55, ease: softEase }}
-          className="mt-8 sm:mt-10"
-        >
-          <Link
-            href="/shop"
-            className="inline-flex items-center justify-center border border-[#e6d08a]/90 px-10 py-3.5 text-[11px] font-normal tracking-[0.28em] uppercase transition hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:text-xs"
-            style={{ color: GOLD }}
-          >
-            Explore Collection
-          </Link>
-        </motion.div>
       </div>
+
+      {/* Explore CTA — low, beside the ring */}
+      <motion.div
+        initial={false}
+        animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+        transition={{ delay: introReady ? 0.55 : 0, duration: 0.55, ease: softEase }}
+        className="absolute bottom-[calc(5.5rem+env(safe-area-inset-bottom,0px))] left-1/2 z-10 -translate-x-1/2 sm:bottom-[6.5rem] md:bottom-[14%] md:left-[38%] md:translate-x-0 lg:left-[40%]"
+      >
+        <Link
+          href="/shop"
+          className="inline-flex items-center justify-center border border-[#e6d08a]/90 px-10 py-3.5 text-[11px] font-normal tracking-[0.28em] uppercase transition hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:text-xs"
+          style={{ color: GOLD }}
+        >
+          Explore Collection
+        </Link>
+      </motion.div>
     </section>
   );
 }

@@ -48,7 +48,7 @@ next-env.d.ts
 # Raw photo dumps (keep local — process into public/products)
 /VIRTUE GEMS/
 
-# Experimental hero drafts (not used by HeroLanding)
+# Experimental / unused hero drafts (HeroLanding uses public/hero-bg-clean.jpg only)
 public/hero-bg-folds-check.png
 public/hero-bg-ref.jpg
 public/hero-bg.jpg
@@ -57,6 +57,11 @@ public/hero-cinematic.jpg
 public/hero-cinematic.png
 public/hero-jewellery.png
 public/hero-ref.png
+public/hero-ref-exact.png
 public/hero-silk-clean.jpg
 public/hero-silk-folds.jpg
 public/hero-silk.jpg
+public/vg-hero-*.jpg
+
+# local hero cleanup tooling
+.venv-hero/
