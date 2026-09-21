@@ -23,8 +23,7 @@ const softEase = HERO_SOFT_EASE;
 const GOLD = "#e6d08a";
 
 /**
- * First cinematic hero: clean silk folds + jewellery background,
- * live logo / title / tagline / Explore CTA only (no baked-in UI).
+ * Cinematic hero with enlarged, lowered Virtue Gems title.
  */
 export function HeroLanding() {
   const introReady = useBrandIntroReady();
@@ -58,12 +57,13 @@ export function HeroLanding() {
         aria-hidden
       />
 
-      <div className="relative z-10 flex h-full w-full flex-col items-center px-5 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] pt-[min(18vh,7.5rem)] sm:pt-[min(20vh,8.5rem)] md:pt-[min(18vh,9rem)]">
+      {/* Brand stack — pushed lower, larger title */}
+      <div className="relative z-10 flex h-full w-full flex-col items-center px-5 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] pt-[min(28vh,12rem)] sm:pt-[min(30vh,13rem)] md:pt-[min(32vh,15rem)]">
         <motion.div
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0.4, y: 12 }}
           transition={{ duration: 0.85, ease }}
-          className="relative h-14 w-[9rem] shrink-0 sm:h-16 sm:w-[10.5rem] md:h-[4.75rem] md:w-[12.5rem]"
+          className="relative h-12 w-[7.75rem] shrink-0 sm:h-14 sm:w-[9rem] md:h-16 md:w-[10.5rem]"
         >
           <Image
             src="/logo-vg.png"
@@ -71,7 +71,7 @@ export function HeroLanding() {
             fill
             priority
             quality={100}
-            sizes="200px"
+            sizes="168px"
             className="object-contain drop-shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
           />
         </motion.div>
@@ -80,7 +80,7 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ delay: introReady ? 0.25 : 0, duration: 0.65, ease: softEase }}
-          className={`${brand.className} mt-3 max-w-[92vw] whitespace-nowrap text-center text-[clamp(2.75rem,10vw,7.25rem)] font-normal leading-[1.05] sm:mt-4`}
+          className={`${brand.className} mt-4 max-w-[96vw] whitespace-nowrap text-center text-[clamp(3.5rem,12.5vw,8.75rem)] font-normal leading-[1.02] sm:mt-5`}
           style={{
             color: GOLD,
             letterSpacing: "0.02em",
