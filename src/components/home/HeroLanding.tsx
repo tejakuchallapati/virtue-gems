@@ -23,8 +23,8 @@ const softEase = HERO_SOFT_EASE;
 const GOLD = "#e6d08a";
 
 /**
- * Exact hero style: silk + jewellery on right, centered brand stack (logo → title → tagline → CTA).
- * Responsive: jewellery framed toward the right on small screens; title scales without overflow.
+ * First cinematic hero: clean silk folds + jewellery background,
+ * live logo / title / tagline / Explore CTA only (no baked-in UI).
  */
 export function HeroLanding() {
   const introReady = useBrandIntroReady();
@@ -38,43 +38,32 @@ export function HeroLanding() {
         transition={{ duration: 1.35, ease }}
       >
         <Image
-          src="/hero-bg-silk.jpg"
+          src="/hero-bg-clean.jpg"
           alt=""
           fill
           priority
-          quality={95}
+          quality={100}
           sizes="100vw"
-          className="object-cover object-[72%_center] sm:object-[68%_center] md:object-center"
+          className="object-cover object-center"
           aria-hidden
         />
       </motion.div>
 
-      {/* Shade residual baked-in logo / title ghosts on the silk */}
       <div
         className="pointer-events-none absolute inset-0 z-[1]"
         style={{
-          background: [
-            "radial-gradient(ellipse 42% 36% at 50% 14%, rgba(12,3,22,0.72) 0%, rgba(12,3,22,0.28) 45%, transparent 72%)",
-            "radial-gradient(ellipse 58% 48% at 38% 46%, rgba(14,4,24,0.55) 0%, rgba(14,4,24,0.18) 52%, transparent 78%)",
-            "radial-gradient(ellipse 46% 52% at 42% 46%, rgba(14,4,24,0.22) 0%, rgba(14,4,24,0.08) 55%, rgba(10,3,20,0.2) 100%)",
-          ].join(", "),
+          background:
+            "radial-gradient(ellipse 42% 48% at 46% 36%, rgba(16,5,28,0.28) 0%, rgba(16,5,28,0.08) 55%, rgba(10,3,20,0.22) 100%)",
         }}
         aria-hidden
       />
 
-      {/* Stronger left read on narrow screens so gold type stays clear over silk */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#1a0a2e]/55 via-transparent to-[#1a0a2e]/50 md:hidden"
-        aria-hidden
-      />
-
-      {/* Middle-left brand stack — matches reference */}
-      <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] pt-[calc(4.5rem+env(safe-area-inset-top,0px))] sm:px-6 md:items-start md:pb-[calc(4rem+env(safe-area-inset-bottom,0px))] md:pl-[10%] md:pr-[40%] md:pt-16 lg:pl-[14%]">
+      <div className="relative z-10 flex h-full w-full flex-col items-center px-5 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] pt-[min(18vh,7.5rem)] sm:pt-[min(20vh,8.5rem)] md:pt-[min(18vh,9rem)]">
         <motion.div
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0.4, y: 12 }}
           transition={{ duration: 0.85, ease }}
-          className="relative h-7 w-[4.75rem] shrink-0 sm:h-9 sm:w-[5.75rem] md:h-10 md:w-[6.5rem]"
+          className="relative h-14 w-[9rem] shrink-0 sm:h-16 sm:w-[10.5rem] md:h-[4.75rem] md:w-[12.5rem]"
         >
           <Image
             src="/logo-vg.png"
@@ -82,7 +71,7 @@ export function HeroLanding() {
             fill
             priority
             quality={100}
-            sizes="(max-width: 640px) 88px, 104px"
+            sizes="200px"
             className="object-contain drop-shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
           />
         </motion.div>
@@ -91,7 +80,7 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ delay: introReady ? 0.25 : 0, duration: 0.65, ease: softEase }}
-          className={`${brand.className} mt-2.5 max-w-full whitespace-nowrap text-center text-[clamp(2.15rem,9.2vw,8.25rem)] font-normal leading-[1.05] sm:mt-3 md:text-left`}
+          className={`${brand.className} mt-3 max-w-[92vw] whitespace-nowrap text-center text-[clamp(2.75rem,10vw,7.25rem)] font-normal leading-[1.05] sm:mt-4`}
           style={{
             color: GOLD,
             letterSpacing: "0.02em",
@@ -106,10 +95,10 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
           transition={{ delay: introReady ? 0.4 : 0, duration: 0.55, ease: softEase }}
-          className={`${caption.className} mt-3 max-w-[18rem] text-center text-[clamp(0.82rem,2.4vw,1.2rem)] font-normal leading-snug sm:mt-4 sm:max-w-none md:text-left`}
+          className={`${caption.className} mt-4 text-center text-[clamp(0.95rem,2vw,1.25rem)] font-normal sm:mt-5`}
           style={{
             color: GOLD,
-            letterSpacing: "0.14em",
+            letterSpacing: "0.16em",
             textShadow: "0 1px 12px rgba(0,0,0,0.3)",
           }}
         >
@@ -121,7 +110,7 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 0.75, scaleX: 1 } : { opacity: 0, scaleX: 0.35 }}
           transition={{ delay: introReady ? 0.5 : 0, duration: 0.5, ease: softEase }}
-          className="mt-4 h-px w-[min(48%,9.5rem)] origin-center sm:mt-5 sm:w-[min(42%,11rem)] md:origin-left"
+          className="mt-5 h-px w-[min(40%,11rem)] origin-center"
           style={{
             background:
               "linear-gradient(90deg, transparent 0%, rgba(230,208,138,0.2) 12%, #e6d08a 50%, rgba(230,208,138,0.2) 88%, transparent 100%)",
@@ -132,11 +121,11 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
           transition={{ delay: introReady ? 0.55 : 0, duration: 0.55, ease: softEase }}
-          className="mt-7 w-full max-w-[16.5rem] sm:mt-8 sm:max-w-none sm:w-auto md:mt-9"
+          className="mt-8 sm:mt-10"
         >
           <Link
             href="/shop"
-            className="inline-flex min-h-11 w-full items-center justify-center border border-[#e6d08a]/90 px-8 py-3 text-[10px] font-normal tracking-[0.22em] uppercase transition hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:min-h-0 sm:w-auto sm:px-10 sm:py-3.5 sm:text-xs sm:tracking-[0.28em]"
+            className="inline-flex items-center justify-center border border-[#e6d08a]/90 px-10 py-3.5 text-[11px] font-normal tracking-[0.28em] uppercase transition hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:text-xs"
             style={{ color: GOLD }}
           >
             Explore Collection
