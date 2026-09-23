@@ -23,7 +23,7 @@ const softEase = HERO_SOFT_EASE;
 const GOLD = "#e6d08a";
 
 /**
- * Cinematic hero: larger lowered title; Explore CTA sits low beside the ring.
+ * Cinematic hero — mobile framing and type scale for small screens.
  */
 export function HeroLanding() {
   const introReady = useBrandIntroReady();
@@ -43,7 +43,7 @@ export function HeroLanding() {
           priority
           quality={100}
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[72%_42%] max-[380px]:object-[78%_40%] sm:object-[65%_center] md:object-center"
           aria-hidden
         />
       </motion.div>
@@ -58,12 +58,12 @@ export function HeroLanding() {
       />
 
       {/* Brand stack — pushed lower, larger title */}
-      <div className="relative z-10 flex h-full w-full flex-col items-center px-5 pb-[calc(11rem+env(safe-area-inset-bottom,0px))] pt-[min(28vh,12rem)] sm:pt-[min(30vh,13rem)] md:pb-40 md:pt-[min(32vh,15rem)]">
+      <div className="relative z-10 flex h-full w-full flex-col items-center px-4 pb-[calc(10.5rem+env(safe-area-inset-bottom,0px))] pt-[calc(5.5rem+env(safe-area-inset-top,0px))] max-[380px]:pb-[calc(9.5rem+env(safe-area-inset-bottom,0px))] sm:px-6 sm:pt-[min(28vh,12rem)] md:pb-40 md:pt-[min(32vh,15rem)]">
         <motion.div
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0.4, y: 12 }}
           transition={{ duration: 0.85, ease }}
-          className="relative h-12 w-[7.75rem] shrink-0 sm:h-14 sm:w-[9rem] md:h-16 md:w-[10.5rem]"
+          className="relative h-10 w-[6.5rem] shrink-0 sm:h-12 sm:w-[7.75rem] md:h-16 md:w-[10.5rem]"
         >
           <Image
             src="/logo-vg.png"
@@ -71,7 +71,7 @@ export function HeroLanding() {
             fill
             priority
             quality={100}
-            sizes="168px"
+            sizes="(max-width: 640px) 120px, 168px"
             className="object-contain drop-shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
           />
         </motion.div>
@@ -80,11 +80,11 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
           transition={{ delay: introReady ? 0.25 : 0, duration: 0.65, ease: softEase }}
-          className={`${brand.className} mt-4 max-w-[96vw] whitespace-nowrap text-center text-[clamp(3.5rem,12.5vw,8.75rem)] font-normal leading-[1.02] sm:mt-5`}
+          className={`${brand.className} mt-3 max-w-[100%] whitespace-nowrap text-center text-[clamp(2.35rem,11vw,8.75rem)] font-normal leading-[1.02] max-[360px]:tracking-normal sm:mt-5`}
           style={{
             color: GOLD,
             letterSpacing: "0.02em",
-            wordSpacing: "0.08em",
+            wordSpacing: "0.06em",
             textShadow: "0 2px 18px rgba(0,0,0,0.35)",
           }}
         >
