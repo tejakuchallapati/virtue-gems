@@ -41,12 +41,14 @@ export function LandingNavbar() {
     <>
       <header
         className={cn(
-          "safe-top safe-x fixed inset-x-0 top-0 z-[90] w-full transition-colors duration-500 md:hidden",
-          scrolled ? "border-b border-[#d4af37]/30 bg-[#1a0a2e]" : "bg-transparent",
+          "safe-top safe-x fixed inset-x-0 top-0 z-[90] w-full transition-[background-color,border-color,backdrop-filter] duration-300 ease-out md:hidden",
+          scrolled
+            ? "border-b border-[#d4af37]/30 bg-[#1a0a2e]/95 backdrop-blur-md"
+            : "border-b border-transparent bg-transparent",
         )}
       >
         <div className="flex h-12 items-center px-3 sm:h-14 sm:px-4">
-          <Link href="/" aria-label="Virtue Gems home" className="shrink-0">
+          <Link href="/" aria-label="Virtue Gems home" className="shrink-0 touch-manipulation">
             <Image
               src="/logo-vg.png"
               alt="Virtue Gems"
