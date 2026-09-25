@@ -43,9 +43,7 @@ export default async function HomePage() {
       <WebsiteJsonLd />
       <HeroLanding />
 
-      <div className="hidden md:block">
-        <TrendingHighlight trending={trending} bestseller={bestseller} />
-      </div>
+      <TrendingHighlight trending={trending} bestseller={bestseller} />
 
       {LOYALTY_ENABLED && (
         <>

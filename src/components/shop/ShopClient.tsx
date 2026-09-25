@@ -62,7 +62,7 @@ function CategoryFilters({
     <div
       className={
         isHero
-          ? "-mx-1 flex max-w-full gap-2 overflow-x-auto px-1 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:pb-0"
+          ? "relative -mx-1 flex max-w-full gap-2 overflow-x-auto px-1 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [mask-image:linear-gradient(90deg,#000_85%,transparent)] sm:[mask-image:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:pb-0"
           : "flex flex-wrap gap-2"
       }
     >
@@ -269,7 +269,7 @@ export function ShopClient({ products }: { products: Product[] }) {
         </div>
       )}
 
-      <div className="mx-auto min-w-0 max-w-7xl px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+      <div className="mx-auto min-w-0 max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
         {/* Active filters */}
         {hasActiveFilters && (
           <div className="mb-6 flex flex-wrap items-center gap-2">

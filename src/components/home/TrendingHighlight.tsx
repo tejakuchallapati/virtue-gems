@@ -24,14 +24,14 @@ function HighlightCard({ product }: { product: Product }) {
     <Link
       href={`/product/${product.slug}`}
       className={cn(
-        "group flex h-full min-h-[15rem] min-w-0 items-stretch overflow-hidden rounded-2xl ring-1 ring-gold/30 transition hover:ring-gold/55 sm:min-h-[16.5rem] lg:min-h-[18rem]",
+        "group flex h-full min-h-[13.5rem] min-w-0 items-stretch overflow-hidden rounded-2xl ring-1 ring-gold/30 transition hover:ring-gold/55 sm:min-h-[16.5rem] lg:min-h-[18rem]",
         PRODUCT_IMAGE_BG,
       )}
     >
       <div
         className={cn(
           PRODUCT_IMAGE_FRAME,
-          "h-auto w-[46%] max-w-[14rem] shrink-0 self-stretch sm:max-w-[16rem] lg:max-w-[18rem]",
+          "h-auto w-[42%] max-w-[11rem] shrink-0 self-stretch min-[400px]:w-[46%] min-[400px]:max-w-[14rem] sm:max-w-[16rem] lg:max-w-[18rem]",
         )}
       >
         <Image
@@ -43,19 +43,19 @@ function HighlightCard({ product }: { product: Product }) {
           className={cn(PRODUCT_IMAGE_FIT, "group-hover:scale-[1.03]")}
         />
       </div>
-      <div className="flex min-w-0 flex-1 flex-col justify-center px-4 py-4 sm:px-5 sm:py-5">
+      <div className="flex min-w-0 flex-1 flex-col justify-center px-3 py-3.5 min-[400px]:px-4 min-[400px]:py-4 sm:px-5 sm:py-5">
         {primaryTag && (
-          <span className="mb-2 w-fit rounded-full bg-gold/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gold">
+          <span className="mb-1.5 w-fit rounded-full bg-gold/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gold sm:mb-2">
             {TAG_LABELS[primaryTag] ?? primaryTag}
           </span>
         )}
-        <h3 className="line-clamp-2 text-lg font-semibold leading-snug text-light sm:text-xl">
+        <h3 className="line-clamp-2 text-base font-semibold leading-snug text-light min-[400px]:text-lg sm:text-xl">
           {product.name}
         </h3>
-        <p className="mt-2 line-clamp-2 text-sm text-light/55 sm:text-base">
+        <p className="mt-1.5 line-clamp-2 text-xs text-light/55 min-[400px]:mt-2 sm:text-sm sm:text-base">
           {product.description}
         </p>
-        <p className="mt-4 text-2xl font-bold text-gold">
+        <p className="mt-3 text-xl font-bold text-gold min-[400px]:mt-4 sm:text-2xl">
           {formatPrice(product.price)}
         </p>
       </div>

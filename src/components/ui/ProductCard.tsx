@@ -122,7 +122,7 @@ export function ProductCard({ product }: { product: Product }) {
             )}
           >
             <ShoppingCart className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
-            <span className="truncate max-[360px]:hidden">
+            <span className="truncate max-[380px]:hidden">
               {product.stock < 1 ? "Sold" : added ? "Added" : "Add"}
             </span>
           </button>

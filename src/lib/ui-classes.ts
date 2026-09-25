@@ -37,11 +37,11 @@ export const PRODUCT_IMAGE_COVER =
   "object-cover transition duration-500 ease-out";
 
 export const PRODUCT_GRID =
-  "grid min-w-0 grid-cols-1 gap-3 [&>*]:min-w-0 min-[360px]:grid-cols-2 min-[360px]:gap-2.5 sm:gap-4 lg:grid-cols-4";
+  "grid min-w-0 grid-cols-1 gap-3 [&>*]:min-w-0 min-[380px]:grid-cols-2 min-[380px]:gap-2.5 sm:gap-4 lg:grid-cols-4";
 
 /** Shop grid beside filters — tops out at 3 columns. */
 export const SHOP_PRODUCT_GRID =
-  "grid min-w-0 grid-cols-1 gap-3 [&>*]:min-w-0 min-[360px]:grid-cols-2 min-[360px]:gap-2.5 sm:gap-4 md:grid-cols-3";
+  "grid min-w-0 grid-cols-1 gap-3 [&>*]:min-w-0 min-[380px]:grid-cols-2 min-[380px]:gap-2.5 sm:gap-4 md:grid-cols-3";
 
 export const SECTION_DIVIDER =
   "pointer-events-none h-px w-full bg-gradient-to-r from-transparent via-gold/35 to-transparent";

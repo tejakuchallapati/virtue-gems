@@ -114,7 +114,7 @@ export function ProductDetailClient({
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
-      <div className={`${PAGE_CONTENT_SHELL} pb-20 lg:pb-10`}>
+      <div className={`${PAGE_CONTENT_SHELL} pb-24 sm:pb-10 lg:pb-10`}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },

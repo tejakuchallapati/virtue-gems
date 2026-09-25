@@ -131,7 +131,7 @@ export function LoyaltyPromo() {
                     </span>
                   </div>
                   <h3 className="mt-3 text-sm font-semibold break-words text-light">{reward.title}</h3>
-                  <p className="mt-1 hidden text-xs text-light/55 sm:block">
+                  <p className="mt-1 line-clamp-2 text-xs text-light/55 sm:line-clamp-none">
                     {reward.description}
                   </p>
                   {unlocked && (
