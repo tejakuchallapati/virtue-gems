@@ -78,7 +78,7 @@ export function TrendingHighlight({
   return (
     <section
       id="collections"
-      className="relative overflow-hidden bg-gradient-to-b from-[#faf6ee] via-[#f3ead8] to-[#ebe0c8] py-8 sm:py-10"
+      className="relative scroll-mt-[var(--scroll-padding-top)] overflow-hidden bg-gradient-to-b from-[#faf6ee] via-[#f3ead8] to-[#ebe0c8] py-8 sm:py-10"
     >
       <div className={cn(SECTION_DIVIDER, "absolute inset-x-0 top-0")} aria-hidden />
       <div className={PAGE_CONTAINER}>

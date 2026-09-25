@@ -55,7 +55,7 @@ export default async function HomePage() {
         </>
       )}
 
-      <PageSection tone="white">
+      <PageSection id="bestsellers" tone="white">
         <ScrollReveal>
           <SectionHeader
             title="Best Sellers"
@@ -70,14 +70,14 @@ export default async function HomePage() {
         </ScrollReveal>
         <div className={PRODUCT_GRID}>
           {featured.map((p, i) => (
-            <ScrollReveal key={p.id} delay={i * 0.08}>
+            <ScrollReveal key={p.id} delay={i * 0.06}>
               <ProductCard product={p} />
             </ScrollReveal>
           ))}
         </div>
       </PageSection>
 
-      <PageSection tone="cream" dividerTop dividerBottom>
+      <PageSection id="new-arrivals" tone="cream" dividerTop dividerBottom>
         <ScrollReveal>
           <SectionHeader
             eyebrow="Just In"
@@ -88,7 +88,7 @@ export default async function HomePage() {
         </ScrollReveal>
         <div className={PRODUCT_GRID}>
           {newArrivals.map((p, i) => (
-            <ScrollReveal key={p.id} delay={i * 0.08}>
+            <ScrollReveal key={p.id} delay={i * 0.06}>
               <ProductCard product={p} />
             </ScrollReveal>
           ))}
@@ -103,7 +103,7 @@ export default async function HomePage() {
       {/* Recently viewed sits where testimonials used to be */}
       <RecentlyViewed />
 
-      <PageSection tone="white" dividerTop>
+      <PageSection id="reviews" tone="white" dividerTop>
         <ScrollReveal>
           <SectionHeader
             eyebrow="Testimonials"
@@ -116,7 +116,9 @@ export default async function HomePage() {
       </PageSection>
 
       {/* Order steps + Instagram combined into one section */}
-      <OrderJourney />
+      <div id="how-it-works" className="scroll-mt-[var(--scroll-padding-top)]">
+        <OrderJourney />
+      </div>
     </>
   );
 }
