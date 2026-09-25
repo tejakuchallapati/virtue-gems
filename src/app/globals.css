@@ -13,6 +13,10 @@
   /* Mobile bottom nav: divider + min-h-12 items + py-1 + labels */
   --mobile-nav-height: 4rem;
   --mobile-nav-offset: calc(var(--mobile-nav-height) + env(safe-area-inset-bottom, 0px));
+  /* Top chrome — keep hash/anchor scroll clears aligned with real bars */
+  --header-height-mobile: 3rem;
+  --header-height-desktop: 4.5rem;
+  --scroll-padding-top: calc(var(--header-height-mobile) + env(safe-area-inset-top, 0px) + 0.5rem);
 }
 
 @theme inline {
@@ -42,7 +46,7 @@ canvas {
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(3.5rem + env(safe-area-inset-top, 0px));
+  scroll-padding-top: var(--scroll-padding-top);
   -webkit-text-size-adjust: 100%;
   max-width: 100%;
   /* Clip sideways bleed so the page cannot rubber-band into empty white */
@@ -51,9 +55,15 @@ html {
 }
 
 @media (min-width: 768px) {
-  html {
-    scroll-padding-top: 4.5rem;
+  :root {
+    --scroll-padding-top: calc(var(--header-height-desktop) + 0.5rem);
   }
+}
+
+/* Lenis owns inertia — keep native hash jump smooth only as fallback */
+html.lenis,
+html.lenis-smooth {
+  scroll-behavior: auto;
 }
 
 body {

@@ -11,6 +11,7 @@ import { LandingNavbar } from "./LandingNavbar";
 import { MobileHeader } from "./MobileHeader";
 import { MobileBottomNav } from "./MobileBottomNav";
 import { Footer } from "./Footer";
+import { SmoothScrollProvider } from "./SmoothScrollProvider";
 import { WhatsAppFloat } from "./WhatsAppFloat";
 
 const LoadingScreen = dynamic(
@@ -36,31 +37,33 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   const isInvoice = pathname.startsWith("/invoice");
 
   return (
-    <div className="relative w-full min-w-0 max-w-full overflow-x-clip">
-      <GoogleAnalytics />
-      <Suspense fallback={null}>
-        <AnalyticsPageViews />
-      </Suspense>
-      {isHome && <LoadingScreen />}
-      <div className="print:hidden">
-        {isHome && <LandingNavbar />}
-        {!isHome && <DesktopNavbar />}
-        {!isHome && <MobileHeader />}
+    <SmoothScrollProvider>
+      <div className="relative w-full min-w-0 max-w-full overflow-x-clip">
+        <GoogleAnalytics />
+        <Suspense fallback={null}>
+          <AnalyticsPageViews />
+        </Suspense>
+        {isHome && <LoadingScreen />}
+        <div className="print:hidden">
+          {isHome && <LandingNavbar />}
+          {!isHome && <DesktopNavbar />}
+          {!isHome && <MobileHeader />}
+        </div>
+        <main
+          id="main-content"
+          tabIndex={-1}
+          className={
+            isHome
+              ? "min-h-dvh w-full min-w-0 max-w-full"
+              : "min-h-[calc(100dvh-3rem)] w-full min-w-0 max-w-full pt-0 md:min-h-[calc(100vh-4rem)] md:pt-[4.75rem]"
+          }
+        >
+          {children}
+        </main>
+        {!isInvoice && <Footer />}
+        {!isInvoice && <MobileBottomNav />}
+        {!isInvoice && <WhatsAppFloat />}
       </div>
-      <main
-        id="main-content"
-        tabIndex={-1}
-        className={
-          isHome
-            ? "min-h-dvh w-full min-w-0 max-w-full"
-            : "min-h-[calc(100dvh-3rem)] w-full min-w-0 max-w-full pt-0 md:min-h-[calc(100vh-4rem)] md:pt-[4.75rem]"
-        }
-      >
-        {children}
-      </main>
-      {!isInvoice && <Footer />}
-      {!isInvoice && <MobileBottomNav />}
-      {!isInvoice && <WhatsAppFloat />}
-    </div>
+    </SmoothScrollProvider>
   );
 }

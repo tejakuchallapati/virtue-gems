@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { pauseSmoothScroll, resumeSmoothScroll } from "@/lib/smooth-scroll";
 
 const LOCK_CLASS = "scroll-locked";
 
@@ -9,6 +10,7 @@ let lockCount = 0;
 /**
  * Locks background scroll while `locked` is true.
  * Uses a body class only — never touches `html` overflow (that breaks iOS/Safari scrolling).
+ * Also pauses Lenis inertia so overlays do not fight the lock.
  */
 export function useBodyScrollLock(locked: boolean) {
   useEffect(() => {
@@ -16,6 +18,7 @@ export function useBodyScrollLock(locked: boolean) {
 
     lockCount += 1;
     document.body.classList.add(LOCK_CLASS);
+    pauseSmoothScroll();
 
     return () => {
       lockCount = Math.max(0, lockCount - 1);
@@ -24,6 +27,7 @@ export function useBodyScrollLock(locked: boolean) {
         // Clear any leftover inline styles from older lock implementations
         document.body.style.removeProperty("overflow");
         document.documentElement.style.removeProperty("overflow");
+        resumeSmoothScroll();
       }
     };
   }, [locked]);
@@ -37,4 +41,5 @@ export function clearBodyScrollLock() {
   document.body.style.removeProperty("overflow");
   document.documentElement.style.removeProperty("overflow");
   delete document.body.dataset.scrollLocked;
+  resumeSmoothScroll();
 }
