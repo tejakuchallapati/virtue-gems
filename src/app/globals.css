@@ -122,6 +122,11 @@ body.scroll-locked [data-mobile-bottom-nav] {
   }
 }
 
+/* Sticky CTAs / forms: keep focus targets clear of the bottom nav */
+.scroll-clear-mobile-nav {
+  scroll-margin-bottom: calc(var(--mobile-nav-offset) + 0.75rem);
+}
+
 .glass {
   background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(12px);

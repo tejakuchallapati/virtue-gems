@@ -402,7 +402,7 @@ export default function CheckoutPage() {
           <button
             type="submit"
             disabled={loading || cart.length === 0}
-            className="flex min-h-12 w-full scroll-mb-[calc(var(--mobile-nav-offset)+0.5rem)] items-center justify-center gap-2 rounded-xl bg-[#25D366] py-3.5 text-sm font-semibold text-white transition hover:bg-[#1fb855] disabled:opacity-60"
+            className="scroll-clear-mobile-nav flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] py-3.5 text-sm font-semibold text-white transition hover:bg-[#1fb855] disabled:opacity-60 touch-manipulation"
           >
             <MessageCircle className="h-5 w-5" />
             {loading ? "Placing order…" : "Place Order via WhatsApp"}

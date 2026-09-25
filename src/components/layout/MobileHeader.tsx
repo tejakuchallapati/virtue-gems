@@ -14,13 +14,13 @@ export function MobileHeader() {
   if (pathname.startsWith("/admin") || pathname === "/") return null;
 
   return (
-    <header className="safe-top safe-x sticky top-0 z-[60] w-full border-b border-[#d4af37]/20 bg-[#1a0a2e]/95 backdrop-blur-xl md:hidden">
+    <header className="safe-top safe-x sticky top-0 z-[60] w-full border-b border-[#d4af37]/20 bg-[#1a0a2e]/95 backdrop-blur-xl transition-[background-color,border-color] duration-300 ease-out md:hidden">
       <div className="h-px bg-gradient-to-r from-transparent via-[#d4af37]/45 to-transparent" />
 
-      <div className="relative flex h-14 w-full items-center justify-start px-4">
+      <div className="relative flex h-12 w-full items-center justify-start px-3 sm:h-14 sm:px-4">
         <Link
           href="/"
-          className="min-w-0 transition active:scale-95"
+          className="min-w-0 touch-manipulation transition active:scale-95 active:opacity-85"
           aria-label="Virtue Gems home"
         >
           <Image
@@ -28,7 +28,7 @@ export function MobileHeader() {
             alt="Virtue Gems"
             width={140}
             height={56}
-            className="h-10 w-auto max-w-[9.5rem] object-contain"
+            className="h-9 w-auto max-w-[8.5rem] object-contain sm:h-10 sm:max-w-[9.5rem]"
             priority
           />
         </Link>

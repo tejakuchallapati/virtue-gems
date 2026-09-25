@@ -29,7 +29,15 @@ export function DesktopNavbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 12);
+        ticking = false;
+      });
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -41,11 +49,11 @@ export function DesktopNavbar() {
     <header className="safe-top fixed inset-x-0 top-0 z-[90] hidden w-full px-4 pt-3 print:hidden md:block lg:px-6">
       <div
         className={cn(
-          "mx-auto flex items-center gap-2 rounded-2xl border border-[#d4af37]/30 bg-[#1a0a2e] px-4 shadow-lg transition-all duration-500",
+          "mx-auto flex items-center gap-2 rounded-2xl border border-[#d4af37]/30 bg-[#1a0a2e] px-4 shadow-lg transition-[max-width,height,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
           scrolled ? "h-12 max-w-3xl" : "h-14 max-w-[1400px] lg:h-16 lg:px-8",
         )}
       >
-        <Link href="/" className="flex shrink-0 items-center" aria-label="Virtue Gems home">
+        <Link href="/" className="flex shrink-0 items-center touch-manipulation" aria-label="Virtue Gems home">
           <span className="relative h-9 w-[6rem]">
             <Image
               src="/logo-vg.png"

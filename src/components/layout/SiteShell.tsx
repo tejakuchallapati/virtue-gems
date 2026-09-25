@@ -55,7 +55,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           className={
             isHome
               ? "min-h-dvh w-full min-w-0 max-w-full"
-              : "min-h-[calc(100dvh-3rem)] w-full min-w-0 max-w-full pt-0 md:min-h-[calc(100vh-4rem)] md:pt-[4.75rem]"
+              : "min-h-[calc(100dvh-var(--header-height-mobile))] w-full min-w-0 max-w-full pt-0 md:min-h-[calc(100vh-4rem)] md:pt-[4.75rem]"
           }
         >
           {children}
