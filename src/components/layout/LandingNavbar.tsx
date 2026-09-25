@@ -27,7 +27,15 @@ export function LandingNavbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 40);
+        ticking = false;
+      });
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -41,14 +49,14 @@ export function LandingNavbar() {
     <>
       <header
         className={cn(
-          "safe-top safe-x fixed inset-x-0 top-0 z-[90] w-full transition-[background-color,border-color,backdrop-filter] duration-300 ease-out md:hidden",
+          "safe-top safe-x fixed inset-x-0 top-0 z-[90] w-full transition-[background-color,border-color,backdrop-filter,box-shadow] duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden",
           scrolled
-            ? "border-b border-[#d4af37]/30 bg-[#1a0a2e]/95 backdrop-blur-md"
-            : "border-b border-transparent bg-transparent",
+            ? "border-b border-[#d4af37]/30 bg-[#1a0a2e]/95 shadow-[0_8px_24px_rgba(10,3,20,0.25)] backdrop-blur-md"
+            : "border-b border-transparent bg-transparent shadow-none",
         )}
       >
         <div className="flex h-12 items-center px-3 sm:h-14 sm:px-4">
-          <Link href="/" aria-label="Virtue Gems home" className="shrink-0 touch-manipulation">
+          <Link href="/" aria-label="Virtue Gems home" className="shrink-0 touch-manipulation active:opacity-80">
             <Image
               src="/logo-vg.png"
               alt="Virtue Gems"
@@ -64,13 +72,13 @@ export function LandingNavbar() {
       <header className="safe-top fixed inset-x-0 top-0 z-[90] hidden w-full px-4 pt-3 md:block lg:px-6">
         <div
           className={cn(
-            "mx-auto flex items-center gap-2 px-4 transition-all duration-500",
+            "mx-auto flex items-center gap-2 px-4 transition-[max-width,height,background-color,border-color,box-shadow,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
             scrolled
               ? "h-12 max-w-3xl rounded-2xl border border-[#d4af37]/35 bg-[#1a0a2e] shadow-lg"
               : "h-14 max-w-6xl bg-transparent lg:h-16 lg:px-6",
           )}
         >
-          <Link href="/" className="flex shrink-0 items-center" aria-label="Virtue Gems home">
+          <Link href="/" className="flex shrink-0 items-center touch-manipulation" aria-label="Virtue Gems home">
             <span className="relative h-9 w-[6rem]">
               <Image
                 src="/logo-vg.png"

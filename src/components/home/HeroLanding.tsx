@@ -23,7 +23,7 @@ const softEase = HERO_SOFT_EASE;
 const GOLD = "#e6d08a";
 
 /**
- * Cinematic hero — mobile-tuned framing, type scale, and CTA placement.
+ * Cinematic hero — narrow-phone type wrap, soft intro, and safe CTA placement.
  */
 export function HeroLanding() {
   const introReady = useBrandIntroReady();
@@ -89,7 +89,7 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? 0 : 8 }}
           transition={{ delay: introReady && !reduceMotion ? 0.2 : 0, duration: 0.55 * softDur, ease: softEase }}
-          className={`${brand.className} mt-3 max-w-[100%] whitespace-nowrap text-center text-[clamp(2.35rem,11vw,8.75rem)] font-normal leading-[1.02] max-[360px]:tracking-normal sm:mt-5`}
+          className={`${brand.className} mt-3 max-w-[100%] text-center text-[clamp(2.1rem,10.5vw,8.75rem)] font-normal leading-[1.02] whitespace-nowrap max-[320px]:whitespace-normal max-[320px]:px-1 max-[360px]:tracking-normal sm:mt-5`}
           style={{
             color: GOLD,
             letterSpacing: "0.02em",

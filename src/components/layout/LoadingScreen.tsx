@@ -50,8 +50,8 @@ export function LoadingScreen() {
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           // Disable hit-testing as soon as exit starts so nav/buttons work again
-          exit={{ opacity: 0, scale: 1.02, pointerEvents: "none" }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          exit={{ opacity: 0, scale: 1.015, pointerEvents: "none" }}
+          transition={{ duration: 0.48, ease: [0.16, 1, 0.3, 1] }}
           aria-hidden
         >
           <motion.div
