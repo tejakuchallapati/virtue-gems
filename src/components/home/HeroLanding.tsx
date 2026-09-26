@@ -66,21 +66,21 @@ export function HeroLanding() {
         aria-hidden
       />
 
-      {/* Brand stack — mobile-safe scale and spacing */}
-      <div className="relative z-10 flex h-full w-full flex-col items-center px-4 pb-[calc(10.5rem+env(safe-area-inset-bottom,0px))] pt-[calc(5.5rem+env(safe-area-inset-top,0px))] max-[380px]:pb-[calc(9.5rem+env(safe-area-inset-bottom,0px))] sm:px-6 sm:pt-[min(28vh,12rem)] md:pb-40 md:pt-[min(32vh,15rem)]">
+      {/* Brand stack — top on phones, left silk (clear of jewellery) from md up */}
+      <div className="relative z-10 flex h-full w-full flex-col items-center px-4 pt-[calc(4.75rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pt-[calc(6rem+env(safe-area-inset-top,0px))] md:w-[60%] md:justify-center md:pb-[6vh] md:pl-[4vw] md:pr-0 md:pt-0">
         <motion.h1
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? 0 : 8 }}
           transition={{ delay: introReady && !reduceMotion ? 0.2 : 0, duration: 0.55 * softDur, ease: softEase }}
-          className={`${brand.className} max-w-[100%] text-center text-[clamp(2.1rem,10.5vw,8.75rem)] font-normal leading-[1.02] whitespace-nowrap max-[320px]:whitespace-normal max-[320px]:px-1 max-[360px]:tracking-normal sm:mt-5`}
+          className={`${brand.className} flex max-w-full flex-col items-center text-center text-[clamp(3.25rem,16.8vw,7.5rem)] font-normal leading-[0.92] md:text-[min(16vw,26vh,14rem)]`}
           style={{
             color: GOLD,
             letterSpacing: "0.02em",
-            wordSpacing: "0.06em",
             textShadow: "0 2px 18px rgba(0,0,0,0.35)",
           }}
         >
-          Virtue Gems
+          <span className="block">Virtue</span>{" "}
+          <span className="block">Gems</span>
         </motion.h1>
 
         <motion.p
