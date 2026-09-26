@@ -5,8 +5,49 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ShoppingCart, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Playfair_Display } from "next/font/google";
 import { useStore } from "@/context/StoreProvider";
 import { cn } from "@/lib/utils";
+
+const wordmark = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+/** "Virtue Gems" wordmark over the hero; crossfades to the logo once the hero logo scrolls away. */
+function NavBrand({ showLogo, size }: { showLogo: boolean; size: "mobile" | "desktop" }) {
+  const mobile = size === "mobile";
+
+  return (
+    <span className="grid items-center [&>*]:col-start-1 [&>*]:row-start-1">
+      <span
+        aria-hidden={showLogo}
+        className={cn(
+          wordmark.className,
+          "whitespace-nowrap text-[#e6d08a] transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          mobile ? "text-xl sm:text-2xl" : "text-2xl lg:text-[1.7rem]",
+          showLogo ? "pointer-events-none -translate-y-1 opacity-0" : "translate-y-0 opacity-100",
+        )}
+        style={{ letterSpacing: "0.02em", textShadow: "0 1px 12px rgba(0,0,0,0.35)" }}
+      >
+        Virtue Gems
+      </span>
+      <Image
+        src="/logo-vg.png"
+        alt=""
+        aria-hidden={!showLogo}
+        width={120}
+        height={48}
+        priority
+        className={cn(
+          "w-auto object-contain transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          mobile ? "h-8 sm:h-9" : "h-9 drop-shadow-[0_2px_8px_rgba(212,175,55,0.3)]",
+          showLogo ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-1 opacity-0",
+        )}
+      />
+    </span>
+  );
+}
 
 const desktopLinks = [
   { href: "/", label: "Home" },
@@ -20,11 +61,12 @@ function isActivePath(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-/** Home nav — gold text always. Transparent on hero; purple pill after scroll. */
+/** Home nav — gold text always. Transparent on hero; purple pill after scroll; wordmark → logo past the hero. */
 export function LandingNavbar() {
   const pathname = usePathname();
   const { cartCount, hydrated } = useStore();
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
     let ticking = false;
@@ -33,6 +75,7 @@ export function LandingNavbar() {
       ticking = true;
       window.requestAnimationFrame(() => {
         setScrolled(window.scrollY > 40);
+        setPastHero(window.scrollY > window.innerHeight * 0.45);
         ticking = false;
       });
     };
@@ -57,14 +100,7 @@ export function LandingNavbar() {
       >
         <div className="flex h-12 items-center px-3 sm:h-14 sm:px-4">
           <Link href="/" aria-label="Virtue Gems home" className="shrink-0 touch-manipulation active:opacity-80">
-            <Image
-              src="/logo-vg.png"
-              alt="Virtue Gems"
-              width={120}
-              height={48}
-              className="h-8 w-auto object-contain sm:h-9"
-              priority
-            />
+            <NavBrand showLogo={pastHero} size="mobile" />
           </Link>
         </div>
       </header>
@@ -79,16 +115,7 @@ export function LandingNavbar() {
           )}
         >
           <Link href="/" className="flex shrink-0 items-center touch-manipulation" aria-label="Virtue Gems home">
-            <span className="relative h-9 w-[6rem]">
-              <Image
-                src="/logo-vg.png"
-                alt="Virtue Gems"
-                width={120}
-                height={48}
-                className="h-full w-full object-contain drop-shadow-[0_2px_8px_rgba(212,175,55,0.3)]"
-                priority
-              />
-            </span>
+            <NavBrand showLogo={pastHero} size="desktop" />
           </Link>
 
           <nav className="flex flex-1 items-center justify-center gap-1">
