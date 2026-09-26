@@ -68,28 +68,11 @@ export function HeroLanding() {
 
       {/* Brand stack — mobile-safe scale and spacing */}
       <div className="relative z-10 flex h-full w-full flex-col items-center px-4 pb-[calc(10.5rem+env(safe-area-inset-bottom,0px))] pt-[calc(5.5rem+env(safe-area-inset-top,0px))] max-[380px]:pb-[calc(9.5rem+env(safe-area-inset-bottom,0px))] sm:px-6 sm:pt-[min(28vh,12rem)] md:pb-40 md:pt-[min(32vh,15rem)]">
-        <motion.div
-          initial={false}
-          animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0.4, y: reduceMotion ? 0 : 10 }}
-          transition={{ duration: 0.7 * dur, ease }}
-          className="relative h-10 w-[6.5rem] shrink-0 sm:h-12 sm:w-[7.75rem] md:h-16 md:w-[10.5rem]"
-        >
-          <Image
-            src="/logo-vg.png"
-            alt="Virtue Gems"
-            fill
-            priority
-            quality={100}
-            sizes="(max-width: 640px) 120px, 168px"
-            className="object-contain drop-shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
-          />
-        </motion.div>
-
         <motion.h1
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? 0 : 8 }}
           transition={{ delay: introReady && !reduceMotion ? 0.2 : 0, duration: 0.55 * softDur, ease: softEase }}
-          className={`${brand.className} mt-3 max-w-[100%] text-center text-[clamp(2.1rem,10.5vw,8.75rem)] font-normal leading-[1.02] whitespace-nowrap max-[320px]:whitespace-normal max-[320px]:px-1 max-[360px]:tracking-normal sm:mt-5`}
+          className={`${brand.className} max-w-[100%] text-center text-[clamp(2.1rem,10.5vw,8.75rem)] font-normal leading-[1.02] whitespace-nowrap max-[320px]:whitespace-normal max-[320px]:px-1 max-[360px]:tracking-normal sm:mt-5`}
           style={{
             color: GOLD,
             letterSpacing: "0.02em",
