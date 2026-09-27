@@ -3,14 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { Playfair_Display, Cormorant_Garamond } from "next/font/google";
+import { Cormorant_Garamond } from "next/font/google";
 import { useBrandIntroReady } from "@/hooks/useBrandIntroReady";
 import { HERO_INTRO_EASE, HERO_SOFT_EASE } from "@/lib/hero-intro-motion";
-
-const brand = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400"],
-});
 
 const caption = Cormorant_Garamond({
   subsets: ["latin"],
@@ -23,7 +18,7 @@ const softEase = HERO_SOFT_EASE;
 const GOLD = "#e6d08a";
 
 /**
- * Cinematic hero — large stacked title with the Explore CTA directly beneath it.
+ * Cinematic hero — large logo with the tagline and Explore CTA directly beneath it.
  */
 export function HeroLanding() {
   const introReady = useBrandIntroReady();
@@ -72,22 +67,24 @@ export function HeroLanding() {
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? 0 : 8 }}
           transition={{ delay: introReady && !reduceMotion ? 0.2 : 0, duration: 0.55 * softDur, ease: softEase }}
-          className={`${brand.className} flex max-w-full flex-col items-center text-center text-[clamp(3.25rem,16.8vw,7.5rem)] font-normal leading-[0.92] md:text-[min(16vw,26vh,14rem)]`}
-          style={{
-            color: GOLD,
-            letterSpacing: "0.02em",
-            textShadow: "0 2px 18px rgba(0,0,0,0.35)",
-          }}
+          className="relative aspect-[603/236] w-[min(80vw,22rem)] max-w-full sm:w-[min(70vw,26rem)] md:w-[min(44vw,70vh,40rem)]"
         >
-          <span className="block">Virtue</span>{" "}
-          <span className="block">Gems</span>
+          <Image
+            src="/logo-vg.png"
+            alt="Virtue Gems"
+            fill
+            priority
+            quality={100}
+            sizes="(max-width: 640px) 80vw, (max-width: 768px) 70vw, 44vw"
+            className="object-contain drop-shadow-[0_8px_28px_rgba(0,0,0,0.4)]"
+          />
         </motion.h1>
 
         <motion.p
           initial={false}
           animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? 0 : 6 }}
           transition={{ delay: introReady && !reduceMotion ? 0.32 : 0, duration: 0.5 * softDur, ease: softEase }}
-          className={`${caption.className} mt-3 max-w-[18.5rem] text-center text-[clamp(0.82rem,2.6vw,1.25rem)] font-normal leading-snug sm:mt-5 sm:max-w-none`}
+          className={`${caption.className} mt-4 max-w-[18.5rem] text-center text-[clamp(0.88rem,2.6vw,1.35rem)] font-normal leading-snug sm:mt-5 sm:max-w-none`}
           style={{
             color: GOLD,
             letterSpacing: "0.12em",
