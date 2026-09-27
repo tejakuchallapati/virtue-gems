@@ -23,7 +23,7 @@ const softEase = HERO_SOFT_EASE;
 const GOLD = "#e6d08a";
 
 /**
- * Cinematic hero — narrow-phone type wrap, soft intro, and safe CTA placement.
+ * Cinematic hero — large stacked title with the Explore CTA directly beneath it.
  */
 export function HeroLanding() {
   const introReady = useBrandIntroReady();
@@ -50,7 +50,7 @@ export function HeroLanding() {
           priority
           quality={100}
           sizes="100vw"
-          className="object-cover object-[72%_42%] max-[380px]:object-[78%_40%] sm:object-[65%_center] md:object-center"
+          className="object-cover object-[72%_42%] max-[380px]:object-[74%_40%] sm:object-[65%_center] md:object-center"
           aria-hidden
         />
       </motion.div>
@@ -106,29 +106,28 @@ export function HeroLanding() {
               : { opacity: 0, scaleX: reduceMotion ? 1 : 0.35 }
           }
           transition={{ delay: introReady && !reduceMotion ? 0.42 : 0, duration: 0.45 * softDur, ease: softEase }}
-          className="mt-4 h-px w-[min(48%,9.5rem)] origin-center sm:mt-5 sm:w-[min(40%,11rem)]"
+          className="mt-3 h-px w-[min(48%,9.5rem)] origin-center sm:mt-4 sm:w-[min(40%,11rem)]"
           style={{
             background:
               "linear-gradient(90deg, transparent 0%, rgba(230,208,138,0.2) 12%, #e6d08a 50%, rgba(230,208,138,0.2) 88%, transparent 100%)",
           }}
         />
-      </div>
 
-      {/* Explore CTA — mobile centered above bottom nav; desktop beside ring */}
-      <motion.div
-        initial={false}
-        animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? 0 : 8 }}
-        transition={{ delay: introReady && !reduceMotion ? 0.48 : 0, duration: 0.5 * softDur, ease: softEase }}
-        className="absolute bottom-[calc(5.25rem+env(safe-area-inset-bottom,0px))] left-1/2 z-10 w-[min(100%-2rem,20rem)] -translate-x-1/2 sm:bottom-[6.25rem] sm:w-auto md:bottom-[14%] md:left-[38%] md:w-auto md:translate-x-0 lg:left-[40%]"
-      >
-        <Link
-          href="/shop"
-          className="inline-flex min-h-11 w-full items-center justify-center border border-[#e6d08a]/90 px-8 py-3 text-[10px] font-normal tracking-[0.22em] uppercase transition active:bg-[#e6d08a]/15 hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:min-h-0 sm:w-auto sm:px-10 sm:py-3.5 sm:text-[11px] sm:tracking-[0.28em] sm:text-xs touch-manipulation"
-          style={{ color: GOLD }}
+        <motion.div
+          initial={false}
+          animate={introReady ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? 0 : 8 }}
+          transition={{ delay: introReady && !reduceMotion ? 0.48 : 0, duration: 0.5 * softDur, ease: softEase }}
+          className="mt-5 sm:mt-6"
         >
-          Explore Collection
-        </Link>
-      </motion.div>
+          <Link
+            href="/shop"
+            className="inline-flex min-h-12 items-center justify-center border border-[#e6d08a]/90 px-9 py-3.5 text-xs font-normal tracking-[0.24em] uppercase transition active:bg-[#e6d08a]/15 hover:bg-[#e6d08a] hover:text-[#1a0a2e] max-[380px]:px-7 max-[380px]:tracking-[0.2em] sm:min-h-14 sm:px-12 sm:py-4 sm:text-sm sm:tracking-[0.28em] lg:min-h-16 lg:px-14 lg:text-base touch-manipulation"
+            style={{ color: GOLD }}
+          >
+            Explore Collection
+          </Link>
+        </motion.div>
+      </div>
     </section>
   );
 }
