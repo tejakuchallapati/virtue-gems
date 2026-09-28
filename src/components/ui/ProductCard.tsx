@@ -26,6 +26,7 @@ export function ProductCard({ product }: { product: Product }) {
     useStore();
   const wished = isInWishlist(product.id);
   const [added, setAdded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   function handleAddToCart() {
     if (product.stock < 1) return;
@@ -55,7 +56,12 @@ export function ProductCard({ product }: { product: Product }) {
             fill
             quality={PRODUCT_IMAGE_QUALITY}
             sizes={PRODUCT_CARD_SIZES}
-            className={cn(PRODUCT_IMAGE_FIT, "group-hover:scale-[1.03]")}
+            onLoad={() => setImageLoaded(true)}
+            className={cn(
+              PRODUCT_IMAGE_FIT,
+              "group-hover:scale-[1.03]",
+              imageLoaded ? "opacity-100" : "opacity-0",
+            )}
           />
         </Link>
         <div className="pointer-events-none absolute left-1.5 top-1.5 flex max-w-[65%] flex-wrap gap-1 sm:left-2 sm:top-2">
@@ -115,7 +121,7 @@ export function ProductCard({ product }: { product: Product }) {
             disabled={product.stock < 1}
             onClick={handleAddToCart}
             className={cn(
-              "flex h-9 min-w-0 shrink-0 items-center justify-center gap-1 rounded-full px-2.5 text-[11px] font-semibold transition sm:h-10 sm:px-3 sm:text-xs md:h-11 md:gap-1.5 md:px-4 md:text-sm disabled:cursor-not-allowed disabled:opacity-50",
+              "flex h-9 min-w-0 shrink-0 touch-manipulation items-center justify-center gap-1 rounded-full px-2.5 text-[11px] font-semibold transition active:scale-95 sm:h-10 sm:px-3 sm:text-xs md:h-11 md:gap-1.5 md:px-4 md:text-sm disabled:cursor-not-allowed disabled:opacity-50",
               added
                 ? "bg-green-600 text-white"
                 : "bg-dark text-gold hover:bg-gold hover:text-dark",
