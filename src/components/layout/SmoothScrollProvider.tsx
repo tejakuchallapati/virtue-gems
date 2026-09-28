@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactLenis, useLenis } from "lenis/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { setLenisInstance } from "@/lib/smooth-scroll";
 import "lenis/dist/lenis.css";
 
@@ -22,23 +22,9 @@ type SmoothScrollProviderProps = {
 
 /**
  * Document-level Lenis smooth scrolling.
- * Skips entirely when the user prefers reduced motion.
+ * The tree shape never changes, so pages are not remounted after hydration.
  */
 export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setEnabled(!media.matches);
-    sync();
-    media.addEventListener("change", sync);
-    return () => media.removeEventListener("change", sync);
-  }, []);
-
-  if (!enabled) {
-    return <>{children}</>;
-  }
-
   return (
     <ReactLenis
       root
@@ -51,6 +37,9 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
         wheelMultiplier: 0.92,
         anchors: true,
         stopInertiaOnNavigate: true,
+        respectReducedMotion: true,
+        // Paused Lenis cancels wheel/touch unless the target can scroll itself (filter panels, drawers, carousels)
+        allowNestedScroll: true,
       }}
     >
       <LenisBridge />
