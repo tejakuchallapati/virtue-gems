@@ -33,6 +33,20 @@ export type Review = {
   date: string;
 };
 
+export type StoreReviewStatus = "pending" | "approved" | "rejected";
+
+/** Storefront review submitted by a customer (moderated before display). */
+export type StoreReview = {
+  id: string;
+  authorName: string;
+  city?: string;
+  rating: number;
+  comment: string;
+  photos: string[];
+  status: StoreReviewStatus;
+  createdAt: string;
+};
+
 export type CartItem = {
   product: Product;
   quantity: number;

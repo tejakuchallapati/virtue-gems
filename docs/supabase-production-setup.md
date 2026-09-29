@@ -9,7 +9,10 @@ Supabase variables are absent.
 1. Create a Supabase project in the closest India/Asia region available.
 2. Open **SQL Editor**.
 3. Run [`supabase/migrations/001_virtue_gems_crm.sql`](../supabase/migrations/001_virtue_gems_crm.sql).
-4. Confirm the `product-images` bucket appears under Storage.
+4. Run [`supabase/migrations/002_store_reviews.sql`](../supabase/migrations/002_store_reviews.sql)
+   to enable customer reviews (moderated from **Admin → Reviews**; photos are
+   stored under `reviews/` in the product-images bucket).
+5. Confirm the `product-images` bucket appears under Storage.
 
 ## 2. Configure local environment
 
