@@ -16,6 +16,7 @@ import {
   ExternalLink,
   ShieldCheck,
   DatabaseBackup,
+  MessageSquareQuote,
 } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -55,6 +56,7 @@ const links: NavLink[] = [
   },
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/orders", label: "Orders", icon: ClipboardList },
+  { href: "/admin/reviews", label: "Reviews", icon: MessageSquareQuote },
   {
     href: "/admin/team",
     label: "Team",
