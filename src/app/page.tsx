@@ -14,6 +14,7 @@ import { PRODUCT_GRID } from "@/lib/ui-classes";
 import { LOYALTY_ENABLED } from "@/lib/features";
 import { buildPageMetadata, DEFAULT_DESCRIPTION, SITE_NAME } from "@/lib/seo";
 import { getAllProductsSafe } from "@/lib/products-server";
+import { listApprovedReviews } from "@/lib/reviews";
 
 export const revalidate = 60;
 
@@ -29,7 +30,10 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default async function HomePage() {
-  const products = await getAllProductsSafe();
+  const [products, approvedReviews] = await Promise.all([
+    getAllProductsSafe(),
+    listApprovedReviews(),
+  ]);
   const featured = products.filter((p) => p.tags.includes("bestseller")).slice(0, 4);
   const newArrivals = products.filter((p) => p.tags.includes("new")).slice(0, 4);
   const trending = products.find((p) => p.tags.includes("trending"));
@@ -109,7 +113,7 @@ export default async function HomePage() {
             align="center"
             className="mb-4"
           />
-          <CustomerReviews />
+          <CustomerReviews reviews={approvedReviews} />
         </ScrollReveal>
       </PageSection>
 
