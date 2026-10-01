@@ -61,6 +61,26 @@ export async function listApprovedReviews(limit = 12): Promise<StoreReview[]> {
   }
 }
 
+/** Reviews awaiting moderation; 0 when reviews are not set up. Never throws. */
+export async function countPendingReviews(): Promise<number> {
+  if (!isSupabaseAdminConfigured()) return 0;
+  try {
+    const supabase = await client();
+    const { count, error } = await supabase
+      .from("store_reviews")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "pending");
+    if (error) {
+      if (!isMissingTable(error)) console.error("Pending reviews count error:", error);
+      return 0;
+    }
+    return count ?? 0;
+  } catch (error) {
+    console.error("Pending reviews count error:", error);
+    return 0;
+  }
+}
+
 export async function listReviewsForAdmin(): Promise<{
   reviews: StoreReview[];
   setupRequired: boolean;

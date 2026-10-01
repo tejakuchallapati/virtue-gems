@@ -1,7 +1,10 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
+import { MessageSquareQuote } from "lucide-react";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getOrdersSafe } from "@/lib/orders";
 import { getAllProductsSafe } from "@/lib/products-server";
+import { countPendingReviews } from "@/lib/reviews";
 import { getWeeklyChartData } from "@/lib/admin-analytics";
 import { StatCard } from "@/components/admin/StatCard";
 import { RevenueChart } from "@/components/admin/RevenueChart";
@@ -11,9 +14,10 @@ import { ORDER_STATUS_LABELS } from "@/lib/order-status";
 export default async function AdminOverviewPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
-  const [orders, products] = await Promise.all([
+  const [orders, products, pendingReviews] = await Promise.all([
     getOrdersSafe(),
     getAllProductsSafe(),
+    countPendingReviews(),
   ]);
   const revenueOrders = orders.filter((order) =>
     ["paid", "shipped", "delivered"].includes(order.status),
@@ -35,6 +39,19 @@ export default async function AdminOverviewPage() {
           <span className="text-gold">Delivered</span>.
         </p>
       </div>
+
+      {pendingReviews > 0 && (
+        <Link
+          href="/admin/reviews"
+          className="mt-4 flex min-h-12 items-center justify-between gap-3 rounded-xl border border-emerald-400/25 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200 transition hover:bg-emerald-400/15"
+        >
+          <span className="flex items-center gap-2">
+            <MessageSquareQuote className="h-4 w-4 shrink-0" />
+            {pendingReviews} customer review{pendingReviews === 1 ? "" : "s"} waiting for approval
+          </span>
+          <span className="shrink-0 font-medium">Review →</span>
+        </Link>
+      )}
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard label="Total Revenue" value={formatPrice(totalRevenue)} />
