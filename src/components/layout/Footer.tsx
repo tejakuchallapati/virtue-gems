@@ -43,9 +43,9 @@ export function Footer() {
   return (
     <>
       <SectionDivider />
-      <footer className="relative overflow-hidden border-t border-gold/25 bg-gradient-to-b from-[#faf6ee] via-[#f3ead8] to-[#ebe0c8] text-dark/80 pb-[var(--mobile-nav-offset)] md:pb-0">
+      <footer className="relative overflow-hidden border-t border-gold/20 bg-[#1a0a2e] text-light/80 pb-[var(--mobile-nav-offset)] md:pb-0">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
-        <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-gold/[0.1] blur-[80px]" />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-gold/[0.06] blur-[80px]" />
 
         <div className="relative mx-auto max-w-7xl px-5 py-10 sm:px-6 sm:py-14 lg:px-8">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
@@ -57,13 +57,13 @@ export function Footer() {
                   width={603}
                   height={236}
                   sizes="112px"
-                  className="h-10 w-auto object-contain [filter:saturate(1.35)_brightness(0.82)_drop-shadow(0_1px_1.5px_rgba(60,35,5,0.55))] sm:h-11"
+                  className="h-10 w-auto object-contain drop-shadow-[0_2px_8px_rgba(212,175,55,0.3)] sm:h-11"
                 />
-                <span className="text-lg font-bold tracking-[0.08em] text-dark">
-                  VIRTUE <span className="text-gold-dark">GEMS</span>
+                <span className="text-lg font-bold tracking-[0.08em] text-light">
+                  VIRTUE <span className="text-gold">GEMS</span>
                 </span>
               </Link>
-              <p className="mt-3 max-w-xs text-sm leading-relaxed tracking-wide text-dark/60">
+              <p className="mt-3 max-w-xs text-sm leading-relaxed tracking-wide text-light/55">
                 Premium handcrafted jewellery. Timeless elegance for every
                 occasion.
               </p>
@@ -72,7 +72,7 @@ export function Footer() {
                   href={whatsAppContactUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-white/50 text-dark/60 transition hover:border-[#25D366]/50 hover:bg-[#25D366]/15 hover:text-[#25D366]"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold/25 bg-white/5 text-light/60 transition hover:border-[#25D366]/50 hover:bg-[#25D366]/15 hover:text-[#25D366]"
                   aria-label="WhatsApp"
                 >
                   <MessageCircle className="h-4 w-4" />
@@ -81,7 +81,7 @@ export function Footer() {
                   href={INSTAGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-white/50 text-dark/60 transition hover:border-[#E4405F]/50 hover:bg-[#E4405F]/15 hover:text-[#E4405F]"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold/25 bg-white/5 text-light/60 transition hover:border-[#E4405F]/50 hover:bg-[#E4405F]/15 hover:text-[#E4405F]"
                   aria-label="Instagram"
                 >
                   <InstagramIcon className="h-4 w-4" />
@@ -90,7 +90,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h3 className="mb-4 text-xs font-extrabold uppercase tracking-[0.12em] text-dark">
+              <h3 className="mb-4 text-xs font-extrabold uppercase tracking-[0.12em] text-gold">
                 Shop
               </h3>
               <ul className="space-y-3 text-sm tracking-wide">
@@ -98,7 +98,7 @@ export function Footer() {
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="text-dark/60 transition hover:text-gold-dark"
+                      className="text-light/60 transition hover:text-gold"
                     >
                       {l.label}
                     </Link>
@@ -108,7 +108,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h3 className="mb-4 text-xs font-extrabold uppercase tracking-[0.12em] text-dark">
+              <h3 className="mb-4 text-xs font-extrabold uppercase tracking-[0.12em] text-gold">
                 Company
               </h3>
               <ul className="space-y-3 text-sm tracking-wide">
@@ -116,7 +116,7 @@ export function Footer() {
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="text-dark/60 transition hover:text-gold-dark"
+                      className="text-light/60 transition hover:text-gold"
                     >
                       {l.label}
                     </Link>
@@ -126,7 +126,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h3 className="mb-4 text-xs font-extrabold uppercase tracking-[0.12em] text-dark">
+              <h3 className="mb-4 text-xs font-extrabold uppercase tracking-[0.12em] text-gold">
                 Legal
               </h3>
               <ul className="space-y-3 text-sm tracking-wide">
@@ -134,7 +134,7 @@ export function Footer() {
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="text-dark/60 transition hover:text-gold-dark"
+                      className="text-light/60 transition hover:text-gold"
                     >
                       {l.label}
                     </Link>
@@ -144,7 +144,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-gold/25 pt-6 text-xs tracking-wide text-dark/55 sm:mt-12 sm:flex-row sm:gap-6">
+          <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-gold/15 pt-6 text-xs tracking-wide text-light/45 sm:mt-12 sm:flex-row sm:gap-6">
             <p className="text-center sm:text-left">
               &copy; <FooterYear /> Virtue Gems. All rights reserved.
             </p>
@@ -152,19 +152,19 @@ export function Footer() {
               aria-label="Legal"
               className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:gap-x-6"
             >
-              <Link href="/terms" className="transition hover:text-gold-dark">
+              <Link href="/terms" className="transition hover:text-gold">
                 Terms &amp; Conditions
               </Link>
-              <span className="hidden h-3 w-px bg-gold/30 sm:block" aria-hidden />
-              <Link href="/privacy" className="transition hover:text-gold-dark">
+              <span className="hidden h-3 w-px bg-gold/20 sm:block" aria-hidden />
+              <Link href="/privacy" className="transition hover:text-gold">
                 Privacy Policy
               </Link>
-              <span className="hidden h-3 w-px bg-gold/30 sm:block" aria-hidden />
-              <Link href="/refunds" className="transition hover:text-gold-dark">
+              <span className="hidden h-3 w-px bg-gold/20 sm:block" aria-hidden />
+              <Link href="/refunds" className="transition hover:text-gold">
                 Refund Policy
               </Link>
-              <span className="hidden h-3 w-px bg-gold/30 sm:block" aria-hidden />
-              <Link href="/contact" className="transition hover:text-gold-dark">
+              <span className="hidden h-3 w-px bg-gold/20 sm:block" aria-hidden />
+              <Link href="/contact" className="transition hover:text-gold">
                 Contact Us
               </Link>
             </nav>
