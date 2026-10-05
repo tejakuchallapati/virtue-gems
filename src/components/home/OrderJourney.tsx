@@ -29,23 +29,23 @@ const STEPS = [
   },
 ] as const;
 
-/** Order steps + Instagram — purple band, large cards matching trending size. */
+/** Order steps + Instagram — cream band, large cards matching trending size. */
 export function OrderJourney() {
   return (
-    <section className="relative overflow-hidden bg-[#1a0a2e] py-10 sm:py-14 md:py-16">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#faf6ee] via-[#f3ead8] to-[#ebe0c8] py-10 sm:py-14 md:py-16">
       <div className={cn(SECTION_DIVIDER, "absolute inset-x-0 top-0 opacity-60")} aria-hidden />
-      <div className="pointer-events-none absolute -right-20 top-10 h-64 w-64 rounded-full bg-gold/10 blur-[90px]" />
-      <div className="pointer-events-none absolute -left-16 bottom-20 h-56 w-56 rounded-full bg-gold/5 blur-[80px]" />
+      <div className="pointer-events-none absolute -right-20 top-10 h-64 w-64 rounded-full bg-gold/15 blur-[90px]" />
+      <div className="pointer-events-none absolute -left-16 bottom-20 h-56 w-56 rounded-full bg-gold/10 blur-[80px]" />
 
       <div className={PAGE_CONTAINER}>
         <ScrollReveal className="text-center">
-          <p className="text-[11px] font-semibold tracking-[0.22em] text-gold uppercase sm:text-xs">
+          <p className="text-[11px] font-semibold tracking-[0.22em] text-gold-dark uppercase sm:text-xs">
             Simple
           </p>
-          <h2 className="mt-2 font-sans text-[clamp(1.5rem,4vw,2.25rem)] font-black tracking-[-0.03em] text-light">
+          <h2 className="mt-2 font-sans text-[clamp(1.5rem,4vw,2.25rem)] font-black tracking-[-0.03em] text-dark">
             From browse to feedback
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm font-medium leading-relaxed text-light/60 sm:text-base">
+          <p className="mx-auto mt-3 max-w-xl text-sm font-medium leading-relaxed text-dark/60 sm:text-base">
             Clear steps for every order — no card payment on the website.
           </p>
         </ScrollReveal>
@@ -55,14 +55,14 @@ export function OrderJourney() {
             const Icon = step.icon;
             return (
               <ScrollReveal key={step.title} delay={i * 0.05} className="h-full">
-                <div className="flex h-full min-h-[11rem] flex-col items-center justify-center rounded-2xl bg-[#241536] px-5 py-7 text-center ring-1 ring-gold/25 transition hover:ring-gold/45 sm:min-h-[12rem] sm:px-6 sm:py-8">
-                  <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold/15 text-gold">
+                <div className="flex h-full min-h-[11rem] flex-col items-center justify-center rounded-2xl bg-white/80 px-5 py-7 text-center shadow-sm ring-1 ring-gold/25 transition hover:shadow-md hover:ring-gold/45 sm:min-h-[12rem] sm:px-6 sm:py-8">
+                  <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold/15 text-gold-dark">
                     <Icon className="h-5 w-5" />
                   </span>
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-gold">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-gold-dark">
                     {i + 1}. {step.title}
                   </p>
-                  <p className="mt-2.5 text-sm leading-relaxed text-light/70">{step.text}</p>
+                  <p className="mt-2.5 text-sm leading-relaxed text-dark/70">{step.text}</p>
                 </div>
               </ScrollReveal>
             );
@@ -72,7 +72,7 @@ export function OrderJourney() {
         <div className="mt-7 text-center">
           <Link
             href="/shop"
-            className="inline-flex min-h-11 items-center justify-center rounded-full border border-gold/45 bg-gold/10 px-7 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark"
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-gold/50 bg-white/60 px-7 text-sm font-semibold text-gold-dark transition hover:bg-gold hover:text-dark"
           >
             Start shopping
           </Link>
@@ -80,7 +80,7 @@ export function OrderJourney() {
 
         <div className="mt-12 border-t border-gold/20 pt-10 sm:mt-14 sm:pt-12">
           <ScrollReveal>
-            <InstagramFeed compact onDark />
+            <InstagramFeed compact />
           </ScrollReveal>
         </div>
       </div>
