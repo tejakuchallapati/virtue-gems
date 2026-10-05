@@ -16,7 +16,7 @@ function InstagramIcon({ className }: { className?: string }) {
 
 type InstagramFeedProps = {
   compact?: boolean;
-  /** Light text / gold accents for purple sections */
+  /** Light text / gold accents for purple sections; omit on cream */
   onDark?: boolean;
 };
 
@@ -35,7 +35,7 @@ export function InstagramFeed({ compact = false, onDark = false }: InstagramFeed
         <p
           className={cn(
             "text-sm font-semibold tracking-[0.2em] uppercase transition",
-            onDark ? "text-gold group-hover:text-gold-light" : "text-gold group-hover:text-gold-dark",
+            onDark ? "text-gold group-hover:text-gold-light" : "text-gold-dark group-hover:text-gold",
           )}
         >
           Follow Us
@@ -44,7 +44,7 @@ export function InstagramFeed({ compact = false, onDark = false }: InstagramFeed
           <InstagramIcon
             className={cn(
               "h-5 w-5 transition group-hover:scale-110",
-              onDark ? "text-gold" : "text-gold",
+              onDark ? "text-gold" : "text-gold-dark",
             )}
           />
           <h2
@@ -86,6 +86,7 @@ export function InstagramFeed({ compact = false, onDark = false }: InstagramFeed
             className={cn(
               PRODUCT_IMAGE_FRAME,
               "group aspect-square rounded-md sm:rounded-xl",
+              !onDark && "shadow-sm ring-1 ring-gold/25",
             )}
           >
             <Image
@@ -112,7 +113,7 @@ export function InstagramFeed({ compact = false, onDark = false }: InstagramFeed
             "inline-flex min-h-11 w-full max-w-xs items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition sm:w-auto sm:py-2.5",
             onDark
               ? "border-gold/45 bg-gold/10 text-gold hover:bg-gold hover:text-dark"
-              : "border-gold/40 bg-dark text-gold hover:border-gold hover:bg-gold hover:text-dark",
+              : "border-gold/40 bg-[#1a0a2e] text-gold shadow-sm hover:border-gold hover:bg-gold hover:text-dark",
           )}
         >
           <InstagramIcon className="h-4 w-4" />
