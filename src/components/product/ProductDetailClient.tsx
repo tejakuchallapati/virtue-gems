@@ -114,7 +114,7 @@ export function ProductDetailClient({
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
-      <div className={`${PAGE_CONTENT_SHELL} pb-24 sm:pb-10 lg:pb-10`}>
+      <div className={`${PAGE_CONTENT_SHELL} pb-24 lg:pb-10`}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -339,8 +339,8 @@ export function ProductDetailClient({
         </ScrollReveal>
       )}
 
-      {/* Mobile sticky add-to-cart bar — sits above bottom nav; nav already has safe-area */}
-      <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-2 py-2.5 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md sm:px-4 sm:py-3 lg:hidden">
+      {/* Sticky add-to-cart bar — above the bottom nav on phones; bottom nav is gone from md, so it docks to the edge there */}
+      <div className="safe-x fixed bottom-[var(--mobile-nav-offset)] left-0 right-0 z-40 border-t border-gold/20 bg-white/95 px-2 py-2.5 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] backdrop-blur-md sm:px-4 sm:py-3 md:bottom-0 md:pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] lg:hidden">
         <div className="mx-auto flex min-w-0 max-w-lg items-center gap-1.5 sm:gap-2">
           <div className="hidden min-w-0 shrink min-[380px]:block">
             <p className="truncate text-base font-bold text-gold-dark">
