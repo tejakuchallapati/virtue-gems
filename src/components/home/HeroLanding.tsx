@@ -96,9 +96,9 @@ export function HeroLanding() {
         {/*
           16:9 scene box so effects stay pinned to the photo.
           Phones & portrait tablets: ring centred under the text, top/bottom fading into the backdrop.
-          lg+: behaves like object-cover anchored at 60% x.
+          wide: behaves like object-cover anchored at 60% x.
         */}
-        <div className="absolute bottom-[calc(var(--mobile-nav-offset)-1rem)] left-1/2 aspect-video w-[min(200vw,150dvh)] -translate-x-[68%] max-lg:[-webkit-mask-image:var(--hero-fade)] max-lg:[mask-image:var(--hero-fade)] lg:bottom-auto lg:left-[60%] lg:top-1/2 lg:w-[max(100%,177.78vh)] lg:-translate-x-[60%] lg:-translate-y-1/2"
+        <div className="absolute bottom-[calc(var(--mobile-nav-offset)-1rem)] left-1/2 aspect-video w-[min(200vw,150dvh)] -translate-x-[68%] [-webkit-mask-image:var(--hero-fade)] [mask-image:var(--hero-fade)] wide:bottom-auto wide:left-[60%] wide:top-1/2 wide:w-[max(100%,177.78vh)] wide:-translate-x-[60%] wide:-translate-y-1/2 wide:[-webkit-mask-image:none] wide:[mask-image:none]"
           style={{ "--hero-fade": MOBILE_FADE } as CSSProperties}
         >
           <HeroWaterScene
@@ -121,11 +121,11 @@ export function HeroLanding() {
         aria-hidden
       />
 
-      {/* Brand stack — top on phones, left half from lg up */}
-      <div className="relative z-10 flex h-full w-full flex-col items-center px-5 pt-[calc(4.5rem+env(safe-area-inset-top,0px))] text-center sm:pt-[calc(6rem+env(safe-area-inset-top,0px))] lg:w-[44%] lg:justify-center lg:pl-[1.5vw] lg:pr-[2vw] lg:pb-[3vh] lg:pt-0">
+      {/* Brand stack — top on phones & portrait tablets, left side on wide screens */}
+      <div className="relative z-10 flex h-full w-full flex-col items-center px-5 pt-[calc(4.5rem+env(safe-area-inset-top,0px))] text-center sm:pt-[calc(6rem+env(safe-area-inset-top,0px))] wide:w-[44%] wide:justify-center wide:pl-[1.5vw] wide:pr-[2vw] wide:pb-[3vh] wide:pt-0">
         <motion.div
           {...reveal(0.2, 8)}
-          className="relative aspect-[603/236] w-[min(60vw,16rem)] sm:w-[min(48vw,20rem)] lg:w-[min(27vw,46vh,32rem)]"
+          className="relative aspect-[603/236] w-[min(60vw,16rem)] sm:w-[min(48vw,20rem)] wide:w-[min(27vw,46vh,32rem)]"
         >
           <Image
             src="/logo-vg.png"
@@ -140,7 +140,7 @@ export function HeroLanding() {
 
         <motion.h1
           {...reveal(0.28, 8)}
-          className={`${serif.className} mt-2 bg-clip-text pb-1 text-[clamp(2.7rem,13vw,4rem)] font-medium leading-[1.05] text-transparent sm:text-[clamp(3.4rem,9vw,5rem)] lg:mt-[1.2vh] lg:text-[min(6vw,11vh)]`}
+          className={`${serif.className} mt-2 bg-clip-text pb-1 text-[clamp(2.7rem,13vw,4rem)] font-medium leading-[1.05] text-transparent sm:text-[clamp(3.4rem,9vw,5rem)] wide:mt-[1.2vh] wide:text-[min(6vw,11vh)]`}
           style={{
             backgroundImage: "linear-gradient(180deg, #f7e8b4 0%, #e6c97c 48%, #c9a14f 100%)",
             filter: "drop-shadow(0 2px 14px rgba(0,0,0,0.45))",
@@ -151,16 +151,16 @@ export function HeroLanding() {
 
         <motion.p
           {...reveal(0.36, 6)}
-          className={`${serif.className} mt-2 text-[clamp(1.2rem,5.2vw,1.5rem)] italic leading-snug sm:text-[clamp(1.35rem,3.4vw,1.8rem)] lg:mt-[1.6vh] lg:text-[min(2.5vw,4.5vh)]`}
+          className={`${serif.className} mt-2 text-[clamp(1.2rem,5.2vw,1.5rem)] italic leading-snug sm:text-[clamp(1.35rem,3.4vw,1.8rem)] wide:mt-[1.6vh] wide:text-[min(2.5vw,4.5vh)]`}
           style={{ color: CREAM, letterSpacing: "0.015em", textShadow: "0 1px 12px rgba(0,0,0,0.45)" }}
         >
           Wear your Virtue. Shine with Grace
         </motion.p>
 
-        <motion.div {...reveal(0.46, 8)} className="mt-6 sm:mt-7 lg:mt-[4.5vh]">
+        <motion.div {...reveal(0.46, 8)} className="mt-6 sm:mt-7 wide:mt-[4.5vh]">
           <Link
             href="/shop"
-            className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#e6d08a]/85 px-7 text-[0.64rem] font-normal tracking-[0.2em] uppercase transition active:bg-[#e6d08a]/15 hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:min-h-11 sm:px-9 sm:text-[0.68rem] lg:min-h-[min(3.3vw,5.8vh)] lg:px-[min(2.4vw,3rem)] lg:text-[clamp(0.68rem,0.85vw,0.82rem)] touch-manipulation"
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#e6d08a]/85 px-7 text-[0.64rem] font-normal tracking-[0.2em] uppercase transition active:bg-[#e6d08a]/15 hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:min-h-11 sm:px-9 sm:text-[0.68rem] wide:min-h-[min(3.3vw,5.8vh)] wide:px-[min(2.4vw,3rem)] wide:text-[clamp(0.68rem,0.85vw,0.82rem)] touch-manipulation"
             style={{ color: GOLD, backgroundColor: "rgba(6,3,15,0.25)" }}
           >
             Explore Collection
