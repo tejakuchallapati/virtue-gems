@@ -79,7 +79,7 @@ export function HeroLanding() {
       ref={sectionRef}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="relative h-[100dvh] max-h-[100dvh] w-full max-w-[100vw] overflow-hidden overscroll-none md:h-screen md:max-h-none"
+      className="relative h-[100dvh] max-h-[100dvh] w-full max-w-[100vw] overflow-hidden overscroll-none [--hero-nav:var(--mobile-nav-offset)] md:h-screen md:max-h-none md:[--hero-nav:0px]"
       style={{ backgroundColor: BG }}
     >
       <motion.div
@@ -98,7 +98,7 @@ export function HeroLanding() {
           Phones & portrait tablets: ring centred under the text, top/bottom fading into the backdrop.
           wide: behaves like object-cover anchored at 60% x.
         */}
-        <div className="absolute bottom-[calc(var(--mobile-nav-offset)-1rem)] left-1/2 aspect-video w-[min(200vw,150dvh)] -translate-x-[68%] [-webkit-mask-image:var(--hero-fade)] [mask-image:var(--hero-fade)] wide:bottom-auto wide:left-[60%] wide:top-1/2 wide:w-[max(100%,177.78vh)] wide:-translate-x-[60%] wide:-translate-y-1/2 wide:[-webkit-mask-image:none] wide:[mask-image:none]"
+        <div className="absolute bottom-[max(0px,calc(var(--hero-nav)-1rem))] left-1/2 aspect-video w-[min(200vw,150dvh)] -translate-x-[68%] [-webkit-mask-image:var(--hero-fade)] [mask-image:var(--hero-fade)] wide:bottom-auto wide:left-[60%] wide:top-1/2 wide:w-[max(100%,177.78vh)] wide:-translate-x-[60%] wide:-translate-y-1/2 wide:[-webkit-mask-image:none] wide:[mask-image:none]"
           style={{ "--hero-fade": MOBILE_FADE } as CSSProperties}
         >
           <HeroWaterScene
@@ -122,10 +122,10 @@ export function HeroLanding() {
       />
 
       {/* Brand stack — top on phones & portrait tablets, left side on wide screens */}
-      <div className="relative z-10 flex h-full w-full flex-col items-center px-5 pt-[calc(clamp(3.5rem,10dvh,4.5rem)+env(safe-area-inset-top,0px))] text-center sm:pt-[calc(clamp(4.5rem,11dvh,6rem)+env(safe-area-inset-top,0px))] wide:w-[44%] wide:justify-center wide:pl-[1.5vw] wide:pr-[2vw] wide:pb-[3vh] wide:pt-0">
+      <div className="relative z-10 flex h-full w-full flex-col items-center px-5 pt-[calc(clamp(3.5rem,10dvh,4.5rem)+env(safe-area-inset-top,0px))] text-center sm:pt-[calc(clamp(4.5rem,11dvh,6rem)+env(safe-area-inset-top,0px))] md:pt-[calc(clamp(5.5rem,10dvh,8rem)+env(safe-area-inset-top,0px))] wide:w-[44%] wide:justify-center wide:pl-[1.5vw] wide:pr-[2vw] wide:pb-[3vh] wide:pt-0">
         <motion.div
           {...reveal(0.2, 8)}
-          className="relative aspect-[603/236] w-[min(60vw,16rem,30dvh)] sm:w-[min(48vw,20rem,30dvh)] wide:w-[min(27vw,46vh,32rem)]"
+          className="relative aspect-[603/236] w-[min(60vw,16rem,30dvh)] sm:w-[min(48vw,20rem,30dvh)] md:w-[min(46vw,24rem,30dvh)] wide:w-[min(27vw,46vh,32rem)]"
         >
           <Image
             src="/logo-vg.png"
@@ -140,7 +140,7 @@ export function HeroLanding() {
 
         <motion.h1
           {...reveal(0.28, 8)}
-          className={`${serif.className} mt-2 bg-clip-text pb-1 text-[clamp(2.2rem,min(13vw,7dvh),4rem)] font-medium leading-[1.05] text-transparent sm:text-[clamp(2.6rem,min(9vw,7.5dvh),5rem)] wide:mt-[1.2vh] wide:text-[min(6vw,11vh)]`}
+          className={`${serif.className} mt-2 bg-clip-text pb-1 text-[clamp(2.2rem,min(13vw,7dvh),4rem)] font-medium leading-[1.05] text-transparent sm:text-[clamp(2.6rem,min(9vw,7.5dvh),5rem)] md:text-[clamp(3.4rem,min(8.5vw,7dvh),6rem)] wide:mt-[1.2vh] wide:text-[min(6vw,11vh)]`}
           style={{
             backgroundImage: "linear-gradient(180deg, #f7e8b4 0%, #e6c97c 48%, #c9a14f 100%)",
             filter: "drop-shadow(0 2px 14px rgba(0,0,0,0.45))",
@@ -151,7 +151,7 @@ export function HeroLanding() {
 
         <motion.p
           {...reveal(0.36, 6)}
-          className={`${serif.className} mt-2 text-[clamp(1.05rem,min(5.2vw,3dvh),1.5rem)] italic leading-snug sm:text-[clamp(1.2rem,min(3.4vw,3.2dvh),1.8rem)] wide:mt-[1.6vh] wide:text-[min(2.5vw,4.5vh)]`}
+          className={`${serif.className} mt-2 text-[clamp(1.05rem,min(5.2vw,3dvh),1.5rem)] italic leading-snug sm:text-[clamp(1.2rem,min(3.4vw,3.2dvh),1.8rem)] md:text-[clamp(1.5rem,min(3.2vw,3dvh),2.2rem)] wide:mt-[1.6vh] wide:text-[min(2.5vw,4.5vh)]`}
           style={{ color: CREAM, letterSpacing: "0.015em", textShadow: "0 1px 12px rgba(0,0,0,0.45)" }}
         >
           Wear your Virtue. Shine with Grace
@@ -160,7 +160,7 @@ export function HeroLanding() {
         <motion.div {...reveal(0.46, 8)} className="mt-[clamp(1rem,3dvh,1.5rem)] sm:mt-[clamp(1.25rem,3.2dvh,1.75rem)] wide:mt-[4.5vh]">
           <Link
             href="/shop"
-            className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#e6d08a]/85 px-7 text-[0.64rem] font-normal tracking-[0.2em] uppercase transition active:bg-[#e6d08a]/15 hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:min-h-11 sm:px-9 sm:text-[0.68rem] wide:min-h-[min(3.3vw,5.8vh)] wide:px-[min(2.4vw,3rem)] wide:text-[clamp(0.68rem,0.85vw,0.82rem)] touch-manipulation"
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#e6d08a]/85 px-7 text-[0.64rem] font-normal tracking-[0.2em] uppercase transition active:bg-[#e6d08a]/15 hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:min-h-11 sm:px-9 sm:text-[0.68rem] md:min-h-12 md:px-10 md:text-[0.72rem] wide:min-h-[min(3.3vw,5.8vh)] wide:px-[min(2.4vw,3rem)] wide:text-[clamp(0.68rem,0.85vw,0.82rem)] touch-manipulation"
             style={{ color: GOLD, backgroundColor: "rgba(6,3,15,0.25)" }}
           >
             Explore Collection
