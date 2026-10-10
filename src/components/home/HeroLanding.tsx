@@ -79,7 +79,7 @@ export function HeroLanding() {
       ref={sectionRef}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="relative h-[100dvh] max-h-[100dvh] w-full max-w-[100vw] overflow-hidden overscroll-none [--hero-nav:var(--mobile-nav-offset)] md:h-screen md:max-h-none md:[--hero-nav:0px]"
+      className="relative h-[100dvh] max-h-[100dvh] w-full max-w-[100vw] overflow-hidden overscroll-none [--hero-nav:var(--mobile-nav-offset)] [--hero-top:0px] md:h-screen md:max-h-none md:[--hero-nav:0px] [@media(max-height:540px)]:[--hero-top:4.25rem]"
       style={{ backgroundColor: BG }}
     >
       <motion.div
@@ -98,7 +98,7 @@ export function HeroLanding() {
           Phones & portrait tablets: ring centred under the text, top/bottom fading into the backdrop.
           wide: behaves like object-cover anchored at 60% x.
         */}
-        <div className="absolute bottom-[max(0px,calc(var(--hero-nav)-1rem))] left-1/2 aspect-video w-[min(200vw,150dvh)] -translate-x-[68%] [-webkit-mask-image:var(--hero-fade)] [mask-image:var(--hero-fade)] wide:bottom-auto wide:left-[60%] wide:top-1/2 wide:w-[max(100%,177.78vh)] wide:-translate-x-[60%] wide:-translate-y-1/2 wide:[-webkit-mask-image:none] wide:[mask-image:none]"
+        <div className="absolute bottom-[max(0px,calc(var(--hero-nav)-1rem))] left-1/2 aspect-video w-[min(200vw,150dvh)] -translate-x-[68%] [-webkit-mask-image:var(--hero-fade)] [mask-image:var(--hero-fade)] wide:bottom-auto wide:left-[60%] wide:top-[60%] wide:w-[max(100%,177.78vh)] wide:-translate-x-[60%] wide:-translate-y-[60%] wide:[-webkit-mask-image:none] wide:[mask-image:none]"
           style={{ "--hero-fade": MOBILE_FADE } as CSSProperties}
         >
           <HeroWaterScene
@@ -122,7 +122,7 @@ export function HeroLanding() {
       />
 
       {/* Brand stack — top on phones & portrait tablets, left side on wide screens */}
-      <div className="relative z-10 flex h-full w-full flex-col items-center px-5 pt-[calc(clamp(3.5rem,10dvh,4.5rem)+env(safe-area-inset-top,0px))] text-center sm:pt-[calc(clamp(4.5rem,11dvh,6rem)+env(safe-area-inset-top,0px))] md:pt-[calc(clamp(5.5rem,10dvh,8rem)+env(safe-area-inset-top,0px))] wide:w-[44%] wide:justify-center wide:pl-[1.5vw] wide:pr-[2vw] wide:pb-[3vh] wide:pt-0">
+      <div className="relative z-10 flex h-full w-full flex-col items-center px-5 pt-[calc(clamp(3.5rem,10dvh,4.5rem)+env(safe-area-inset-top,0px))] text-center sm:pt-[calc(clamp(4.5rem,11dvh,6rem)+env(safe-area-inset-top,0px))] md:pt-[calc(clamp(5.5rem,10dvh,8rem)+env(safe-area-inset-top,0px))] wide:w-[44%] wide:justify-center wide:pl-[1.5vw] wide:pr-[2vw] wide:pb-[max(3vh,var(--hero-nav))] wide:pt-[var(--hero-top)]">
         <motion.div
           {...reveal(0.2, 8)}
           className="relative aspect-[603/236] w-[min(60vw,16rem,30dvh)] sm:w-[min(48vw,20rem,30dvh)] md:w-[min(46vw,24rem,30dvh)] wide:w-[min(27vw,46vh,32rem)]"
@@ -160,7 +160,7 @@ export function HeroLanding() {
         <motion.div {...reveal(0.46, 8)} className="mt-[clamp(1rem,3dvh,1.5rem)] sm:mt-[clamp(1.25rem,3.2dvh,1.75rem)] wide:mt-[4.5vh]">
           <Link
             href="/shop"
-            className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#e6d08a]/85 px-7 text-[0.64rem] font-normal tracking-[0.2em] uppercase transition active:bg-[#e6d08a]/15 hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:min-h-11 sm:px-9 sm:text-[0.68rem] md:min-h-12 md:px-10 md:text-[0.72rem] wide:min-h-[min(3.3vw,5.8vh)] wide:px-[min(2.4vw,3rem)] wide:text-[clamp(0.68rem,0.85vw,0.82rem)] touch-manipulation"
+            className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#e6d08a]/85 px-7 text-[0.64rem] font-normal tracking-[0.2em] uppercase transition active:bg-[#e6d08a]/15 hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:min-h-11 sm:px-9 sm:text-[0.68rem] md:min-h-12 md:px-10 md:text-[0.72rem] wide:min-h-[max(2.5rem,min(3.3vw,5.8vh))] wide:px-[min(2.4vw,3rem)] wide:text-[clamp(0.68rem,0.85vw,0.82rem)] touch-manipulation"
             style={{ color: GOLD, backgroundColor: "rgba(6,3,15,0.25)" }}
           >
             Explore Collection
