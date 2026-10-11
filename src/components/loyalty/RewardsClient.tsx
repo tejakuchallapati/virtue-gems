@@ -121,7 +121,7 @@ export function RewardsClient() {
         {[
           { icon: Star, title: "Shop & Earn", text: "Get 1 point for every ₹100 spent (min. 5 pts per order)" },
           { icon: Gift, title: "Collect Points", text: "Points add up automatically after each WhatsApp order" },
-          { icon: Sparkles, title: "Redeem Rewards", text: "Unlock discounts or free rings & earrings" },
+          { icon: Sparkles, title: "Redeem Rewards", text: "Unlock discounts or free bracelets & earrings" },
         ].map(({ icon: Icon, title, text }) => (
           <div key={title} className="rounded-xl bg-white p-4 ring-1 ring-light-muted/60">
             <Icon className="h-5 w-5 text-gold" />

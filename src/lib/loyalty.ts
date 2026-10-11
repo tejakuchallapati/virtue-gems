@@ -15,12 +15,13 @@ export const LOYALTY_REWARDS: LoyaltyReward[] = [
     percentOff: 15,
   },
   {
+    // id predates the switch from rings to bracelets; saved redemptions still point at it
     id: "reward-free-ring",
-    title: "Free Simple Ring",
-    description: "Choose any simple ring up to ₹599 — on us",
+    title: "Free Simple Bracelet",
+    description: "Choose any simple bracelet up to ₹599 — on us",
     pointsCost: 160,
     type: "free_item",
-    freeItemLabel: "Simple ring (up to ₹599)",
+    freeItemLabel: "Simple bracelet (up to ₹599)",
   },
   {
     id: "reward-50-off",

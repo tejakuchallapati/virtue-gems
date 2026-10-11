@@ -20,7 +20,7 @@ const STEPS = [
   {
     icon: Gift,
     title: "Redeem",
-    text: "Unlock discounts or free rings & earrings",
+    text: "Unlock discounts or free bracelets & earrings",
   },
 ] as const;
 

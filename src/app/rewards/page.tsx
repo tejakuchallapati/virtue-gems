@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = buildPageMetadata({
   title: "Rewards & Loyalty Points",
   description:
-    "Earn Virtue Gems loyalty points on every WhatsApp order. Redeem for 15%–50% off, free rings, or free earrings.",
+    "Earn Virtue Gems loyalty points on every WhatsApp order. Redeem for 15%–50% off, free bracelets, or free earrings.",
   path: "/rewards",
   keywords: ["jewellery loyalty points", "jewellery rewards India", "Virtue Gems rewards"],
 });

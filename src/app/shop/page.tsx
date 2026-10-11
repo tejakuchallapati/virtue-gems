@@ -11,13 +11,14 @@ export const revalidate = 60;
 export const metadata: Metadata = buildPageMetadata({
   title: "Shop Jewellery Collections Online",
   description:
-    "Browse Virtue Gems rings, necklaces, earrings, bracelets and pendants. Festive & daily-wear jewellery with WhatsApp ordering and delivery across Hyderabad, AP & Telangana.",
+    "Browse Virtue Gems necklaces, earrings and bracelets. Festive & daily-wear jewellery with WhatsApp ordering and delivery across Hyderabad, AP & Telangana.",
   path: "/shop",
   keywords: [
     "shop jewellery online",
     "jewellery collections Hyderabad",
     "buy necklace set online",
-    "gold plated rings India",
+    "gold plated earrings India",
+    "bracelets online India",
   ],
 });
 

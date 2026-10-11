@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = buildPageMetadata({
   title: "Virtual Try-On Jewellery Online",
   description:
-    "Try Virtue Gems rings, earrings and necklaces on your photo before you buy. Free virtual try-on with WhatsApp ordering.",
+    "Try Virtue Gems necklaces, earrings and bracelets on your photo before you buy. Free virtual try-on with WhatsApp ordering.",
   path: "/try-on",
   keywords: [
     "virtual try on jewellery",

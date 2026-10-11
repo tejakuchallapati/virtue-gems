@@ -52,7 +52,7 @@ export default function RefundsPage() {
       <LegalHeading>Exchanges</LegalHeading>
       <LegalPoints
         items={[
-          "Size exchanges on rings and bracelets within 15 days of purchase",
+          "Size exchanges on bracelets within 15 days of purchase",
           "Exchanges are subject to stock availability",
           "Contact us on WhatsApp with your order ID to start an exchange",
         ]}

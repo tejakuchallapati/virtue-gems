@@ -8,7 +8,6 @@ import { FooterYear } from "./FooterYear";
 
 const shop = [
   { href: "/shop", label: "All Collections" },
-  { href: "/shop?category=rings", label: "Rings" },
   { href: "/shop?category=necklaces", label: "Necklaces" },
   { href: "/shop?category=earrings", label: "Earrings" },
   { href: "/shop?category=bracelets", label: "Bracelets" },

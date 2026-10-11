@@ -7,7 +7,7 @@ export const SITE_TAGLINE =
   "Premium handcrafted jewellery for Hyderabad, Andhra Pradesh & Telangana";
 
 export const DEFAULT_DESCRIPTION =
-  "Shop premium handcrafted gold-plated jewellery at Virtue Gems — rings, necklaces, earrings & bracelets with easy ordering and delivery across AP & Telangana.";
+  "Shop premium handcrafted gold-plated jewellery at Virtue Gems — necklaces, earrings & bracelets with easy ordering and delivery across AP & Telangana.";
 
 /** Local + category keywords that help Google understand the store. */
 export const DEFAULT_KEYWORDS = [
@@ -16,9 +16,9 @@ export const DEFAULT_KEYWORDS = [
   "handcrafted jewellery Hyderabad",
   "gold plated jewellery",
   "artificial jewellery AP Telangana",
-  "buy rings online Hyderabad",
   "necklace set online",
   "earrings online India",
+  "bracelets online Hyderabad",
   "festive jewellery",
   "WhatsApp jewellery shop",
 ];
