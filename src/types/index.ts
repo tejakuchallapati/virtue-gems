@@ -1,11 +1,6 @@
 export type ProductTag = "bestseller" | "new" | "trending";
 
-export type ProductCategory =
-  | "rings"
-  | "necklaces"
-  | "earrings"
-  | "bracelets"
-  | "pendants";
+export type ProductCategory = "necklaces" | "earrings" | "bracelets";
 
 export type Product = {
   id: string;

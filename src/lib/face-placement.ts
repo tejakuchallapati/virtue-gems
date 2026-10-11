@@ -126,26 +126,6 @@ export async function detectJewelleryPlacements(
         ];
       }
 
-      case "pendants": {
-        const centerX = chin.x;
-        const centerY = chin.y + jawWidth * 0.22;
-        const scale = Math.min(0.4, Math.max(0.15, (jawWidth * 0.55) / mapping.visibleW));
-        const size = scale * mapping.visibleW;
-        const pos = toDisplayPercent(centerX - size * 0.5, centerY - size * 0.25, mapping);
-
-        return [{ id: "pendant", ...pos, scale, rotation: 0 }];
-      }
-
-      case "rings": {
-        const centerX = chin.x - jawWidth * 0.55;
-        const centerY = chin.y + jawWidth * 1.1;
-        const scale = Math.min(0.22, Math.max(0.1, (jawWidth * 0.28) / mapping.visibleW));
-        const size = scale * mapping.visibleW;
-        const pos = toDisplayPercent(centerX - size * 0.5, centerY - size * 0.5, mapping);
-
-        return [{ id: "ring", ...pos, scale, rotation: -10 }];
-      }
-
       case "bracelets": {
         const centerX = chin.x - jawWidth * 0.95;
         const centerY = chin.y + jawWidth * 1.25;

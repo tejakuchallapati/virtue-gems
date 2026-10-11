@@ -1,27 +1,12 @@
 import productsData from "@/data/products.json";
 import type { Product, ProductCategory } from "@/types";
+import { CATEGORY_LABELS, PRODUCT_CATEGORIES as CATEGORY_ORDER } from "@/lib/product-constants";
 
 /**
  * Seed catalog used on the client (cart hydrate) and as a build-time fallback.
  * Live shop/admin reads go through SQLite via the server-only helpers below.
  */
 const seedProducts = productsData as unknown as Product[];
-
-const CATEGORY_LABELS: Record<ProductCategory, string> = {
-  rings: "Rings",
-  necklaces: "Necklaces",
-  earrings: "Earrings",
-  bracelets: "Bracelets",
-  pendants: "Pendants",
-};
-
-const CATEGORY_ORDER: ProductCategory[] = [
-  "rings",
-  "necklaces",
-  "earrings",
-  "bracelets",
-  "pendants",
-];
 
 function readLiveProducts(): Product[] {
   if (typeof window !== "undefined") {

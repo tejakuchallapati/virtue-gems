@@ -204,7 +204,7 @@ const PRODUCT_META = {
     {
       name: "Crystal Starburst Pendant",
       slug: "crystal-starburst-pendant",
-      category: "pendants",
+      category: "necklaces",
       description: "Gold starburst pendant with crystal halo on fine chain.",
       tags: ["trending"],
       price: 849,

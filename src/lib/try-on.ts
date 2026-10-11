@@ -19,17 +19,9 @@ export function getDefaultPlacements(category: ProductCategory): OverlayPlacemen
       return [
         { id: "necklace", xPercent: 12, yPercent: 44, scale: 0.62, rotation: 0 },
       ];
-    case "rings":
-      return [
-        { id: "ring", xPercent: 38, yPercent: 62, scale: 0.2, rotation: -12 },
-      ];
     case "bracelets":
       return [
         { id: "bracelet", xPercent: 8, yPercent: 58, scale: 0.35, rotation: 18 },
-      ];
-    case "pendants":
-      return [
-        { id: "pendant", xPercent: 32, yPercent: 48, scale: 0.28, rotation: 0 },
       ];
     default:
       return [
@@ -41,9 +33,7 @@ export function getDefaultPlacements(category: ProductCategory): OverlayPlacemen
 export const TRY_ON_HINTS: Record<ProductCategory, string> = {
   earrings: "Earrings are placed on your ears automatically. Drag to fine-tune if needed.",
   necklaces: "Necklace is placed on your neck automatically. Drag to adjust if needed.",
-  rings: "Ring is placed automatically. Drag onto your finger to adjust.",
   bracelets: "Bracelet is placed automatically. Drag to your wrist if needed.",
-  pendants: "Pendant is aligned on your neckline automatically. Drag to adjust.",
 };
 
 export function loadImage(src: string): Promise<HTMLImageElement> {
