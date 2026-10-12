@@ -9,12 +9,11 @@ import {
   useMotionValue,
   useReducedMotion,
   useSpring,
-  useTransform,
 } from "framer-motion";
 import { Cormorant_Garamond } from "next/font/google";
 import { useBrandIntroReady } from "@/hooks/useBrandIntroReady";
 import { HERO_INTRO_EASE, HERO_SOFT_EASE } from "@/lib/hero-intro-motion";
-import { HeroWaterScene } from "@/components/home/HeroWaterScene";
+import { HeroBustScene } from "@/components/home/HeroBustScene";
 
 const serif = Cormorant_Garamond({
   subsets: ["latin"],
@@ -29,11 +28,11 @@ const GOLD = "#e6d08a";
 const CREAM = "#f3ead8";
 const BG = "#06030f";
 const MOBILE_FADE =
-  "linear-gradient(to bottom, transparent 0%, #000 34%, #000 93%, transparent 100%)";
+  "linear-gradient(to bottom, transparent 0%, #000 16%, #000 93%, transparent 100%)";
 
 /**
- * Cinematic hero — amethyst ring resting on rippling water, with the logo, title,
- * tagline and Explore CTA on the dark calm water to its left.
+ * Cinematic hero — temple choker on a velvet bust under a spotlight, with jhumkas and a bangle,
+ * and the logo, title, tagline and Explore CTA on the dark velvet to its left.
  */
 export function HeroLanding() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -47,10 +46,8 @@ export function HeroLanding() {
   /** Cursor position over the hero, -0.5…0.5 on each axis. */
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
-  const springX = useSpring(pointerX, { stiffness: 40, damping: 18, mass: 0.8 });
-  const springY = useSpring(pointerY, { stiffness: 40, damping: 18, mass: 0.8 });
-  const ringRotateY = useTransform(springX, (v) => v * 10);
-  const ringRotateX = useTransform(springY, (v) => v * -4);
+  const springX = useSpring(pointerX, { stiffness: 50, damping: 20, mass: 0.8 });
+  const springY = useSpring(pointerY, { stiffness: 50, damping: 20, mass: 0.8 });
 
   const onPointerMove = (e: PointerEvent<HTMLElement>) => {
     if (e.pointerType !== "mouse" || reduceMotion) return;
@@ -95,17 +92,17 @@ export function HeroLanding() {
       >
         {/*
           16:9 scene box so effects stay pinned to the photo.
-          Phones & portrait tablets: ring centred under the text, top/bottom fading into the backdrop.
-          wide: behaves like object-cover anchored at 60% x.
+          Phones & portrait tablets: bangle, bust and jhumkas centred under the text, top/bottom fading into the backdrop.
+          wide: behaves like object-cover anchored at 65% x so the jhumkas stay in frame.
         */}
-        <div className="absolute bottom-[max(0px,calc(var(--hero-nav)-1rem))] left-1/2 aspect-video w-[min(200vw,150dvh)] -translate-x-[68%] [-webkit-mask-image:var(--hero-fade)] [mask-image:var(--hero-fade)] wide:bottom-auto wide:left-[60%] wide:top-[60%] wide:w-[max(100%,177.78vh)] wide:-translate-x-[60%] wide:-translate-y-[60%] wide:[-webkit-mask-image:none] wide:[mask-image:none]"
+        <div className="absolute bottom-[max(0px,calc(var(--hero-nav)-1rem))] left-1/2 aspect-video w-[min(170vw,150dvh)] -translate-x-[67%] [-webkit-mask-image:var(--hero-fade)] [mask-image:var(--hero-fade)] md:w-[min(150vw,150dvh)] wide:bottom-auto wide:left-[65%] wide:top-[60%] wide:w-[max(100%,177.78vh)] wide:-translate-x-[65%] wide:-translate-y-[60%] wide:[-webkit-mask-image:none] wide:[mask-image:none]"
           style={{ "--hero-fade": MOBILE_FADE } as CSSProperties}
         >
-          <HeroWaterScene
+          <HeroBustScene
             live={live}
-            sizes="(min-width: 1024px) 100vw, 200vw"
-            rotateX={ringRotateX}
-            rotateY={ringRotateY}
+            sizes="(min-width: 1024px) 100vw, 170vw"
+            pointerX={springX}
+            pointerY={springY}
           />
         </div>
       </motion.div>
