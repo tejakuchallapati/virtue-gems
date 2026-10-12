@@ -48,7 +48,7 @@ next-env.d.ts
 # Raw photo dumps (keep local — process into public/products)
 /VIRTUE GEMS/
 
-# Experimental / unused hero drafts (HeroLanding uses public/hero-water-bg.jpg + hero-water-ring-layer.webp only)
+# Experimental / unused hero drafts (HeroLanding uses public/hero-velvet-bust.jpg only)
 public/hero-bg-folds-check.png
 public/hero-bg-ref.jpg
 public/hero-bg.jpg
