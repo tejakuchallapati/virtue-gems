@@ -209,7 +209,7 @@ export function validateProductInput(
     images = [];
   }
   if (!partial && (!images || images.length === 0)) {
-    return "At least one image path is required (e.g. /products/vg-001.jpg).";
+    return "At least one image path is required (e.g. /products/vg-002.jpg).";
   }
 
   const category = body.category;

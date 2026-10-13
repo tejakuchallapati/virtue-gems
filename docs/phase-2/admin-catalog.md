@@ -22,4 +22,4 @@ products (id, slug, name, price, stock, images_json, category, tags_json, active
 
 - Soft-delete sets `active = 0` so old orders still resolve names
 - Slug auto-generated from name with uniqueness check
-- Image field accepts paths like `/products/vg-001.jpg` (upload files to `public/products/` separately for now)
+- Image field accepts paths like `/products/vg-002.jpg` (upload files to `public/products/` separately for now)
