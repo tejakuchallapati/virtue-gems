@@ -26,6 +26,7 @@ export const metadata: Metadata = buildPageMetadata({
     "best jewellery shop Hyderabad",
     "online jewellery AP Telangana",
     "festive jewellery online India",
+    "necklaces earrings bracelets online",
   ],
 });
 

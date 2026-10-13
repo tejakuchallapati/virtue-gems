@@ -1,5 +1,11 @@
 import { getSiteUrl } from "@/lib/site";
-import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_TAGLINE } from "@/lib/seo";
+import {
+  DEFAULT_DESCRIPTION,
+  INSTAGRAM_HANDLE,
+  INSTAGRAM_URL,
+  SITE_NAME,
+  SITE_TAGLINE,
+} from "@/lib/seo";
 
 /** Organization, WebSite, and JewelryStore schema for local SEO. */
 export function WebsiteJsonLd() {
@@ -30,7 +36,8 @@ export function WebsiteJsonLd() {
           { "@type": "State", name: "Telangana" },
           { "@type": "State", name: "Andhra Pradesh" },
         ],
-        sameAs: ["https://www.instagram.com/virtue_gems/"],
+        sameAs: [INSTAGRAM_URL],
+        alternateName: [`@${INSTAGRAM_HANDLE}`, "Virtue Gems Jewellery"],
       },
       {
         "@type": "WebSite",
@@ -56,6 +63,7 @@ export function WebsiteJsonLd() {
         description: SITE_TAGLINE,
         url: siteUrl,
         image: logo,
+        sameAs: [INSTAGRAM_URL],
         telephone: "+91-73961-78039",
         email: "virtuegems777@gmail.com",
         priceRange: "₹₹",

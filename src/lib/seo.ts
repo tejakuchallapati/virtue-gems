@@ -3,6 +3,9 @@ import { getSiteUrl, PRODUCTION_SITE_URL } from "@/lib/site";
 
 export const SITE_NAME = "Virtue Gems";
 
+export const INSTAGRAM_HANDLE = "virtue_gems";
+export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;
+
 export const SITE_TAGLINE =
   "Premium handcrafted jewellery for Hyderabad, Andhra Pradesh & Telangana";
 
@@ -16,11 +19,20 @@ export const DEFAULT_KEYWORDS = [
   "handcrafted jewellery Hyderabad",
   "gold plated jewellery",
   "artificial jewellery AP Telangana",
+  "necklaces",
   "necklace set online",
+  "gold plated necklaces Hyderabad",
+  "earrings",
+  "ear rings",
+  "jhumkas online",
   "earrings online India",
+  "bracelets",
+  "bangles and bracelets online",
   "bracelets online Hyderabad",
   "festive jewellery",
   "WhatsApp jewellery shop",
+  "Virtue Gems Instagram",
+  "virtue_gems",
 ];
 
 export function absoluteAssetUrl(path: string): string {

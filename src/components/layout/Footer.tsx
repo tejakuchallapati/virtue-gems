@@ -4,6 +4,7 @@ import { MessageCircle } from "lucide-react";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
 import { LOYALTY_ENABLED } from "@/lib/features";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/seo";
 import { FooterYear } from "./FooterYear";
 
 const shop = [
@@ -27,8 +28,6 @@ const legal = [
   { href: "/terms", label: "Terms & Conditions" },
   { href: "/refunds", label: "Refund & Return" },
 ];
-
-const INSTAGRAM_URL = "https://www.instagram.com/virtue_gems/";
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -79,9 +78,9 @@ export function Footer() {
                 <a
                   href={INSTAGRAM_URL}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="me noopener noreferrer"
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold/25 bg-white/5 text-light/60 transition hover:border-[#E4405F]/50 hover:bg-[#E4405F]/15 hover:text-[#E4405F]"
-                  aria-label="Instagram"
+                  aria-label={`Virtue Gems on Instagram @${INSTAGRAM_HANDLE}`}
                 >
                   <InstagramIcon className="h-4 w-4" />
                 </a>

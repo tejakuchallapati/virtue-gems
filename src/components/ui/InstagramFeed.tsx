@@ -28,7 +28,7 @@ export function InstagramFeed({ compact = false, onDark = false }: InstagramFeed
       <a
         href={PROFILE_URL}
         target="_blank"
-        rel="noopener noreferrer"
+        rel="me noopener noreferrer"
         className="group mb-2 block text-center transition hover:opacity-90"
         aria-label={`Follow Virtue Gems on Instagram @${instagramData.handle}`}
       >
@@ -108,7 +108,7 @@ export function InstagramFeed({ compact = false, onDark = false }: InstagramFeed
         <a
           href={PROFILE_URL}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="me noopener noreferrer"
           className={cn(
             "inline-flex min-h-11 w-full max-w-xs items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition sm:w-auto sm:py-2.5",
             onDark

@@ -17,8 +17,12 @@ export const metadata: Metadata = buildPageMetadata({
     "shop jewellery online",
     "jewellery collections Hyderabad",
     "buy necklace set online",
+    "buy necklaces online",
     "gold plated earrings India",
+    "buy earrings online",
+    "ear rings online shopping",
     "bracelets online India",
+    "buy bracelets online",
   ],
 });
 

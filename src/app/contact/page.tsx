@@ -24,14 +24,12 @@ import {
   DELIVERY_TIMELINE,
 } from "@/lib/delivery";
 import { LOYALTY_ENABLED } from "@/lib/features";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/seo";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
 const CONTACT_EMAIL = "virtuegems777@gmail.com";
 const CONTACT_PHONE = "+91 73961 78039";
-const INSTAGRAM_URL = "https://www.instagram.com/virtue_gems/";
-const INSTAGRAM_HANDLE = "@virtue_gems";
-
 const contactChannels = [
   {
     icon: MessageCircle,
@@ -195,10 +193,10 @@ export default function ContactPage() {
               <a
                 href={INSTAGRAM_URL}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 className="mt-3 inline-flex text-sm font-bold tracking-wide text-gold-dark hover:underline"
               >
-                {INSTAGRAM_HANDLE} →
+                @{INSTAGRAM_HANDLE} →
               </a>
             </div>
           </ScrollReveal>
