@@ -28,6 +28,7 @@ import { buildProductShareMessage, getWhatsAppUrl } from "@/lib/whatsapp";
 import { VIRTUAL_TRY_ON_ENABLED } from "@/lib/features";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { trackEvent } from "@/lib/analytics";
+import { productRatingSummary } from "@/lib/reviews-shared";
 import { ProductTryOnExtras } from "@/components/product/ProductTryOnExtras";
 import type { Product } from "@/types";
 
@@ -42,6 +43,7 @@ export function ProductDetailClient({
   const [qty, setQty] = useState(1);
   const [zoom, setZoom] = useState(false);
   const [addedMessage, setAddedMessage] = useState("");
+  const ratingSummary = productRatingSummary(product.reviews);
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist, addRecentlyViewed } =
     useStore();
   const wished = isInWishlist(product.id);
@@ -185,23 +187,26 @@ export function ProductDetailClient({
           <h1 className="mt-3 text-xl font-semibold break-words text-dark sm:text-2xl md:text-3xl">
             {product.name}
           </h1>
-          <div className="mt-2 flex items-center gap-2">
-            <div className="flex">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  className={`h-4 w-4 ${
-                    i < Math.round(product.rating)
-                      ? "fill-gold text-gold"
-                      : "text-dark/20"
-                  }`}
-                />
-              ))}
+          {ratingSummary.count > 0 && (
+            <div className="mt-2 flex items-center gap-2">
+              <div className="flex">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`h-4 w-4 ${
+                      i < Math.round(ratingSummary.average)
+                        ? "fill-gold text-gold"
+                        : "text-dark/20"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm text-dark/60">
+                {ratingSummary.average} ({ratingSummary.count}{" "}
+                {ratingSummary.count === 1 ? "review" : "reviews"})
+              </span>
             </div>
-            <span className="text-sm text-dark/60">
-              {product.rating} ({product.reviewCount} reviews)
-            </span>
-          </div>
+          )}
           <div className="mt-4 flex items-baseline gap-3">
             <p className="text-2xl font-bold text-gold-dark sm:text-3xl">
               {formatPrice(product.price)}

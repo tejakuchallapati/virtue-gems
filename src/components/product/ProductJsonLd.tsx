@@ -1,5 +1,6 @@
 import type { Product } from "@/types";
 import { getSiteUrl } from "@/lib/site";
+import { productRatingSummary } from "@/lib/reviews-shared";
 
 type Props = { product: Product };
 
@@ -9,6 +10,7 @@ export function ProductJsonLd({ product }: Props) {
   const images = product.images.map((img) =>
     img.startsWith("http") ? img : `${siteUrl}${img}`,
   );
+  const ratingSummary = productRatingSummary(product.reviews);
 
   const schema = {
     "@context": "https://schema.org",
@@ -66,11 +68,11 @@ export function ProductJsonLd({ product }: Props) {
       },
     },
     aggregateRating:
-      product.reviewCount > 0
+      ratingSummary.count > 0
         ? {
             "@type": "AggregateRating",
-            ratingValue: product.rating,
-            reviewCount: product.reviewCount,
+            ratingValue: ratingSummary.average,
+            reviewCount: ratingSummary.count,
             bestRating: 5,
             worstRating: 1,
           }

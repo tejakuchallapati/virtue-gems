@@ -5,8 +5,6 @@ import sharp from "sharp";
 const ASSETS_DIR =
   "/Users/teja/.cursor/projects/Users-teja-Desktop-Virtue-Gems/assets";
 const OUT_DIR = "/Users/teja/Desktop/Virtue Gems/public/products";
-const REVIEWS_DIR = "/Users/teja/Desktop/Virtue Gems/public/reviews";
-
 const SIZE = 900;
 const BG = { r: 26, g: 10, b: 46 }; // #1a0a2e brand purple
 
@@ -17,11 +15,6 @@ const SKIP = new Set([
   "Screenshot_2026-06-09_at_14.27.14-3a96351b-b09a-462c-a63e-bd924cd13893.png",
   "Screenshot_2026-06-09_at_14.41.56-223f106a-faf5-484b-b8a9-1ae1f4c26fe5.png",
   "702611506_955724797072634_1642603949023579569_n-4ec4d6d8-ec23-4fcc-b986-14637c93300f.png",
-]);
-
-const REVIEW_ONLY = new Set([
-  "687781102_1632843581313015_18830006552283430_n-161809f3-c747-4348-990a-6db6eb2b0398.png",
-  "671864769_2058906348172191_7561716054992962529_n-a0c69037-8f54-403b-afba-5d29f457428f.png",
 ]);
 
 const INSTAGRAM_ONLY = new Set([
@@ -357,15 +350,14 @@ function buildProduct(id, meta, imagePath) {
       Care: "Store in dry pouch",
     },
     stock: 8 + (meta.price % 7),
-    rating: 4.6 + (meta.price % 4) * 0.1,
-    reviewCount: 12 + (meta.price % 30),
+    rating: 0,
+    reviewCount: 0,
     reviews: [],
   };
 }
 
 async function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });
-  fs.mkdirSync(REVIEWS_DIR, { recursive: true });
   fs.mkdirSync("/Users/teja/Desktop/Virtue Gems/public/instagram", {
     recursive: true,
   });
@@ -376,31 +368,12 @@ async function main() {
     .sort();
 
   const products = [];
-  const reviewMedia = [];
   const instagramPosts = [];
   let productIndex = 1;
 
   for (const file of files) {
     const input = path.join(ASSETS_DIR, file);
     const baseName = file.replace(/\.png$/, "");
-
-    if (REVIEW_ONLY.has(file)) {
-      const out = path.join(REVIEWS_DIR, `${baseName}.jpg`);
-      await processToCanvas(input, out);
-      reviewMedia.push({
-        id: baseName,
-        type: file.includes("671864769") ? "video" : "image",
-        poster: `/reviews/${baseName}.jpg`,
-        video: file.includes("671864769")
-          ? `/reviews/${baseName}.jpg`
-          : undefined,
-        caption: file.includes("671864769")
-          ? "Our Virtue Gems launch moment — wear your virtue, shine with grace ✨"
-          : "A heartfelt note from our Virtue Gems family 💜",
-        author: file.includes("671864769") ? "Virtue Gems" : "Happy Customer",
-      });
-      continue;
-    }
 
     if (INSTAGRAM_ONLY.has(file)) {
       const out = path.join(
@@ -440,31 +413,12 @@ async function main() {
       });
     }
 
-    if ([3, 7, 11, 15, 19].includes(productIndex)) {
-      const reviewOut = path.join(REVIEWS_DIR, `customer-${productIndex}.jpg`);
-      await processToCanvas(input, reviewOut);
-      reviewMedia.push({
-        id: `customer-${productIndex}`,
-        type: "image",
-        poster: `/reviews/customer-${productIndex}.jpg`,
-        caption: `Loved the ${meta.name} — quality feels premium.`,
-        author: ["Priya S.", "Ananya R.", "Meera K.", "Kavya M.", "Divya P."][
-          Math.floor((productIndex - 1) / 4)
-        ],
-      });
-    }
-
     productIndex++;
   }
 
   fs.writeFileSync(
     "/Users/teja/Desktop/Virtue Gems/src/data/products.json",
     JSON.stringify(products, null, 2),
-  );
-
-  fs.writeFileSync(
-    "/Users/teja/Desktop/Virtue Gems/src/data/customer-media.json",
-    JSON.stringify(reviewMedia, null, 2),
   );
 
   fs.writeFileSync(
@@ -480,7 +434,7 @@ async function main() {
     ),
   );
 
-  console.log(`Processed ${products.length} products, ${reviewMedia.length} review media items`);
+  console.log(`Processed ${products.length} products`);
 }
 
 main().catch((err) => {
