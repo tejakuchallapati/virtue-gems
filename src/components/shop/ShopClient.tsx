@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   Gift,
-  MessageCircle,
   Search,
   SlidersHorizontal,
   Sparkles,
@@ -18,7 +17,6 @@ import { SectionDivider } from "@/components/ui/PageSection";
 import { filterProducts, getCategories } from "@/lib/products";
 import { LOYALTY_ENABLED } from "@/lib/features";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
-import { whatsAppContactUrl } from "@/lib/whatsapp";
 import {
   CARD_SURFACE,
   DARK_PANEL,
@@ -346,22 +344,6 @@ export function ShopClient({ products }: { products: Product[] }) {
                     setFiltersOpen(false);
                   }}
                 />
-              </div>
-
-              <div className="hidden rounded-2xl bg-gradient-to-br from-[#1a0a2e] to-[#2d1450] p-5 text-light lg:block">
-                <Sparkles className="h-5 w-5 text-gold" />
-                <p className="mt-2 text-sm font-semibold">Need help choosing?</p>
-                <p className="mt-1 text-xs text-light/60">
-                  Message us on WhatsApp for sizing, availability, or gifting advice.
-                </p>
-                <a
-                  href={whatsAppContactUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex text-xs font-semibold text-gold hover:underline"
-                >
-                  Chat with us →
-                </a>
               </div>
 
               <div className={`${CARD_SURFACE} p-5 lg:shadow-sm`}>
