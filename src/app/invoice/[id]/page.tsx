@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -7,18 +7,34 @@ import { OrderInvoice } from "@/components/invoice/OrderInvoice";
 import { InvoiceActions } from "@/components/invoice/InvoiceActions";
 import { InvoicePointsNotice } from "@/components/loyalty/InvoicePointsNotice";
 import { LOYALTY_ENABLED } from "@/lib/features";
-
-export const metadata: Metadata = {
-  robots: { index: false, follow: false },
-};
+import { formatPrice } from "@/lib/utils";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
+const loadOrder = cache(getOrderByIdSafe);
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const order = await loadOrder(id);
+  const title = `Virtue Gems · Order ${id}`;
+  const itemCount = order?.items.reduce((sum, item) => sum + item.quantity, 0) ?? 0;
+  const description = order
+    ? `${itemCount} item${itemCount === 1 ? "" : "s"} · Total ${formatPrice(order.total)} · Order request, pending confirmation`
+    : "Virtue Gems order invoice";
+
+  return {
+    title: { absolute: title },
+    description,
+    robots: { index: false, follow: false },
+    openGraph: { title, description, type: "website", siteName: "Virtue Gems" },
+  };
+}
+
 export default async function InvoicePage({ params }: Props) {
   const { id } = await params;
-  const order = await getOrderByIdSafe(id);
+  const order = await loadOrder(id);
 
   if (!order) notFound();
 

@@ -305,5 +305,12 @@ body.scroll-locked [data-mobile-bottom-nav] {
     max-width: 100% !important;
     box-shadow: none !important;
     outline: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .invoice-sheet header,
+  .invoice-sheet footer {
+    display: block !important;
   }
 }

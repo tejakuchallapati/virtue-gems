@@ -24,31 +24,31 @@ export function OrderInvoice({ order, className = "" }: OrderInvoiceProps) {
       )}
     >
       {/* Letterhead */}
-      <header className="border-b-2 border-[#1a0a2e] px-6 pb-5 pt-6 sm:px-8 sm:pt-8">
-        <div className="flex flex-wrap items-start justify-between gap-4">
+      <header className="bg-[#1a0a2e] px-6 py-5 sm:px-8 sm:py-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Image
-              src="/logo-transparent.png"
+              src="/logo-vg.png"
               alt="Virtue Gems"
-              width={48}
-              height={48}
-              className="h-11 w-11 object-contain"
+              width={603}
+              height={236}
+              className="h-10 w-auto sm:h-12"
               priority
             />
             <div>
-              <p className="text-base font-bold tracking-[0.2em] text-[#1a0a2e]">
+              <p className="text-base font-bold tracking-[0.2em] text-[#faf6ee]">
                 VIRTUE GEMS
               </p>
-              <p className="mt-0.5 text-[11px] text-[#1a0a2e]/65">
+              <p className="mt-0.5 text-[11px] text-[#d4af37]">
                 Premium fashion jewellery
               </p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold tracking-tight text-[#1a0a2e] sm:text-3xl">
-              TAX INVOICE
+            <p className="text-2xl font-bold tracking-tight text-[#d4af37] sm:text-3xl">
+              ORDER INVOICE
             </p>
-            <p className="mt-1 text-[11px] text-[#1a0a2e]/60">
+            <p className="mt-1 text-[11px] text-[#faf6ee]/65">
               Order request · Pending confirmation
             </p>
           </div>

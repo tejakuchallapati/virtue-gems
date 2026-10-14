@@ -2,12 +2,9 @@ import type { ActiveRedemption, CartItem, CheckoutForm } from "@/types";
 import { LOYALTY_ENABLED } from "./features";
 import { formatPrice } from "./utils";
 import { getAbsoluteUrl } from "./site";
-import { DELIVERY_REGION_LABEL } from "./delivery";
-import { DAMAGE_CLAIM_DAYS } from "./policies";
 import {
   BANK_DETAILS,
   COD_POLICY,
-  PAYMENT_METHODS_SUMMARY,
   UPI_ID,
   UPI_PAYEE_NAME,
 } from "./payments";
@@ -23,19 +20,50 @@ export function getWhatsAppShareUrl(message: string): string {
   return `https://wa.me/?text=${encodeURIComponent(message)}`;
 }
 
-function formatBillDate(date = new Date()): string {
-  return new Intl.DateTimeFormat("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(date);
-}
+type OrderSummary = {
+  id: string;
+  customerName: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  pincode: string;
+  items: { name: string; quantity: number; price: number }[];
+  total: number;
+};
 
-function padBillLine(label: string, value: string, width = 28): string {
-  const gap = Math.max(1, width - label.length);
-  return `${label}${" ".repeat(gap)}${value}`;
+/**
+ * WhatsApp builds its preview card from the first link in a message, so the invoice link
+ * goes first — the card then shows the branded invoice image.
+ */
+function buildOrderSummaryMessage(
+  order: OrderSummary,
+  invoiceUrl?: string,
+  extraLines: string[] = [],
+): string {
+  const lines = ["🧾 *Virtue Gems — Order Request*"];
+  if (invoiceUrl) lines.push(invoiceUrl);
+
+  lines.push(
+    "",
+    `*Order No:* ${order.id}`,
+    `*Name:* ${order.customerName}`,
+    `*Phone:* ${order.phone}`,
+    `*Deliver to:* ${order.address}, ${order.city}, ${order.state} – ${order.pincode}`,
+    "",
+    "*Items*",
+    ...order.items.map(
+      (item, i) =>
+        `${i + 1}. ${item.name} × ${item.quantity} — ${formatPrice(item.price * item.quantity)}`,
+    ),
+    "",
+    ...extraLines,
+    `*Total: ${formatPrice(order.total)}* + delivery charge for my address`,
+    "",
+    "Please confirm availability and the delivery charge. I'll pay by UPI or bank transfer after you confirm.",
+  );
+
+  return lines.join("\n");
 }
 
 export function buildOrderMessage(
@@ -51,180 +79,38 @@ export function buildOrderMessage(
     pointsBalance?: number;
   },
 ): string {
-  const billId = orderId ?? `VG-${Date.now()}`;
-  const billDate = formatBillDate();
-  const subtotal = items.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0,
-  );
   const discount = options?.discount ?? 0;
-
-  const itemLines = items.flatMap((item, i) => {
-    const lineTotal = item.product.price * item.quantity;
-    return [
-      `${i + 1}. *${item.product.name}*`,
-      padBillLine("   Qty", `${item.quantity}`),
-      padBillLine("   Rate", formatPrice(item.product.price)),
-      padBillLine("   Amount", formatPrice(lineTotal)),
-      `   ${getAbsoluteUrl(`/product/${item.product.slug}`)}`,
-      "",
-    ];
-  });
-
-  const lines = [
-    "╔══════════════════════════╗",
-    "║     *VIRTUE GEMS*        ║",
-    "║      ORDER INVOICE       ║",
-    "╚══════════════════════════╝",
-    "",
-    padBillLine("Bill No.", billId),
-    padBillLine("Date", billDate),
-    "",
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    "*BILL TO*",
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    `Name    : ${form.customerName}`,
-    `Phone   : ${form.phone}`,
-    `Address : ${form.address}`,
-    `City    : ${form.city}`,
-    `State   : ${form.state}`,
-    `Pincode : ${form.pincode}`,
-    "",
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    "*ITEM DETAILS*",
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    "",
-    ...itemLines,
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    padBillLine("Subtotal", formatPrice(subtotal)),
-  ];
+  const extraLines: string[] = [];
 
   if (discount > 0) {
-    lines.push(padBillLine("Reward Discount", `-${formatPrice(discount)}`));
+    extraLines.push(`Reward discount: -${formatPrice(discount)}`);
   }
-
   if (options?.redemption?.type === "free_item" && options.redemption.freeItemLabel) {
-    lines.push(padBillLine("Free Reward", options.redemption.freeItemLabel));
+    extraLines.push(`Free reward: ${options.redemption.freeItemLabel}`);
   }
-
-  lines.push(
-    padBillLine("*GRAND TOTAL*", `*${formatPrice(total)}*`),
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    "",
-    "Payment : *Via WhatsApp after confirmation*",
-    "Status  : *Order Request — Pending*",
-    `Delivery: *${DELIVERY_REGION_LABEL} only*`,
-    "Delivery charge: *Confirmed for your address after we review the order*",
-    "",
-    "📋 *WHAT HAPPENS NEXT*",
-    "1. We confirm item availability and delivery charge for your address",
-    "2. You pay via UPI or bank transfer",
-    "3. Send payment screenshot on WhatsApp",
-    "4. We verify payment, confirm the order and dispatch it",
-    "   (tracking shared when the courier provides it)",
-    "5. After delivery, reply with a short review — we love your feedback!",
-    "",
-    `Accepted: ${PAYMENT_METHODS_SUMMARY}`,
-    COD_POLICY,
-    "",
-  );
-
-  if (LOYALTY_ENABLED && options?.redemption) {
-    lines.push(
-      "🎁 *Loyalty Reward Applied:*",
-      options.redemption.title,
-      "",
-    );
-  }
-
   if (LOYALTY_ENABLED && options?.pointsEarned !== undefined) {
-    lines.push(
-      "⭐ *Virtue Gems Rewards:*",
-      `Points earned this order: +${options.pointsEarned}`,
-    );
-    if (options.pointsBalance !== undefined) {
-      lines.push(`Total points balance: ${options.pointsBalance}`);
-    }
-    lines.push("");
+    extraLines.push(`Points earned: +${options.pointsEarned}`);
   }
 
-  if (invoiceUrl) {
-    lines.push("📄 *View full bill (PDF style):*", invoiceUrl, "");
-  }
-
-  lines.push(
-    "ℹ️ The final total (including delivery charge), payment method and delivery estimate are confirmed on WhatsApp before payment.",
-    "",
-    "📦 *Damaged on arrival?*",
-    `Report within ${DAMAGE_CLAIM_DAYS} days of delivery. Please record a video while opening your parcel — it helps us approve claims quickly.`,
-    `Policy: ${getAbsoluteUrl("/refunds")}`,
-    "",
-    "Please confirm availability, payment mode, and delivery timeline.",
-    "",
-    "Thank you for shopping with Virtue Gems!",
+  return buildOrderSummaryMessage(
+    {
+      ...form,
+      id: orderId ?? `VG-${Date.now()}`,
+      items: items.map((item) => ({
+        name: item.product.name,
+        quantity: item.quantity,
+        price: item.product.price,
+      })),
+      total,
+    },
+    invoiceUrl,
+    extraLines,
   );
-
-  return lines.join("\n");
 }
 
 /** Re-open WhatsApp from the invoice page if checkout popup was blocked. */
-export function buildOrderFollowUpMessage(
-  order: {
-    id: string;
-    customerName: string;
-    phone: string;
-    address: string;
-    city: string;
-    state: string;
-    pincode: string;
-    items: { name: string; quantity: number; price: number }[];
-    total: number;
-  },
-  invoiceUrl: string,
-): string {
-  const itemLines = order.items.flatMap((item, i) => {
-    const lineTotal = item.price * item.quantity;
-    return [
-      `${i + 1}. *${item.name}*`,
-      padBillLine("   Qty", `${item.quantity}`),
-      padBillLine("   Amount", formatPrice(lineTotal)),
-      "",
-    ];
-  });
-
-  return [
-    "╔══════════════════════════╗",
-    "║     *VIRTUE GEMS*        ║",
-    "║      ORDER REQUEST       ║",
-    "╚══════════════════════════╝",
-    "",
-    padBillLine("Order No.", order.id),
-    `Name    : ${order.customerName}`,
-    `Phone   : ${order.phone}`,
-    `Address : ${order.address}, ${order.city}, ${order.state} ${order.pincode}`,
-    "",
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    "*ITEMS*",
-    "",
-    ...itemLines,
-    padBillLine("*TOTAL*", `*${formatPrice(order.total)}*`),
-    "━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    "",
-    "📋 *WHAT HAPPENS NEXT*",
-    "1. Confirm availability",
-    "2. Pay via UPI / bank transfer",
-    "3. Send payment screenshot",
-    "4. We verify payment and dispatch",
-    "5. After delivery — leave a short review",
-    "",
-    `Accepted: ${PAYMENT_METHODS_SUMMARY}`,
-    COD_POLICY,
-    "",
-    "📄 Full bill:",
-    invoiceUrl,
-    "",
-    "Please confirm this order. Thank you!",
-  ].join("\n");
+export function buildOrderFollowUpMessage(order: OrderSummary, invoiceUrl: string): string {
+  return buildOrderSummaryMessage(order, invoiceUrl);
 }
 
 /** Admin copy-paste reply after confirming an order on WhatsApp. */
