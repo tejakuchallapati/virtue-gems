@@ -60,7 +60,7 @@ function buildOrderSummaryMessage(
     ...extraLines,
     `*Total: ${formatPrice(order.total)}* + delivery charge for my address`,
     "",
-    "Please confirm availability and the delivery charge. I'll pay by UPI or bank transfer after you confirm.",
+    "Please confirm availability.",
   );
 
   return lines.join("\n");
