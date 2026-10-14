@@ -239,9 +239,9 @@ export function buildPaymentReplyMessage(
     `Your order *${orderId}* is confirmed ✅`,
     `Amount to pay: *${formatPrice(total)}*`,
     "",
-    "💳 *Pay via UPI:*",
-    `UPI ID: *${UPI_ID}*`,
-    `Name: ${UPI_PAYEE_NAME}`,
+    ...(UPI_ID
+      ? ["💳 *Pay via UPI:*", `UPI ID: *${UPI_ID}*`, `Name: ${UPI_PAYEE_NAME}`]
+      : ["💳 We'll share our UPI / bank payment details in this chat."]),
   ];
 
   if (BANK_DETAILS) {

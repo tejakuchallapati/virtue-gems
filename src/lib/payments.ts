@@ -1,6 +1,7 @@
 /** WhatsApp-first payment settings — configure in .env.local */
 
-export const UPI_ID = process.env.NEXT_PUBLIC_UPI_ID ?? "virtuegems@upi";
+/** Never fall back to a made-up ID — customers would pay whoever owns it. */
+export const UPI_ID = process.env.NEXT_PUBLIC_UPI_ID?.trim() ?? "";
 
 export const UPI_PAYEE_NAME = process.env.NEXT_PUBLIC_UPI_PAYEE_NAME ?? "Virtue Gems";
 
