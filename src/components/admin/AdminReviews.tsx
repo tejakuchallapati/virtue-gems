@@ -48,6 +48,26 @@ export function AdminReviews({
     setReviews((current) => current.map((r) => (r.id === id ? { ...r, status } : r)));
   }
 
+  async function updateProduct(id: string, productId: string) {
+    setBusyId(id);
+    setError("");
+    const res = await apiFetch("/api/admin/reviews", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, productId: productId || null }),
+    });
+    setBusyId(null);
+    if (!res.ok) return setError(res.error);
+    setReviews((current) =>
+      current.map((r) => (r.id === id ? { ...r, productId: productId || undefined } : r)),
+    );
+  }
+
+  const productOptions = useMemo(
+    () => Object.entries(productNames).sort((a, b) => a[1].localeCompare(b[1])),
+    [productNames],
+  );
+
   async function remove(id: string) {
     if (!window.confirm("Delete this review and its photos permanently?")) return;
     setBusyId(id);
@@ -65,7 +85,9 @@ export function AdminReviews({
       <h1 className="text-2xl font-semibold text-light">Customer Reviews</h1>
       <p className="mt-1 text-sm text-light/50">
         Reviews submitted on the website. Approved reviews appear on the home page, and on the
-        product&apos;s page when the customer picked the piece they bought.
+        product&apos;s page when linked to the piece the customer bought. Only reviews linked to a
+        product can show star ratings in Google — link a review only to a product that customer
+        actually bought.
       </p>
 
       {setupRequired && (
@@ -135,6 +157,26 @@ export function AdminReviews({
             </div>
 
             <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-light/75">{review.comment}</p>
+
+            <label className="mt-3 block text-xs text-light/50">
+              Product purchased
+              <select
+                value={review.productId ?? ""}
+                disabled={busyId === review.id}
+                onChange={(e) => void updateProduct(review.id, e.target.value)}
+                className="mt-1 block min-h-10 w-full rounded-xl border border-light/15 bg-dark px-3 text-sm text-light disabled:opacity-50"
+              >
+                <option value="">General review (not linked to a product)</option>
+                {review.productId && !productNames[review.productId] && (
+                  <option value={review.productId}>Product no longer listed</option>
+                )}
+                {productOptions.map(([id, name]) => (
+                  <option key={id} value={id}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </label>
 
             {review.photos.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">

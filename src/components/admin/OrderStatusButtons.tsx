@@ -21,6 +21,7 @@ export function OrderStatusButtons({
   total,
   currentStatus,
   pointsBalance,
+  items,
   onStatusChange,
 }: {
   orderId: string;
@@ -30,6 +31,7 @@ export function OrderStatusButtons({
   currentStatus: OrderStatus;
   /** Known loyalty balance after this order (optional). */
   pointsBalance?: number;
+  items?: { productId: string; name: string }[];
   onStatusChange?: (orderId: string, status: OrderStatus) => void;
 }) {
   const [pendingStatus, setPendingStatus] = useState<OrderStatus | null>(null);
@@ -56,6 +58,7 @@ export function OrderStatusButtons({
           }
         : {}),
       shopUrl: getAbsoluteUrl("/shop"),
+      products: items,
     });
     return getCustomerWhatsAppUrl(customerPhone, message);
   }, [
@@ -65,6 +68,7 @@ export function OrderStatusButtons({
     orderId,
     pointsEarned,
     balance,
+    items,
   ]);
 
   async function updateStatus(next: OrderStatus) {

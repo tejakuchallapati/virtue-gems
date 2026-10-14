@@ -175,6 +175,7 @@ function OrderTable({
                 total={o.total}
                 currentStatus={o.status}
                 pointsBalance={o.pointsBalance}
+                items={o.items}
                 onStatusChange={onStatusChange}
               />
             </div>

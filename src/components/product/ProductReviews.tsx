@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { PenLine, Star } from "lucide-react";
@@ -9,6 +9,8 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { productRatingSummary } from "@/lib/reviews-shared";
 import { cn, formatDate } from "@/lib/utils";
 import type { StoreReview } from "@/types";
+
+const subscribeToNothing = () => () => {};
 
 function Stars({ rating, className }: { rating: number; className?: string }) {
   return (
@@ -30,7 +32,13 @@ export function ProductReviews({
   product: { id: string; name: string };
   reviews: StoreReview[];
 }) {
-  const [formOpen, setFormOpen] = useState(false);
+  const linkAsksForReview = useSyncExternalStore(
+    subscribeToNothing,
+    () => new URLSearchParams(window.location.search).has("review"),
+    () => false,
+  );
+  const [formState, setFormState] = useState<"auto" | "open" | "closed">("auto");
+  const formOpen = formState === "open" || (formState === "auto" && linkAsksForReview);
   const summary = productRatingSummary(reviews);
 
   return (
@@ -57,7 +65,7 @@ export function ProductReviews({
           </div>
           <button
             type="button"
-            onClick={() => setFormOpen(true)}
+            onClick={() => setFormState("open")}
             className="inline-flex min-h-11 touch-manipulation items-center justify-center gap-2 rounded-full bg-dark px-5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark"
           >
             <PenLine className="h-4 w-4" />
@@ -115,7 +123,7 @@ export function ProductReviews({
       {/* Portal: reveal wrappers are transformed, which would re-anchor a fixed modal */}
       {formOpen &&
         createPortal(
-          <ReviewForm onClose={() => setFormOpen(false)} product={product} />,
+          <ReviewForm onClose={() => setFormState("closed")} product={product} />,
           document.body,
         )}
     </ScrollReveal>

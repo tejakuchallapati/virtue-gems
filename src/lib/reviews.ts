@@ -168,6 +168,15 @@ export async function setReviewStatus(id: string, status: StoreReviewStatus): Pr
   if (error) throw error;
 }
 
+export async function setReviewProduct(id: string, productId: string | null): Promise<void> {
+  const supabase = await client();
+  const { error } = await supabase
+    .from("store_reviews")
+    .update({ product_id: productId } as Record<string, unknown>)
+    .eq("id", id);
+  if (error) throw error;
+}
+
 export async function deleteReview(id: string): Promise<void> {
   const supabase = await client();
   const { data, error } = await supabase

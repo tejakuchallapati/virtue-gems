@@ -1,6 +1,7 @@
 import { LOYALTY_ENABLED } from "@/lib/features";
 import { getAbsoluteUrl } from "@/lib/site";
 import { formatPrice } from "@/lib/utils";
+import { googleReviewUrl } from "@/lib/reviews-shared";
 import {
   BANK_DETAILS,
   COD_POLICY,
@@ -50,6 +51,7 @@ export function buildDeliveryThankYouMessage(options: {
   rewardsUrl?: string;
   shopUrl?: string;
   instagramUrl?: string;
+  products?: { productId: string; name: string }[];
 }): string {
   const rewardsUrl = options.rewardsUrl ?? getAbsoluteUrl("/rewards");
   const shopUrl = options.shopUrl ?? getAbsoluteUrl("/shop");
@@ -68,6 +70,20 @@ export function buildDeliveryThankYouMessage(options: {
         ]
       : [];
 
+  const uniqueProducts = [
+    ...new Map((options.products ?? []).map((p) => [p.productId, p])).values(),
+  ].slice(0, 3);
+  const googleUrl = googleReviewUrl();
+  const reviewLines = [
+    ...uniqueProducts.map(
+      (p) => `• ${p.name}: ${getAbsoluteUrl(`/review/${encodeURIComponent(p.productId)}`)}`,
+    ),
+    ...(googleUrl ? [`• Google: ${googleUrl}`] : []),
+  ];
+  if (reviewLines.length === 0) {
+    reviewLines.push(`• ${getAbsoluteUrl("/#reviews")}`);
+  }
+
   return [
     `Hi ${options.customerName}! ✨`,
     "",
@@ -75,12 +91,11 @@ export function buildDeliveryThankYouMessage(options: {
     `Your order *${options.orderId}* is delivered — we hope you love your jewellery!`,
     "",
     ...pointsLines,
-    "💬 *We'd love your feedback*",
-    "1. Reply here with a short review (and a photo if you like)",
-    "2. Tag us on Instagram @virtue_gems",
-    `3. Shop again anytime: ${shopUrl}`,
+    "⭐ *Loved it? Please leave a quick review* — it really helps other shoppers:",
+    ...reviewLines,
     "",
-    `Instagram: ${instagramUrl}`,
+    `Tag us on Instagram @virtue_gems: ${instagramUrl}`,
+    `Shop again anytime: ${shopUrl}`,
     "",
     "Thank you for supporting our small business 💛",
   ].join("\n");
