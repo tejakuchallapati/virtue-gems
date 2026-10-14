@@ -8,13 +8,14 @@ import { ProductCard } from "@/components/ui/ProductCard";
 import { CustomerReviews } from "@/components/ui/CustomerReviews";
 import { RecentlyViewed } from "@/components/home/RecentlyViewed";
 import { LoyaltyPromo } from "@/components/home/LoyaltyPromo";
-import { OrderJourney } from "@/components/home/OrderJourney";
+import { InstagramBand } from "@/components/home/InstagramBand";
 import { WebsiteJsonLd } from "@/components/seo/WebsiteJsonLd";
 import { PRODUCT_GRID } from "@/lib/ui-classes";
 import { LOYALTY_ENABLED } from "@/lib/features";
 import { buildPageMetadata, DEFAULT_DESCRIPTION, SITE_NAME } from "@/lib/seo";
 import { getAllProductsSafe } from "@/lib/products-server";
 import { listApprovedReviews } from "@/lib/reviews";
+import type { ProductTag } from "@/types";
 
 export const revalidate = 60;
 
@@ -35,20 +36,24 @@ export default async function HomePage() {
     getAllProductsSafe(),
     listApprovedReviews(),
   ]);
-  const featured = products.filter((p) => p.tags.includes("bestseller")).slice(0, 4);
-  const newArrivals = products.filter((p) => p.tags.includes("new")).slice(0, 4);
-  const trending = products.find((p) => p.tags.includes("trending"));
-  const bestseller =
-    products.find(
-      (p) => p.tags.includes("bestseller") && p.id !== trending?.id,
-    ) ?? products.find((p) => p.tags.includes("bestseller"));
+  // Each home section takes the next unseen products so nothing repeats down the page
+  const shown = new Set<string>();
+  const pick = (tag: ProductTag, count: number) => {
+    const picked = products.filter((p) => p.tags.includes(tag) && !shown.has(p.id)).slice(0, count);
+    picked.forEach((p) => shown.add(p.id));
+    return picked;
+  };
+  const trendingPicks = pick("trending", 2);
+  if (trendingPicks.length < 2) trendingPicks.push(...pick("bestseller", 2 - trendingPicks.length));
+  const featured = pick("bestseller", 4);
+  const newArrivals = pick("new", 4);
 
   return (
     <>
       <WebsiteJsonLd />
       <HeroLanding />
 
-      <TrendingHighlight trending={trending} bestseller={bestseller} />
+      <TrendingHighlight picks={trendingPicks} />
 
       {LOYALTY_ENABLED && (
         <>
@@ -108,20 +113,27 @@ export default async function HomePage() {
 
       <PageSection id="reviews" tone="white" dividerTop>
         <ScrollReveal>
-          <SectionHeader
-            eyebrow="Testimonials"
-            title="Loved by Our Customers"
-            align="center"
-            className="mb-4"
-          />
+          {approvedReviews.length > 0 ? (
+            <SectionHeader
+              eyebrow="Testimonials"
+              title="Loved by Our Customers"
+              align="center"
+              className="mb-4"
+            />
+          ) : (
+            <SectionHeader
+              eyebrow="Reviews"
+              title="Bought from Virtue Gems?"
+              description="Share a photo and a few words — it helps other shoppers choose."
+              align="center"
+              className="mb-4"
+            />
+          )}
           <CustomerReviews reviews={approvedReviews} />
         </ScrollReveal>
       </PageSection>
 
-      {/* Order steps + Instagram combined into one section */}
-      <div id="how-it-works" className="scroll-mt-[var(--scroll-padding-top)]">
-        <OrderJourney />
-      </div>
+      <InstagramBand />
     </>
   );
 }

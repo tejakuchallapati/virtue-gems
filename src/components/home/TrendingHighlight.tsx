@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Gift, Sparkles } from "lucide-react";
+import { ArrowRight, Gem, Gift } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { TAG_LABELS } from "@/lib/product-constants";
 import { formatPrice, cn } from "@/lib/utils";
@@ -18,7 +18,7 @@ import {
 import type { Product } from "@/types";
 
 function HighlightCard({ product }: { product: Product }) {
-  const primaryTag = product.tags[0];
+  const primaryTag = product.tags.includes("trending") ? "trending" : product.tags[0];
 
   return (
     <Link
@@ -63,16 +63,7 @@ function HighlightCard({ product }: { product: Product }) {
   );
 }
 
-export function TrendingHighlight({
-  trending,
-  bestseller,
-}: {
-  trending: Product | undefined;
-  bestseller: Product | undefined;
-}) {
-  const picks: Product[] = [];
-  if (trending) picks.push(trending);
-  if (bestseller && bestseller.id !== trending?.id) picks.push(bestseller);
+export function TrendingHighlight({ picks }: { picks: Product[] }) {
   if (picks.length === 0) return null;
 
   return (
@@ -87,7 +78,7 @@ export function TrendingHighlight({
             Limited Stock
           </p>
           <h2 className="mt-1.5 text-xl font-semibold text-dark sm:text-2xl">
-            Trending &amp; Best Sellers
+            Trending Now
           </h2>
         </ScrollReveal>
 
@@ -115,10 +106,11 @@ export function TrendingHighlight({
         <ScrollReveal delay={0.12} className="mt-6 text-center">
           <Link
             href="/shop"
-            className="inline-flex min-h-10 items-center gap-2 rounded-full border border-gold/50 bg-white/60 px-5 py-2 text-sm font-medium text-gold-dark transition hover:bg-gold hover:text-dark"
+            className="group inline-flex min-h-10 items-center gap-2 rounded-full border border-gold/50 bg-white/60 px-5 py-2 text-sm font-medium text-gold-dark transition hover:bg-gold hover:text-dark"
           >
-            <Sparkles className="h-4 w-4" />
+            <Gem className="h-4 w-4" />
             View Full Collection
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </ScrollReveal>
       </div>

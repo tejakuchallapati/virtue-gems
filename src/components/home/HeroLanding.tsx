@@ -76,11 +76,11 @@ export function HeroLanding() {
       ref={sectionRef}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="relative h-[100dvh] max-h-[100dvh] w-full max-w-[100vw] overflow-hidden overscroll-none [--hero-nav:var(--mobile-nav-offset)] [--hero-top:0px] md:h-screen md:max-h-none md:[--hero-nav:0px] [@media(max-height:540px)]:[--hero-top:4.25rem]"
+      className="relative h-[100dvh] max-h-[100dvh] w-full max-w-[100vw] overflow-hidden supports-[overflow:clip]:overflow-clip [--hero-nav:var(--mobile-nav-offset)] [--hero-top:0px] md:h-screen md:max-h-none md:[--hero-nav:0px] [@media(max-height:540px)]:[--hero-top:4.25rem]"
       style={{ backgroundColor: BG }}
     >
       <motion.div
-        className="absolute inset-0 will-change-transform"
+        className="pointer-events-none absolute inset-0 select-none will-change-transform"
         initial={false}
         animate={
           introReady
