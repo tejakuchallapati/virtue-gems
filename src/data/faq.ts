@@ -2,7 +2,6 @@ import { DELIVERY_TIMELINE, DISPATCH_TIMELINE } from "@/lib/delivery";
 import {
   DAMAGE_CLAIM_DAYS,
   FREE_CANCELLATION_HOURS,
-  MAX_CANCELLATION_CHARGE,
   REFUND_TIMELINE,
   SUPPORT_HOURS_SHORT,
 } from "@/lib/policies";
@@ -114,7 +113,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "damaged-product",
     category: "returns",
     question: "My product arrived damaged. What should I do?",
-    answer: `Contact us on WhatsApp or email as soon as possible, and within ${DAMAGE_CLAIM_DAYS} days of delivery. Share your order details, photos of the damaged product, packaging and shipping label, and your unboxing video if you have one. We review the claim and, if approved, replace the product with the same item, or offer another product of the same value if it is out of stock. You are not charged for returning a product under an approved claim.`,
+    answer: `Contact us on WhatsApp or email as soon as possible, and within ${DAMAGE_CLAIM_DAYS} days of delivery. Share your order details, photos of the damaged product, packaging and shipping label, and your unboxing video if you have one. We review the claim and, if approved, replace the product with the same item, or offer another product of the same value if it is out of stock. If neither is available, we refund the amount you paid for that product. You are not charged for returning a product under an approved claim.`,
   },
   {
     id: "unboxing-video",
@@ -127,7 +126,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "cancel-order",
     category: "returns",
     question: "Can I cancel my order?",
-    answer: `Yes — free of charge within ${FREE_CANCELLATION_HOURS} hours of placing your order, as long as it has not been dispatched. After ${FREE_CANCELLATION_HOURS} hours but before dispatch, a cancellation charge of up to ${MAX_CANCELLATION_CHARGE} of the order value may apply; we tell you the amount first. Orders cannot be cancelled once dispatched.`,
+    answer: `Yes — free of charge within ${FREE_CANCELLATION_HOURS} hours of placing your order, as long as it has not been dispatched. After ${FREE_CANCELLATION_HOURS} hours but before dispatch, we deduct only costs we have actually incurred for your order (such as a courier booking) and tell you the amount first. Orders cannot be cancelled once dispatched.`,
   },
   {
     id: "refund-method",

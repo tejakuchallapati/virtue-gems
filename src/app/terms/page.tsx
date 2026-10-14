@@ -7,7 +7,6 @@ import { COD_POLICY, PAYMENT_METHODS_SUMMARY } from "@/lib/payments";
 import {
   DAMAGE_CLAIM_DAYS,
   FREE_CANCELLATION_HOURS,
-  MAX_CANCELLATION_CHARGE,
   POLICY_UPDATED,
   SUPPORT_EMAIL,
   SUPPORT_HOURS,
@@ -112,7 +111,7 @@ export default function TermsPage() {
       <LegalPoints
         items={[
           `You can cancel free of charge within ${FREE_CANCELLATION_HOURS} hours of placing your order, as long as it has not been dispatched. Any amount already paid is refunded in full.`,
-          `After ${FREE_CANCELLATION_HOURS} hours, but before dispatch, a cancellation charge of up to ${MAX_CANCELLATION_CHARGE} of the order value may apply. We tell you the exact amount before the cancellation is processed.`,
+          `After ${FREE_CANCELLATION_HOURS} hours, but before dispatch, we deduct only costs we have actually incurred for your order (for example, a courier booking already made). We tell you the amount and what it covers before the cancellation is processed, and refund the balance.`,
           "Orders cannot be cancelled once dispatched.",
           "If we cancel your order, we refund everything you have paid in full.",
         ]}
@@ -121,7 +120,9 @@ export default function TermsPage() {
       <LegalHeading>Returns, Replacements and Refunds</LegalHeading>
       <p>
         We accept returns for products that arrive damaged, reported within {DAMAGE_CLAIM_DAYS}{" "}
-        days of delivery. We do not offer exchanges or returns for change of mind. The full process
+        days of delivery. Approved claims are resolved with the same item, another product of the
+        same value, or — if neither is available — a refund for that product. We do not offer
+        exchanges or returns for change of mind. The full process
         — including what evidence to share and how refunds are paid — is in our{" "}
         <Link href="/refunds" className={linkClass}>
           Refund &amp; Return Policy

@@ -5,7 +5,6 @@ import { buildPageMetadata } from "@/lib/seo";
 import {
   DAMAGE_CLAIM_DAYS,
   FREE_CANCELLATION_HOURS,
-  MAX_CANCELLATION_CHARGE,
   POLICY_UPDATED,
   REFUND_TIMELINE,
   SUPPORT_EMAIL,
@@ -101,9 +100,10 @@ export default function RefundsPage() {
           <>
             <strong>Approved claims:</strong> we replace the product with the same item if it is in
             stock. If the same item is not available, we offer you another product of the same
-            value.
+            value. If neither the same item nor another product of the same value is available, we
+            refund the amount you paid for that product.
           </>,
-          "If neither a replacement nor an alternative product of the same value is available or suitable, please tell us — this policy does not take away any refund or other remedy you are entitled to by law.",
+          "This policy does not take away any other remedy you are entitled to by law.",
         ]}
       />
 
@@ -124,7 +124,7 @@ export default function RefundsPage() {
             of placing your order, as long as it has not been dispatched. If you have already paid,
             we refund the full amount.
           </>,
-          `After ${FREE_CANCELLATION_HOURS} hours, but before dispatch, a cancellation charge of up to ${MAX_CANCELLATION_CHARGE} of the order value may apply. We will tell you the exact amount on WhatsApp before the cancellation is processed, and refund the balance.`,
+          `After ${FREE_CANCELLATION_HOURS} hours, but before dispatch, you can still cancel. We deduct only costs we have actually incurred for your order (for example, a courier booking already made). We will tell you the amount and what it covers on WhatsApp before the cancellation is processed, and refund the balance. If we have not incurred any costs, you get a full refund.`,
           "Orders cannot be cancelled once dispatched. If a dispatched order arrives damaged, the damage policy above applies.",
           "If we cancel your order — for example, because an item is out of stock — we refund everything you have paid in full.",
         ]}
@@ -133,7 +133,7 @@ export default function RefundsPage() {
       <LegalHeading>Refunds</LegalHeading>
       <LegalPoints
         items={[
-          "Refunds apply to cancelled orders that were already paid, orders we are unable to fulfil, and any other case where a refund is required by law.",
+          "Refunds apply to cancelled orders that were already paid, orders we are unable to fulfil, approved damage claims where neither the same item nor another product of the same value is available, and any other case where a refund is required by law.",
           "Refunds are paid by UPI or bank transfer.",
           `We send the refund within ${REFUND_TIMELINE} from the date it is approved. Your bank or UPI app may take a little longer to show the amount.`,
         ]}
