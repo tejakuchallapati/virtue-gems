@@ -2,6 +2,7 @@ import { Breadcrumb } from "./Breadcrumb";
 import { SectionDivider } from "./PageSection";
 import { PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-classes";
 import { cn } from "@/lib/utils";
+import { formatPolicyDate } from "@/lib/policies";
 
 export function LegalHeading({ children }: { children: React.ReactNode }) {
   return (
@@ -31,9 +32,12 @@ export function LegalPoints({ items }: { items: React.ReactNode[] }) {
 
 export function LegalPage({
   title,
+  lastUpdated,
   children,
 }: {
   title: string;
+  /** ISO date (YYYY-MM-DD) of the last real revision — see POLICY_UPDATED */
+  lastUpdated?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -50,6 +54,11 @@ export function LegalPage({
           >
             {title}
           </h1>
+          {lastUpdated && (
+            <p className="mt-2 text-sm font-medium text-dark/55">
+              Last updated: <time dateTime={lastUpdated}>{formatPolicyDate(lastUpdated)}</time>
+            </p>
+          )}
         </header>
         <div className="max-w-none space-y-4 text-[15px] leading-[1.65] font-medium text-dark/70 [&_strong]:font-bold [&_strong]:text-dark">
           {children}

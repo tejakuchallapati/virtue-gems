@@ -18,7 +18,7 @@ export const metadata: Metadata = buildPageMetadata({
     "jewellery collections Hyderabad",
     "buy necklace set online",
     "buy necklaces online",
-    "gold plated earrings India",
+    "fashion earrings India",
     "buy earrings online",
     "ear rings online shopping",
     "bracelets online India",

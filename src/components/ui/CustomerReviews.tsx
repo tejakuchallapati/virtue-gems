@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ExternalLink, PenLine, Star, Quote } from "lucide-react";
 import { ReviewForm } from "@/components/reviews/ReviewForm";
@@ -18,7 +19,10 @@ type DisplayReview = {
   text: string;
   rating: number;
   photos: string[];
+  productId?: string;
 };
+
+export type ReviewProductLink = { id: string; name: string; slug: string };
 
 function toDisplay(review: StoreReview): DisplayReview {
   return {
@@ -28,10 +32,17 @@ function toDisplay(review: StoreReview): DisplayReview {
     text: review.comment,
     rating: review.rating,
     photos: review.photos,
+    productId: review.productId,
   };
 }
 
-export function CustomerReviews({ reviews = [] }: { reviews?: StoreReview[] }) {
+export function CustomerReviews({
+  reviews = [],
+  products = [],
+}: {
+  reviews?: StoreReview[];
+  products?: ReviewProductLink[];
+}) {
   const list = reviews.map(toDisplay);
   const [index, setIndex] = useState(0);
   const [photoIndex, setPhotoIndex] = useState(0);
@@ -56,6 +67,9 @@ export function CustomerReviews({ reviews = [] }: { reviews?: StoreReview[] }) {
 
   const review = list.length ? list[index % list.length] : undefined;
   const photo = review ? (review.photos[photoIndex] ?? review.photos[0]) : undefined;
+  const reviewedProduct = review?.productId
+    ? products.find((p) => p.id === review.productId)
+    : undefined;
 
   return (
     <div className="space-y-8 sm:space-y-10">
@@ -125,6 +139,14 @@ export function CustomerReviews({ reviews = [] }: { reviews?: StoreReview[] }) {
                     — {review.author}
                     {review.city && <span className="font-normal text-dark/50">, {review.city}</span>}
                   </p>
+                  {reviewedProduct && (
+                    <Link
+                      href={`/product/${reviewedProduct.slug}`}
+                      className="mt-1.5 text-xs font-medium text-dark/55 underline-offset-2 hover:text-gold-dark hover:underline"
+                    >
+                      Bought: {reviewedProduct.name}
+                    </Link>
+                  )}
                 </div>
               </div>
             </motion.article>
@@ -171,7 +193,11 @@ export function CustomerReviews({ reviews = [] }: { reviews?: StoreReview[] }) {
       </div>
 
       {/* Portal: the section sits inside transformed reveal wrappers, which would re-anchor a fixed modal */}
-      {formOpen && createPortal(<ReviewForm onClose={closeForm} />, document.body)}
+      {formOpen &&
+        createPortal(
+          <ReviewForm onClose={closeForm} productOptions={products} />,
+          document.body,
+        )}
     </div>
   );
 }

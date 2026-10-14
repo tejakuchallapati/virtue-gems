@@ -17,5 +17,6 @@ export function formatDate(date: string): string {
     day: "numeric",
     month: "short",
     year: "numeric",
+    timeZone: "Asia/Kolkata",
   }).format(new Date(date));
 }

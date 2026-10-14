@@ -24,7 +24,7 @@ import {
   DELIVERY_REGION_LABEL,
   DELIVERY_STATES,
 } from "@/lib/delivery";
-import { CHECKOUT_PAYMENT_NOTICE, COD_POLICY, ONLINE_PAYMENT_COMING_SOON, PAYMENT_METHODS_SUMMARY } from "@/lib/payments";
+import { CHECKOUT_PAYMENT_NOTICE, COD_POLICY, ONLINE_PAYMENT_COMING_SOON } from "@/lib/payments";
 import type { CheckoutForm } from "@/types";
 
 export default function CheckoutPage() {
@@ -250,10 +250,10 @@ export default function CheckoutPage() {
             <div className="border-t border-[#25D366]/20 px-3 pb-3 pt-2">
               <ol className="list-decimal space-y-1 pl-4">
                 <li>Place order — WhatsApp opens with your bill</li>
-                <li>We confirm availability (usually within 2–4 hours)</li>
-                <li>Pay via {PAYMENT_METHODS_SUMMARY.toLowerCase()}</li>
+                <li>We confirm availability, delivery charge and your total (usually the same day)</li>
+                <li>Pay by UPI (GPay / PhonePe / Paytm) or bank transfer</li>
                 <li>Send payment screenshot on WhatsApp</li>
-                <li>We ship, share tracking, then ask for your review & feedback</li>
+                <li>We verify payment, confirm your order and dispatch it — with tracking when the courier provides it</li>
               </ol>
               <p className="mt-2 text-dark/70">{COD_POLICY}</p>
               <p className="mt-1 text-dark/55">{ONLINE_PAYMENT_COMING_SOON}</p>
@@ -264,10 +264,10 @@ export default function CheckoutPage() {
             <p className="font-medium text-dark">Your order journey</p>
             <ol className="mt-2 list-decimal space-y-1 pl-4">
               <li>Place order — WhatsApp opens with your bill</li>
-              <li>We confirm availability (usually within 2–4 hours)</li>
-              <li>Pay via {PAYMENT_METHODS_SUMMARY.toLowerCase()}</li>
+              <li>We confirm availability, delivery charge and your total (usually the same day)</li>
+              <li>Pay by UPI (GPay / PhonePe / Paytm) or bank transfer</li>
               <li>Send payment screenshot on WhatsApp</li>
-              <li>We ship, share tracking, then ask for your review & feedback</li>
+              <li>We verify payment, confirm your order and dispatch it — with tracking when the courier provides it</li>
             </ol>
             <p className="mt-2 text-dark/70">{COD_POLICY}</p>
             <p className="mt-1 text-dark/55">{ONLINE_PAYMENT_COMING_SOON}</p>
@@ -380,6 +380,18 @@ export default function CheckoutPage() {
           </div>
 
           <UnboxingVideoNotice compact />
+
+          <p className="text-[11px] leading-relaxed text-dark/50">
+            We use these details only to confirm, deliver and support your order. See our{" "}
+            <Link href="/privacy" className="font-medium text-gold-dark underline">
+              Privacy Policy
+            </Link>{" "}
+            and{" "}
+            <Link href="/terms" className="font-medium text-gold-dark underline">
+              Terms
+            </Link>
+            .
+          </p>
 
           {error && (
             <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">

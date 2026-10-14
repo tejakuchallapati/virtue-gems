@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { DAMAGE_CLAIM_DAYS } from "@/lib/policies";
 
 type UnboxingVideoNoticeProps = {
   className?: string;
@@ -19,15 +20,19 @@ export function UnboxingVideoNotice({ className, compact = false }: UnboxingVide
         Record a video while opening your parcel
       </p>
       <p className={cn("text-dark/75", compact ? "mt-1 leading-relaxed" : "mt-2 leading-relaxed")}>
-        Returns and refunds are accepted only with a continuous unboxing video recorded while
-        opening the package. Without video proof, no return or refund will be processed — even for
-        damaged items.
+        If your order arrives damaged, report it within {DAMAGE_CLAIM_DAYS} days of delivery. An
+        unboxing video is the quickest way for us to approve your claim — photos and other evidence
+        are also accepted.
       </p>
-      {!compact && (
-        <Link href="/refunds" className="mt-2 inline-block text-xs font-medium text-gold-dark underline">
-          Read full refund policy
-        </Link>
-      )}
+      <Link
+        href="/refunds"
+        className={cn(
+          "inline-block font-medium text-gold-dark underline",
+          compact ? "mt-1 text-[11px]" : "mt-2 text-xs",
+        )}
+      >
+        Read the Refund &amp; Return Policy
+      </Link>
     </div>
   );
 }

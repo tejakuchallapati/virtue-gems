@@ -30,6 +30,7 @@ import {
   DELIVERY_NOTICE,
   DELIVERY_REGION_LABEL,
   DELIVERY_TIMELINE,
+  DISPATCH_TIMELINE,
 } from "@/lib/delivery";
 import {
   CHECKOUT_PAYMENT_NOTICE,
@@ -63,13 +64,13 @@ const highlights = [
 const values = [
   {
     icon: Gem,
-    title: "Craftsmanship",
-    desc: "Every piece is carefully finished for festive and everyday wear.",
+    title: "Handpicked Pieces",
+    desc: "Every design is chosen for festive and everyday wear.",
   },
   {
     icon: Award,
-    title: "Quality Finish",
-    desc: "Premium gold-plated fashion jewellery with lasting shine.",
+    title: "Honest Details",
+    desc: "Clear prices, and your total confirmed on WhatsApp before you pay.",
   },
   {
     icon: Heart,
@@ -79,7 +80,7 @@ const values = [
   {
     icon: Shield,
     title: "Customer Care",
-    desc: "WhatsApp support, unboxing guidance, and easy reorders.",
+    desc: "WhatsApp support from order to delivery, and help if anything arrives damaged.",
   },
 ];
 
@@ -103,12 +104,12 @@ const orderSteps = [
   {
     icon: CheckCircle2,
     title: "We confirm availability",
-    text: "We reply on WhatsApp (usually within 2–4 hours) to confirm stock, delivery location, and charges.",
+    text: "We reply on WhatsApp (usually the same day) to confirm stock, the delivery charge for your address, and your total.",
   },
   {
     icon: PackageCheck,
     title: "Pay & we ship",
-    text: "Pay via UPI or bank transfer, share the payment screenshot, then we pack and ship with tracking.",
+    text: "Pay via UPI or bank transfer and share the payment screenshot. Once we verify it, your order is confirmed and we dispatch it.",
   },
 ];
 
@@ -118,7 +119,7 @@ const deliveryInfo = [
   {
     icon: Clock,
     title: "Timeline",
-    text: `Typical delivery: ${DELIVERY_TIMELINE}. We share tracking on WhatsApp after dispatch.`,
+    text: `We dispatch within ${DISPATCH_TIMELINE}; delivery is ${DELIVERY_TIMELINE}. We share tracking on WhatsApp when the courier provides it.`,
   },
   {
     icon: Gift,
@@ -196,11 +197,13 @@ export default function AboutPage() {
               <h1 className="mt-3 text-3xl leading-tight font-bold text-light sm:text-4xl lg:text-[2.75rem]">
                 Jewellery made to be worn, gifted &amp; remembered
               </h1>
+              <p className="mt-3 text-sm font-semibold tracking-wide text-gold italic sm:text-base">
+                Wear your virtue. Shine with grace.
+              </p>
               <p className="mt-4 max-w-xl text-sm leading-relaxed text-light/75 sm:text-base">
-                Founded with a passion for exquisite jewellery, <strong className="text-light">Virtue Gems</strong>{" "}
-                brings together craftsmanship and contemporary design — necklaces, earrings and
-                bracelets for festive moments, everyday elegance, and gifting across Andhra
-                Pradesh &amp; Telangana.
+                <strong className="text-light">Virtue Gems</strong>{" "}
+                brings you handpicked fashion jewellery — necklaces, earrings and bracelets for
+                festive moments, everyday elegance, and gifting across Andhra Pradesh &amp; Telangana.
               </p>
 
               <ul className="mt-6 flex flex-wrap gap-2">
@@ -457,9 +460,13 @@ export default function AboutPage() {
               </Link>
             </div>
             <p className="relative mt-6 text-xs text-light/50">
-              Need returns info? See our{" "}
+              Need returns or delivery info? See our{" "}
               <Link href="/refunds" className="font-semibold text-gold hover:underline">
-                refunds policy
+                Refund &amp; Return Policy
+              </Link>{" "}
+              and{" "}
+              <Link href="/shipping" className="font-semibold text-gold hover:underline">
+                Shipping &amp; Delivery Policy
               </Link>
               .
             </p>

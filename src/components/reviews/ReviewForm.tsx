@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Camera, CheckCircle2, Loader2, Star, X } from "lucide-react";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
@@ -37,7 +38,19 @@ async function compressPhoto(file: File): Promise<File> {
 const inputClass =
   "w-full rounded-xl border border-light-muted bg-white px-3.5 py-3 text-base text-dark outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/20 sm:text-sm";
 
-export function ReviewForm({ onClose }: { onClose: () => void }) {
+export type ReviewProductOption = { id: string; name: string };
+
+export function ReviewForm({
+  onClose,
+  product,
+  productOptions = [],
+}: {
+  onClose: () => void;
+  /** Fixed product when the form is opened from a product page */
+  product?: ReviewProductOption;
+  /** Optional picker when the form is opened from the home page */
+  productOptions?: ReviewProductOption[];
+}) {
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [rating, setRating] = useState(0);
@@ -180,7 +193,32 @@ export function ReviewForm({ onClose }: { onClose: () => void }) {
               <h2 id="review-form-title" className="mt-1 text-xl font-semibold text-dark sm:text-2xl">
                 Write a review
               </h2>
+              {product && (
+                <p className="mt-1 text-sm text-dark/60">
+                  For <span className="font-medium text-dark">{product.name}</span>
+                </p>
+              )}
             </div>
+
+            {product ? (
+              <input type="hidden" name="productId" value={product.id} />
+            ) : (
+              productOptions.length > 0 && (
+                <label className="block">
+                  <span className="mb-1.5 block text-sm font-medium text-dark">
+                    Which piece did you buy? <span className="font-normal text-dark/45">(optional)</span>
+                  </span>
+                  <select name="productId" defaultValue="" className={inputClass}>
+                    <option value="">General review of Virtue Gems</option>
+                    {productOptions.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )
+            )}
 
             <div>
               <p className="mb-1.5 text-sm font-medium text-dark">Your rating</p>
@@ -318,8 +356,12 @@ export function ReviewForm({ onClose }: { onClose: () => void }) {
               {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
               {submitting ? "Sending…" : "Submit review"}
             </button>
-            <p className="text-center text-[11px] text-dark/45">
-              Reviews are checked by our team before they appear on the site.
+            <p className="text-center text-[11px] leading-relaxed text-dark/45">
+              Reviews are checked by our team before they appear. By submitting, you agree we may
+              publish your name, city, rating, review and photos on our website.{" "}
+              <Link href="/privacy" className="underline">
+                Privacy Policy
+              </Link>
             </p>
           </form>
         )}

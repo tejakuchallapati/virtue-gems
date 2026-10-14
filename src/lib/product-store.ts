@@ -135,11 +135,11 @@ export function getStoredProductByIdAdmin(id: string): (Product & { active: bool
   return { ...rowToProduct(row), active: row.active === 1 };
 }
 
+// Material, finish and size claims must come from the admin for each product, never defaults
 const DEFAULT_SPECS: Record<string, string> = {
-  Material: "Gold-plated alloy",
-  Finish: "Anti-tarnish polish",
-  Style: "Contemporary Indian",
-  Care: "Store in dry pouch",
+  Type: "Fashion jewellery",
+  "Country of origin": "India",
+  Care: "Keep away from water and perfume; store in a dry pouch",
 };
 
 export function validateProductInput(

@@ -330,26 +330,24 @@ async function processToCanvas(inputPath, outputPath) {
     .toFile(outputPath);
 }
 
+// No invented MRPs, stock counts or material claims — set real values in the admin
 function buildProduct(id, meta, imagePath) {
-  const originalPrice = Math.min(meta.price + 300, 2299);
   return {
     id,
     slug: meta.slug,
     name: meta.name,
     description: meta.description,
-    longDescription: `${meta.description} Handpicked from the Virtue Gems collection — crafted for everyday elegance and festive occasions. Each piece is quality-checked and beautifully finished for a premium look.`,
+    longDescription: `${meta.description} Handpicked from the Virtue Gems collection for festive and everyday wear.`,
     price: meta.price,
-    originalPrice,
     images: [imagePath],
     category: meta.category,
     tags: meta.tags,
     specifications: {
-      Material: "Gold-plated alloy",
-      Finish: "Anti-tarnish polish",
-      Style: "Contemporary Indian",
-      Care: "Store in dry pouch",
+      Type: "Fashion jewellery",
+      "Country of origin": "India",
+      Care: "Keep away from water and perfume; store in a dry pouch",
     },
-    stock: 8 + (meta.price % 7),
+    stock: 1,
     rating: 0,
     reviewCount: 0,
     reviews: [],

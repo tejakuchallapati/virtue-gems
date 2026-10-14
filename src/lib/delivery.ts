@@ -7,7 +7,9 @@ export const DELIVERY_SHORT = "AP & Telangana only";
 export const DELIVERY_NOTICE =
   "We currently deliver only to Andhra Pradesh and Telangana. More regions will be added as production scales.";
 
-export const DELIVERY_TIMELINE = "3–7 business days within AP & Telangana";
+export const DISPATCH_TIMELINE = "1–2 business days after we confirm your payment";
+
+export const DELIVERY_TIMELINE = "usually 3–7 business days after dispatch";
 
 /**
  * Delivery is charged after cart + address — not free, not a random flat fee.

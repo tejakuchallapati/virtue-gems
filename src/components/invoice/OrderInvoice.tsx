@@ -3,6 +3,7 @@ import type { Order } from "@/types";
 import { formatPrice, formatDate, cn } from "@/lib/utils";
 import { getSiteHost } from "@/lib/site";
 import { DELIVERY_CHARGES_NOTICE, DELIVERY_REGION_LABEL } from "@/lib/delivery";
+import { DAMAGE_CLAIM_DAYS } from "@/lib/policies";
 
 type OrderInvoiceProps = {
   order: Order;
@@ -39,7 +40,7 @@ export function OrderInvoice({ order, className = "" }: OrderInvoiceProps) {
                 VIRTUE GEMS
               </p>
               <p className="mt-0.5 text-[11px] text-[#1a0a2e]/65">
-                Premium handcrafted jewellery
+                Premium fashion jewellery
               </p>
             </div>
           </div>
@@ -162,8 +163,8 @@ export function OrderInvoice({ order, className = "" }: OrderInvoiceProps) {
             Returns
           </p>
           <p className="mt-2 text-[11px] leading-relaxed text-[#1a0a2e]/70">
-            Record a continuous unboxing video. Without video proof, returns and
-            refunds cannot be processed.
+            Damaged on arrival? Report it within {DAMAGE_CLAIM_DAYS} days of delivery
+            with photos and, ideally, an unboxing video. See virtuegems.com/refunds.
           </p>
         </div>
         <div className="sm:text-right">

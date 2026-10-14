@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Virtue Gems — Premium Handcrafted Jewellery";
+export const alt = "Virtue Gems — Premium Fashion Jewellery";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -30,7 +30,7 @@ export default function OpenGraphImage() {
             marginBottom: 16,
           }}
         >
-          Premium Handcrafted Jewellery
+          Premium Fashion Jewellery
         </div>
         <div
           style={{

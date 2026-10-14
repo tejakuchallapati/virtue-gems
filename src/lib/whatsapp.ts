@@ -3,6 +3,7 @@ import { LOYALTY_ENABLED } from "./features";
 import { formatPrice } from "./utils";
 import { getAbsoluteUrl } from "./site";
 import { DELIVERY_REGION_LABEL } from "./delivery";
+import { DAMAGE_CLAIM_DAYS } from "./policies";
 import {
   BANK_DETAILS,
   COD_POLICY,
@@ -15,6 +16,11 @@ const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "917396178039
 
 export function getWhatsAppUrl(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+/** Lets the customer pick any WhatsApp contact — used for sharing, not for messaging the store. */
+export function getWhatsAppShareUrl(message: string): string {
+  return `https://wa.me/?text=${encodeURIComponent(message)}`;
 }
 
 function formatBillDate(date = new Date()): string {
@@ -60,6 +66,7 @@ export function buildOrderMessage(
       padBillLine("   Qty", `${item.quantity}`),
       padBillLine("   Rate", formatPrice(item.product.price)),
       padBillLine("   Amount", formatPrice(lineTotal)),
+      `   ${getAbsoluteUrl(`/product/${item.product.slug}`)}`,
       "",
     ];
   });
@@ -113,7 +120,8 @@ export function buildOrderMessage(
     "1. We confirm item availability and delivery charge for your address",
     "2. You pay via UPI or bank transfer",
     "3. Send payment screenshot on WhatsApp",
-    "4. We ship and share tracking details",
+    "4. We verify payment, confirm the order and dispatch it",
+    "   (tracking shared when the courier provides it)",
     "5. After delivery, reply with a short review — we love your feedback!",
     "",
     `Accepted: ${PAYMENT_METHODS_SUMMARY}`,
@@ -145,9 +153,11 @@ export function buildOrderMessage(
   }
 
   lines.push(
-    "⚠️ *Return / Refund Policy:*",
-    "Record a video while opening your parcel.",
-    "Without unboxing video proof, no return or refund will be accepted.",
+    "ℹ️ The final total (including delivery charge), payment method and delivery estimate are confirmed on WhatsApp before payment.",
+    "",
+    "📦 *Damaged on arrival?*",
+    `Report within ${DAMAGE_CLAIM_DAYS} days of delivery. Please record a video while opening your parcel — it helps us approve claims quickly.`,
+    `Policy: ${getAbsoluteUrl("/refunds")}`,
     "",
     "Please confirm availability, payment mode, and delivery timeline.",
     "",
@@ -204,7 +214,7 @@ export function buildOrderFollowUpMessage(
     "1. Confirm availability",
     "2. Pay via UPI / bank transfer",
     "3. Send payment screenshot",
-    "4. We ship + share tracking",
+    "4. We verify payment and dispatch",
     "5. After delivery — leave a short review",
     "",
     `Accepted: ${PAYMENT_METHODS_SUMMARY}`,

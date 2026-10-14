@@ -22,47 +22,54 @@ import {
   DELIVERY_CHARGES_NOTICE,
   DELIVERY_REGION_LABEL,
   DELIVERY_TIMELINE,
+  DISPATCH_TIMELINE,
 } from "@/lib/delivery";
 import { LOYALTY_ENABLED } from "@/lib/features";
+import {
+  SUPPORT_EMAIL,
+  SUPPORT_HOURS,
+  SUPPORT_HOURS_SHORT,
+  SUPPORT_PHONE_DISPLAY,
+  SUPPORT_PHONE_TEL,
+  SUPPORT_RESPONSE,
+} from "@/lib/policies";
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "@/lib/seo";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
-const CONTACT_EMAIL = "virtuegems777@gmail.com";
-const CONTACT_PHONE = "+91 73961 78039";
 const contactChannels = [
   {
     icon: MessageCircle,
     title: "WhatsApp",
-    detail: CONTACT_PHONE,
-    note: "For any enquiries — orders, sizing, or custom requests",
+    detail: SUPPORT_PHONE_DISPLAY,
+    note: "Orders, product questions and support",
     href: whatsAppContactUrl,
     external: true,
   },
   {
     icon: Mail,
     title: "Email",
-    detail: CONTACT_EMAIL,
-    note: "For detailed enquiries & invoices",
-    href: `mailto:${CONTACT_EMAIL}`,
+    detail: SUPPORT_EMAIL,
+    note: "Detailed enquiries, invoices and complaints",
+    href: `mailto:${SUPPORT_EMAIL}`,
     external: false,
   },
   {
     icon: Phone,
     title: "Call / WhatsApp",
-    detail: CONTACT_PHONE,
-    note: "Mon–Sat, 10 AM – 8 PM IST",
-    href: `tel:+917396178039`,
+    detail: SUPPORT_PHONE_DISPLAY,
+    note: SUPPORT_HOURS_SHORT,
+    href: `tel:${SUPPORT_PHONE_TEL}`,
     external: false,
   },
 ];
 
 const businessInfo = [
-  { icon: Clock, label: "Response time", value: "Within 2–4 hours on WhatsApp" },
+  { icon: Clock, label: "Response time", value: SUPPORT_RESPONSE },
   {
     icon: Truck,
     label: "Delivery",
-    value: `${DELIVERY_REGION_LABEL} · ${DELIVERY_TIMELINE}`,
+    value: `${DELIVERY_REGION_LABEL} · dispatch within ${DISPATCH_TIMELINE}, delivery ${DELIVERY_TIMELINE}`,
   },
   {
     icon: IndianRupee,
@@ -119,7 +126,9 @@ export default function ContactPage() {
     } catch (error) {
       setStatus("error");
       setErrorMessage(
-        error instanceof Error ? error.message : "Failed to send message.",
+        error instanceof Error && error.message
+          ? error.message
+          : "Your message could not be sent. Please try again.",
       );
     }
   }
@@ -304,7 +313,7 @@ export default function ContactPage() {
                       id="phone"
                       name="phone"
                       type="tel"
-                      placeholder="+91 98765 43210"
+                      placeholder="Your 10-digit mobile number"
                       className={fieldClass}
                     />
                   </div>
@@ -360,8 +369,17 @@ export default function ContactPage() {
                   />
                 </div>
                 {status === "error" && (
-                  <p className="text-sm text-red-600">{errorMessage}</p>
+                  <p className="text-sm text-red-600" role="alert">
+                    {errorMessage} You can also reach us on WhatsApp at {SUPPORT_PHONE_DISPLAY}.
+                  </p>
                 )}
+                <p className="text-xs leading-relaxed text-dark/50">
+                  We use these details only to reply to your message. See our{" "}
+                  <Link href="/privacy" className="font-semibold text-gold-dark underline">
+                    Privacy Policy
+                  </Link>
+                  .
+                </p>
                 <button
                   type="submit"
                   disabled={status === "loading"}
@@ -372,6 +390,49 @@ export default function ContactPage() {
               </form>
             )}
           </ScrollReveal>
+        </section>
+
+        <section
+          id="grievances"
+          className="mt-12 scroll-mt-[var(--scroll-padding-top)] border-t border-gold/15 pt-10 lg:mt-14"
+        >
+          <h2 className="text-xl font-extrabold tracking-tight text-dark sm:text-2xl">
+            Customer support &amp; grievances
+          </h2>
+          <div className="mt-6 grid gap-5 lg:grid-cols-2">
+            <div className="rounded-xl border border-gold/15 bg-white/60 px-4 py-4 text-sm leading-relaxed tracking-wide text-dark/70">
+              <p className="font-extrabold text-dark">Business details</p>
+              <dl className="mt-2 space-y-1.5">
+                <div>
+                  <dt className="inline font-semibold text-dark">Store name: </dt>
+                  <dd className="inline">Virtue Gems</dd>
+                </div>
+                <div>
+                  <dt className="inline font-semibold text-dark">Based in: </dt>
+                  <dd className="inline">Hyderabad, Telangana, India</dd>
+                </div>
+                <div>
+                  <dt className="inline font-semibold text-dark">Customer care: </dt>
+                  <dd className="inline">
+                    {SUPPORT_PHONE_DISPLAY} (WhatsApp &amp; calls) · {SUPPORT_EMAIL}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="inline font-semibold text-dark">Hours: </dt>
+                  <dd className="inline">{SUPPORT_HOURS}</dd>
+                </div>
+              </dl>
+            </div>
+            <div className="rounded-xl border border-gold/15 bg-white/60 px-4 py-4 text-sm leading-relaxed tracking-wide text-dark/70">
+              <p className="font-extrabold text-dark">Raising a complaint</p>
+              <p className="mt-2">
+                Email <strong className="text-dark">{SUPPORT_EMAIL}</strong>{" "}
+                with the subject &quot;Grievance&quot;, or message us on WhatsApp. Include your order ID and details
+                of the issue. We will acknowledge your complaint within 48 hours and work to
+                resolve it within one month.
+              </p>
+            </div>
+          </div>
         </section>
       </div>
       <SectionDivider />

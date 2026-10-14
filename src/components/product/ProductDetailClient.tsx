@@ -24,26 +24,29 @@ import {
   PRODUCT_DETAIL_SIZES,
   PRODUCT_IMAGE_QUALITY,
 } from "@/lib/product-images";
-import { buildProductShareMessage, getWhatsAppUrl } from "@/lib/whatsapp";
+import { buildProductShareMessage, getWhatsAppShareUrl } from "@/lib/whatsapp";
 import { VIRTUAL_TRY_ON_ENABLED } from "@/lib/features";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { trackEvent } from "@/lib/analytics";
 import { productRatingSummary } from "@/lib/reviews-shared";
 import { ProductTryOnExtras } from "@/components/product/ProductTryOnExtras";
-import type { Product } from "@/types";
+import type { Product, StoreReview } from "@/types";
+import { ProductReviews } from "@/components/product/ProductReviews";
 
 export function ProductDetailClient({
   product,
   similar,
+  reviews,
 }: {
   product: Product;
   similar: Product[];
+  reviews: StoreReview[];
 }) {
   const [activeImage, setActiveImage] = useState(0);
   const [qty, setQty] = useState(1);
   const [zoom, setZoom] = useState(false);
   const [addedMessage, setAddedMessage] = useState("");
-  const ratingSummary = productRatingSummary(product.reviews);
+  const ratingSummary = productRatingSummary(reviews);
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist, addRecentlyViewed } =
     useStore();
   const wished = isInWishlist(product.id);
@@ -107,11 +110,11 @@ export function ProductDetailClient({
         url: window.location.href,
       }).catch((error: unknown) => {
         if (error instanceof DOMException && error.name === "AbortError") return;
-        window.open(getWhatsAppUrl(msg), "_blank");
+        window.open(getWhatsAppShareUrl(msg), "_blank");
       });
       return;
     }
-    window.open(getWhatsAppUrl(msg), "_blank");
+    window.open(getWhatsAppShareUrl(msg), "_blank");
   }
 
   return (
@@ -244,7 +247,7 @@ export function ProductDetailClient({
               </button>
             </div>
             <span className="text-xs text-dark/50">
-              {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
+              {product.stock > 0 ? "In stock" : "Out of stock"}
             </span>
           </div>
 
@@ -290,47 +293,25 @@ export function ProductDetailClient({
           {VIRTUAL_TRY_ON_ENABLED && <ProductTryOnExtras product={product} />}
 
           {/* Specifications */}
-          <div className="mt-8 rounded-2xl bg-white p-5 ring-1 ring-light-muted/60">
-            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-dark">
-              Specifications
-            </h3>
-            <dl className="space-y-2">
-              {Object.entries(product.specifications).map(([key, val]) => (
-                <div key={key} className="flex justify-between gap-3 text-sm">
-                  <dt className="shrink-0 text-dark/60">{key}</dt>
-                  <dd className="min-w-0 text-right font-medium break-words text-dark">{val}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
+          {Object.keys(product.specifications).length > 0 && (
+            <div className="mt-8 rounded-2xl bg-white p-5 ring-1 ring-light-muted/60">
+              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-dark">
+                Specifications
+              </h3>
+              <dl className="space-y-2">
+                {Object.entries(product.specifications).map(([key, val]) => (
+                  <div key={key} className="flex justify-between gap-3 text-sm">
+                    <dt className="shrink-0 text-dark/60">{key}</dt>
+                    <dd className="min-w-0 text-right font-medium break-words text-dark">{val}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Reviews */}
-      {product.reviews.length > 0 && (
-        <ScrollReveal className="mt-12 sm:mt-16">
-          <h2 className="mb-6 text-xl font-semibold text-dark">Customer Reviews</h2>
-          <div className="space-y-4">
-            {product.reviews.map((r) => (
-              <div
-                key={r.id}
-                className="rounded-2xl bg-white p-5 ring-1 ring-light-muted/60"
-              >
-                <div className="flex items-center justify-between">
-                  <p className="font-medium text-dark">{r.author}</p>
-                  <div className="flex">
-                    {Array.from({ length: r.rating }).map((_, i) => (
-                      <Star key={i} className="h-3.5 w-3.5 fill-gold text-gold" />
-                    ))}
-                  </div>
-                </div>
-                <p className="mt-2 text-sm text-dark/70">{r.comment}</p>
-                <p className="mt-1 text-xs text-dark/40">{r.date}</p>
-              </div>
-            ))}
-          </div>
-        </ScrollReveal>
-      )}
+      <ProductReviews product={{ id: product.id, name: product.name }} reviews={reviews} />
 
       {/* Similar */}
       {similar.length > 0 && (

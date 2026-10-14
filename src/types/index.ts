@@ -40,6 +40,8 @@ export type StoreReview = {
   photos: string[];
   status: StoreReviewStatus;
   createdAt: string;
+  /** Product the customer bought, when they chose one */
+  productId?: string;
 };
 
 export type CartItem = {

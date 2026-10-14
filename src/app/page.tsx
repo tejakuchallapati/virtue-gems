@@ -20,7 +20,7 @@ import type { ProductTag } from "@/types";
 export const revalidate = 60;
 
 export const metadata: Metadata = buildPageMetadata({
-  title: `${SITE_NAME} | Premium Handcrafted Jewellery Hyderabad`,
+  title: `${SITE_NAME} | Premium Fashion Jewellery Hyderabad`,
   description: DEFAULT_DESCRIPTION,
   path: "/",
   keywords: [
@@ -67,7 +67,7 @@ export default async function HomePage() {
         <ScrollReveal>
           <SectionHeader
             title="Best Sellers"
-            description="Our most-loved pieces — handcrafted and gift-ready."
+            description="Our most-loved pieces — gift-ready and festive."
             align="center"
             action={
               <Link href="/shop?tag=bestseller" className="text-sm font-medium text-gold hover:underline">
@@ -129,7 +129,10 @@ export default async function HomePage() {
               className="mb-4"
             />
           )}
-          <CustomerReviews reviews={approvedReviews} />
+          <CustomerReviews
+            reviews={approvedReviews}
+            products={products.map(({ id, name, slug }) => ({ id, name, slug }))}
+          />
         </ScrollReveal>
       </PageSection>
 

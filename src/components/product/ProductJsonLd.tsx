@@ -1,16 +1,16 @@
-import type { Product } from "@/types";
+import type { Product, StoreReview } from "@/types";
 import { getSiteUrl } from "@/lib/site";
 import { productRatingSummary } from "@/lib/reviews-shared";
 
-type Props = { product: Product };
+type Props = { product: Product; reviews: StoreReview[] };
 
-export function ProductJsonLd({ product }: Props) {
+export function ProductJsonLd({ product, reviews }: Props) {
   const siteUrl = getSiteUrl();
   const url = `${siteUrl}/product/${product.slug}`;
   const images = product.images.map((img) =>
     img.startsWith("http") ? img : `${siteUrl}${img}`,
   );
-  const ratingSummary = productRatingSummary(product.reviews);
+  const ratingSummary = productRatingSummary(reviews);
 
   const schema = {
     "@context": "https://schema.org",
@@ -78,15 +78,15 @@ export function ProductJsonLd({ product }: Props) {
           }
         : undefined,
     review:
-      product.reviews.length > 0
-        ? product.reviews.map((review) => ({
+      reviews.length > 0
+        ? reviews.map((review) => ({
             "@type": "Review",
             "@id": `${url}#review-${review.id}`,
             author: {
               "@type": "Person",
-              name: review.author,
+              name: review.authorName,
             },
-            datePublished: review.date,
+            datePublished: review.createdAt.slice(0, 10),
             reviewBody: review.comment,
             reviewRating: {
               "@type": "Rating",

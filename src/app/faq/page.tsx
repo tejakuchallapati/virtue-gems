@@ -10,11 +10,12 @@ import { DARK_PANEL, PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL } from "@/lib/ui-cl
 import { buildPageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { whatsAppContactUrl } from "@/lib/whatsapp";
+import { SUPPORT_HOURS_SHORT, SUPPORT_RESPONSE } from "@/lib/policies";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "FAQ — Orders, Delivery & Returns",
   description:
-    "Answers about Virtue Gems WhatsApp orders, AP & Telangana delivery, and unboxing video returns.",
+    "Answers about Virtue Gems WhatsApp orders, payment, AP & Telangana delivery, damaged-product returns, cancellations, refunds and jewellery care.",
   path: "/faq",
   keywords: ["Virtue Gems FAQ", "jewellery delivery Hyderabad", "jewellery return policy"],
 });
@@ -57,8 +58,8 @@ export default function FaqPage() {
           Frequently Asked Questions
         </h1>
         <p className="mt-2 text-sm text-dark/60 sm:text-base">
-          Quick answers about orders, delivery across AP & Telangana, and
-          returns. Still need help?{" "}
+          Quick answers about orders, delivery across AP & Telangana, returns and
+          jewellery care. Still need help?{" "}
           <Link href="/contact" className="font-medium text-gold-dark underline">
             Contact us
           </Link>
@@ -72,7 +73,7 @@ export default function FaqPage() {
         <div className={`mt-10 p-6 text-center text-light sm:p-8 ${DARK_PANEL}`}>
           <p className="text-lg font-semibold">Didn&apos;t find your answer?</p>
           <p className="mt-2 text-sm text-light/65">
-            Our team replies on WhatsApp within 2–4 hours.
+            {SUPPORT_RESPONSE} ({SUPPORT_HOURS_SHORT})
           </p>
           <a
             href={whatsAppContactUrl}

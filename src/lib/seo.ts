@@ -7,21 +7,21 @@ export const INSTAGRAM_HANDLE = "virtue_gems";
 export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;
 
 export const SITE_TAGLINE =
-  "Premium handcrafted jewellery for Hyderabad, Andhra Pradesh & Telangana";
+  "Premium fashion jewellery for Hyderabad, Andhra Pradesh & Telangana";
 
 export const DEFAULT_DESCRIPTION =
-  "Shop premium handcrafted gold-plated jewellery at Virtue Gems — necklaces, earrings & bracelets with easy ordering and delivery across AP & Telangana.";
+  "Shop premium fashion jewellery at Virtue Gems — necklaces, earrings & bracelets with easy WhatsApp ordering and delivery across AP & Telangana.";
 
 /** Local + category keywords that help Google understand the store. */
 export const DEFAULT_KEYWORDS = [
   "Virtue Gems",
   "jewellery online India",
-  "handcrafted jewellery Hyderabad",
-  "gold plated jewellery",
+  "fashion jewellery Hyderabad",
+  "imitation jewellery online",
   "artificial jewellery AP Telangana",
   "necklaces",
   "necklace set online",
-  "gold plated necklaces Hyderabad",
+  "necklaces online Hyderabad",
   "earrings",
   "ear rings",
   "jhumkas online",

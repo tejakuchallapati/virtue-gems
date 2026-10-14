@@ -8,7 +8,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Virtue Gems",
     short_name: "Virtue Gems",
     description:
-      "Premium handcrafted jewellery with WhatsApp checkout and delivery across AP & Telangana.",
+      "Premium fashion jewellery with WhatsApp checkout and delivery across AP & Telangana.",
     start_url: "/",
     display: "standalone",
     background_color: "#1a0a2e",

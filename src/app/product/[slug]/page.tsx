@@ -7,6 +7,7 @@ import {
   getAllProductsSafe,
   getProductBySlugSafe,
 } from "@/lib/products-server";
+import { listApprovedReviews } from "@/lib/reviews";
 import { notFound } from "next/navigation";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -61,7 +62,11 @@ export default async function ProductPage({ params }: Props) {
   const product = await getProductBySlugSafe(slug);
   if (!product) notFound();
 
-  const similar = (await getAllProductsSafe())
+  const [allProducts, reviews] = await Promise.all([
+    getAllProductsSafe(),
+    listApprovedReviews(30, product.id),
+  ]);
+  const similar = allProducts
     .filter(
       (candidate) =>
         candidate.category === product.category &&
@@ -70,7 +75,7 @@ export default async function ProductPage({ params }: Props) {
     .slice(0, 4);
   return (
     <>
-      <ProductJsonLd product={product} />
+      <ProductJsonLd product={product} reviews={reviews} />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "/" },
@@ -78,7 +83,7 @@ export default async function ProductPage({ params }: Props) {
           { name: product.name },
         ]}
       />
-      <ProductDetailClient product={product} similar={similar} />
+      <ProductDetailClient product={product} similar={similar} reviews={reviews} />
     </>
   );
 }

@@ -75,7 +75,7 @@ export function TrendingHighlight({ picks }: { picks: Product[] }) {
       <div className={PAGE_CONTAINER}>
         <ScrollReveal className="text-center">
           <p className="text-xs tracking-[0.14em] text-gold-dark uppercase sm:text-sm sm:tracking-[0.2em]">
-            Limited Stock
+            Popular Picks
           </p>
           <h2 className="mt-1.5 text-xl font-semibold text-dark sm:text-2xl">
             Trending Now
@@ -88,9 +88,9 @@ export function TrendingHighlight({ picks }: { picks: Product[] }) {
               <Gift className="h-4 w-4" />
             </div>
             <p className="text-left text-xs leading-relaxed text-dark/75 sm:text-sm">
-              <span className="font-medium text-gold-dark">Items are very limited</span> — book
-              your order soon and get a special discount, beautifully{" "}
-              <span className="font-medium text-dark">letter-packed</span> for gifting.
+              Every order is carefully packed and{" "}
+              <span className="font-medium text-gold-dark">gift-ready</span> — perfect for
+              festivals, weddings and special moments.
             </p>
           </div>
         </ScrollReveal>

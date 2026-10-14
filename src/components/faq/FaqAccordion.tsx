@@ -5,13 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { FAQ_CATEGORIES, FAQ_ITEMS, type FaqItem } from "@/data/faq";
 import { CARD_SURFACE } from "@/lib/ui-classes";
 
-const categoryOrder: FaqItem["category"][] = [
-  "orders",
-  "delivery",
-  "products",
-  "rewards",
-  "returns",
-];
+const categoryOrder: FaqItem["category"][] = ["orders", "delivery", "products", "returns"];
 
 export function FaqAccordion() {
   const [openId, setOpenId] = useState<string | null>(FAQ_ITEMS[0]?.id ?? null);

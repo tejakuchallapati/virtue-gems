@@ -12,9 +12,11 @@ type ReviewRow = {
   photos: string[] | null;
   status: StoreReviewStatus;
   created_at: string;
+  product_id?: string | null;
 };
 
-const COLUMNS = "id,author_name,city,rating,comment,photos,status,created_at";
+const BASE_COLUMNS = "id,author_name,city,rating,comment,photos,status,created_at";
+const COLUMNS = `${BASE_COLUMNS},product_id`;
 
 function mapReview(row: ReviewRow): StoreReview {
   return {
@@ -26,6 +28,7 @@ function mapReview(row: ReviewRow): StoreReview {
     photos: row.photos ?? [],
     status: row.status,
     createdAt: row.created_at,
+    productId: row.product_id ?? undefined,
   };
 }
 
@@ -34,24 +37,53 @@ function isMissingTable(error: { code?: string } | null) {
   return error?.code === "42P01" || error?.code === "PGRST205";
 }
 
+/** product_id column not added yet (migration 003 not run). */
+function isMissingProductColumn(error: { code?: string } | null) {
+  return error?.code === "42703" || error?.code === "PGRST204";
+}
+
+type QueryResult = { data: unknown; error: { code?: string } | null };
+
+/** Run with product_id; if migration 003 is missing, retry with the original columns. */
+async function withProductColumn(run: (columns: string) => PromiseLike<QueryResult>) {
+  const first = await run(COLUMNS);
+  if (!isMissingProductColumn(first.error)) return first;
+  return run(BASE_COLUMNS);
+}
+
 async function client() {
   const { createSupabaseAdminClient } = await import("@/lib/supabase/admin");
   return createSupabaseAdminClient();
 }
 
-/** Approved reviews for the storefront. Never throws — the section falls back to showcase reviews. */
-export async function listApprovedReviews(limit = 12): Promise<StoreReview[]> {
+/** Approved reviews, optionally for one product. Never throws — callers just show fewer reviews. */
+export async function listApprovedReviews(
+  limit = 12,
+  productId?: string,
+): Promise<StoreReview[]> {
   if (!isSupabaseAdminConfigured()) return [];
   try {
     const supabase = await client();
-    const { data, error } = await supabase
-      .from("store_reviews")
-      .select(COLUMNS)
-      .eq("status", "approved")
-      .order("created_at", { ascending: false })
-      .limit(limit);
+    const { data, error } = productId
+      ? await supabase
+          .from("store_reviews")
+          .select(COLUMNS)
+          .eq("status", "approved")
+          .eq("product_id", productId)
+          .order("created_at", { ascending: false })
+          .limit(limit)
+      : await withProductColumn((columns) =>
+          supabase
+            .from("store_reviews")
+            .select(columns)
+            .eq("status", "approved")
+            .order("created_at", { ascending: false })
+            .limit(limit),
+        );
     if (error) {
-      if (!isMissingTable(error)) console.error("Approved reviews error:", error);
+      if (!isMissingTable(error) && !isMissingProductColumn(error)) {
+        console.error("Approved reviews error:", error);
+      }
       return [];
     }
     return (data as ReviewRow[]).map(mapReview);
@@ -87,11 +119,13 @@ export async function listReviewsForAdmin(): Promise<{
 }> {
   if (!isSupabaseAdminConfigured()) return { reviews: [], setupRequired: true };
   const supabase = await client();
-  const { data, error } = await supabase
-    .from("store_reviews")
-    .select(COLUMNS)
-    .order("created_at", { ascending: false })
-    .limit(500);
+  const { data, error } = await withProductColumn((columns) =>
+    supabase
+      .from("store_reviews")
+      .select(columns)
+      .order("created_at", { ascending: false })
+      .limit(500),
+  );
   if (error) {
     if (isMissingTable(error)) return { reviews: [], setupRequired: true };
     throw error;
@@ -105,16 +139,23 @@ export async function createPendingReview(input: {
   rating: number;
   comment: string;
   photos: string[];
+  productId?: string;
 }): Promise<void> {
   const supabase = await client();
-  const { error } = await supabase.from("store_reviews").insert({
+  const row: Record<string, unknown> = {
     author_name: input.authorName,
     city: input.city ?? null,
     rating: input.rating,
     comment: input.comment,
     photos: input.photos,
     status: "pending",
-  });
+  };
+  let { error } = await supabase
+    .from("store_reviews")
+    .insert(input.productId ? { ...row, product_id: input.productId } : row);
+  if (input.productId && isMissingProductColumn(error)) {
+    ({ error } = await supabase.from("store_reviews").insert(row));
+  }
   if (error) throw error;
 }
 

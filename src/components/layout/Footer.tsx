@@ -27,6 +27,8 @@ const legal = [
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms & Conditions" },
   { href: "/refunds", label: "Refund & Return" },
+  { href: "/shipping", label: "Shipping & Delivery" },
+  { href: "/contact#grievances", label: "Customer Support & Grievances" },
 ];
 
 function InstagramIcon({ className }: { className?: string }) {
@@ -62,8 +64,7 @@ export function Footer() {
                 </span>
               </Link>
               <p className="mt-3 max-w-xs text-sm leading-relaxed tracking-wide text-light/55">
-                Premium handcrafted jewellery. Timeless elegance for every
-                occasion.
+                Premium fashion jewellery. Wear your virtue. Shine with grace.
               </p>
               <div className="mt-5 flex items-center gap-3">
                 <a
@@ -160,6 +161,10 @@ export function Footer() {
               <span className="hidden h-3 w-px bg-gold/20 sm:block" aria-hidden />
               <Link href="/refunds" className="transition hover:text-gold">
                 Refund Policy
+              </Link>
+              <span className="hidden h-3 w-px bg-gold/20 sm:block" aria-hidden />
+              <Link href="/shipping" className="transition hover:text-gold">
+                Shipping Policy
               </Link>
               <span className="hidden h-3 w-px bg-gold/20 sm:block" aria-hidden />
               <Link href="/contact" className="transition hover:text-gold">

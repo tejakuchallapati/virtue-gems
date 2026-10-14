@@ -18,6 +18,7 @@ export async function PATCH(request: Request) {
   try {
     await setReviewStatus(id, status);
     revalidatePath("/");
+    revalidatePath("/product/[slug]", "page");
     return apiOk({ id, status });
   } catch (error) {
     console.error("Review status error:", error);
@@ -33,6 +34,7 @@ export async function DELETE(request: Request) {
   try {
     await deleteReview(id);
     revalidatePath("/");
+    revalidatePath("/product/[slug]", "page");
     return apiOk({ id });
   } catch (error) {
     console.error("Review delete error:", error);

@@ -16,9 +16,11 @@ const TABS: { value: StoreReviewStatus; label: string }[] = [
 export function AdminReviews({
   initialReviews,
   setupRequired,
+  productNames,
 }: {
   initialReviews: StoreReview[];
   setupRequired: boolean;
+  productNames: Record<string, string>;
 }) {
   const [reviews, setReviews] = useState(initialReviews);
   const [tab, setTab] = useState<StoreReviewStatus>("pending");
@@ -62,7 +64,8 @@ export function AdminReviews({
     <div>
       <h1 className="text-2xl font-semibold text-light">Customer Reviews</h1>
       <p className="mt-1 text-sm text-light/50">
-        Reviews submitted on the website. Approved reviews appear on the home page.
+        Reviews submitted on the website. Approved reviews appear on the home page, and on the
+        product&apos;s page when the customer picked the piece they bought.
       </p>
 
       {setupRequired && (
@@ -111,7 +114,15 @@ export function AdminReviews({
                   {review.authorName}
                   {review.city && <span className="font-normal text-light/45"> · {review.city}</span>}
                 </p>
-                <p className="mt-0.5 text-xs text-light/40">{formatDate(review.createdAt)}</p>
+                <p className="mt-0.5 text-xs text-light/40">
+                  {formatDate(review.createdAt)}
+                  {review.productId && (
+                    <span className="text-gold/80">
+                      {" "}
+                      · {productNames[review.productId] ?? "Product no longer listed"}
+                    </span>
+                  )}
+                </p>
               </div>
               <div className="flex gap-0.5" aria-label={`${review.rating} out of 5 stars`}>
                 {Array.from({ length: 5 }).map((_, i) => (

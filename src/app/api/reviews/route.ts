@@ -3,6 +3,7 @@ import { apiFail, apiOk, checkRateLimit, clientIp } from "@/lib/api-server";
 import { createPendingReview, removeReviewPhotos, uploadReviewPhoto } from "@/lib/reviews";
 import { REVIEW_LIMITS } from "@/lib/reviews-shared";
 import { isSupabaseAdminConfigured } from "@/lib/supabase/config";
+import { getProductByIdSafe } from "@/lib/products-server";
 
 export const runtime = "nodejs";
 
@@ -42,6 +43,11 @@ export async function POST(request: Request) {
   const city = text(form, "city");
   const comment = text(form, "comment");
   const rating = Number(text(form, "rating"));
+  const productIdInput = text(form, "productId");
+  const product =
+    productIdInput && productIdInput.length <= 80
+      ? await getProductByIdSafe(productIdInput).catch(() => undefined)
+      : undefined;
 
   if (!authorName || authorName.length > REVIEW_LIMITS.nameMax) {
     return apiFail("Please enter your name.", 400);
@@ -87,6 +93,7 @@ export async function POST(request: Request) {
       rating,
       comment,
       photos,
+      productId: product?.id,
     });
   } catch (error) {
     console.error("Review submit error:", error);
