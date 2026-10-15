@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getCurrentAdmin } from "@/lib/admin-auth";
+import { adminActorId, getCurrentAdmin } from "@/lib/admin-auth";
 import { getOrdersSafe, updateOrderStatusSafe } from "@/lib/orders";
 import { isValidOrderStatus } from "@/lib/order-status";
 import type { OrderStatus } from "@/types";
@@ -39,7 +39,7 @@ export async function PATCH(request: Request) {
     const order = await updateOrderStatusSafe(
       id,
       status as OrderStatus,
-      admin.id === "legacy-owner" ? undefined : admin.id,
+      adminActorId(admin),
     );
     if (!order) return apiFail("Order not found.", 404);
     return apiOk({ order });

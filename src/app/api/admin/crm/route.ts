@@ -1,4 +1,4 @@
-import { getCurrentAdmin } from "@/lib/admin-auth";
+import { adminActorId, getCurrentAdmin } from "@/lib/admin-auth";
 import { apiFail, apiOk, parseJsonBody } from "@/lib/api-server";
 import { isSupabaseAdminConfigured } from "@/lib/supabase/config";
 import {
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
       if (!customerId || !note || note.length > 2000) {
         return apiFail("Customer and note are required.", 400);
       }
-      const created = await addCustomerNote(customerId, note, admin.id);
+      const created = await addCustomerNote(customerId, note, adminActorId(admin));
       return apiOk({ note: created }, 201);
     }
 
@@ -87,7 +87,7 @@ export async function POST(request: Request) {
             ? parsed.data.details.trim()
             : undefined,
         dueAt,
-        userId: admin.id,
+        userId: adminActorId(admin),
       });
       return apiOk({ reminder }, 201);
     }
