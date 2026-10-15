@@ -15,6 +15,24 @@ export async function isAdminAuthenticated(): Promise<boolean> {
   return Boolean(await getCurrentAdmin());
 }
 
+function directAccessOwner(): AdminProfile {
+  return {
+    id: "direct-owner",
+    email: process.env.ADMIN_EMAIL ?? "virtuegems777@gmail.com",
+    displayName: "Owner",
+    role: "owner",
+    active: true,
+  };
+}
+
+/** Signed cookie set by /admin/go/[key] — works even when Supabase Auth is enabled. */
+async function getDirectAccessAdmin(): Promise<AdminProfile | null> {
+  const cookieStore = await cookies();
+  const session = cookieStore.get(SESSION_COOKIE);
+  if (!verifySessionToken(session?.value)) return null;
+  return directAccessOwner();
+}
+
 export async function getCurrentAdmin(): Promise<AdminProfile | null> {
   if (isSupabaseConfigured()) {
     try {
@@ -25,36 +43,30 @@ export async function getCurrentAdmin(): Promise<AdminProfile | null> {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (!user) return null;
-      const { data, error } = await supabase
-        .from("admin_profiles")
-        .select("id,email,display_name,role,active")
-        .eq("id", user.id)
-        .eq("active", true)
-        .maybeSingle();
-      if (error || !data) return null;
-      return {
-        id: data.id,
-        email: data.email,
-        displayName: data.display_name ?? undefined,
-        role: data.role,
-        active: data.active,
-      };
+      if (user) {
+        const { data, error } = await supabase
+          .from("admin_profiles")
+          .select("id,email,display_name,role,active")
+          .eq("id", user.id)
+          .eq("active", true)
+          .maybeSingle();
+        if (!error && data) {
+          return {
+            id: data.id,
+            email: data.email,
+            displayName: data.display_name ?? undefined,
+            role: data.role,
+            active: data.active,
+          };
+        }
+      }
     } catch {
-      return null;
+      /* fall through to direct-access cookie */
     }
+    return getDirectAccessAdmin();
   }
 
-  const cookieStore = await cookies();
-  const session = cookieStore.get(SESSION_COOKIE);
-  if (!verifySessionToken(session?.value)) return null;
-  return {
-    id: "legacy-owner",
-    email: process.env.ADMIN_EMAIL ?? "virtuegems777@gmail.com",
-    displayName: "Owner",
-    role: "owner",
-    active: true,
-  };
+  return getDirectAccessAdmin();
 }
 
 /** Catalog Admin / Owner — product CRUD, bulk upload, inventory. */
@@ -65,6 +77,13 @@ export function canManageCatalog(admin: AdminProfile | null | undefined) {
 /** Manager (staff) — orders & customers; no catalog edits. */
 export function isManagerRole(admin: AdminProfile | null | undefined) {
   return admin?.role === "staff";
+}
+
+/** UUID for Supabase actor columns, or undefined for cookie/direct sessions. */
+export function adminActorId(admin: AdminProfile | null | undefined): string | undefined {
+  if (!admin?.id) return undefined;
+  if (admin.id === "legacy-owner" || admin.id === "direct-owner") return undefined;
+  return admin.id;
 }
 
 export async function requireAdmin(): Promise<AdminProfile | null> {
