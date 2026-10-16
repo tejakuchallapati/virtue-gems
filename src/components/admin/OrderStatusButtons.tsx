@@ -91,6 +91,15 @@ export function OrderStatusButtons({
     setPendingStatus(next);
     onStatusChange?.(orderId, next);
     setUpdating(null);
+
+    if (next === "confirmed") {
+      const message = buildPaymentReplyMessage(customerName, orderId, total);
+      window.open(
+        getCustomerWhatsAppUrl(customerPhone, message),
+        "_blank",
+        "noopener,noreferrer",
+      );
+    }
   }
 
   async function copyPaymentReply() {
