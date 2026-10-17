@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   Gift,
   Search,
@@ -104,6 +105,68 @@ function CategoryFilters({
   );
 }
 
+function CollectionAndPriceFilters({
+  tag,
+  priceIdx,
+  onTag,
+  onPrice,
+}: {
+  tag: string;
+  priceIdx: number;
+  onTag: (value: string) => void;
+  onPrice: (index: number) => void;
+}) {
+  return (
+    <>
+      <div className={`${CARD_SURFACE} p-5 lg:shadow-sm`}>
+        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark/50">
+          Collection
+        </h3>
+        <div className="flex flex-col gap-1">
+          {tags.map((t) => (
+            <button
+              key={t.value}
+              type="button"
+              onClick={() => onTag(t.value)}
+              aria-pressed={tag === t.value}
+              className={`min-h-11 rounded-xl px-3 py-2 text-left text-sm transition ${
+                tag === t.value
+                  ? "bg-gold/15 font-medium text-gold-dark"
+                  : "text-dark/70 hover:bg-light"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className={`${CARD_SURFACE} p-5 lg:shadow-sm`}>
+        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark/50">
+          Price
+        </h3>
+        <div className="flex flex-col gap-1">
+          {priceRanges.map((r, i) => (
+            <button
+              key={r.label}
+              type="button"
+              onClick={() => onPrice(i)}
+              aria-pressed={priceIdx === i}
+              className={`min-h-11 rounded-xl px-3 py-2 text-left text-sm transition ${
+                priceIdx === i
+                  ? "bg-gold/15 font-medium text-gold-dark"
+                  : "text-dark/70 hover:bg-light"
+              }`}
+            >
+              {r.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
 export function ShopClient({ products }: { products: Product[] }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -112,6 +175,7 @@ export function ShopClient({ products }: { products: Product[] }) {
   const [priceIdx, setPriceIdx] = useState(0);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const closeFilterRef = useRef<HTMLButtonElement>(null);
+  const reduceMotion = useReducedMotion();
 
   useBodyScrollLock(filtersOpen);
 
@@ -305,104 +369,79 @@ export function ShopClient({ products }: { products: Product[] }) {
         )}
 
         <div className="flex gap-8">
-          {/* Sidebar */}
+          {/* Desktop sidebar */}
           <aside
             id="shop-filters"
-            role={filtersOpen ? "dialog" : undefined}
-            aria-modal={filtersOpen ? true : undefined}
-            aria-label={filtersOpen ? "Shop filters" : undefined}
-            className={`${
-              filtersOpen
-                ? "safe-top safe-bottom fixed inset-0 z-[70] flex flex-col overflow-hidden bg-white p-4 pt-14 pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
-                : "hidden"
-            } w-full lg:static lg:block lg:w-60 lg:shrink-0 lg:overflow-visible lg:bg-transparent lg:p-0`}
+            className="hidden w-60 shrink-0 lg:block"
+            aria-label="Shop filters"
           >
-            {filtersOpen && (
-              <button
-                ref={closeFilterRef}
-                type="button"
-                onClick={() => setFiltersOpen(false)}
-                className="absolute right-3 top-[calc(0.75rem+env(safe-area-inset-top))] z-10 flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark lg:hidden"
-                aria-label="Close filters"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            )}
-
-            <div className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain lg:sticky lg:top-24 lg:flex-none lg:overflow-visible">
-              {/* Mobile: category in filters panel when hero is scrolled away */}
-              <div className={`${CARD_SURFACE} p-5 lg:hidden`}>
-                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark/50">
-                  Category
-                </h3>
-                <CategoryFilters
-                  category={category}
-                  categories={categories}
-                  variant="panel"
-                  onSelect={(value) => {
-                    updateQuery("category", value);
-                    setFiltersOpen(false);
-                  }}
-                />
-              </div>
-
-              <div className={`${CARD_SURFACE} p-5 lg:shadow-sm`}>
-                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark/50">
-                  Collection
-                </h3>
-                <div className="flex flex-col gap-1">
-                  {tags.map((t) => (
-                    <button
-                      key={t.value}
-                      type="button"
-                      onClick={() => updateQuery("tag", t.value)}
-                      aria-pressed={tag === t.value}
-                      className={`min-h-11 rounded-xl px-3 py-2 text-left text-sm transition ${
-                        tag === t.value
-                          ? "bg-gold/15 font-medium text-gold-dark"
-                          : "text-dark/70 hover:bg-light"
-                      }`}
-                    >
-                      {t.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className={`${CARD_SURFACE} p-5 lg:shadow-sm`}>
-                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark/50">
-                  Price
-                </h3>
-                <div className="flex flex-col gap-1">
-                  {priceRanges.map((r, i) => (
-                    <button
-                      key={r.label}
-                      type="button"
-                      onClick={() => setPriceIdx(i)}
-                      aria-pressed={priceIdx === i}
-                      className={`min-h-11 rounded-xl px-3 py-2 text-left text-sm transition ${
-                        priceIdx === i
-                          ? "bg-gold/15 font-medium text-gold-dark"
-                          : "text-dark/70 hover:bg-light"
-                      }`}
-                    >
-                      {r.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
+            <div className="sticky top-24 space-y-5">
+              <CollectionAndPriceFilters
+                tag={tag}
+                priceIdx={priceIdx}
+                onTag={(value) => updateQuery("tag", value)}
+                onPrice={setPriceIdx}
+              />
             </div>
-
-            {filtersOpen && (
-              <button
-                type="button"
-                onClick={() => setFiltersOpen(false)}
-                className="mt-4 w-full shrink-0 rounded-xl bg-gold py-3.5 text-sm font-semibold text-dark lg:hidden"
-              >
-                Show {filtered.length} results
-              </button>
-            )}
           </aside>
+
+          {/* Mobile filter sheet */}
+          <AnimatePresence>
+            {filtersOpen && (
+              <motion.div
+                className="safe-top safe-bottom fixed inset-0 z-[70] flex flex-col bg-white p-4 pt-14 pb-[calc(1.5rem+env(safe-area-inset-bottom))] lg:hidden"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Shop filters"
+                initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduceMotion ? undefined : { opacity: 0, y: 16 }}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <button
+                  ref={closeFilterRef}
+                  type="button"
+                  onClick={() => setFiltersOpen(false)}
+                  className="absolute right-3 top-[calc(0.75rem+env(safe-area-inset-top))] z-10 flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark transition active:scale-95"
+                  aria-label="Close filters"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+
+                <div className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain">
+                  <div className={`${CARD_SURFACE} p-5`}>
+                    <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-dark/50">
+                      Category
+                    </h3>
+                    <CategoryFilters
+                      category={category}
+                      categories={categories}
+                      variant="panel"
+                      onSelect={(value) => {
+                        updateQuery("category", value);
+                        setFiltersOpen(false);
+                      }}
+                    />
+                  </div>
+
+                  <CollectionAndPriceFilters
+                    tag={tag}
+                    priceIdx={priceIdx}
+                    onTag={(value) => updateQuery("tag", value)}
+                    onPrice={setPriceIdx}
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setFiltersOpen(false)}
+                  className="mt-4 w-full shrink-0 rounded-xl bg-gold py-3.5 text-sm font-semibold text-dark transition active:scale-[0.98]"
+                >
+                  Show {filtered.length} results
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Product grid */}
           <div className="min-w-0 flex-1">
