@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LayoutGroup, motion, useReducedMotion } from "framer-motion";
 import {
   Home,
   ShoppingCart,
@@ -34,6 +35,7 @@ function isActivePath(pathname: string, href: string) {
 
 export function MobileBottomNav() {
   const pathname = usePathname();
+  const reduceMotion = useReducedMotion();
   const { cartCount, wishlistCount, hydrated } = useStore();
 
   if (pathname.startsWith("/admin")) return null;
@@ -47,6 +49,7 @@ export function MobileBottomNav() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
 
       <div className="border-t border-gold/20 bg-[#0f172a]/96 shadow-[0_-8px_32px_rgba(0,0,0,0.25)] backdrop-blur-md">
+        <LayoutGroup id="mobile-bottom-nav">
         <div className="flex w-full min-w-0 items-stretch justify-between gap-0.5 px-1.5 py-1">
           {items.map((item) => {
             const Icon = item.icon;
@@ -59,24 +62,38 @@ export function MobileBottomNav() {
                   : 0;
 
             const className = cn(
-              "relative flex min-h-12 min-w-0 flex-1 flex-col items-center justify-center gap-0.5 px-0.5 py-1.5 active:scale-95",
+              "relative flex min-h-12 min-w-0 flex-1 flex-col items-center justify-center gap-0.5 px-0.5 py-1.5 transition-colors duration-300 active:scale-95",
               active ? "text-gold" : item.external ? "text-[#25D366]" : "text-light/75",
             );
 
             const inner = (
               <>
-                {active && (
-                  <span
-                    className="absolute inset-x-1 inset-y-0.5 rounded-xl bg-gold/15"
-                    aria-hidden
-                  />
-                )}
+                {active &&
+                  (reduceMotion ? (
+                    <span
+                      className="absolute inset-x-1 inset-y-0.5 rounded-xl bg-gold/15"
+                      aria-hidden
+                    />
+                  ) : (
+                    <motion.span
+                      layoutId="mobile-nav-pill"
+                      className="absolute inset-x-1 inset-y-0.5 rounded-xl bg-gold/15"
+                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                      aria-hidden
+                    />
+                  ))}
                 <span className="relative">
                   <Icon className="h-5 w-5" />
                   {hydrated && badge > 0 && (
-                    <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark">
+                    <motion.span
+                      key={badge}
+                      initial={reduceMotion ? false : { scale: 0.6, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ type: "spring", stiffness: 420, damping: 22 }}
+                      className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-0.5 text-[9px] font-bold text-dark"
+                    >
                       {badge}
-                    </span>
+                    </motion.span>
                   )}
                 </span>
                 <span className="relative max-w-full truncate text-[9px] font-medium leading-none">
@@ -112,6 +129,7 @@ export function MobileBottomNav() {
             );
           })}
         </div>
+        </LayoutGroup>
       </div>
     </nav>
   );

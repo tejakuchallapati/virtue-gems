@@ -59,7 +59,7 @@ export function ProductCard({ product }: { product: Product }) {
             onLoad={() => setImageLoaded(true)}
             className={cn(
               PRODUCT_IMAGE_FIT,
-              "group-hover:scale-[1.03]",
+              "transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]",
               imageLoaded ? "opacity-100" : "opacity-0",
             )}
           />
@@ -84,13 +84,18 @@ export function ProductCard({ product }: { product: Product }) {
             wished ? removeFromWishlist(product.id) : addToWishlist(product)
           }
           className={cn(
-            "absolute right-1.5 top-1.5 flex h-9 w-9 items-center justify-center rounded-full backdrop-blur-sm transition sm:right-2 sm:top-2 sm:h-10 sm:w-10",
+            "absolute right-1.5 top-1.5 flex h-9 w-9 items-center justify-center rounded-full backdrop-blur-sm transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-90 sm:right-2 sm:top-2 sm:h-10 sm:w-10",
             wished
               ? "bg-gold/90 text-dark"
               : "bg-white/90 text-dark/60 hover:bg-gold/15 hover:text-gold-dark",
           )}
         >
-          <Heart className={cn("h-3.5 w-3.5 sm:h-4 sm:w-4", wished && "fill-current")} />
+          <Heart
+            className={cn(
+              "h-3.5 w-3.5 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] sm:h-4 sm:w-4",
+              wished && "scale-110 fill-current",
+            )}
+          />
         </button>
       </div>
 
@@ -121,7 +126,7 @@ export function ProductCard({ product }: { product: Product }) {
             disabled={product.stock < 1}
             onClick={handleAddToCart}
             className={cn(
-              "flex h-9 min-w-0 shrink-0 touch-manipulation items-center justify-center gap-1 rounded-full px-2.5 text-[11px] font-semibold transition active:scale-95 sm:h-10 sm:px-3 sm:text-xs md:h-11 md:gap-1.5 md:px-4 md:text-sm disabled:cursor-not-allowed disabled:opacity-50",
+              "flex h-9 min-w-0 shrink-0 touch-manipulation items-center justify-center gap-1 rounded-full px-2.5 text-[11px] font-semibold transition-[background-color,color,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-95 sm:h-10 sm:px-3 sm:text-xs md:h-11 md:gap-1.5 md:px-4 md:text-sm disabled:cursor-not-allowed disabled:opacity-50",
               added
                 ? "bg-green-600 text-white"
                 : "bg-dark text-gold hover:bg-gold hover:text-dark",
