@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/ui/ProductCard";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { WishlistLoadingSkeleton } from "@/components/ui/BagLoadingSkeleton";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL, PRODUCT_GRID } from "@/lib/ui-classes";
 
@@ -13,13 +14,7 @@ export default function WishlistPage() {
   const { wishlist, hydrated } = useStore();
 
   if (!hydrated) {
-    return (
-      <div className={PAGE_GRADIENT_SHELL}>
-        <div className={`${PAGE_CONTENT_SHELL} py-16 text-center text-sm text-dark/50`}>
-          Loading wishlist…
-        </div>
-      </div>
-    );
+    return <WishlistLoadingSkeleton />;
   }
 
   if (wishlist.length === 0) {

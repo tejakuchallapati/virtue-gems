@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { useStore } from "@/context/StoreProvider";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { CartLoadingSkeleton } from "@/components/ui/BagLoadingSkeleton";
 import { SectionDivider } from "@/components/ui/PageSection";
 import { formatPrice, cn } from "@/lib/utils";
 import {
@@ -24,15 +25,10 @@ import { DELIVERY_CHARGES_NOTICE, DELIVERY_SHORT } from "@/lib/delivery";
 
 export default function CartPage() {
   const { cart, cartTotal, updateQuantity, removeFromCart, hydrated } = useStore();
+  const reduceMotion = useReducedMotion();
 
   if (!hydrated) {
-    return (
-      <div className={PAGE_GRADIENT_SHELL}>
-        <div className={`${PAGE_CONTENT_SHELL} py-16 text-center text-sm text-dark/50`}>
-          Loading cart…
-        </div>
-      </div>
-    );
+    return <CartLoadingSkeleton />;
   }
 
   if (cart.length === 0) {
@@ -57,9 +53,20 @@ export default function CartPage() {
 
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-4 lg:col-span-2">
-            {cart.map((item, i) => (
-              <ScrollReveal key={item.product.id} delay={i * 0.05}>
-                <div className={cn("flex min-w-0 flex-row gap-3 p-3.5 min-[380px]:gap-4 min-[380px]:p-4", CARD_SURFACE)}>
+            <AnimatePresence initial={false} mode="popLayout">
+              {cart.map((item) => (
+                <motion.div
+                  key={item.product.id}
+                  layout={!reduceMotion}
+                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduceMotion ? undefined : { opacity: 0, y: -8, height: 0, marginBottom: 0 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                  className={cn(
+                    "flex min-w-0 flex-row gap-3 overflow-hidden p-3.5 min-[380px]:gap-4 min-[380px]:p-4",
+                    CARD_SURFACE,
+                  )}
+                >
                   <Link
                     href={`/product/${item.product.slug}`}
                     className={cn(
@@ -80,7 +87,7 @@ export default function CartPage() {
                     <div className="min-w-0">
                       <Link
                         href={`/product/${item.product.slug}`}
-                        className="line-clamp-2 break-words font-medium text-dark hover:text-gold"
+                        className="line-clamp-2 break-words font-medium text-dark transition-colors hover:text-gold"
                       >
                         {item.product.name}
                       </Link>
@@ -95,12 +102,12 @@ export default function CartPage() {
                           onClick={() =>
                             updateQuantity(item.product.id, item.quantity - 1)
                           }
-                          className="flex h-11 w-11 items-center justify-center"
+                          className="flex h-11 w-11 items-center justify-center transition active:scale-90"
                           aria-label={`Decrease ${item.product.name} quantity`}
                         >
                           <Minus className="h-4 w-4" />
                         </button>
-                        <span className="w-8 text-center text-sm font-medium">
+                        <span className="w-8 text-center text-sm font-medium tabular-nums">
                           {item.quantity}
                         </span>
                         <button
@@ -109,7 +116,7 @@ export default function CartPage() {
                           onClick={() =>
                             updateQuantity(item.product.id, item.quantity + 1)
                           }
-                          className="flex h-11 w-11 items-center justify-center disabled:opacity-40"
+                          className="flex h-11 w-11 items-center justify-center transition active:scale-90 disabled:opacity-40"
                           aria-label={`Increase ${item.product.name} quantity`}
                         >
                           <Plus className="h-4 w-4" />
@@ -118,16 +125,16 @@ export default function CartPage() {
                       <button
                         type="button"
                         onClick={() => removeFromCart(item.product.id)}
-                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-dark/50 hover:bg-red-50 hover:text-red-500"
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-dark/50 transition hover:bg-red-50 hover:text-red-500 active:scale-90"
                         aria-label={`Remove ${item.product.name} from cart`}
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
                   </div>
-                </div>
-              </ScrollReveal>
-            ))}
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
 
           <div className="lg:col-span-1">
