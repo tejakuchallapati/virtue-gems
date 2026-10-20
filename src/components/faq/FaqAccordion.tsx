@@ -62,27 +62,31 @@ export function FaqAccordion() {
                 aria-expanded={isOpen}
                 aria-controls={`faq-panel-${item.id}`}
                 onClick={() => setOpenId(isOpen ? null : item.id)}
-                className="flex min-h-12 w-full items-start justify-between gap-3 px-4 py-4 text-left sm:px-5"
+                className="flex min-h-12 w-full items-start justify-between gap-3 px-4 py-4 text-left transition-colors duration-300 hover:bg-gold/[0.04] sm:px-5"
               >
                 <span className="text-sm font-bold text-dark sm:text-base">
                   {item.question}
                 </span>
                 <ChevronDown
-                  className={`mt-0.5 h-5 w-5 shrink-0 text-gold transition-transform ${
+                  className={`mt-0.5 h-5 w-5 shrink-0 text-gold transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                     isOpen ? "rotate-180" : ""
                   }`}
                 />
               </button>
-              {isOpen && (
-                <div
-                  id={`faq-panel-${item.id}`}
-                  role="region"
-                  aria-labelledby={`faq-${item.id}`}
-                  className="border-t border-light-muted/60 px-4 pb-4 pt-3 sm:px-5"
-                >
-                  <p className="text-sm leading-relaxed text-dark/70">{item.answer}</p>
+              <div
+                id={`faq-panel-${item.id}`}
+                role="region"
+                aria-labelledby={`faq-${item.id}`}
+                aria-hidden={!isOpen}
+                className="grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+              >
+                <div className="overflow-hidden">
+                  <div className="border-t border-light-muted/60 px-4 pb-4 pt-3 sm:px-5">
+                    <p className="text-sm leading-relaxed text-dark/70">{item.answer}</p>
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           );
         })}

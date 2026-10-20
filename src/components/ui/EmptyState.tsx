@@ -20,7 +20,7 @@ export function EmptyState({
 }: EmptyStateProps) {
   return (
     <div className={PAGE_GRADIENT_SHELL}>
-      <div className={EMPTY_STATE_SHELL}>
+      <div className={`${EMPTY_STATE_SHELL} motion-safe:animate-[vg-fade-up_0.5s_cubic-bezier(0.16,1,0.3,1)_both]`}>
         <Icon className="mx-auto h-12 w-12 text-dark/20" />
         <h1 className="mt-4 text-xl font-semibold text-dark">{title}</h1>
         <p className="mt-2 text-sm text-dark/60">{description}</p>
