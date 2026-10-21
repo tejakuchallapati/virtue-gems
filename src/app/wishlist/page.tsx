@@ -1,10 +1,10 @@
 "use client";
 
 import { Heart } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useStore } from "@/context/StoreProvider";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { WishlistLoadingSkeleton } from "@/components/ui/BagLoadingSkeleton";
 import { SectionDivider } from "@/components/ui/PageSection";
@@ -12,6 +12,7 @@ import { PAGE_CONTENT_SHELL, PAGE_GRADIENT_SHELL, PRODUCT_GRID } from "@/lib/ui-
 
 export default function WishlistPage() {
   const { wishlist, hydrated } = useStore();
+  const reduceMotion = useReducedMotion();
 
   if (!hydrated) {
     return <WishlistLoadingSkeleton />;
@@ -38,11 +39,20 @@ export default function WishlistPage() {
       </h1>
       <p className="mb-6 text-sm text-dark/60">{wishlist.length} saved item(s)</p>
       <div className={PRODUCT_GRID}>
-        {wishlist.map((p, i) => (
-          <ScrollReveal key={p.id} delay={i * 0.05}>
-            <ProductCard product={p} />
-          </ScrollReveal>
-        ))}
+        <AnimatePresence initial={false} mode="popLayout">
+          {wishlist.map((p) => (
+            <motion.div
+              key={p.id}
+              layout={!reduceMotion}
+              initial={reduceMotion ? false : { opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={reduceMotion ? undefined : { opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <ProductCard product={p} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
       </div>
       <SectionDivider />

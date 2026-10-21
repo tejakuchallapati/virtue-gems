@@ -230,7 +230,7 @@ export function ProductDetailClient({
               <button
                 type="button"
                 onClick={() => setQty(Math.max(1, qty - 1))}
-                className="flex h-11 w-11 items-center justify-center text-dark/60 hover:text-dark"
+                className="flex h-11 w-11 items-center justify-center text-dark/60 transition active:scale-90 hover:text-dark"
                 aria-label="Decrease quantity"
               >
                 <Minus className="h-4 w-4" />
@@ -240,7 +240,7 @@ export function ProductDetailClient({
                 type="button"
                 onClick={() => setQty(Math.min(product.stock, qty + 1))}
                 disabled={qty >= product.stock}
-                className="flex h-11 w-11 items-center justify-center text-dark/60 hover:text-dark disabled:opacity-40"
+                className="flex h-11 w-11 items-center justify-center text-dark/60 transition active:scale-90 hover:text-dark disabled:opacity-40"
                 aria-label="Increase quantity"
               >
                 <Plus className="h-4 w-4" />
@@ -257,7 +257,7 @@ export function ProductDetailClient({
               type="button"
               disabled={product.stock < 1}
               onClick={handleAddToCart}
-              className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-dark py-3.5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-dark py-3.5 text-sm font-semibold text-gold transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-gold hover:text-dark active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
             >
               <ShoppingCart className="h-4 w-4" />
               {product.stock < 1 ? "Out of Stock" : "Add to Cart"}
@@ -268,7 +268,7 @@ export function ProductDetailClient({
               onClick={() =>
                 wished ? removeFromWishlist(product.id) : addToWishlist(product)
               }
-              className={`flex items-center justify-center gap-2 rounded-xl border py-3.5 px-6 text-sm font-semibold transition ${
+              className={`flex items-center justify-center gap-2 rounded-xl border px-6 py-3.5 text-sm font-semibold transition duration-300 active:scale-95 ${
                 wished
                   ? "border-gold bg-gold/10 text-gold-dark"
                   : "border-light-muted text-dark hover:border-gold"
@@ -280,7 +280,7 @@ export function ProductDetailClient({
               type="button"
               aria-label="Share product"
               onClick={handleShare}
-              className="flex items-center justify-center gap-2 rounded-xl border border-light-muted py-3.5 px-6 text-sm font-semibold text-dark hover:border-gold"
+              className="flex items-center justify-center gap-2 rounded-xl border border-light-muted px-6 py-3.5 text-sm font-semibold text-dark transition duration-300 hover:border-gold active:scale-95"
             >
               <Share2 className="h-4 w-4" />
             </button>
@@ -342,7 +342,7 @@ export function ProductDetailClient({
             type="button"
             disabled={product.stock < 1}
             onClick={handleAddToCart}
-            className="flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl bg-dark px-2.5 text-sm font-semibold text-gold disabled:cursor-not-allowed disabled:opacity-50 sm:gap-2 sm:px-3"
+            className="flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl bg-dark px-2.5 text-sm font-semibold text-gold transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:gap-2 sm:px-3"
           >
             <ShoppingCart className="h-4 w-4 shrink-0" />
             <span className="truncate max-[379px]:hidden">
@@ -358,7 +358,7 @@ export function ProductDetailClient({
             onClick={() =>
               wished ? removeFromWishlist(product.id) : addToWishlist(product)
             }
-            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border ${
+            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition duration-300 active:scale-95 ${
               wished
                 ? "border-gold bg-gold/10 text-gold-dark"
                 : "border-light-muted text-dark"
@@ -370,7 +370,7 @@ export function ProductDetailClient({
             type="button"
             aria-label="Share product"
             onClick={handleShare}
-            className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-light-muted text-dark min-[380px]:flex"
+            className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-light-muted text-dark transition duration-300 active:scale-95 min-[380px]:flex"
           >
             <Share2 className="h-4 w-4" />
           </button>
