@@ -73,7 +73,7 @@ export function DesktopNavbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] lg:px-4 lg:text-xs"
+                className="relative px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] transition-opacity duration-300 hover:opacity-80 lg:px-4 lg:text-xs"
                 style={{ color: active ? "#f0d78c" : GOLD }}
               >
                 {link.label}
@@ -88,7 +88,7 @@ export function DesktopNavbar() {
         <div className="flex shrink-0 items-center gap-2">
           <Link
             href="/cart"
-            className="relative flex h-9 w-9 items-center justify-center"
+            className="relative flex h-9 w-9 items-center justify-center transition-transform duration-300 hover:scale-105 active:scale-95"
             style={{ color: GOLD }}
             aria-label="Cart"
           >
