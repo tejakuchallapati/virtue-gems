@@ -97,7 +97,7 @@ export function Footer() {
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="text-light/60 transition hover:text-gold"
+                      className="text-light/60 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-gold"
                     >
                       {l.label}
                     </Link>
@@ -115,7 +115,7 @@ export function Footer() {
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="text-light/60 transition hover:text-gold"
+                      className="text-light/60 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-gold"
                     >
                       {l.label}
                     </Link>
@@ -133,7 +133,7 @@ export function Footer() {
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="text-light/60 transition hover:text-gold"
+                      className="text-light/60 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-gold"
                     >
                       {l.label}
                     </Link>
@@ -151,23 +151,23 @@ export function Footer() {
               aria-label="Legal"
               className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:gap-x-6"
             >
-              <Link href="/terms" className="transition hover:text-gold">
+              <Link href="/terms" className="transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-gold">
                 Terms &amp; Conditions
               </Link>
               <span className="hidden h-3 w-px bg-gold/20 sm:block" aria-hidden />
-              <Link href="/privacy" className="transition hover:text-gold">
+              <Link href="/privacy" className="transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-gold">
                 Privacy Policy
               </Link>
               <span className="hidden h-3 w-px bg-gold/20 sm:block" aria-hidden />
-              <Link href="/refunds" className="transition hover:text-gold">
+              <Link href="/refunds" className="transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-gold">
                 Refund Policy
               </Link>
               <span className="hidden h-3 w-px bg-gold/20 sm:block" aria-hidden />
-              <Link href="/shipping" className="transition hover:text-gold">
+              <Link href="/shipping" className="transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-gold">
                 Shipping Policy
               </Link>
               <span className="hidden h-3 w-px bg-gold/20 sm:block" aria-hidden />
-              <Link href="/contact" className="transition hover:text-gold">
+              <Link href="/contact" className="transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-gold">
                 Contact Us
               </Link>
             </nav>
