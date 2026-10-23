@@ -20,7 +20,7 @@ export function MobileHeader() {
       <div className="relative flex h-12 w-full items-center justify-start px-3 sm:h-14 sm:px-4">
         <Link
           href="/"
-          className="min-w-0 touch-manipulation transition active:scale-95 active:opacity-85"
+          className="min-w-0 touch-manipulation transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-95 active:opacity-85"
           aria-label="Virtue Gems home"
         >
           <Image
