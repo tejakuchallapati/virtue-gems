@@ -23,7 +23,7 @@ export function Breadcrumb({
         <span key={item.label} className="flex items-center gap-1">
           {i > 0 && <ChevronRight className="h-3.5 w-3.5 shrink-0 opacity-60" />}
           {item.href ? (
-            <Link href={item.href} className="transition hover:text-gold">
+            <Link href={item.href} className="transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-gold">
               {item.label}
             </Link>
           ) : (
