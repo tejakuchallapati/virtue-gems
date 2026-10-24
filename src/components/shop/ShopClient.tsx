@@ -69,7 +69,7 @@ function CategoryFilters({
         type="button"
         onClick={() => onSelect("")}
         aria-pressed={!category}
-        className={`shrink-0 min-h-11 rounded-full px-4 py-2.5 text-sm font-medium transition ${
+        className={`shrink-0 min-h-11 rounded-full px-4 py-2.5 text-sm font-medium transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           !category
             ? isHero
               ? "bg-gold text-dark shadow-[0_0_20px_rgba(212,175,55,0.35)]"
@@ -87,7 +87,7 @@ function CategoryFilters({
           type="button"
           onClick={() => onSelect(c.value)}
           aria-pressed={category === c.value}
-          className={`shrink-0 min-h-11 rounded-full px-4 py-2.5 text-sm font-medium transition ${
+          className={`shrink-0 min-h-11 rounded-full px-4 py-2.5 text-sm font-medium transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             category === c.value
               ? isHero
                 ? "bg-gold text-dark shadow-[0_0_20px_rgba(212,175,55,0.35)]"
