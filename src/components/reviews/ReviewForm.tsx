@@ -351,7 +351,7 @@ export function ReviewForm({
             <button
               type="submit"
               disabled={submitting || processing}
-              className="scroll-clear-mobile-nav flex min-h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-xl bg-dark py-3.5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark active:scale-[0.99] disabled:opacity-60"
+              className="scroll-clear-mobile-nav flex min-h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-xl bg-dark py-3.5 text-sm font-semibold text-gold transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-gold hover:text-dark active:scale-[0.98] disabled:opacity-60"
             >
               {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
               {submitting ? "Sending…" : "Submit review"}
