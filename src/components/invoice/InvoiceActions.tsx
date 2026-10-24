@@ -60,7 +60,7 @@ export function InvoiceActions({ order }: { order: Order }) {
         <button
           type="button"
           onClick={continueOnWhatsApp}
-          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1fb855] sm:w-auto"
+          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#1fb855] active:scale-[0.98] sm:w-auto"
         >
           <MessageCircle className="h-4 w-4" />
           Continue on WhatsApp
@@ -69,7 +69,7 @@ export function InvoiceActions({ order }: { order: Order }) {
           type="button"
           onClick={sendInvoicePhoto}
           disabled={sharingImage}
-          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#1a0a2e] px-5 py-2.5 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark disabled:opacity-60 sm:w-auto"
+          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#1a0a2e] px-5 py-2.5 text-sm font-semibold text-gold transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-gold hover:text-dark active:scale-[0.98] disabled:opacity-60 sm:w-auto"
         >
           <ImageIcon className="h-4 w-4" />
           {sharingImage ? "Preparing photo..." : "Send invoice photo"}
@@ -77,7 +77,7 @@ export function InvoiceActions({ order }: { order: Order }) {
         <button
           type="button"
           onClick={savePdf}
-          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-dark/15 bg-white px-5 py-2.5 text-sm font-medium text-dark transition hover:border-gold hover:text-gold-dark sm:w-auto"
+          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-dark/15 bg-white px-5 py-2.5 text-sm font-medium text-dark transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gold hover:text-gold-dark active:scale-[0.98] sm:w-auto"
         >
           <Download className="h-4 w-4" />
           Save PDF
@@ -85,7 +85,7 @@ export function InvoiceActions({ order }: { order: Order }) {
         <button
           type="button"
           onClick={savePdf}
-          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-dark/15 bg-white px-5 py-2.5 text-sm font-medium text-dark transition hover:border-gold hover:text-gold-dark sm:w-auto"
+          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-dark/15 bg-white px-5 py-2.5 text-sm font-medium text-dark transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gold hover:text-gold-dark active:scale-[0.98] sm:w-auto"
         >
           <Printer className="h-4 w-4" />
           Print
