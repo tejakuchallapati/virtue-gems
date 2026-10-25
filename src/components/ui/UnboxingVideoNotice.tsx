@@ -27,7 +27,7 @@ export function UnboxingVideoNotice({ className, compact = false }: UnboxingVide
       <Link
         href="/refunds"
         className={cn(
-          "inline-block font-medium text-gold-dark underline",
+          "inline-block font-medium text-gold-dark underline transition-colors duration-300 hover:text-gold",
           compact ? "mt-1 text-[11px]" : "mt-2 text-xs",
         )}
       >
