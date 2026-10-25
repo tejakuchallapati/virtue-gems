@@ -305,7 +305,7 @@ export default function AboutPage() {
                 <div
                   className={cn(
                     CARD_SURFACE,
-                    "h-full p-4 transition hover:-translate-y-0.5 hover:shadow-md hover:ring-gold/30 sm:p-6",
+                    "h-full p-4 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-md hover:ring-gold/30 sm:p-6",
                   )}
                 >
                   <IconBadge icon={v.icon} />
