@@ -383,7 +383,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-dark px-6 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark disabled:opacity-60 sm:w-auto"
+                  className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-dark px-6 text-sm font-semibold text-gold transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-gold hover:text-dark active:scale-[0.98] disabled:opacity-60 sm:w-auto"
                 >
                   {status === "loading" ? "Sending..." : "Send Message"}
                 </button>
