@@ -108,7 +108,7 @@ export function LandingNavbar() {
       <header className="safe-top fixed inset-x-0 top-0 z-[90] hidden w-full px-4 pt-3 md:block lg:px-6">
         <div
           className={cn(
-            "mx-auto flex items-center gap-2 px-4 transition-[max-width,height,background-color,border-color,box-shadow,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+            "mx-auto flex min-w-0 items-center gap-1.5 px-3 transition-[max-width,height,background-color,border-color,box-shadow,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:gap-2 lg:px-4",
             scrolled
               ? "h-12 max-w-3xl rounded-2xl border border-[#d4af37]/35 bg-[#1a0a2e] shadow-lg"
               : "h-14 max-w-6xl bg-transparent lg:h-16 lg:px-6",
@@ -118,19 +118,19 @@ export function LandingNavbar() {
             <NavBrand showLogo={pastHero} size="desktop" />
           </Link>
 
-          <nav className="flex flex-1 items-center justify-center gap-1">
+          <nav className="flex min-w-0 flex-1 items-center justify-center gap-0.5 lg:gap-1">
             {desktopLinks.map((link) => {
               const active = isActivePath(pathname, link.href);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] transition-opacity duration-300 hover:opacity-80 lg:px-4 lg:text-xs"
+                  className="relative px-2 py-2 text-[11px] font-semibold uppercase tracking-[0.1em] transition-[opacity,color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:opacity-80 lg:px-4 lg:text-xs lg:tracking-[0.16em]"
                   style={{ color: active ? "#f0d78c" : gold }}
                 >
                   {link.label}
                   {active && (
-                    <span className="absolute bottom-0.5 left-2 right-2 h-px bg-[#d4af37]" />
+                    <span className="absolute bottom-0.5 left-2 right-2 h-px bg-[#d4af37] transition-opacity duration-300" />
                   )}
                 </Link>
               );
@@ -153,11 +153,10 @@ export function LandingNavbar() {
             </Link>
             <Link
               href="/shop"
-              className="border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em]"
-              style={{ color: gold, borderColor: "rgba(212,175,55,0.55)" }}
+              className="group inline-flex shrink-0 items-center rounded-md border border-[#d4af37]/55 px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#d4af37] transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#d4af37]/15 active:scale-[0.98] lg:px-3 lg:tracking-[0.16em]"
             >
               Shop
-              <ArrowRight className="ml-1 inline h-3 w-3" />
+              <ArrowRight className="ml-1 inline h-3 w-3 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5" />
             </Link>
           </div>
         </div>

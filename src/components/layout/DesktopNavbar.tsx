@@ -49,7 +49,7 @@ export function DesktopNavbar() {
     <header className="safe-top fixed inset-x-0 top-0 z-[90] hidden w-full px-4 pt-3 print:hidden md:block lg:px-6">
       <div
         className={cn(
-          "mx-auto flex items-center gap-2 rounded-2xl border border-[#d4af37]/30 bg-[#1a0a2e] px-4 shadow-lg transition-[max-width,height,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          "mx-auto flex min-w-0 items-center gap-1.5 rounded-2xl border border-[#d4af37]/30 bg-[#1a0a2e] px-3 shadow-lg transition-[max-width,height,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:gap-2 lg:px-4",
           scrolled ? "h-12 max-w-3xl" : "h-14 max-w-[1400px] lg:h-16 lg:px-8",
         )}
       >
@@ -66,19 +66,19 @@ export function DesktopNavbar() {
           </span>
         </Link>
 
-        <nav className="flex flex-1 items-center justify-center">
+        <nav className="flex min-w-0 flex-1 items-center justify-center">
           {links.map((link) => {
             const active = isActivePath(pathname, link.href);
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] transition-opacity duration-300 hover:opacity-80 lg:px-4 lg:text-xs"
+                className="relative px-2 py-2 text-[11px] font-semibold uppercase tracking-[0.1em] transition-[opacity,color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:opacity-80 lg:px-4 lg:text-xs lg:tracking-[0.16em]"
                 style={{ color: active ? "#f0d78c" : GOLD }}
               >
                 {link.label}
                 {active && (
-                  <span className="absolute bottom-0.5 left-2 right-2 h-px bg-[#d4af37]" />
+                  <span className="absolute bottom-0.5 left-2 right-2 h-px origin-center scale-x-100 bg-[#d4af37] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]" />
                 )}
               </Link>
             );
@@ -101,8 +101,7 @@ export function DesktopNavbar() {
           </Link>
           <Link
             href="/shop"
-            className="border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em]"
-            style={{ color: GOLD, borderColor: "rgba(212,175,55,0.5)" }}
+            className="shrink-0 rounded-md border border-[#d4af37]/50 px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#d4af37] transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#d4af37]/15 active:scale-[0.98] lg:px-3 lg:tracking-[0.16em]"
           >
             Shop
           </Link>
