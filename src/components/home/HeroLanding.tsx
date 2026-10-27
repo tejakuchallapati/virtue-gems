@@ -157,7 +157,7 @@ export function HeroLanding() {
         <motion.div {...reveal(0.46, 8)} className="mt-[clamp(1rem,3dvh,1.5rem)] sm:mt-[clamp(1.25rem,3.2dvh,1.75rem)] wide:mt-[4.5vh]">
           <Link
             href="/shop"
-            className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#e6d08a]/85 px-7 text-[0.64rem] font-normal tracking-[0.2em] uppercase transition active:bg-[#e6d08a]/15 hover:bg-[#e6d08a] hover:text-[#1a0a2e] sm:min-h-11 sm:px-9 sm:text-[0.68rem] md:min-h-12 md:px-10 md:text-[0.72rem] wide:min-h-[max(2.5rem,min(3.3vw,5.8vh))] wide:px-[min(2.4vw,3rem)] wide:text-[clamp(0.68rem,0.85vw,0.82rem)] touch-manipulation"
+            className="inline-flex min-h-11 touch-manipulation items-center justify-center rounded-full border border-[#e6d08a]/85 px-6 text-[0.64rem] font-normal tracking-[0.16em] uppercase transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#e6d08a] hover:text-[#1a0a2e] active:scale-[0.98] active:bg-[#e6d08a]/15 min-[380px]:px-7 min-[380px]:tracking-[0.2em] sm:min-h-11 sm:px-9 sm:text-[0.68rem] md:min-h-12 md:px-10 md:text-[0.72rem] wide:min-h-[max(2.5rem,min(3.3vw,5.8vh))] wide:px-[min(2.4vw,3rem)] wide:text-[clamp(0.68rem,0.85vw,0.82rem)]"
             style={{ color: GOLD, backgroundColor: "rgba(6,3,15,0.25)" }}
           >
             Explore Collection
