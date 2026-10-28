@@ -44,7 +44,7 @@ export function ProductCard({ product }: { product: Product }) {
   }
 
   return (
-    <article className="group relative flex min-w-0 w-full flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-light-muted/60 transition duration-300 hover:shadow-md hover:ring-gold/35 sm:rounded-2xl">
+    <article className="group relative flex min-w-0 w-full flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-light-muted/60 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] sm:rounded-2xl [@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-0.5 [@media(hover:hover)_and_(pointer:fine)]:hover:shadow-md [@media(hover:hover)_and_(pointer:fine)]:hover:ring-gold/35">
       <div className={cn(PRODUCT_IMAGE_FRAME, "aspect-square w-full")}>
         <Link
           href={`/product/${product.slug}`}
@@ -59,7 +59,7 @@ export function ProductCard({ product }: { product: Product }) {
             onLoad={() => setImageLoaded(true)}
             className={cn(
               PRODUCT_IMAGE_FIT,
-              "transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]",
+              "transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] [@media(hover:hover)_and_(pointer:fine)]:group-hover:scale-[1.03]",
               imageLoaded ? "opacity-100" : "opacity-0",
             )}
           />

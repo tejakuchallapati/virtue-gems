@@ -24,7 +24,7 @@ function HighlightCard({ product }: { product: Product }) {
     <Link
       href={`/product/${product.slug}`}
       className={cn(
-        "group flex h-full min-h-[13.5rem] min-w-0 items-stretch overflow-hidden rounded-2xl ring-1 ring-gold/30 transition hover:ring-gold/55 sm:min-h-[16.5rem] lg:min-h-[18rem]",
+        "group flex h-full min-h-[13.5rem] min-w-0 items-stretch overflow-hidden rounded-2xl ring-1 ring-gold/30 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] sm:min-h-[16.5rem] lg:min-h-[18rem] [@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-0.5 [@media(hover:hover)_and_(pointer:fine)]:hover:ring-gold/55",
         PRODUCT_IMAGE_BG,
       )}
     >
@@ -40,7 +40,10 @@ function HighlightCard({ product }: { product: Product }) {
           fill
           quality={PRODUCT_IMAGE_QUALITY}
           sizes={PRODUCT_HIGHLIGHT_SIZES}
-          className={cn(PRODUCT_IMAGE_FIT, "group-hover:scale-[1.03]")}
+          className={cn(
+            PRODUCT_IMAGE_FIT,
+            "[@media(hover:hover)_and_(pointer:fine)]:group-hover:scale-[1.03]",
+          )}
         />
       </div>
       <div className="flex min-w-0 flex-1 flex-col justify-center px-3 py-3.5 min-[400px]:px-4 min-[400px]:py-4 sm:px-5 sm:py-5">
