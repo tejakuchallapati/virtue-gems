@@ -11,7 +11,7 @@ import {
   Plus,
   ZoomIn,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useStore } from "@/context/StoreProvider";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
@@ -46,6 +46,7 @@ export function ProductDetailClient({
   const [qty, setQty] = useState(1);
   const [zoom, setZoom] = useState(false);
   const [addedMessage, setAddedMessage] = useState("");
+  const reduceMotion = useReducedMotion();
   const ratingSummary = productRatingSummary(reviews);
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist, addRecentlyViewed } =
     useStore();
@@ -119,7 +120,7 @@ export function ProductDetailClient({
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
-      <div className={`${PAGE_CONTENT_SHELL} pb-24 lg:pb-10`}>
+      <div className={`${PAGE_CONTENT_SHELL} pb-[calc(var(--mobile-nav-offset)+5.25rem)] md:pb-28 lg:pb-10`}>
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -158,7 +159,7 @@ export function ProductDetailClient({
                 onClick={() => setActiveImage(i)}
                 aria-label={`View image ${i + 1} of ${product.images.length}`}
                 aria-pressed={i === activeImage}
-                className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20 sm:rounded-xl ${PRODUCT_IMAGE_FRAME} ring-2 transition ${
+                className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-lg sm:h-20 sm:w-20 sm:rounded-xl ${PRODUCT_IMAGE_FRAME} ring-2 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   i === activeImage ? "ring-gold" : "ring-transparent"
                 }`}
               >
@@ -230,7 +231,7 @@ export function ProductDetailClient({
               <button
                 type="button"
                 onClick={() => setQty(Math.max(1, qty - 1))}
-                className="flex h-11 w-11 items-center justify-center text-dark/60 transition active:scale-90 hover:text-dark"
+                className="flex h-11 w-11 items-center justify-center text-dark/60 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-dark active:scale-90"
                 aria-label="Decrease quantity"
               >
                 <Minus className="h-4 w-4" />
@@ -240,7 +241,7 @@ export function ProductDetailClient({
                 type="button"
                 onClick={() => setQty(Math.min(product.stock, qty + 1))}
                 disabled={qty >= product.stock}
-                className="flex h-11 w-11 items-center justify-center text-dark/60 transition active:scale-90 hover:text-dark disabled:opacity-40"
+                className="flex h-11 w-11 items-center justify-center text-dark/60 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-dark active:scale-90 disabled:opacity-40"
                 aria-label="Increase quantity"
               >
                 <Plus className="h-4 w-4" />
@@ -381,9 +382,10 @@ export function ProductDetailClient({
       <AnimatePresence>
         {zoom && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={reduceMotion ? undefined : { opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             className="safe-x safe-top safe-bottom fixed inset-0 z-[70] flex items-center justify-center bg-dark/90 p-4"
             onClick={() => setZoom(false)}
             role="dialog"
@@ -393,7 +395,7 @@ export function ProductDetailClient({
             <button
               type="button"
               onClick={() => setZoom(false)}
-              className="absolute right-4 top-[calc(1rem+env(safe-area-inset-top))] z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-light backdrop-blur-sm"
+              className="absolute right-4 top-[calc(1rem+env(safe-area-inset-top))] z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-light backdrop-blur-sm transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-white/25 active:scale-95"
               aria-label="Close zoom"
             >
               <span className="text-xl leading-none">×</span>
