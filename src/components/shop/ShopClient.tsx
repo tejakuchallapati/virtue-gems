@@ -284,7 +284,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                 placeholder="Search jewellery..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full rounded-2xl border border-white/10 bg-white py-3.5 pl-11 pr-4 text-base text-dark shadow-lg outline-none focus:border-gold focus:ring-2 focus:ring-gold/25 sm:text-sm"
+                className="w-full rounded-2xl border border-white/10 bg-white py-3.5 pl-11 pr-4 text-base text-dark shadow-lg outline-none transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus:border-gold focus:ring-2 focus:ring-gold/25"
               />
             </div>
             <button
@@ -293,7 +293,7 @@ export function ShopClient({ products }: { products: Product[] }) {
               aria-expanded={filtersOpen}
               aria-controls="shop-filters"
               aria-label="Filters"
-              className="flex h-[3.25rem] w-full shrink-0 items-center justify-center rounded-2xl border border-gold/30 bg-gold/10 text-gold backdrop-blur-sm min-[420px]:w-[3.25rem] sm:w-auto sm:gap-2 sm:px-4 lg:hidden"
+              className="flex h-[3.25rem] w-full shrink-0 items-center justify-center rounded-2xl border border-gold/30 bg-gold/10 text-gold backdrop-blur-sm transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-[0.98] min-[420px]:w-[3.25rem] sm:w-auto sm:gap-2 sm:px-4 lg:hidden"
             >
               <SlidersHorizontal className="h-4 w-4" />
               <span className="min-[420px]:hidden sm:inline">Filters</span>
@@ -402,7 +402,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                   ref={closeFilterRef}
                   type="button"
                   onClick={() => setFiltersOpen(false)}
-                  className="absolute right-3 top-[calc(0.75rem+env(safe-area-inset-top))] z-10 flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark transition active:scale-95"
+                  className="absolute right-3 top-[calc(0.75rem+env(safe-area-inset-top))] z-10 flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-95"
                   aria-label="Close filters"
                 >
                   <X className="h-5 w-5" />
@@ -435,7 +435,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                 <button
                   type="button"
                   onClick={() => setFiltersOpen(false)}
-                  className="mt-4 w-full shrink-0 rounded-xl bg-gold py-3.5 text-sm font-semibold text-dark transition active:scale-[0.98]"
+                  className="mt-4 w-full shrink-0 rounded-xl bg-gold py-3.5 text-sm font-semibold text-dark transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-gold-light active:scale-[0.98]"
                 >
                   Show {filtered.length} results
                 </button>
@@ -466,7 +466,7 @@ export function ShopClient({ products }: { products: Product[] }) {
                 <button
                   type="button"
                   onClick={clearAllFilters}
-                  className="mt-6 min-h-12 rounded-full bg-dark px-6 py-3 text-sm font-semibold text-gold transition hover:bg-gold hover:text-dark"
+                  className="mt-6 min-h-12 rounded-full bg-dark px-6 py-3 text-sm font-semibold text-gold transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-gold hover:text-dark active:scale-[0.98]"
                 >
                   View all jewellery
                 </button>
