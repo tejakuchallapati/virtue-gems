@@ -102,7 +102,7 @@ export default function CartPage() {
                           onClick={() =>
                             updateQuantity(item.product.id, item.quantity - 1)
                           }
-                          className="flex h-11 w-11 items-center justify-center transition active:scale-90"
+                          className="flex h-11 w-11 items-center justify-center transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-90"
                           aria-label={`Decrease ${item.product.name} quantity`}
                         >
                           <Minus className="h-4 w-4" />
@@ -116,7 +116,7 @@ export default function CartPage() {
                           onClick={() =>
                             updateQuantity(item.product.id, item.quantity + 1)
                           }
-                          className="flex h-11 w-11 items-center justify-center transition active:scale-90 disabled:opacity-40"
+                          className="flex h-11 w-11 items-center justify-center transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-90 disabled:opacity-40"
                           aria-label={`Increase ${item.product.name} quantity`}
                         >
                           <Plus className="h-4 w-4" />
@@ -138,7 +138,7 @@ export default function CartPage() {
           </div>
 
           <div className="lg:col-span-1">
-            <div className={cn("p-6 lg:sticky lg:top-20 lg:z-10", CARD_SURFACE)}>
+            <div className={cn("p-5 sm:p-6 lg:sticky lg:top-24 lg:z-10", CARD_SURFACE)}>
               <h2 className="text-lg font-semibold text-dark">Order Summary</h2>
               <div className="mt-4 space-y-2 text-sm">
                 <div className="flex justify-between text-dark/70">
@@ -165,7 +165,7 @@ export default function CartPage() {
               </div>
               <Link
                 href="/checkout"
-                className="mt-6 block min-h-12 w-full rounded-xl bg-[#25D366] py-3.5 text-center text-sm font-semibold text-white transition hover:bg-[#1fb855]"
+                className="mt-6 block min-h-12 w-full rounded-xl bg-[#25D366] py-3.5 text-center text-sm font-semibold text-white transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#1fb855] active:scale-[0.98]"
               >
                 Checkout on WhatsApp
               </Link>
@@ -174,7 +174,7 @@ export default function CartPage() {
               </p>
               <Link
                 href="/shop"
-                className="mt-3 block text-center text-sm text-gold hover:underline"
+                className="mt-3 block text-center text-sm text-gold transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-gold-dark hover:underline"
               >
                 Continue Shopping
               </Link>
