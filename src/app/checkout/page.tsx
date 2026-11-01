@@ -224,7 +224,7 @@ export default function CheckoutPage() {
   }
 
   const inputClass =
-    "w-full rounded-xl border border-light-muted bg-white px-4 py-3 text-base outline-none focus:border-gold focus:ring-2 focus:ring-gold/20";
+    "w-full rounded-xl border border-light-muted bg-white px-4 py-3 text-base outline-none transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus:border-gold focus:ring-2 focus:ring-gold/20";
 
   return (
     <div className={PAGE_GRADIENT_SHELL}>
@@ -244,7 +244,7 @@ export default function CheckoutPage() {
 
           {/* Compact on mobile — full journey steps on larger screens */}
           <details className="rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 text-xs text-dark/80 sm:hidden">
-            <summary className="cursor-pointer list-none p-3 font-medium text-dark marker:content-none [&::-webkit-details-marker]:hidden">
+            <summary className="cursor-pointer list-none p-3 font-medium text-dark marker:content-none transition-colors duration-300 hover:text-[#128C7E] [&::-webkit-details-marker]:hidden">
               How ordering works (tap)
             </summary>
             <div className="border-t border-[#25D366]/20 px-3 pb-3 pt-2">
@@ -404,7 +404,7 @@ export default function CheckoutPage() {
               href={whatsappFallback}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-[#25D366] bg-[#25D366]/10 py-3.5 text-sm font-semibold text-[#128C7E]"
+              className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-[#25D366] bg-[#25D366]/10 py-3.5 text-sm font-semibold text-[#128C7E] transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#25D366]/20 active:scale-[0.98]"
             >
               <MessageCircle className="h-5 w-5" />
               WhatsApp didn’t open? Tap here to send your order
@@ -421,7 +421,7 @@ export default function CheckoutPage() {
           </button>
         </form>
 
-        <div className={`order-1 p-5 sm:p-6 lg:order-2 lg:sticky lg:top-20 lg:self-start ${CARD_SURFACE}`}>
+        <div className={`order-1 p-5 sm:p-6 lg:order-2 lg:sticky lg:top-24 lg:self-start ${CARD_SURFACE}`}>
           <h2 className="text-lg font-semibold text-dark">Your Order</h2>
           <ul className="mt-4 space-y-3">
             {cart.map((item) => (
