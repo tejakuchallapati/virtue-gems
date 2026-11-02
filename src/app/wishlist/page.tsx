@@ -34,10 +34,10 @@ export default function WishlistPage() {
     <div className={PAGE_GRADIENT_SHELL}>
       <div className={PAGE_CONTENT_SHELL}>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Wishlist" }]} />
-      <h1 className="mb-6 text-2xl font-semibold text-dark sm:text-3xl">
-        My Wishlist
-      </h1>
-      <p className="mb-6 text-sm text-dark/60">{wishlist.length} saved item(s)</p>
+      <h1 className="text-2xl font-semibold text-dark sm:text-3xl">My Wishlist</h1>
+      <p className="mb-6 mt-2 text-sm text-dark/60">
+        {wishlist.length} saved {wishlist.length === 1 ? "item" : "items"}
+      </p>
       <div className={PRODUCT_GRID}>
         <AnimatePresence initial={false} mode="popLayout">
           {wishlist.map((p) => (
