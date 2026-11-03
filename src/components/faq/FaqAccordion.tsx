@@ -20,11 +20,11 @@ export function FaqAccordion() {
 
   return (
     <div>
-      <div className="mb-6 flex max-w-full flex-wrap gap-2">
+      <div className="-mx-4 mb-6 flex max-w-[100vw] snap-x snap-mandatory gap-2 overflow-x-auto scroll-smooth px-4 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] sm:mx-0 sm:max-w-full sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden">
         <button
           type="button"
           onClick={() => setActiveCategory("all")}
-          className={`min-h-11 shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+          className={`min-h-11 shrink-0 snap-start rounded-full px-4 py-2 text-sm font-medium transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             activeCategory === "all"
               ? "bg-gold text-dark"
               : "bg-white text-dark/70 ring-1 ring-light-muted hover:ring-gold/40"
@@ -37,7 +37,7 @@ export function FaqAccordion() {
             key={cat}
             type="button"
             onClick={() => setActiveCategory(cat)}
-            className={`min-h-11 shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+            className={`min-h-11 shrink-0 snap-start rounded-full px-4 py-2 text-sm font-medium transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
               activeCategory === cat
                 ? "bg-gold text-dark"
                 : "bg-white text-dark/70 ring-1 ring-light-muted hover:ring-gold/40"
