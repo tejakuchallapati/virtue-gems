@@ -50,7 +50,7 @@ export function Footer() {
         <div className="relative mx-auto max-w-7xl px-5 py-10 sm:px-6 sm:py-14 lg:px-8">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
             <div className="sm:col-span-2 lg:col-span-1">
-              <Link href="/" className="inline-flex items-center gap-3" aria-label="Virtue Gems home">
+              <Link href="/" className="inline-flex max-w-full flex-wrap items-center gap-3" aria-label="Virtue Gems home">
                 <Image
                   src="/logo-vg.png"
                   alt=""
@@ -59,7 +59,7 @@ export function Footer() {
                   sizes="112px"
                   className="h-10 w-auto object-contain drop-shadow-[0_2px_8px_rgba(212,175,55,0.3)] sm:h-11"
                 />
-                <span className="text-lg font-bold tracking-[0.08em] text-light">
+                <span className="text-base font-bold tracking-[0.08em] text-light min-[380px]:text-lg">
                   VIRTUE <span className="text-gold">GEMS</span>
                 </span>
               </Link>
@@ -71,7 +71,7 @@ export function Footer() {
                   href={whatsAppContactUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold/25 bg-white/5 text-light/60 transition hover:border-[#25D366]/50 hover:bg-[#25D366]/15 hover:text-[#25D366]"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gold/25 bg-white/5 text-light/60 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#25D366]/50 hover:bg-[#25D366]/15 hover:text-[#25D366] active:scale-95"
                   aria-label="WhatsApp"
                 >
                   <MessageCircle className="h-4 w-4" />
@@ -80,7 +80,7 @@ export function Footer() {
                   href={INSTAGRAM_URL}
                   target="_blank"
                   rel="me noopener noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold/25 bg-white/5 text-light/60 transition hover:border-[#E4405F]/50 hover:bg-[#E4405F]/15 hover:text-[#E4405F]"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gold/25 bg-white/5 text-light/60 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[#E4405F]/50 hover:bg-[#E4405F]/15 hover:text-[#E4405F] active:scale-95"
                   aria-label={`Virtue Gems on Instagram @${INSTAGRAM_HANDLE}`}
                 >
                   <InstagramIcon className="h-4 w-4" />
