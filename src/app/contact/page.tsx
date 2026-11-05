@@ -93,7 +93,7 @@ function InstagramIcon({ className }: { className?: string }) {
 }
 
 const fieldClass =
-  "w-full rounded-xl border border-gold/25 bg-white px-3.5 py-3 text-base text-dark outline-none transition placeholder:text-dark/35 focus:border-gold focus:ring-2 focus:ring-gold/20";
+  "w-full min-h-12 rounded-xl border border-gold/25 bg-white px-3.5 py-3 text-base text-dark outline-none transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] placeholder:text-dark/35 focus:border-gold focus:ring-2 focus:ring-gold/20";
 
 export default function ContactPage() {
   const [status, setStatus] = useState<FormState>("idle");
@@ -155,7 +155,7 @@ export default function ContactPage() {
             href={whatsAppContactUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-bold tracking-wide text-[#128C7E] hover:underline"
+            className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-bold tracking-wide text-[#128C7E] transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-[#0d6b60] hover:underline active:scale-[0.98]"
           >
             <MessageCircle className="h-4 w-4" />
             Chat on WhatsApp
