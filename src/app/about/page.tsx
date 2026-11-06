@@ -221,7 +221,7 @@ export default function AboutPage() {
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/shop"
-                  className="inline-flex min-h-12 items-center justify-center rounded-full bg-gold px-7 text-sm font-semibold text-dark shadow-lg shadow-gold/20 transition hover:-translate-y-0.5 hover:bg-gold-light"
+                  className="inline-flex min-h-12 items-center justify-center rounded-full bg-gold px-7 text-sm font-semibold text-dark shadow-lg shadow-gold/20 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:bg-gold-light active:scale-[0.98]"
                 >
                   Shop collections
                 </Link>
@@ -229,7 +229,7 @@ export default function AboutPage() {
                   href={whatsAppContactUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-gold/40 px-7 text-sm font-semibold text-gold transition hover:bg-gold/10"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-gold/40 px-7 text-sm font-semibold text-gold transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-gold/10 active:scale-[0.98]"
                 >
                   <MessageCircle className="h-4 w-4" />
                   Chat on WhatsApp
@@ -238,7 +238,7 @@ export default function AboutPage() {
             </ScrollReveal>
 
             <ScrollReveal delay={0.08}>
-              <div className="grid h-[300px] grid-cols-[1.15fr_1fr] gap-3 sm:h-[420px] sm:gap-4">
+              <div className="grid h-[220px] grid-cols-[1.15fr_1fr] gap-2 min-[380px]:h-[300px] min-[380px]:gap-3 sm:h-[420px] sm:gap-4">
                 <div className="relative overflow-hidden rounded-2xl ring-1 ring-gold/25">
                   <Image
                     src="/products/upload-mrxf30uz-ea0z3.jpg"
@@ -276,13 +276,13 @@ export default function AboutPage() {
 
         <nav
           aria-label="About page sections"
-          className="mb-12 flex flex-wrap justify-center gap-2 sm:mb-14"
+          className="-mx-4 mb-12 flex snap-x gap-2 overflow-x-auto px-4 pb-1 scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] sm:mx-0 sm:mb-14 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
         >
           {infoNav.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="rounded-full border border-gold/30 bg-white px-4 py-2 text-sm font-semibold text-gold-dark shadow-sm transition hover:border-gold hover:bg-gold/10"
+              className="inline-flex min-h-11 shrink-0 snap-start items-center rounded-full border border-gold/30 bg-white px-4 py-2 text-sm font-semibold text-gold-dark shadow-sm transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gold hover:bg-gold/10"
             >
               {item.label}
             </a>
@@ -290,7 +290,7 @@ export default function AboutPage() {
         </nav>
 
         {/* Values */}
-        <section id="values" className="scroll-mt-24">
+        <section id="values" className="scroll-mt-[var(--scroll-padding-top)]">
           <ScrollReveal>
             <SectionHeading
               icon={Sparkles}
@@ -318,7 +318,7 @@ export default function AboutPage() {
         </section>
 
         {/* Vision */}
-        <section id="vision" className="scroll-mt-24 mt-16 sm:mt-20">
+        <section id="vision" className="scroll-mt-[var(--scroll-padding-top)] mt-16 sm:mt-20">
           <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
             <ScrollReveal>
               <div className="relative aspect-[4/3] overflow-hidden rounded-3xl ring-1 ring-gold/20 shadow-lg shadow-[#1a0a2e]/10">
@@ -353,7 +353,7 @@ export default function AboutPage() {
         </section>
 
         {/* Orders */}
-        <section id="orders" className="scroll-mt-24 mt-16 sm:mt-20">
+        <section id="orders" className="scroll-mt-[var(--scroll-padding-top)] mt-16 sm:mt-20">
           <ScrollReveal>
             <SectionHeading
               icon={ShoppingBag}
@@ -406,7 +406,7 @@ export default function AboutPage() {
         </section>
 
         {/* Delivery */}
-        <section id="delivery" className="scroll-mt-24 mt-16 sm:mt-20">
+        <section id="delivery" className="scroll-mt-[var(--scroll-padding-top)] mt-16 sm:mt-20">
           <ScrollReveal>
             <SectionHeading
               icon={Truck}
