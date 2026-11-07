@@ -117,7 +117,7 @@ export function AdminTopNav({ role }: { role: AdminRole }) {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition",
+                  "flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-medium transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] xl:px-3",
                   active
                     ? "bg-gold/15 text-gold"
                     : "text-white/50 hover:bg-white/5 hover:text-white",
@@ -159,7 +159,7 @@ export function AdminTopNav({ role }: { role: AdminRole }) {
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-11 w-11 items-center justify-center rounded-lg text-white/70 lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-lg text-white/70 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-white/5 active:scale-95 lg:hidden"
             aria-label="Menu"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -175,6 +175,7 @@ export function AdminTopNav({ role }: { role: AdminRole }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden border-t border-gold/10 lg:hidden"
           >
             <div className="space-y-1 p-3">
@@ -187,7 +188,7 @@ export function AdminTopNav({ role }: { role: AdminRole }) {
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
                     className={cn(
-                      "flex items-center gap-3 rounded-xl px-4 py-3 text-sm",
+                      "flex min-h-12 items-center gap-3 rounded-xl px-4 py-3 text-sm transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
                       active
                         ? "bg-gold/15 text-gold"
                         : "text-white/60 hover:bg-white/5",
@@ -201,7 +202,7 @@ export function AdminTopNav({ role }: { role: AdminRole }) {
               <button
                 type="button"
                 onClick={logout}
-                className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-red-400/80 hover:bg-red-500/10"
+                className="flex min-h-12 w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-red-400/80 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-red-500/10"
               >
                 <LogOut className="h-4 w-4" />
                 Logout
