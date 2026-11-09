@@ -29,12 +29,12 @@ export function InstagramFeed({ compact = false, onDark = false }: InstagramFeed
         href={PROFILE_URL}
         target="_blank"
         rel="me noopener noreferrer"
-        className="group mb-2 block text-center transition hover:opacity-90"
+        className="group mb-2 block text-center transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:opacity-90"
         aria-label={`Follow Virtue Gems on Instagram @${instagramData.handle}`}
       >
         <p
           className={cn(
-            "text-sm font-semibold tracking-[0.2em] uppercase transition",
+            "text-xs font-semibold tracking-[0.16em] uppercase transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] min-[380px]:text-sm min-[380px]:tracking-[0.2em]",
             onDark ? "text-gold group-hover:text-gold-light" : "text-gold-dark group-hover:text-gold",
           )}
         >
@@ -43,13 +43,13 @@ export function InstagramFeed({ compact = false, onDark = false }: InstagramFeed
         <div className="mt-2 flex items-center justify-center gap-2">
           <InstagramIcon
             className={cn(
-              "h-5 w-5 transition group-hover:scale-110",
+              "h-5 w-5 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] [@media(hover:hover)_and_(pointer:fine)]:group-hover:scale-110",
               onDark ? "text-gold" : "text-gold-dark",
             )}
           />
           <h2
             className={cn(
-              "font-bold transition",
+              "font-bold transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
               compact ? "text-lg sm:text-xl" : "text-xl sm:text-2xl",
               onDark
                 ? "text-light group-hover:text-gold"
@@ -95,10 +95,13 @@ export function InstagramFeed({ compact = false, onDark = false }: InstagramFeed
               fill
               quality={PRODUCT_IMAGE_QUALITY}
               sizes="(max-width: 640px) 33vw, 16vw"
-              className={cn(PRODUCT_IMAGE_COVER, "group-hover:scale-[1.03]")}
+              className={cn(
+                PRODUCT_IMAGE_COVER,
+                "duration-500 [@media(hover:hover)_and_(pointer:fine)]:group-hover:scale-[1.03]",
+              )}
             />
-            <div className="absolute inset-0 flex items-center justify-center bg-dark/20 transition sm:bg-dark/0 sm:group-hover:bg-dark/45">
-              <InstagramIcon className="h-5 w-5 text-white opacity-70 transition sm:h-6 sm:w-6 sm:opacity-0 sm:group-hover:opacity-100" />
+            <div className="absolute inset-0 flex items-center justify-center bg-dark/20 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] sm:bg-dark/0 [@media(hover:hover)_and_(pointer:fine)]:sm:group-hover:bg-dark/45">
+              <InstagramIcon className="h-5 w-5 text-white opacity-70 transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] sm:h-6 sm:w-6 sm:opacity-0 [@media(hover:hover)_and_(pointer:fine)]:sm:group-hover:opacity-100" />
             </div>
           </a>
         ))}
@@ -110,7 +113,7 @@ export function InstagramFeed({ compact = false, onDark = false }: InstagramFeed
           target="_blank"
           rel="me noopener noreferrer"
           className={cn(
-            "inline-flex min-h-11 w-full max-w-xs items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition sm:w-auto sm:py-2.5",
+            "inline-flex min-h-12 w-full max-w-xs items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-[0.98] sm:w-auto sm:py-2.5",
             onDark
               ? "border-gold/45 bg-gold/10 text-gold hover:bg-gold hover:text-dark"
               : "border-gold/40 bg-[#1a0a2e] text-gold shadow-sm hover:border-gold hover:bg-gold hover:text-dark",

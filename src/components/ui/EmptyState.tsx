@@ -26,7 +26,7 @@ export function EmptyState({
         <p className="mt-2 text-sm text-dark/60">{description}</p>
         <Link
           href={actionHref}
-          className="mt-6 inline-flex min-h-11 items-center rounded-xl bg-gold px-8 py-3 text-sm font-semibold text-dark transition hover:bg-gold-light"
+          className="mt-6 inline-flex min-h-12 items-center rounded-xl bg-gold px-8 py-3 text-sm font-semibold text-dark transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-gold-light active:scale-[0.98]"
         >
           {actionLabel}
         </Link>
