@@ -88,6 +88,27 @@ body {
   outline-offset: 3px;
 }
 
+/* Fields ease between rest and focus instead of snapping the border. */
+input,
+select,
+textarea {
+  transition-property: border-color, box-shadow, background-color, color;
+  transition-duration: 280ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.legal-content a {
+  transition: color 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* A tap can leave :hover stuck on phones, which zooms the photo until the next tap. */
+@media (hover: none), (pointer: coarse) {
+  .group:hover .product-image-fit,
+  .group:hover .product-image-cover {
+    transform: none;
+  }
+}
+
 /* Modal / filter overlay lock — body class only */
 body.scroll-locked {
   overflow: hidden;
